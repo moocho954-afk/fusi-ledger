@@ -2119,7 +2119,7 @@
 
           <div class="arc-cols">
             <div class="game-card" id="panel-starlane">
-              <h3>STARLANE <span class="ex">— rules fusi-starlane/v1 · behind the Arcade Door</span></h3>
+              <h3>STARLANE <span class="ex">— rules fusi-starlane/v2 · behind the Arcade Door</span></h3>
               <p class="game-desc">A spaceship shooter on a pure deterministic core — the identical sim, integer math only, that the ledger's verifier replays. Traffic rides a flat 48 × 32 field; the depth is in the rendering, never in the collision.</p>
               <div class="arc-chiprow">
                 <span class="arc-chip">RENDER — <b>2.8D — depth you can see, movement strictly 2D</b></span>
@@ -2129,12 +2129,12 @@
                 <canvas class="arc-canvas" id="arc-sl-canvas" width="960" height="640" role="img" aria-label="Starlane playfield — traffic approaches from a vanishing point and grows as it nears your ship at the bottom of the field"></canvas>
               </div>
               <div class="arc-hud">
-                <div><div class="lab">Sector reached</div><div class="val" id="arc-hud-sector">—</div></div>
+                <div><div class="lab">Board reached</div><div class="val" id="arc-hud-sector">—</div></div>
                 <div><div class="lab">Score</div><div class="val" id="arc-hud-score">—</div></div>
-                <div><div class="lab">Shields</div><div class="val small" id="arc-hud-shields">◆ ◆ ◆</div></div>
-                <div><div class="lab">Bombs</div><div class="val small" id="arc-hud-bombs">1</div></div>
+                <div><div class="lab">Kills</div><div class="val" id="arc-hud-kills">—</div></div>
+                <div><div class="lab">Warden kills</div><div class="val small" id="arc-hud-wardens">—</div></div>
               </div>
-              <div class="arc-sub" id="arc-hud-sub">DISTANCE <b>0</b> · KILL SCORE <b>0</b> · KILLS <b>0</b> · NEAR-MISS <b>0</b> · TICK <b>0</b></div>
+              <div class="arc-sub" id="arc-hud-sub">KILL SCORE <b>0</b> · KILLS <b>0</b> · WARDEN KILLS <b>0</b> · BOARD <b>1</b> · TICK <b>0</b></div>
               <p class="arc-controls"><b>Keyboard:</b> arrows or WASD move (8-way) · <b>Space</b> or <b>J</b> fire · <b>K</b> or <b>Shift</b> bomb. <b>Touch:</b> drag to steer — the ship rides above your finger, never under it — and fire is automatic while touching.</p>
               <div class="arc-actions" style="margin-top:14px">
                 <button class="arc-btn" id="arc-sl-start" type="button">START PRACTICE RUN</button>
@@ -2260,7 +2260,7 @@
     <script>
       // STARLANE core — embedded verbatim from the canonical source:
       // first sine_table.js (integer sine table global), then
-      // starlane_core.js (pure deterministic sim, rules fusi-starlane/v1).
+      // starlane_core_v2.js (pure deterministic sim, rules fusi-starlane/v2).
       // Do not edit here — the verifier replays this identical core.
 /* STARLANE integer sine table - generated offline at build time; values = round(1024*sin(2*pi*i/256)).
  * The simulation reads ONLY this table; it never computes a sine at runtime.
@@ -2270,17 +2270,45 @@ var SINE_TABLE = [0,25,50,75,100,125,150,175,200,224,249,273,297,321,345,369,392
 var SINE_SCALE = 1024;
 if (typeof module !== "undefined" && module.exports) { module.exports = { SINE_TABLE: SINE_TABLE, SINE_SCALE: SINE_SCALE }; }
 if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_TABLE; }
-/* FUSI-STARLANE core — rules fusi-starlane/v1.
+/* FUSI-STARLANE core — rules fusi-starlane/v2.
  * Pure deterministic simulation. INTEGER math only in the sim proper:
  * the only non-integer values ever produced are the canonical mulberry32
- * stream outputs, consumed ONLY at wave / gatekeeper instantiation
- * (exactly like fusi-snake consumes its stream only in placeFood).
- * The sim never reads a clock, never draws unseeded entropy, and never
- * computes a trigonometric function at runtime — the Weaver drift and
- * the Gatekeeper sweep read the precomputed integer table in
- * sine_table.js (canonical JSON twin sine_table.json, hash recorded in
- * BUILD-NOTES.md).
+ * stream outputs, consumed ONLY at wave / warden instantiation (exactly
+ * like fusi-snake consumes its stream only in placeFood). The sim never
+ * reads a clock, never draws unseeded entropy, and never computes a
+ * trigonometric function at runtime — Weaver drift and the Warden sweep
+ * read the precomputed integer table in sine_table.js (canonical JSON
+ * twin sine_table.json, hash recorded in BUILD-NOTES.md).
  * Loadable in node (module.exports) and in a browser (global StarlaneCore).
+ *
+ * V2 — THE OWNER'S CAUSE-AND-EFFECT LAW (owner spec 2026-10-20 ~22:59 EDT):
+ *  1. Points come ONLY from missile kills. A missile that strikes an
+ *     enemy EXPLODES (consumed, `missile_hit` event); an enemy whose HP
+ *     reaches 0 is REMOVED with a `kill` event and awards its value.
+ *     No distance score, no near-miss score, no scoreless bomb clears.
+ *  2. Contact is death: any enemy crossing into the ship's cell
+ *     explodes the ship (`player_down` event) and ENDS THE RUN. One
+ *     life, no shields, no HP pool on the ship.
+ *  3. Flight is ENDLESS: no final board, no sector gate. A run ends
+ *     only by destruction or by the contract safety cap
+ *     MAX_TICKS_PER_RUN (bounded-length law, manifest-declared) —
+ *     a cap, never a finish line.
+ *  4. A NEW BOARD every 15 seconds: BOARD_TICKS = 300 at 20 tps.
+ *     Crossing a boundary emits a `board` event carrying the board's
+ *     theme (the render layer restyles the stretch of space).
+ *  5. Difficulty is a function of KILLS (rampParams below): density,
+ *     speed and composition all scale with the kill count, never with
+ *     the clock alone. Traffic keeps arriving on the beat clock so a
+ *     passive run still meets traffic — but intensity is kill-bought.
+ *  6. The sim is strictly 2D (cells + approach depth z). The 2.8D look
+ *     (parallax, z-scaling, shaded sprites) lives ENTIRELY in the
+ *     render layer (starlane_render.js); nothing here renders.
+ *
+ * SUPERSEDED FROM V1 (recorded in RULES-v2.md): shields, bombs and the
+ * extra_bomb add-on, near-miss bonus, distance score, sectors and the
+ * Gatekeeper (folded into the stream as the WARDEN, a heavy escort-class
+ * enemy that approaches and crosses like all traffic — it blocks
+ * nothing and holds nothing).
  */
 (function () {
   "use strict";
@@ -2299,30 +2327,36 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
 
   /* ---------- constants ---------- */
   var FIELD_W = 48, FIELD_H = 32;
-  var START_X = 24, START_Y = 26, START_SHIELDS = 3, START_BOMBS = 1;
+  var START_X = 24, START_Y = 26;
   var SPAWN_Z = 180, BULLET_SPEED = 8, BULLET_MAX_Z = 220;
   var TICKS_PER_SECOND = 20;
-  var BEAT_TICKS = 200;              /* one wave per beat (10 s) */
-  var SECTOR_TICKS = 3600;           /* 3 minutes per sector */
-  var MAX_TICKS_PER_RUN = 36000;     /* locked tick cap (30 min) */
-  var GATEKEEPER_HP = 40, GATEKEEPER_HOLD_Z = 90, GATEKEEPER_DRONE_EVERY = 90;
+  var BEAT_TICKS = 200;              /* one traffic wave per beat (10 s) */
+  var BOARD_TICKS = 300;             /* NEW BOARD every 15 s (owner law) */
+  var MAX_TICKS_PER_RUN = 36000;     /* contract safety cap (30 min) — NOT a finish */
+  var WARDEN_EVERY_TICKS = 1500;     /* a Warden enters every 75 s of flight */
   var WAVE_PROVE_ATTEMPTS = 8;
 
   var TYPES = {
-    drone:      { hp: 1,  score: 10, speed: 1, width: 1 },
-    weaver:     { hp: 1,  score: 15, speed: 1, width: 1 },
-    dart:       { hp: 1,  score: 25, speed: 3, width: 1 },
-    hauler:     { hp: 3,  score: 40, speed: 1, width: 2 },
-    gatekeeper: { hp: 40, score: 40, speed: 1, width: 2 }
+    drone:  { hp: 1,  score: 10,  speed: 1, width: 1 },
+    weaver: { hp: 1,  score: 15,  speed: 1, width: 1 },
+    dart:   { hp: 1,  score: 25,  speed: 3, width: 1 },
+    hauler: { hp: 3,  score: 40,  speed: 1, width: 2 },
+    warden: { hp: 20, score: 100, speed: 1, width: 2 }
   };
-  var NEAR_MISS_SCORE = 5;
+
+  /* Board themes — a pure function of the board index (no RNG, no
+   * state). The render layer maps names to palettes; the sim only
+   * guarantees the sequence is deterministic and visibly rotating. */
+  var BOARD_THEMES = ["void-drift", "ember-nebula", "violet-deep",
+                      "teal-expanse", "crimson-belt", "gold-reach"];
+  function boardIndexAt(tick) { return Math.floor((tick - 1) / BOARD_TICKS) + 1; }
+  function boardTheme(board) { return BOARD_THEMES[(board - 1) % BOARD_THEMES.length]; }
 
   var LOADOUTS = {
-    blaster:    { id: "blaster", price: 0, fire_interval: 6,  damage: 1, bullets: 1, offsets: [0],        piercing: false },
-    spread:     { id: "spread",  price: 2, fire_interval: 8,  damage: 1, bullets: 3, offsets: [-1, 0, 1], piercing: false },
-    rapid:      { id: "rapid",   price: 2, fire_interval: 3,  damage: 1, bullets: 1, offsets: [0],        piercing: false },
-    lance:      { id: "lance",   price: 3, fire_interval: 10, damage: 2, bullets: 1, offsets: [0],        piercing: true },
-    extra_bomb: { id: "extra_bomb", price: 1, max: 2, addon: true }
+    blaster: { id: "blaster", price: 0, fire_interval: 6,  damage: 1, bullets: 1, offsets: [0],        piercing: false },
+    spread:  { id: "spread",  price: 2, fire_interval: 8,  damage: 1, bullets: 3, offsets: [-1, 0, 1], piercing: false },
+    rapid:   { id: "rapid",   price: 2, fire_interval: 3,  damage: 1, bullets: 1, offsets: [0],        piercing: false },
+    lance:   { id: "lance",   price: 3, fire_interval: 10, damage: 2, bullets: 1, offsets: [0],        piercing: true }
   };
 
   /* ---------- small integer helpers ---------- */
@@ -2346,16 +2380,29 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
   }
   function randInt(rng, lo, hi) { return lo + Math.floor(rng() * (hi - lo + 1)); }
 
-  /* ---------- sector parameters ----------
-   * Sectors 1-3 authored; 4+ generated by the documented formula:
-   * speedAdd = min(2, 1 + floor((sector-3)/2)), density tiers stay 2,
-   * darts enabled. Generated sectors are labelled generated:true. */
-  function sectorParams(sector) {
-    if (sector <= 1) return { sector: 1, speedAdd: 0, tiers: 1, dart: false, generated: false };
-    if (sector === 2) return { sector: 2, speedAdd: 0, tiers: 2, dart: true, generated: false };
-    if (sector === 3) return { sector: 3, speedAdd: 1, tiers: 2, dart: true, generated: false };
-    return { sector: sector, speedAdd: Math.min(2, 1 + Math.floor((sector - 3) / 2)),
-             tiers: 2, dart: true, generated: true };
+  /* ---------- KILL RAMP (owner law #5) ----------
+   * Difficulty is a pure function of the kill count k. The tier rises
+   * every 15 kills; the table below is the whole law — nothing else in
+   * the sim scales difficulty, and time alone never raises it.
+   *   tier          = floor(k / 15)
+   *   speedAdd      = min(2, floor(tier / 2))   z-speed added to non-dart traffic
+   *   tiers         = tier >= 1 ? 2 : 1        template second-wave density
+   *   dart          = tier >= 1                darts join the stream
+   *   escortDrones  = min(4, floor(tier / 2))  extra drones appended to each
+   *                                            beat wave (prover-gated with it)
+   * Worked points: k=0 → tier 0, speedAdd 0, tiers 1, no darts, +0 escorts.
+   * k=15 → tier 1: darts + second waves. k=30 → tier 2: speedAdd 1, +1
+   * escort. k=60 → tier 4: speedAdd 2 (cap), +2 escorts. k=105 → tier 7:
+   * +3 escorts. k=120 → tier 8: +4 escorts (cap). */
+  function rampParams(kills) {
+    var tier = Math.floor(kills / 15);
+    return {
+      tier: tier,
+      speedAdd: Math.min(2, Math.floor(tier / 2)),
+      tiers: tier >= 1 ? 2 : 1,
+      dart: tier >= 1,
+      escortDrones: Math.min(4, Math.floor(tier / 2))
+    };
   }
 
   /* ---------- Weaver drift (integer-clean) ----------
@@ -2384,15 +2431,15 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
 
   /* ---------- wave schedule construction ----------
    * A schedule entry is a plain object:
-   * { spawnTick (relative to wave start), x, y, type, speed (z-units/tick,
-   *   hauler cadence encoded in crossTick), width, hp, phase, surge,
+   * { spawnTick (relative to wave start), x, y, type, speed (z-units/tick),
+   *   width, hp, phase, surge, perZ (hauler cadence, frozen at spawn),
    *   crossTick (relative tick at which z reaches 0), crossX (weaver:
    *   predicted cell at crossing; others: x) } */
   function mkSpec(type, x, y, spawnTick, params, surge, phase) {
     var base = TYPES[type];
-    var speed, crossTick;
+    var speed, crossTick, perZ = 0;
     if (type === "hauler") {
-      var perZ = (surge || params.speedAdd > 0) ? 1 : 2;   /* 1 z per perZ ticks */
+      perZ = (surge || params.speedAdd > 0) ? 1 : 2;   /* 1 z per perZ ticks */
       speed = 1;
       crossTick = spawnTick + SPAWN_Z * perZ;
     } else {
@@ -2401,7 +2448,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     }
     var spec = { spawnTick: spawnTick, x: x, y: y, type: type, speed: speed,
                  width: base.width, hp: base.hp, phase: phase || 0,
-                 surge: !!surge, crossTick: crossTick, crossX: x };
+                 surge: !!surge, perZ: perZ, crossTick: crossTick, crossX: x };
     if (type === "weaver") spec.crossX = weaverCrossX(spec);
     return spec;
   }
@@ -2410,7 +2457,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
 
   function instantiateTemplate(rng, template, opts) {
     opts = opts || {};
-    var params = sectorParams(opts.sector || 1);
+    var params = opts.ramp || rampParams(0);
     var surge = !!opts.surge;
     var out = [];
     var i, x, y;
@@ -2425,11 +2472,11 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         var cand = out[randInt(rng, 0, out.length - 1)];
         if (cand && cand.x < FIELD_W - 1 && Math.abs(cand.x - gapC) > 4) {
           cand.type = "hauler"; var hs = mkSpec("hauler", cand.x, cand.y, 0, params, surge, 0);
-          cand.speed = hs.speed; cand.width = 2; cand.hp = 3; cand.crossTick = hs.crossTick;
+          cand.speed = hs.speed; cand.width = 2; cand.hp = 3; cand.crossTick = hs.crossTick; cand.perZ = hs.perZ;
         }
       }
       if (params.tiers >= 2) {
-        var y2 = clamp(y + (rng() < 0.5 ? -6 : 6), 2, 29);
+        var y2 = clamp(y + (rng() < 0 ? -6 : 6) * (rng() < 0.5 ? -1 : 1), 2, 29);
         var gap2 = randInt(rng, 6, 41);
         for (x = 0; x < FIELD_W; x += 3) {
           if (Math.abs(x - gap2) <= 3) continue;
@@ -2485,33 +2532,21 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     return out;
   }
 
-  /* ---------- SURVIVABILITY PROVER ----------
-   * proveSchedule(entities, loadout) -> { ok, reason }
-   * entities: schedule entries as produced by instantiateTemplate (ticks
-   * relative to wave start; the ship is at (START_X, START_Y) at tick 0).
-   * Rules modelled — the REAL rules, conservatively:
-   *  - Movement: 1 cell per tick, 8-way, field bounds (DP over reachable
-   *    (tick, x, y) sets).
-   *  - Collision: a ship on any cell of an entity at its crossTick dies
-   *    on that cell — those cells are removed from the reachable set at
-   *    that tick.
-   *  - Fire: an entity counts as REMOVED only if a conservative firing
-   *    window fits its approach: shotsNeeded = ceil(hp / damage);
-   *    windowNeeded = shotsNeeded * fire_interval + MAX_TRAVEL, where
-   *    MAX_TRAVEL = ceil(180 / 8) = 23 ticks is the worst-case bullet
-   *    travel time. The ship must be able to REACH the firing cell
-   *    (the entity's crossing cell; either cell for a 2-wide hull) at
-   *    least windowNeeded ticks before crossing, and reserved firing
-   *    windows for different entities must be sequentially compatible
-   *    (no overlapping windows at different cells; enough travel time
-   *    between consecutive windows). Anything failing a check stays
-   *    lethal and must be dodged. This under-counts kills (spread's
-   *    extra bullets earn nothing here; a window is charged at full
-   *    interval per shot), never over-counts them.
-   * Known disclosed limit: simultaneous-fire contention beyond the
-   * sequential-window check is not modelled; generated waves are sparse
-   * enough that windows rarely contend, and every contention failure
-   * falls back to "must dodge", which the DP then judges honestly. */
+  /* ---------- survivability prover ----------
+   * PORTED VERBATIM from starlane_core.js (v1) — same algorithm,
+   * same constants, same reservation semantics. A wave is accepted
+   * iff a ship path exists under the REAL rules (1 cell/tick 8-way
+   * movement, field bounds, collision at crossing ticks) after
+   * removing only the entities the firing-window model proves
+   * shootable in time: a removal reserves the window
+   * [cross - windowNeeded, cross - PROVER_MAX_TRAVEL] at one hull
+   * cell, requires the engagement window cross - spawn >=
+   * windowNeeded, reachability from the start cell, and no
+   * overlap/travel conflict with earlier reservations. (One life
+   * changes nothing here: the model already requires a path that
+   * is never hit.) An earlier hand-rewrite of this prover dropped
+   * the availability check and wrongly accepted the deliberately
+   * unfair schedule — see BUILD-NOTES-v2.md correction note. */
   var PROVER_MAX_TRAVEL = ceilDiv(SPAWN_Z, BULLET_SPEED);   /* 23 */
   var PROVER_MAX_HORIZON = 20000;
   var PROVER_LOADOUTS = {
@@ -2635,105 +2670,91 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
    * inside every loadout's firing window, so nothing is removable and
    * no cell is safe at the crossing tick. */
   function makeUnfairSchedule() {
+    /* Deliberately unfair: EVERY cell of the field is covered at the
+     * same crossing tick (ported exactly from v1's fixture). A single
+     * covered row would be dodgeable and the prover would be right to
+     * accept it — the fixture must leave no surviving cell. */
     var out = [];
     for (var y = 0; y < FIELD_H; y++) {
       for (var x = 0; x < FIELD_W; x++) {
         out.push({ spawnTick: 170, x: x, y: y, type: "drone", speed: 18, width: 1, hp: 1,
-                   crossTick: 180, crossX: x, phase: 0, surge: false });
+                   phase: 0, surge: false, crossTick: 180, crossX: x });
       }
     }
     return out;
   }
 
-  /* Generation gate: instantiate, prove, regenerate (RNG advances) up to
-   * WAVE_PROVE_ATTEMPTS times; then a sparse fallback wave (a single
-   * drone on a fixed lane) which is provable by construction. */
+  /* ---------- wave generation, gated by the prover ----------
+   * RNG is consumed ONLY here (and at Warden instantiation). The
+   * template draw rotates by board so successive boards favour
+   * different shapes; kill-ramp escorts are appended BEFORE proving so
+   * the augmented wave must pass the same fairness gate. */
   function generateWaveChecked(rng, opts) {
     opts = opts || {};
-    var template = opts.template || null;
-    for (var attempt = 1; attempt <= WAVE_PROVE_ATTEMPTS; attempt++) {
-      var tmpl = template || TEMPLATES[randInt(rng, 0, TEMPLATES.length - 1)];
-      var schedule = instantiateTemplate(rng, tmpl, opts);
-      var verdict = proveSchedule(schedule, opts.loadout || "blaster");
-      if (verdict.ok) {
-        return { schedule: schedule, template: tmpl, surge: !!opts.surge,
-                 attempts: attempt, fallback: false, ok: true, reason: verdict.reason };
+    var loadout = opts.loadout || "blaster";
+    var ramp = opts.ramp || rampParams(0);
+    var board = opts.board || 1;
+    for (var attempt = 0; attempt < WAVE_PROVE_ATTEMPTS; attempt++) {
+      var tmpl;
+      if (opts.template) tmpl = opts.template;
+      else {
+        var draw = randInt(rng, 0, TEMPLATES.length - 1);
+        tmpl = TEMPLATES[(draw + (board - 1)) % TEMPLATES.length];
       }
+      var sched = instantiateTemplate(rng, tmpl, { ramp: ramp, surge: opts.surge });
+      for (var q = 0; q < ramp.escortDrones; q++) {
+        sched.push(mkSpec("drone", randInt(rng, 0, FIELD_W - 1), randInt(rng, 3, 29),
+                          randInt(rng, 40, 160), ramp, opts.surge, 0));
+      }
+      var v = proveSchedule(sched, loadout);
+      if (v.ok) return { ok: true, template: tmpl, schedule: sched, attempts: attempt + 1 };
     }
-    var params = sectorParams(opts.sector || 1);
-    var fb = [mkSpec("drone", 24, 8, 0, params, false, 0)];
-    return { schedule: fb, template: "fallback", surge: false,
-             attempts: WAVE_PROVE_ATTEMPTS, fallback: true, ok: true,
-             reason: "sparse fallback wave after " + WAVE_PROVE_ATTEMPTS + " unprovable attempts" };
+    var fb = [mkSpec("drone", START_X, 10, 0, ramp, false, 0)];
+    return { ok: true, template: "fallback", schedule: fb, attempts: WAVE_PROVE_ATTEMPTS, fallback: true };
   }
 
-  /* ---------- loadout resolution ---------- */
+  /* ---------- loadouts ---------- */
   function resolveLoadout(loadout) {
-    var id = "blaster", extraBombs = 0;
-    if (loadout == null) { id = "blaster"; }
-    else if (typeof loadout === "string") { id = loadout; }
-    else if (typeof loadout === "object") {
-      id = loadout.id || loadout.loadout || "blaster";
-      extraBombs = loadout.extra_bombs || 0;
-    } else { throw new Error("bad loadout argument"); }
-    var def = LOADOUTS[id];
-    if (!def) throw new Error("unknown loadout: " + id);
-    if (def.addon) throw new Error("loadout " + id + " is an add-on, not a primary weapon");
-    if (!(extraBombs >= 0 && extraBombs <= (LOADOUTS.extra_bomb.max || 0)) ||
-        Math.floor(extraBombs) !== extraBombs) {
-      throw new Error("extra_bombs out of range 0.." + LOADOUTS.extra_bomb.max);
+    if (loadout === undefined || loadout === null) return LOADOUTS.blaster;
+    if (typeof loadout === "string") {
+      var l = LOADOUTS[loadout];
+      if (!l) throw new Error("starlane: unknown loadout '" + loadout + "' (fail closed)");
+      return l;
     }
-    return { id: id, def: def, extraBombs: extraBombs };
+    if (typeof loadout === "object" && typeof loadout.id === "string") {
+      if (Object.prototype.hasOwnProperty.call(loadout, "extra_bombs")) {
+        throw new Error("starlane: extra_bombs — bombs were removed in fusi-starlane/v2 (fail closed)");
+      }
+      var l2 = LOADOUTS[loadout.id];
+      if (!l2) throw new Error("starlane: unknown loadout '" + loadout.id + "' (fail closed)");
+      return l2;
+    }
+    throw new Error("starlane: bad loadout (fail closed)");
   }
 
-  /* ---------- game state ---------- */
-  function refreshResult(state) {
-    state.distanceScore = Math.floor(state.ticks / 2);
-    state.score = state.killScore + state.nearMissScore + state.distanceScore;
-    state.result = {
-      score: state.score,
-      distance_score: state.distanceScore,
-      kill_score: state.killScore,
-      near_miss_score: state.nearMissScore,
-      sector_reached: state.maxSector,
-      ticks: state.ticks,
-      kills: state.kills,
-      loadout_id: state.loadoutId
-    };
-    return state.result;
-  }
-
+  /* ---------- state ---------- */
   function newGame(seed, loadout) {
-    var resolved = resolveLoadout(loadout);
+    var lo = resolveLoadout(loadout);
     var state = {
-      rules: "fusi-starlane/v1",
       seed: seed >>> 0,
       rng: mulberry32(seed >>> 0),
       ticks: 0,
       ship: { x: START_X, y: START_Y },
-      shields: START_SHIELDS,
-      bombs: START_BOMBS + resolved.extraBombs,
-      loadoutId: resolved.id,
-      loadout: resolved.def,
-      extraBombs: resolved.extraBombs,
-      fireCooldown: 0,
-      lastFireTick: -1000000,
-      entities: [],
+      loadout: lo,
+      nextFireTick: 1,
       bullets: [],
-      pending: [],            /* [{tick, spec}] absolute spawn queue */
+      entities: [],
+      pending: [],
       nextId: 1,
-      sector: 1,
-      maxSector: 1,
-      sectorStartTick: 0,
-      sectorEndTick: SECTOR_TICKS,
-      beatInSector: 0,
+      board: 1,
+      beatCount: 0,
       nextBeatTick: 1,
-      gatekeeperId: 0,        /* entity id while pending/active, else 0 */
-      gatekeeperSpawned: false,
-      score: 0, killScore: 0, nearMissScore: 0, distanceScore: 0,
+      nextWardenTick: WARDEN_EVERY_TICKS,
+      wardenId: 0,
+      killScore: 0,
       kills: 0,
+      wardenKills: 0,
       spawnedByType: {},
-      generatedWaves: [],
       events: [],
       over: false,
       over_reason: null,
@@ -2743,309 +2764,563 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     return state;
   }
 
-  function spawnEntity(state, spec, absTick) {
-    var base = TYPES[spec.type];
+  function refreshResult(state) {
+    state.result = {
+      score: state.killScore,
+      kill_score: state.killScore,
+      kills: state.kills,
+      warden_kills: state.wardenKills,
+      boards_reached: state.board,
+      ticks: state.ticks,
+      loadout_id: state.loadout.id
+    };
+  }
+
+  function spawnEntity(state, spec, startTick) {
     var e = {
       id: state.nextId++,
-      type: spec.type,
-      x: spec.x, y: spec.y,
-      z: SPAWN_Z,
-      hp: spec.hp != null ? spec.hp : base.hp,
-      speed: spec.speed != null ? spec.speed : base.speed,
-      width: spec.width != null ? spec.width : base.width,
-      phase: spec.phase || 0,
-      surge: !!spec.surge,
-      spawnTick: absTick,
-      age: 0,
-      x_fp: spec.x * WEAVER_FP,
-      justSpawned: true
+      type: spec.type, x: spec.x, y: spec.y, z: SPAWN_Z,
+      speed: spec.speed, width: spec.width, hp: spec.hp,
+      phase: spec.phase || 0, surge: !!spec.surge,
+      perZ: spec.perZ || 0, age: 0, x_fp: spec.x * WEAVER_FP,
+      cx: (typeof spec.cx === "number") ? spec.cx : spec.x,
+      spawnTick: startTick
     };
+    if (e.type === "warden") state.wardenId = e.id;
     state.entities.push(e);
     state.spawnedByType[e.type] = (state.spawnedByType[e.type] || 0) + 1;
     return e;
   }
 
-  function spawnGatekeeper(state) {
-    var rng = state.rng;   /* RNG consumed only at instantiation — here */
-    var spec = { type: "gatekeeper", x: START_X, y: randInt(rng, 8, 23),
-                 speed: 1, width: 2, hp: GATEKEEPER_HP, phase: randInt(rng, 0, 255), surge: false };
-    var e = spawnEntity(state, spec, state.ticks);
-    state.gatekeeperId = e.id;
-    state.gatekeeperSpawned = true;
-    state.events.push({ tick: state.ticks, type: "gatekeeper_spawn", sector: state.sector, entity_id: e.id });
-    return e;
-  }
-
   function generateBeat(state) {
-    var surge = (state.beatInSector % 5 === 4);   /* every 5th beat */
+    var ramp = rampParams(state.kills);
+    var surge = (state.beatCount % 5 === 4);
     var gen = generateWaveChecked(state.rng, {
-      sector: state.sector, surge: surge, loadout: state.loadoutId });
-    state.generatedWaves.push({ tick: state.ticks, template: gen.template, surge: gen.surge,
-                                attempts: gen.attempts, fallback: gen.fallback, count: gen.schedule.length });
+      loadout: state.loadout.id, ramp: ramp, board: state.board, surge: surge });
     for (var i = 0; i < gen.schedule.length; i++) {
       var spec = gen.schedule[i];
       state.pending.push({ tick: state.ticks + 1 + spec.spawnTick, spec: spec });
     }
-    state.beatInSector += 1;
-    state.nextBeatTick += BEAT_TICKS;
+    state.beatCount++;
   }
 
-  function entityCells(e) {
-    var cells = [];
-    for (var w = 0; w < e.width; w++) cells.push({ x: e.x + w, y: e.y });
-    return cells;
+  function spawnWarden(state) {
+    var cx = randInt(state.rng, 10, FIELD_W - 11);
+    var y = randInt(state.rng, 8, 23);
+    var phase = randInt(state.rng, 0, 255);
+    var spec = mkSpec("warden", cx, y, 0, rampParams(0), false, phase);
+    spec.cx = cx;
+    var e = spawnEntity(state, spec, state.ticks);
+    state.events.push({ type: "warden_spawn", tick: state.ticks, entity_id: e.id, x: cx, y: y });
   }
 
-  /* ---------- the tick ----------
-   * Order (fixed, documented):
-   *  1. ticks++ ; spawn due pending entities (they do not move this tick)
-   *  2. sector-end check: spawn the Gatekeeper in place of further beats
-   *  3. ship movement (1 cell, 8-way, clamped to the field)
-   *  4. bomb, then fire (cooldown per loadout)
-   *  5. bullets advance and hit (against pre-move entity z)
-   *  6. entities advance (z, weaver drift, gatekeeper sweep + drone spawns)
-   *  7. crossings: collision / near-miss, removals
-   *  8. beat generation for the next wave (prover-gated)
-   *  9. result refresh; death / tick-cap closure */
+  /* ---------- the tick — order is fixed and part of the rules ---------- */
   function step(state, input) {
     if (state.over) return state;
     input = input || {};
-    var dx = clamp(Math.floor(input.dx || 0), -1, 1);
-    var dy = clamp(Math.floor(input.dy || 0), -1, 1);
-    var i, j, e, b;
+    var dx = clamp(Math.trunc(input.dx || 0), -1, 1);
+    var dy = clamp(Math.trunc(input.dy || 0), -1, 1);
+    var fire = !!input.fire;
+    var tick = state.ticks + 1;
+    state.ticks = tick;
 
-    state.ticks += 1;
-    var tick = state.ticks;
+    /* 1 — spawns due this tick (new spawns do not move this tick). */
+    var stillPending = [];
+    for (var i = 0; i < state.pending.length; i++) {
+      var p = state.pending[i];
+      if (p.tick === tick) spawnEntity(state, p.spec, tick);
+      else stillPending.push(p);
+    }
+    state.pending = stillPending;
 
-    /* 1. spawns due */
-    if (state.pending.length) {
-      var rest = [];
-      for (i = 0; i < state.pending.length; i++) {
-        if (state.pending[i].tick <= tick) spawnEntity(state, state.pending[i].spec, tick);
-        else rest.push(state.pending[i]);
-      }
-      state.pending = rest;
+    /* 2 — board boundary + Warden cadence. Board is a pure function of
+     * the tick; the event fires exactly on the boundary tick. */
+    var nb = boardIndexAt(tick);
+    if (nb > state.board) {
+      state.board = nb;
+      state.events.push({ type: "board", tick: tick, board: nb, theme: boardTheme(nb) });
+    }
+    if (tick >= state.nextWardenTick) {
+      state.nextWardenTick += WARDEN_EVERY_TICKS;
+      if (state.wardenId === 0) spawnWarden(state);
     }
 
-    /* 2. gatekeeper at sector end */
-    if (!state.gatekeeperSpawned && tick >= state.sectorEndTick) {
-      spawnGatekeeper(state);
-    }
-
-    /* 3. ship movement */
+    /* 3 — ship movement: 1 cell, 8-way, clamped to the field. */
     state.ship.x = clamp(state.ship.x + dx, 0, FIELD_W - 1);
     state.ship.y = clamp(state.ship.y + dy, 0, FIELD_H - 1);
 
-    /* 4a. bomb: clears all on-screen non-gatekeeper traffic, NO score.
-     * The Gatekeeper is bomb-immune (documented design decision). */
-    if (input.bomb && state.bombs > 0) {
-      state.bombs -= 1;
-      var survivors = [], cleared = 0;
-      for (i = 0; i < state.entities.length; i++) {
-        e = state.entities[i];
-        if (e.type === "gatekeeper") survivors.push(e); else cleared++;
-      }
-      state.entities = survivors;
-      state.events.push({ tick: tick, type: "bomb", cleared: cleared });
-    }
-
-    /* 4b. fire */
-    if (state.fireCooldown > 0) state.fireCooldown -= 1;
-    if (input.fire && state.fireCooldown <= 0) {
-      var offsets = state.loadout.offsets;
-      for (i = 0; i < offsets.length; i++) {
-        var bx = state.ship.x + offsets[i];
+    /* 4 — fire: missiles leave the ship's cell at z 0 on the loadout's
+     * interval. A fired missile is a real object: it travels, and every
+     * later event it causes is traceable to it. */
+    if (fire && tick >= state.nextFireTick) {
+      for (var o = 0; o < state.loadout.offsets.length; o++) {
+        var bx = state.ship.x + state.loadout.offsets[o];
         if (bx < 0 || bx >= FIELD_W) continue;
-        state.bullets.push({ id: state.nextId++, x: bx, y: state.ship.y, z: 0, hitIds: {} });
+        state.bullets.push({ id: state.nextId++, x: bx, y: state.ship.y, z: 0 });
       }
-      state.fireCooldown = state.loadout.fire_interval;
-      state.lastFireTick = tick;
+      state.nextFireTick = tick + state.loadout.fire_interval;
     }
 
-    /* 5. bullets */
-    var keptBullets = [];
-    var gatekeeperKilled = false;
-    for (i = 0; i < state.bullets.length; i++) {
-      b = state.bullets[i];
-      var prevZ = b.z;
-      b.z += BULLET_SPEED;
+    /* 5 — missiles advance and strike. A missile tests the segment it
+     * crossed this tick against each live entity's PRE-MOVE z; a hit in
+     * the missile's exact cell (either hull cell of a wide enemy) is an
+     * EXPLOSION: the missile is consumed (unless piercing), the enemy
+     * loses `damage` HP (`missile_hit` event — damage is never silent),
+     * and at HP 0 the enemy is REMOVED and scores (`kill` event).
+     * One entity per missile per tick. A missile that reaches max
+     * range leaves with a `missile_expire` event — nothing vanishes
+     * without a trace. */
+    var liveBullets = [];
+    for (var b = 0; b < state.bullets.length; b++) {
+      var bl = state.bullets[b];
+      var prevZ = bl.z;
+      bl.z += BULLET_SPEED;
       var consumed = false;
-      for (j = 0; j < state.entities.length; j++) {
-        e = state.entities[j];
-        if (e.hp <= 0) continue;
-        if (b.hitIds[e.id]) continue;
-        if (b.y !== e.y) continue;
-        if (b.x !== e.x && !(e.width >= 2 && b.x === e.x + 1)) continue;
-        if (prevZ <= e.z && b.z >= e.z) {
-          e.hp -= state.loadout.damage;
-          b.hitIds[e.id] = true;
-          if (e.hp <= 0) {
-            state.kills += 1;
-            state.killScore += TYPES[e.type].score;
-            state.events.push({ tick: tick, type: "kill", entity_type: e.type,
-                                entity_id: e.id, score: TYPES[e.type].score });
-            if (e.type === "gatekeeper") gatekeeperKilled = true;
-          }
-          if (!state.loadout.piercing) { consumed = true; }
-          break;   /* one entity per bullet per tick (piercing: next tick, next entity) */
+      for (var ei = 0; ei < state.entities.length; ei++) {
+        var en = state.entities[ei];
+        if (en.hp <= 0 || en.spawnTick === tick) continue;
+        if (en.y !== bl.y) continue;
+        if (!(bl.x === en.x || (en.width >= 2 && bl.x === en.x + 1))) continue;
+        if (!(prevZ <= en.z && bl.z >= en.z)) continue;
+        en.hp -= state.loadout.damage;
+        state.events.push({ type: "missile_hit", tick: tick, entity_id: en.id,
+                            entity_type: en.type, hp_left: Math.max(0, en.hp),
+                            x: bl.x, y: bl.y, z: en.z });
+        if (en.hp <= 0) {
+          var value = TYPES[en.type].score;
+          state.kills++;
+          if (en.type === "warden") state.wardenKills++;
+          state.killScore += value;
+          state.events.push({ type: "kill", tick: tick, entity_id: en.id,
+                              entity_type: en.type, score: value,
+                              x: en.x, y: en.y, z: en.z });
         }
+        if (!state.loadout.piercing) { consumed = true; }
+        break;
       }
-      if (!consumed && b.z <= BULLET_MAX_Z) keptBullets.push(b);
+      if (!consumed) {
+        if (bl.z > BULLET_MAX_Z) {
+          state.events.push({ type: "missile_expire", tick: tick, x: bl.x, y: bl.y });
+        } else liveBullets.push(bl);
+      }
     }
-    state.bullets = keptBullets;
+    state.bullets = liveBullets;
+    state.entities = state.entities.filter(function (e) { return e.hp > 0; });
 
-    /* 6. entities advance */
-    var gkSpawnQueue = [];
-    for (i = 0; i < state.entities.length; i++) {
-      e = state.entities[i];
-      if (e.hp <= 0) continue;
-      if (e.justSpawned) { e.justSpawned = false; continue; }
-      e.age += 1;
-      if (e.type === "gatekeeper") {
-        if (e.z > GATEKEEPER_HOLD_Z) e.z -= 1;
-        var off = SINE_TABLE[(((e.phase + e.age) % 256) + 256) % 256] >> 7;   /* -8..8 */
-        e.x = clamp(START_X + off, 0, FIELD_W - e.width);
-        if (e.age % GATEKEEPER_DRONE_EVERY === 0) {
-          gkSpawnQueue.push({ type: "drone", x: e.x, y: e.y, speed: 1 + sectorParams(state.sector).speedAdd,
-                              width: 1, hp: 1, phase: 0, surge: false });
+    /* 6 — traffic advances. Each enemy flies its spawn-frozen physics:
+     * z by speed (haulers by their frozen cadence), Weavers drift by
+     * the integer integral, the Warden sweeps its lane by the table.
+     * Nothing here reads live game state — an enemy's flight never
+     * changes because the player scored. */
+    for (var ai = 0; ai < state.entities.length; ai++) {
+      var a = state.entities[ai];
+      if (a.spawnTick === tick) continue;
+      a.age++;
+      if (a.type === "hauler") { if (a.age % a.perZ === 0) a.z -= 1; }
+      else a.z -= a.speed;
+      if (a.type === "weaver") {
+        a.x_fp = weaverStepXfp(a.x_fp, a.phase, a.age);
+        a.x = floorDiv(a.x_fp, WEAVER_FP);
+      }
+      if (a.type === "warden") {
+        var off = SINE_TABLE[(((a.phase + a.age) % 256) + 256) % 256] >> 7;
+        a.x = clamp(a.cx + off, 0, FIELD_W - a.width);
+      }
+    }
+
+    /* 7 — crossings. CONTACT IS DEATH: an enemy whose approach ends on
+     * the ship's cell explodes WITH the ship — `player_down`, the run
+     * ends on this tick, and the contact awards nothing. Any other
+     * crosser leaves the field (`despawn` event). */
+    var survivors = [];
+    var died = false;
+    for (var ci = 0; ci < state.entities.length; ci++) {
+      var c = state.entities[ci];
+      if (c.z > 0) { survivors.push(c); continue; }
+      var contact = (state.ship.x === c.x || (c.width >= 2 && state.ship.x === c.x + 1)) &&
+                    state.ship.y === c.y;
+      if (contact) {
+        if (!died) {
+          state.events.push({ type: "player_down", tick: tick, entity_id: c.id,
+                              entity_type: c.type, x: state.ship.x, y: state.ship.y });
         }
-      } else if (e.type === "hauler") {
-        var perZ = (e.surge || sectorParams(state.sector).speedAdd > 0) ? 1 : 2;
-        if (perZ === 1 || e.age % 2 === 0) e.z -= 1;
-        /* hauler z-speed is stored as 1 unit per move; parity handled here */
+        died = true;   /* the contacting enemy is destroyed with the ship */
       } else {
-        e.z -= e.speed;
-        if (e.type === "weaver") {
-          e.x_fp = weaverStepXfp(e.x_fp, e.phase, e.age);
-          e.x = floorDiv(e.x_fp, WEAVER_FP);
-        }
+        state.events.push({ type: "despawn", tick: tick, entity_id: c.id,
+                            entity_type: c.type, x: c.x, y: c.y });
       }
     }
-    for (i = 0; i < gkSpawnQueue.length; i++) spawnEntity(state, gkSpawnQueue[i], tick);
+    state.entities = survivors;
+    if (died) { state.over = true; state.over_reason = "destroyed"; }
 
-    /* remove the dead (kills already scored in phase 5) */
-    state.entities = state.entities.filter(function (en) { return en.hp > 0; });
-
-    if (gatekeeperKilled) {
-      var clearedSector = state.sector;
-      state.sector += 1;
-      state.maxSector = state.sector;
-      state.sectorStartTick = tick;
-      state.sectorEndTick = tick + SECTOR_TICKS;
-      state.beatInSector = 0;
-      state.nextBeatTick = tick + 1;
-      state.gatekeeperId = 0;
-      state.gatekeeperSpawned = false;
-      state.events.push({ tick: tick, type: "sector_clear", sector: clearedSector, next_sector: state.sector });
-    }
-
-    /* 7. crossings */
-    var afterCross = [];
-    for (i = 0; i < state.entities.length; i++) {
-      e = state.entities[i];
-      if (e.type === "gatekeeper" || e.z > 0) { afterCross.push(e); continue; }
-      var cells = entityCells(e);
-      var hit = false, adjacent = false;
-      for (j = 0; j < cells.length; j++) {
-        if (cells[j].x === state.ship.x && cells[j].y === state.ship.y) hit = true;
-        if (chebyshev(cells[j].x, cells[j].y, state.ship.x, state.ship.y) === 1) adjacent = true;
-      }
-      if (hit) {
-        state.shields -= 1;
-        state.events.push({ tick: tick, type: "hit", entity_type: e.type, entity_id: e.id, shields: state.shields });
-      } else if (adjacent && (tick - state.lastFireTick) > 10) {
-        state.nearMissScore += NEAR_MISS_SCORE;
-        state.events.push({ tick: tick, type: "near_miss", entity_type: e.type, entity_id: e.id, score: NEAR_MISS_SCORE });
-      }
-      /* crossed entities are always removed */
-    }
-    state.entities = afterCross;
-
-    /* 8. next beat */
-    if (!state.gatekeeperSpawned && tick >= state.nextBeatTick && tick < state.sectorEndTick) {
+    /* 8 — the next beat streams in (kill-ramped, prover-gated). */
+    if (!state.over && tick >= state.nextBeatTick) {
       generateBeat(state);
+      state.nextBeatTick += BEAT_TICKS;
     }
 
-    /* 9. closure */
-    refreshResult(state);
-    if (state.shields <= 0) {
-      state.shields = 0;
-      state.over = true;
-      state.over_reason = "destroyed";
-    } else if (state.ticks >= MAX_TICKS_PER_RUN) {
-      state.over = true;
-      state.over_reason = "tick_cap";
+    /* 9 — housekeeping, result, and the contract safety cap. */
+    if (state.wardenId !== 0) {
+      var wAlive = false;
+      for (var wi = 0; wi < state.entities.length; wi++) {
+        if (state.entities[wi].id === state.wardenId) { wAlive = true; break; }
+      }
+      if (!wAlive) state.wardenId = 0;
     }
     refreshResult(state);
+    if (!state.over && state.ticks >= MAX_TICKS_PER_RUN) {
+      state.over = true; state.over_reason = "tick_cap";
+      refreshResult(state);
+    }
     return state;
   }
 
-  /* ---------- input log (game-logging v2 style, sparse state changes) ----------
-   * Log entries: [tick, code] with 1-based ticks.
-   *   "M<dx>,<dy>"  set held movement (dx, dy each -1..1) from this tick on
-   *   "F1" / "F0"   set held fire state from this tick on
-   *   "B"           bomb on this tick only
-   * expandInputs is the ONE place these semantics live: the harness, the
-   * verifier path and any driver all replay through it. */
-  function expandInputs(log, ticks) {
-    if (!Array.isArray(log)) throw new Error("input log is not a list");
+  /* ---------- input log v2 (sparse, sparse-format of the conventions) --
+   * Codes: "M<dx>,<dy>" movement state, "F1"/"F0" fire state. A code
+   * holds from its tick until replaced. v1's "B" (bomb) does not exist
+   * in v2 and is REFUSED — a v1 log can never silently replay as v2. */
+  function expandInputs(inputs, ticks) {
+    if (!Array.isArray(inputs)) throw new Error("inputs must be a list of [tick, code] pairs");
     var byTick = {};
-    for (var i = 0; i < log.length; i++) {
-      var entry = log[i];
-      if (!Array.isArray(entry) || entry.length !== 2) throw new Error("bad input log entry at " + i);
-      var t = entry[0], code = entry[1];
-      if (typeof t !== "number" || Math.floor(t) !== t || t < 1 || t > ticks) {
-        throw new Error("input tick out of range: " + t);
-      }
-      if (typeof code !== "string") throw new Error("input code is not a string at tick " + t);
-      (byTick[t] || (byTick[t] = [])).push(code);
+    for (var i = 0; i < inputs.length; i++) {
+      var row = inputs[i];
+      if (!Array.isArray(row) || row.length !== 2) throw new Error("bad input row: " + JSON.stringify(row));
+      var t = row[0], code = row[1];
+      if (typeof t !== "number" || Math.floor(t) !== t || t < 1) throw new Error("bad input tick: " + t);
+      if (typeof code !== "string") throw new Error("bad input code: " + code);
+      if (!byTick[t]) byTick[t] = [];
+      byTick[t].push(code);
     }
     var out = [];
-    var dx = 0, dy = 0, fire = false;
+    var held = { dx: 0, dy: 0, fire: false };
     for (var tick = 1; tick <= ticks; tick++) {
-      var bomb = false;
       var codes = byTick[tick] || [];
       for (var c = 0; c < codes.length; c++) {
         var code = codes[c];
-        if (code === "B") { bomb = true; }
-        else if (code === "F1") { fire = true; }
-        else if (code === "F0") { fire = false; }
+        if (code === "F1") held.fire = true;
+        else if (code === "F0") held.fire = false;
+        else if (code === "B") throw new Error("input code 'B' does not exist in fusi-starlane/v2 (bombs removed)");
         else if (code.charAt(0) === "M") {
           var parts = code.slice(1).split(",");
-          if (parts.length !== 2) throw new Error("bad move code: " + code);
-          var ndx = parseInt(parts[0], 10), ndy = parseInt(parts[1], 10);
-          if (String(ndx) !== parts[0].trim() && parts[0].trim() !== String(ndx)) throw new Error("bad move code: " + code);
-          if (isNaN(ndx) || isNaN(ndy) || ndx < -1 || ndx > 1 || ndy < -1 || ndy > 1) {
+          if (parts.length !== 2) throw new Error("malformed move code: " + code);
+          var mdx = Number(parts[0]), mdy = Number(parts[1]);
+          if ([-1, 0, 1].indexOf(mdx) < 0 || [-1, 0, 1].indexOf(mdy) < 0) {
             throw new Error("move out of range: " + code);
           }
-          dx = ndx; dy = ndy;
-        } else { throw new Error("unknown input code: " + code); }
+          held.dx = mdx; held.dy = mdy;
+        } else throw new Error("unknown input code: " + code);
       }
-      out.push({ dx: dx, dy: dy, fire: fire, bomb: bomb });
+      out.push({ dx: held.dx, dy: held.dy, fire: held.fire });
     }
     return out;
   }
 
   /* ---------- exports ---------- */
   var api = {
-    newGame: newGame, step: step, expandInputs: expandInputs,
-    mulberry32: mulberry32, randInt: randInt,
-    sectorParams: sectorParams, instantiateTemplate: instantiateTemplate,
-    generateWaveChecked: generateWaveChecked, proveSchedule: proveSchedule,
-    makeUnfairSchedule: makeUnfairSchedule, weaverCrossX: weaverCrossX,
-    SINE_TABLE: SINE_TABLE,
-    LOADOUTS: LOADOUTS, TYPES: TYPES, TEMPLATES: TEMPLATES,
-    FIELD_W: FIELD_W, FIELD_H: FIELD_H,
-    START_X: START_X, START_Y: START_Y, SPAWN_Z: SPAWN_Z,
-    BULLET_SPEED: BULLET_SPEED, TICKS_PER_SECOND: TICKS_PER_SECOND,
-    BEAT_TICKS: BEAT_TICKS, SECTOR_TICKS: SECTOR_TICKS,
+    LOG_RULES: "fusi-starlane/v2",
+    FIELD_W: FIELD_W, FIELD_H: FIELD_H, START_X: START_X, START_Y: START_Y,
+    SPAWN_Z: SPAWN_Z, BULLET_SPEED: BULLET_SPEED, TICKS_PER_SECOND: TICKS_PER_SECOND,
+    BEAT_TICKS: BEAT_TICKS, BOARD_TICKS: BOARD_TICKS, BOARD_THEMES: BOARD_THEMES,
+    WARDEN_EVERY_TICKS: WARDEN_EVERY_TICKS,
     MAX_TICKS_PER_RUN: MAX_TICKS_PER_RUN,
-    GATEKEEPER_HP: GATEKEEPER_HP,
-    NEAR_MISS_SCORE: NEAR_MISS_SCORE,
-    LOG_RULES: "fusi-starlane/v1"
+    TYPES: TYPES, LOADOUTS: LOADOUTS, TEMPLATES: TEMPLATES, SINE_TABLE: SINE_TABLE,
+    mulberry32: mulberry32, randInt: randInt,
+    rampParams: rampParams, boardIndexAt: boardIndexAt, boardTheme: boardTheme,
+    weaverCrossX: weaverCrossX,
+    instantiateTemplate: instantiateTemplate, generateWaveChecked: generateWaveChecked,
+    proveSchedule: proveSchedule, makeUnfairSchedule: makeUnfairSchedule,
+    newGame: newGame, step: step, expandInputs: expandInputs
   };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
   if (typeof globalThis !== "undefined") { globalThis.StarlaneCore = api; }
+})();
+    </script>
+
+    <script>
+      // STARLANE 2.8D render layer — embedded verbatim from the canonical
+      // source: starlane_render.js (view only — no game math; the core
+      // never loads it). The shell draws through StarlaneRender28D.
+/* FUSI-STARLANE v2 — 2.8D RENDER LAYER (view only).
+ *
+ * The illusion of depth lives HERE and nowhere else: the sim
+ * (starlane_core_v2.js) is a strictly-2D integer simulation and never
+ * loads this file. This layer reads core state each frame and draws:
+ *   - a 3-layer parallax starfield tinted by the current BOARD THEME
+ *     (boards are the sim's 300-tick boundaries; the theme arrives on
+ *     the `board` event — the renderer invents nothing),
+ *   - a perspective "board gate" ring + banner when a board event fires,
+ *   - enemies as shaded pseudo-3D sprites SCALED BY APPROACH DEPTH z
+ *     (small and dim at z=180, large and rim-lit at z=0) — z is sim
+ *     data; only the drawing is an illusion,
+ *   - the ship as a banked, shaded 2.8D object (hull gradient, canopy
+ *     highlight, engine glow), tilting with its movement,
+ *   - missiles as glowing bolts, and EXPLOSIONS driven by sim events:
+ *     `missile_hit` -> small burst, `kill` -> full burst + ring,
+ *     `player_down` -> the big one (flash + shake + debris).
+ * Floats are fine here: this is cosmetics, never game math. The layer
+ * never mutates core state.
+ *
+ * API:  var view = StarlaneRender28D.createView(canvas);
+ *       view.draw(coreState);        // call after each sim step / frame
+ *       view.reset();                  // on a new run
+ */
+(function () {
+  "use strict";
+
+  var THEME_ACCENT = {
+    "void-drift":   "#3d5a80",
+    "ember-nebula": "#d97b2f",
+    "violet-deep":  "#8a6fd6",
+    "teal-expanse": "#2aa198",
+    "crimson-belt": "#c04a5a",
+    "gold-reach":   "#d4af37"
+  };
+  var GOLD = "#d4af37", INK = "#f2ede1", VOID = "#0e0d0b", PANEL = "#171511";
+
+  function makeStars(n, w, h, rnd) {
+    var out = [];
+    for (var i = 0; i < n; i++) out.push({ x: rnd() * w, y: rnd() * h, r: 0.6 + rnd() * 1.4 });
+    return out;
+  }
+
+  function createView(canvas) {
+    var ctx = canvas.getContext("2d");
+    var W = canvas.width, H = canvas.height;
+    var cell = W / 48;                       /* sim field is 48x32 */
+    var frame = 0;
+    var eventCursor = 0;
+    var particles = [], rings = [], flashes = [];
+    var banner = null;                       /* {board, theme, until} */
+    var shake = 0, flashA = 0;
+    var shipPrev = null, shipBank = 0, shipDead = false;
+    /* cosmetic PRNG for star placement only (never sim) */
+    var seed = 987654321;
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+    var layers = [
+      { stars: makeStars(46, W, H, rnd), speed: 0.25, a: 0.35 },
+      { stars: makeStars(34, W, H, rnd), speed: 0.6,  a: 0.6 },
+      { stars: makeStars(22, W, H, rnd), speed: 1.3,  a: 0.95 }
+    ];
+
+    function burst(x, y, n, power, colors) {
+      for (var i = 0; i < n; i++) {
+        var a = rnd() * Math.PI * 2, v = (0.4 + rnd()) * power;
+        particles.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v,
+                         life: 1, decay: 0.02 + rnd() * 0.03,
+                         size: 1.5 + rnd() * 2.5, color: colors[i % colors.length] });
+      }
+    }
+
+    function drainEvents(state) {
+      var evs = state.events || [];
+      for (; eventCursor < evs.length; eventCursor++) {
+        var e = evs[eventCursor];
+        var px = (e.x + 0.5) * cell, py = (e.y + 0.5) * (H / 32);
+        if (e.type === "missile_hit") {
+          burst(px, py, 6, 2.2, ["#ffd97a", "#d97b2f", INK]);
+        } else if (e.type === "kill") {
+          var big = e.entity_type === "warden" || e.entity_type === "hauler";
+          burst(px, py, big ? 26 : 15, big ? 4.2 : 3.2, ["#ffd97a", GOLD, "#d97b2f", INK]);
+          rings.push({ x: px, y: py, r: 4, vr: big ? 3.4 : 2.4, a: 0.9 });
+          if (e.entity_type === "warden") { flashA = 0.35; shake = Math.max(shake, 6); }
+        } else if (e.type === "player_down") {
+          burst(px, py, 42, 5.2, ["#ffd97a", GOLD, "#c0392b", INK]);
+          rings.push({ x: px, y: py, r: 6, vr: 4.2, a: 1 });
+          flashA = 0.6; shake = 10; shipDead = true;
+        } else if (e.type === "board") {
+          banner = { board: e.board, theme: e.theme, until: frame + 46 };
+          rings.push({ x: W / 2, y: H * 0.32, r: 10, vr: 9, a: 0.55, gate: true });
+        }
+      }
+    }
+
+    function drawShip(state) {
+      if (shipDead || state.over) return;
+      var sx = (state.ship.x + 0.5) * cell, sy = (state.ship.y + 0.5) * (H / 32);
+      if (shipPrev) {
+        var want = Math.max(-0.4, Math.min(0.4, (state.ship.x - shipPrev.x) * 0.38));
+        shipBank += (want - shipBank) * 0.35;
+      }
+      shipPrev = { x: state.ship.x, y: state.ship.y };
+      var s = cell * 1.25;
+      ctx.save();
+      ctx.translate(sx, sy + Math.sin(frame * 0.11) * 1.5);
+      ctx.rotate(shipBank);
+      /* engine glow */
+      var flick = 0.75 + 0.25 * Math.sin(frame * 0.9);
+      var g = ctx.createRadialGradient(0, s * 0.55, 1, 0, s * 0.55, s * 0.8 * flick + 4);
+      g.addColorStop(0, "rgba(255,190,80,0.85)"); g.addColorStop(1, "rgba(255,120,30,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(0, s * 0.55, s * 0.8 * flick + 4, 0, Math.PI * 2); ctx.fill();
+      /* hull — layered shaded polygons (the 2.8D read) */
+      var hull = ctx.createLinearGradient(0, -s, 0, s);
+      hull.addColorStop(0, "#4a4436"); hull.addColorStop(0.45, "#2a261d"); hull.addColorStop(1, "#14110c");
+      ctx.fillStyle = hull; ctx.strokeStyle = GOLD; ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(0, -s * 0.95);
+      ctx.lineTo(s * 0.28, -s * 0.1); ctx.lineTo(s * 0.95, s * 0.62); ctx.lineTo(s * 0.52, s * 0.62);
+      ctx.lineTo(s * 0.3, s * 0.34); ctx.lineTo(-s * 0.3, s * 0.34); ctx.lineTo(-s * 0.52, s * 0.62);
+      ctx.lineTo(-s * 0.95, s * 0.62); ctx.lineTo(-s * 0.28, -s * 0.1);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      /* canopy */
+      var can = ctx.createLinearGradient(0, -s * 0.6, 0, 0);
+      can.addColorStop(0, "#ffe9a8"); can.addColorStop(1, "#8a6d1f");
+      ctx.fillStyle = can;
+      ctx.beginPath(); ctx.ellipse(0, -s * 0.28, s * 0.14, s * 0.3, 0, 0, Math.PI * 2); ctx.fill();
+      /* top-light streak */
+      ctx.strokeStyle = "rgba(242,237,225,0.5)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, -s * 0.9); ctx.lineTo(0, -s * 0.45); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawEnemy(e) {
+      var rowH = H / 32;
+      var cx = (e.x + e.width / 2) * cell, cy = (e.y + 0.5) * rowH;
+      var depth = 1 - Math.max(0, Math.min(180, e.z)) / 180;   /* 0 far, 1 at the ship */
+      var scale = 0.3 + 0.95 * depth;
+      var s = cell * scale;
+      ctx.save();
+      ctx.translate(cx, cy);
+      /* contact shadow — grounds the sprite as it nears the plane */
+      ctx.fillStyle = "rgba(0,0,0," + (0.18 + 0.3 * depth) + ")";
+      ctx.beginPath(); ctx.ellipse(0, s * 0.72, s * 0.8, s * 0.2, 0, 0, Math.PI * 2); ctx.fill();
+      var hull = ctx.createLinearGradient(0, -s, 0, s);
+      hull.addColorStop(0, "#3a352a"); hull.addColorStop(0.5, "#1d1a14"); hull.addColorStop(1, "#0c0a07");
+      ctx.fillStyle = hull;
+      ctx.strokeStyle = "rgba(212,175,55," + (0.35 + 0.55 * depth) + ")";
+      ctx.lineWidth = Math.max(0.7, 1.3 * scale);
+      function poly(pts) {
+        ctx.beginPath(); ctx.moveTo(pts[0][0] * s, pts[0][1] * s);
+        for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] * s, pts[i][1] * s);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
+      if (e.type === "drone") {
+        poly([[0, 0.7], [0.5, -0.45], [0, -0.2], [-0.5, -0.45]]);
+      } else if (e.type === "dart") {
+        poly([[0, 0.95], [0.16, -0.3], [0.34, -0.85], [0, -0.55], [-0.34, -0.85], [-0.16, -0.3]]);
+      } else if (e.type === "weaver") {
+        poly([[0, 0.8], [0.62, 0.1], [0.85, -0.6], [0.25, -0.35], [0, -0.75], [-0.25, -0.35], [-0.85, -0.6], [-0.62, 0.1]]);
+      } else if (e.type === "hauler") {
+        poly([[-0.95, -0.5], [0.95, -0.5], [0.8, 0.55], [-0.8, 0.55]]);
+        ctx.fillStyle = "rgba(212,175,55,0.25)";
+        ctx.fillRect(-0.45 * s, -0.28 * s, 0.9 * s, 0.3 * s);
+      } else if (e.type === "warden") {
+        poly([[-1.0, -0.62], [1.0, -0.62], [0.86, 0.3], [0.4, 0.78], [-0.4, 0.78], [-0.86, 0.3]]);
+        ctx.strokeStyle = GOLD; ctx.lineWidth = Math.max(1, 2 * scale);
+        ctx.beginPath(); ctx.moveTo(-0.8 * s, -0.4 * s); ctx.lineTo(0.8 * s, -0.4 * s); ctx.stroke();
+        var dome = ctx.createRadialGradient(0, -0.1 * s, 1, 0, -0.1 * s, 0.4 * s);
+        dome.addColorStop(0, "#ffe9a8"); dome.addColorStop(1, "rgba(138,109,31,0.15)");
+        ctx.fillStyle = dome;
+        ctx.beginPath(); ctx.arc(0, -0.1 * s, 0.34 * s, 0, Math.PI * 2); ctx.fill();
+      }
+      /* damage flash read: hulls pale as HP falls (hauler / warden) */
+      var maxHp = e.type === "warden" ? 20 : (e.type === "hauler" ? 3 : 1);
+      if (maxHp > 1 && e.hp < maxHp) {
+        ctx.fillStyle = "rgba(255,120,60," + (0.35 * (1 - e.hp / maxHp)) + ")";
+        ctx.beginPath(); ctx.arc(0, 0, s * 0.6, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function draw(state) {
+      frame++;
+      drainEvents(state);
+      var theme = (state.events && banner) ? banner.theme :
+        ["void-drift", "ember-nebula", "violet-deep", "teal-expanse", "crimson-belt", "gold-reach"][(state.board - 1) % 6];
+      var accent = THEME_ACCENT[theme] || THEME_ACCENT["void-drift"];
+      ctx.save();
+      if (shake > 0) { ctx.translate((rnd() - 0.5) * shake, (rnd() - 0.5) * shake); shake *= 0.86; if (shake < 0.3) shake = 0; }
+      /* void + theme nebula wash */
+      ctx.fillStyle = VOID; ctx.fillRect(-12, -12, W + 24, H + 24);
+      var neb = ctx.createRadialGradient(W * 0.7, H * 0.22, 10, W * 0.7, H * 0.22, W * 0.75);
+      neb.addColorStop(0, accent + "2e"); neb.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = neb; ctx.fillRect(0, 0, W, H);
+      /* perspective lane lines converging upward — static depth cue */
+      ctx.strokeStyle = "rgba(58,53,42,0.5)"; ctx.lineWidth = 1;
+      for (var li = 0; li <= 6; li++) {
+        var bx = (W / 6) * li;
+        ctx.beginPath(); ctx.moveTo(W / 2 + (bx - W / 2) * 0.34, 0); ctx.lineTo(bx, H); ctx.stroke();
+      }
+      /* parallax starfield (forward flight = stars stream downward) */
+      for (var L = 0; L < layers.length; L++) {
+        var lay = layers[L];
+        ctx.fillStyle = "rgba(242,237,225," + lay.a + ")";
+        for (var i = 0; i < lay.stars.length; i++) {
+          var st = lay.stars[i];
+          st.y += lay.speed; if (st.y > H + 2) { st.y = -2; st.x = rnd() * W; }
+          ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2); ctx.fill();
+          if (L === 2) { ctx.fillRect(st.x - 0.5, st.y - st.r * 3.2, 1, st.r * 3.2); }
+        }
+      }
+      /* gates / rings */
+      rings = rings.filter(function (r) { return r.a > 0.02; });
+      for (var ri = 0; ri < rings.length; ri++) {
+        var rg = rings[ri];
+        rg.r += rg.vr; rg.a *= rg.gate ? 0.965 : 0.9;
+        ctx.strokeStyle = rg.gate ? accent : GOLD;
+        ctx.globalAlpha = Math.max(0, rg.a);
+        ctx.lineWidth = rg.gate ? 3 : 2;
+        ctx.beginPath();
+        if (rg.gate) ctx.ellipse(rg.x, rg.y, rg.r * 1.7, rg.r, 0, 0, Math.PI * 2);
+        else ctx.arc(rg.x, rg.y, rg.r, 0, Math.PI * 2);
+        ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      /* missiles */
+      for (var b = 0; b < (state.bullets || []).length; b++) {
+        var bl = state.bullets[b];
+        var mx = (bl.x + 0.5) * cell, my = (bl.y + 0.5) * (H / 32);
+        ctx.strokeStyle = "rgba(212,175,55,0.45)"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(mx, my + cell * 0.9); ctx.lineTo(mx, my); ctx.stroke();
+        ctx.fillStyle = "#ffe9a8";
+        ctx.beginPath(); ctx.arc(mx, my, 2.6, 0, Math.PI * 2); ctx.fill();
+      }
+      /* enemies far-to-near so near sprites overlap far ones */
+      var ents = (state.entities || []).slice().sort(function (a, c) { return c.z - a.z; });
+      for (var ei = 0; ei < ents.length; ei++) drawEnemy(ents[ei]);
+      drawShip(state);
+      /* particles */
+      particles = particles.filter(function (p) { return p.life > 0; });
+      for (var pi = 0; pi < particles.length; pi++) {
+        var p = particles[pi];
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.94; p.vy *= 0.94; p.life -= p.decay;
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+      }
+      ctx.globalAlpha = 1;
+      /* board banner */
+      if (banner && frame <= banner.until) {
+        var ba = Math.min(1, (banner.until - frame) / 14);
+        ctx.globalAlpha = ba;
+        ctx.fillStyle = INK;
+        ctx.font = "700 30px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("BOARD " + banner.board, W / 2, H * 0.3);
+        ctx.fillStyle = accent === GOLD ? GOLD : accent;
+        ctx.font = "600 15px system-ui, sans-serif";
+        ctx.fillText(banner.theme.replace(/-/g, " ").toUpperCase(), W / 2, H * 0.3 + 26);
+        ctx.globalAlpha = 1;
+      } else if (banner && frame > banner.until) banner = null;
+      /* hit flash */
+      if (flashA > 0.01) {
+        ctx.fillStyle = "rgba(255,220,150," + flashA + ")";
+        ctx.fillRect(-12, -12, W + 24, H + 24);
+        flashA *= 0.82;
+      }
+      ctx.restore();
+    }
+
+    function reset() {
+      eventCursor = 0; particles = []; rings = []; banner = null;
+      shake = 0; flashA = 0; shipPrev = null; shipBank = 0; shipDead = false;
+    }
+
+    return { draw: draw, reset: reset };
+  }
+
+  var api = { createView: createView, THEME_ACCENT: THEME_ACCENT };
+  if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
+  if (typeof globalThis !== "undefined") { globalThis.StarlaneRender28D = api; }
 })();
     </script>
 
@@ -4095,6 +4370,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         var Core = (typeof window !== "undefined") ? window.StarlaneCore : null;
         var canvas = $("arc-sl-canvas");
         if (!Core || !canvas) return;
+        var slView = (typeof window !== "undefined" && window.StarlaneRender28D) ? window.StarlaneRender28D.createView(canvas) : null;
         var ctx = canvas.getContext("2d");
         var W = canvas.width, H = canvas.height, HORIZON = 66;
         var FIELD_W = Core.FIELD_W, FIELD_H = Core.FIELD_H, SPAWN_Z = Core.SPAWN_Z;
@@ -4255,6 +4531,12 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         }
 
         function render() {
+          // The 2.8D view (starlane_render.js) paints whenever a run
+          // state exists, and consumes run.events itself for bursts,
+          // the board banner and the gate ring. The painter below is
+          // the pre-run idle screen and the no-view fallback.
+          var viewState = run || lastState;
+          if (slView && viewState) { slView.draw(viewState); return; }
           ctx.fillStyle = "#060504";
           ctx.fillRect(0, 0, W, H);
           // starfield layers (far to near)
@@ -4443,15 +4725,13 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var st = run || lastState;
           if (!st || !st.result) return;
           var r = st.result;
-          txt("arc-hud-sector", String(r.sector_reached));
+          txt("arc-hud-sector", String(r.boards_reached));
           txt("arc-hud-score", String(r.score));
-          var sh = "";
-          for (var i = 0; i < 3; i++) sh += (i < st.shields ? "◆" : "◇") + (i < 2 ? " " : "");
-          txt("arc-hud-shields", sh);
-          txt("arc-hud-bombs", String(st.bombs));
+          txt("arc-hud-kills", String(r.kills));
+          txt("arc-hud-wardens", String(r.warden_kills));
           var sub = $("arc-hud-sub");
-          if (sub) sub.innerHTML = "DISTANCE <b>" + r.distance_score + "</b> · KILL SCORE <b>" + r.kill_score +
-            "</b> · KILLS <b>" + r.kills + "</b> · NEAR-MISS <b>" + r.near_miss_score + "</b> · TICK <b>" + r.ticks + "</b>";
+          if (sub) sub.innerHTML = "KILL SCORE <b>" + r.kill_score + "</b> · KILLS <b>" + r.kills +
+            "</b> · WARDEN KILLS <b>" + r.warden_kills + "</b> · BOARD <b>" + r.boards_reached + "</b> · TICK <b>" + r.ticks + "</b>";
         }
 
         /* ---------- run lifecycle ---------- */
@@ -4464,13 +4744,18 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           if (input.fire !== lastFire) { inputLog.push([T, input.fire ? "F1" : "F0"]); lastFire = input.fire; }
           if (input.bomb) inputLog.push([T, "B"]);
           Core.step(run, input);
-          // render-side effects from the core's event stream
-          for (var i = seenEvents; i < run.events.length; i++) {
-            var ev = run.events[i];
-            if (ev.type === "kill" && prevPos[ev.entity_id]) spawnShards(prevPos[ev.entity_id], ev.entity_type);
-            if (ev.type === "bomb" || ev.type === "hit") flash = 1;
+          // Event-stream effects belong to the 2.8D view when it is
+          // live — it consumes run.events itself, so the shell must not
+          // also paint explosions. The shard/flash path below serves
+          // only the fallback painter.
+          if (!slView) {
+            for (var i = seenEvents; i < run.events.length; i++) {
+              var ev = run.events[i];
+              if (ev.type === "kill" && prevPos[ev.entity_id]) spawnShards(prevPos[ev.entity_id], ev.entity_type);
+              if (ev.type === "bomb" || ev.type === "hit") flash = 1;
+            }
+            seenEvents = run.events.length;
           }
-          seenEvents = run.events.length;
           updateHud();
           if (run.over) finishRun();
         }
@@ -4478,6 +4763,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           if (running) return;
           runSeed = Math.floor(Math.random() * 4294967296) >>> 0;   // fresh random uint32 per run; the seed is recorded on the claim
           run = Core.newGame(runSeed, "blaster");
+          if (slView) slView.reset();
           lastState = run;
           inputLog = [];
           lastMoveCode = "0,0"; lastFire = false; bombQueued = false;
@@ -4502,7 +4788,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var r = run.result;
           txt("arc-sl-close",
             "RUN OVER — " + (run.over_reason === "tick_cap" ? "tick cap reached" : "ship destroyed") +
-            " · SECTOR " + r.sector_reached + " · SCORE " + r.score + " · " + r.ticks + " TICKS · " +
+            " · BOARD " + r.boards_reached + " · KILLS " + r.kills + " · SCORE " + r.score + " · " + r.ticks + " TICKS · " +
             "PRACTICE — NOT RECORD ELIGIBLE (charging inactive — no fee event, no record)");
           var btn = $("arc-sl-start");
           if (btn) { btn.disabled = false; btn.textContent = "FLY AGAIN — PRACTICE RUN"; }
@@ -4530,7 +4816,8 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             ticks: lastRun.ticks,
             claimed: {
               score: lastRun.result.score,
-              sector_reached: lastRun.result.sector_reached,
+              kills: lastRun.result.kills,
+              boards_reached: lastRun.result.boards_reached,
               ticks: lastRun.result.ticks
             },
             status: "UNVERIFIED CLAIM — practice run; charging inactive, no fee event, no L2 replay"

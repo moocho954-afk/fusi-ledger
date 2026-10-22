@@ -1444,7 +1444,7 @@ module.exports = {
     var tick = num(b.bonus_tick, 0);
     var combo = num(b.combo, bonusCombo);
     var energy = Math.min(1, combo / 14);              /* 0..1 escalation */
-    var horizonY = H * 0.30, catchY = H * 0.82, vpX = W / 2;
+    var horizonY = H * 0.30, catchY = H * 0.76, vpX = W / 2;
     function proj(p){
       var s = 0.10 + 0.90 * Math.pow(p, 1.5);
       return { y: horizonY + (catchY - horizonY) * Math.pow(p, 1.65), s: s };
@@ -1626,7 +1626,7 @@ module.exports = {
     var R = Math.min(W, H) * 0.175 * (1 + energy * 0.10);
     var hx = laneX(1, headLaneFloat());
     var strideT = performance.now() / 1000;
-    var hy = H * 0.865 + Math.sin(strideT * 3.4) * R * 0.045; /* stride bob */
+    var hy = H * 0.80 + Math.sin(strideT * 3.4) * R * 0.045; /* stride bob; head rides just under the catch plane, leaving the lower stage for the trailing body (A3) */
     ctx.fillStyle = "rgba(0,0,0,0.5)";
     ctx.beginPath(); ctx.ellipse(hx, catchY + (hy - catchY) * 0.4, R * 1.05, R * 0.22, 0, 0, Math.PI * 2); ctx.fill();
     var segN = Math.max(2, Math.min(28, ((board().snake || []).length) || 3));
@@ -1634,7 +1634,7 @@ module.exports = {
       var bf = bi / segN; /* 0 at the neck, 1 at the tail */
       var bx = hx + Math.sin(strideT * 2.6 - bi * 0.55) * W * 0.030 * (0.35 + bf);
       var by = hy + bf * (H - hy) * 0.94 + Math.sin(strideT * 3.4 - bi * 0.9) * R * 0.05;
-      var br = R * (0.88 - bf * 0.38);
+      var br = R * (0.90 - bf * 0.30);
       var bg2 = ctx.createRadialGradient(bx - br * 0.3, by - br * 0.3, br * 0.2, bx, by, br);
       bg2.addColorStop(0, "#e6c65c");
       bg2.addColorStop(0.55, "#b8923a");

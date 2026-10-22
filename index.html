@@ -1021,6 +1021,30 @@
         letter-spacing: .1em; color: var(--gold); padding: var(--s-4);
       }
     </style>
+    <style>
+      /* ===== 2026-10-22 OVERHAUL — legibility floor, learn, identity, starlane fullscreen ===== */
+      [style*="font-size:11px"] { font-size: 12px !important; }
+      [style*="font-size:10px"] { font-size: 12px !important; }
+      .learn-box { margin: 14px 0 4px; }
+      .learn-btn { letter-spacing: 1px; }
+      .learn-note { font-size: 12.5px; color: #9a958a; margin-top: 8px; line-height: 1.55; }
+      .learn-slot video { width: 100%; max-height: 70vh; background: #000; border: 1px solid #3a352a; border-radius: 6px; margin-top: 10px; }
+      #panel-starlane:fullscreen { background: #0e0d0b; overflow-y: auto; padding: 18px; }
+      .idp-h { margin: 2px 0 8px; }
+      .idp-state { border: 1px solid #3a352a; background: #0a0908; border-radius: 6px; padding: 10px 12px; margin: 10px 0; font-size: 14px; line-height: 1.55; }
+      .idp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 12px 0; }
+      .idp-cell { border: 1px solid #3a352a; border-radius: 6px; padding: 10px 12px; background: #0a0908; }
+      .idp-k { font-size: 11px; letter-spacing: 1px; color: #9a958a; margin-bottom: 4px; }
+      .idp-v { font-size: 15px; color: #f2ede1; }
+      .idp-list { margin: 8px 0 8px 18px; line-height: 1.6; font-size: 14px; }
+      .idp-lab { display: block; font-size: 13px; color: #9a958a; margin: 10px 0 4px; }
+      .idp-lab input, #idp-restore-email { width: 100%; box-sizing: border-box; background: #0a0908; border: 1px solid #3a352a; color: #f2ede1; border-radius: 4px; padding: 9px 10px; font-size: 15px; margin-top: 4px; }
+      #idp-restore-email { width: auto; min-width: 240px; margin-top: 0; }
+      .idp-ucheck { font-size: 12.5px; color: #d4af37; min-height: 16px; margin-top: 4px; }
+      .idp-msg { font-size: 13px; color: #d4af37; margin-top: 8px; min-height: 16px; }
+      .idp-restore { border-top: 1px solid #3a352a; margin-top: 14px; padding-top: 6px; }
+      .idp-privacy { margin-top: 12px; }
+    </style>
   </head>
   <body>
     <!-- ================= VAULT ENTRY GATE — ledger block h=131 =================
@@ -1703,6 +1727,19 @@
 
         <!-- TIME IN THE VAULT — dwell readout (ledger block h=132). The clock
              lives in page memory only; a reload starts a fresh visit at zero. -->
+        <div class="ds-panel" id="identity-panel" style="margin-top:var(--s-6)">
+          <div class="latest-label">Your name</div>
+          <h3 class="idp-h">One name — typed once, locked to you</h3>
+          <p class="note-plain">The first time you type your name, this phone remembers it. From then on your name is
+          already filled in everywhere on this ledger — claims, the market, the arcade, your visit record.
+          You never type it again. And when you are ready, you can <b>lock</b> your name to your email:
+          from that moment the name is provably yours, your coins and records live under the lock, and
+          nobody else can act under your name — on any phone.</p>
+          <div id="idp-state" class="idp-state">Reading your identity…</div>
+          <div id="idp-body"></div>
+          <p class="note-plain idp-privacy"><b>Your email stays private.</b> The world only ever sees your username and your wallet address.
+          Your email never appears on any page, list, market listing or record — the ledger stores only a fingerprint of it.</p>
+        </div>
         <div class="ds-panel" id="dwell-panel" style="margin-top:var(--s-6)">
           <div class="latest-label">Time in the vault</div>
           <div class="dwell-row">
@@ -1797,6 +1834,11 @@
         <div class="game-card" id="panel-snake">
           <h3>FUSI-SNAKE <span class="ex">— Example 003</span></h3>
           <p class="game-desc">A snake game specified entirely as a FUSIÓN-7 contract and built from it — v6: play it fullscreen (the ⛶ FULL button, or the game offers it when a run starts). Every 7th diamond is a GROWTH EVENT — impact, a dizzy beat, then the snake turns enormous and the arena widens (+4 × +2 cells per event, up to 61 × 41) while it keeps getting thicker. Every run is timed with a split for each diamond, and first place is ranked by diamonds, then by speed. Contract: block #62. Usage: block #63.</p>
+          <div class="learn-box">
+            <button class="ds-btn learn-btn" type="button" data-video="tutorials/snake-how-to-play.mp4">▶ PRESS HERE TO LEARN HOW TO PLAY</button>
+            <div class="learn-slot" hidden></div>
+            <p class="learn-note">Watch the game being played, step by step — every control shown as it is used, how scoring works, and exactly how the FUSI is earned.</p>
+          </div>
           <div class="first-place" id="snake-first-place" role="status" hidden></div>
           <script>
             // FIRST PLACE strip — reads the page's chain snapshot (window.BLOCK_DATA,
@@ -2121,6 +2163,11 @@
             <div class="game-card" id="panel-starlane">
               <h3>STARLANE <span class="ex">— rules fusi-starlane/v2 · behind the Arcade Door</span></h3>
               <p class="game-desc">A spaceship shooter on a pure deterministic core — the identical sim, integer math only, that the ledger's verifier replays. Traffic rides a flat 48 × 32 field; the depth is in the rendering, never in the collision.</p>
+              <div class="learn-box">
+                <button class="ds-btn learn-btn" type="button" data-video="tutorials/starlane-how-to-play.mp4">▶ PRESS HERE TO LEARN HOW TO PLAY</button>
+                <div class="learn-slot" hidden></div>
+                <p class="learn-note">Watch the game being played, step by step — every control shown as it is used, how scoring works, and exactly how the FUSI is earned.</p>
+              </div>
               <div class="arc-chiprow">
                 <span class="arc-chip">RENDER — <b>2.8D — depth you can see, movement strictly 2D</b></span>
                 <span class="arc-chip">RUN STATE — <b id="arc-sl-state">PRACTICE — NOT RECORD ELIGIBLE</b></span>
@@ -2135,9 +2182,10 @@
                 <div><div class="lab">Warden kills</div><div class="val small" id="arc-hud-wardens">—</div></div>
               </div>
               <div class="arc-sub" id="arc-hud-sub">KILL SCORE <b>0</b> · KILLS <b>0</b> · WARDEN KILLS <b>0</b> · BOARD <b>1</b> · TICK <b>0</b></div>
-              <p class="arc-controls"><b>Keyboard:</b> arrows or WASD move (8-way) · <b>Space</b> or <b>J</b> fire · <b>K</b> or <b>Shift</b> bomb. <b>Touch:</b> drag to steer — the ship rides above your finger, never under it — and fire is automatic while touching.</p>
+              <p class="arc-controls"><b>Keyboard:</b> arrows or WASD move (8-way) · <b>Space</b> or <b>J</b> fire. <b>Touch:</b> drag to steer — the ship rides above your finger, never under it — and fire is automatic while touching.</p>
               <div class="arc-actions" style="margin-top:14px">
                 <button class="arc-btn" id="arc-sl-start" type="button">START PRACTICE RUN</button>
+                <button class="arc-btn arc-btn-ghost" id="arc-sl-fs" type="button">⛶ FULL SCREEN — PLAY</button>
                 <button class="arc-btn arc-btn-ghost" id="arc-sl-copy" type="button" disabled>Copy run claim</button>
                 <button class="arc-btn arc-btn-ghost" id="arc-sl-download" type="button" disabled>Download run claim</button>
               </div>
@@ -2173,6 +2221,11 @@
             <div class="game-card" id="panel-getaway">
               <h3>GETAWAY <span class="ex">— rules fusi-getaway/v1 · behind the Arcade Door</span></h3>
               <p class="game-desc">Maze escape on a pure deterministic core — the identical sim, integer math only, that the ledger's verifier replays. Each board is a seeded maze: reach the getaway car before the journey clock runs out. Every cleared board banks more time and loads a bigger maze.</p>
+              <div class="learn-box">
+                <button class="ds-btn learn-btn" type="button" data-video="tutorials/getaway-how-to-play.mp4">▶ PRESS HERE TO LEARN HOW TO PLAY</button>
+                <div class="learn-slot" hidden></div>
+                <p class="learn-note">Watch the game being played, step by step — every control shown as it is used, how scoring works, and exactly how the FUSI is earned.</p>
+              </div>
               <div class="arc-chiprow">
                 <span class="arc-chip">BOARDS — <b>pocket 9 × 9 up to grand 17 × 17</b></span>
                 <span class="arc-chip">RUN STATE — <b id="arc-gw-state">PRACTICE — NOT RECORD ELIGIBLE</b></span>
@@ -3867,6 +3920,366 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     </script>
 
     <script>
+      /* ============ FUSI IDENTITY — one name for the whole ledger ============
+       * Owner rulings, 2026-10-22: identity overhaul order ~16:33 EDT;
+       * mechanism tap ~16:41 EDT — "Both — phone remembers me, email is
+       * the hard proof"; username rule ~16:43 EDT.
+       *
+       * Layer 1 — DEVICE MEMORY (convenience): the name typed once is
+       * stored on this device (localStorage "fusi-identity-v1", alongside
+       * the claim system's existing "fusi-player-name" key) with a random
+       * holder token. Every panel on the page reads the name from here —
+       * nobody re-types it anywhere.
+       *
+       * Layer 2 — EMAIL LOCK (hard proof): "Claim your name" binds the
+       * name to an email through the [FUSI-JOIN] registration draft.
+       * player_id = sha256("FUSI-PLAYER:" + normalized email)[:16] —
+       * byte-identical to systems/fusi-accounts/accounts.py. The account
+       * lands on-chain as account_registration (+ account_welcome with
+       * the broken wallet address); this module re-reads the page's chain
+       * snapshot (window.BLOCK_DATA) and flips the identity to LOCKED
+       * when the registration for the derived player_id is present.
+       *
+       * At registration the player also chooses a USERNAME — unique
+       * across the chain (checked here against the snapshot, enforced
+       * fail-closed inside accounts.py at registration). From then on
+       * the ONLY public identifiers are the username and the broken
+       * wallet address. The email is never rendered on any surface; it
+       * lives only on this device and inside the join email the player
+       * sends themselves.
+       *
+       * ACTING RULE: drafts that move value or write under a name
+       * (earn claims, fee drafts, market list/delist/accept, dwell
+       * record) check canAct(). A device-only guest may play and view,
+       * but if the current name is a LOCKED name on-chain and this
+       * device has not proven the email lock, canAct() is false and
+       * every arming path shows actRefusal() instead of arming.
+       * Stats are always derived from chain blocks keyed by player_id —
+       * never from the typed text. */
+      (function () {
+        "use strict";
+        var STORE_KEY = "fusi-identity-v1";
+        var NAME_KEY = "fusi-player-name";
+        var EARN_KEY = "fusi-snake-earn-v1";
+        var INBOX = "jno101687@gmail.com";
+        var USERNAME_RE = /^[A-Za-z0-9_.\-]{3,20}$/;
+
+        var mem = {};
+        function lsGet(k) {
+          try { if (typeof localStorage !== "undefined") return localStorage.getItem(k); } catch (e) {}
+          return (k in mem) ? mem[k] : null;
+        }
+        function lsSet(k, v) {
+          try { if (typeof localStorage !== "undefined") { localStorage.setItem(k, v); return; } } catch (e) {}
+          mem[k] = v;
+        }
+        function lsDel(k) {
+          try { if (typeof localStorage !== "undefined") localStorage.removeItem(k); } catch (e) {}
+          delete mem[k];
+        }
+        function randHex(n) {
+          var s = "", hex = "0123456789abcdef";
+          try {
+            var a = new Uint8Array(n); window.crypto.getRandomValues(a);
+            for (var i = 0; i < n; i++) s += hex[a[i] & 15];
+            return s;
+          } catch (e) {
+            for (var j = 0; j < n * 2; j++) s += hex[Math.floor(Math.random() * 16)];
+            return s.slice(0, n);
+          }
+        }
+
+        /* --- sha256 (crypto.subtle, async, cached) --- */
+        var shaCache = {};
+        function sha256hex(str) {
+          if (shaCache[str]) return shaCache[str];
+          var p = (window.crypto && window.crypto.subtle && window.crypto.subtle.digest)
+            ? window.crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)).then(function (buf) {
+                var b = new Uint8Array(buf), s = "";
+                for (var i = 0; i < b.length; i++) s += ("0" + b[i].toString(16)).slice(-2);
+                return s;
+              })
+            : Promise.reject(new Error("no subtle crypto"));
+          shaCache[str] = p;
+          return p;
+        }
+        function normalizeEmail(e) { return String(e || "").trim().toLowerCase(); }
+        function pidForEmail(email) {
+          var n = normalizeEmail(email);
+          if (n.indexOf("@") < 1 || n.charAt(n.length - 1) === "@") return Promise.resolve(null);
+          return sha256hex("FUSI-PLAYER:" + n).then(function (h) { return h.slice(0, 16); });
+        }
+        function walletFor(pid) {
+          return sha256hex("FUSI-WALLET:" + pid).then(function (h) {
+            var hex = h.slice(0, 24), groups = [];
+            for (var i = 0; i < 24; i += 4) groups.push(hex.slice(i, i + 4));
+            var full = "FUSI-" + groups.join("-");
+            var broken = "FUSI-" + groups[0] + "-┼┼┼┼-┼┼┼┼-┼┼┼┼-┼┼┼┼-" + groups[5];
+            return { full: full, broken: broken };
+          });
+        }
+
+        /* --- state --- */
+        var S = { name: "", email: "", username: "", pendingUsername: "",
+                  state: "guest", token: "", actionPid: "", accountPid: "",
+                  walletBroken: "", guestView: false, guestViewName: "" };
+        function load() {
+          try {
+            var raw = lsGet(STORE_KEY);
+            if (raw) { var o = JSON.parse(raw); for (var k in S) if (o[k] !== undefined) S[k] = o[k]; }
+          } catch (e) {}
+          if (!S.name) { var n = lsGet(NAME_KEY); if (n) S.name = String(n).trim(); }
+          if (!S.token) { S.token = randHex(32); save(); }
+        }
+        function save() {
+          lsSet(STORE_KEY, JSON.stringify(S));
+          if (S.name) lsSet(NAME_KEY, S.name);
+        }
+        function fire() {
+          try { document.dispatchEvent(new CustomEvent("fusi-identity")); } catch (e) {}
+        }
+        function devicePid() {
+          try {
+            var raw = lsGet(EARN_KEY);
+            if (raw) { var o = JSON.parse(raw); if (o && o.player) return String(o.player); }
+          } catch (e) {}
+          return lsGet("fusi-player-id") || "";
+        }
+        function blocks() {
+          try { if (typeof window !== "undefined" && Array.isArray(window.BLOCK_DATA)) return window.BLOCK_DATA; } catch (e) {}
+          return [];
+        }
+        function registrations() {
+          var out = [];
+          blocks().forEach(function (b) {
+            var p = (b && b.payload) || {};
+            if (p.kind === "account_registration" && p.player) out.push(p);
+          });
+          return out;
+        }
+        function lockedNameMap() {
+          var m = {};
+          registrations().forEach(function (p) {
+            if (p.player_name) m[String(p.player_name).trim().toLowerCase()] = p;
+            if (p.username) m[String(p.username).trim().toLowerCase()] = p;
+          });
+          return m;
+        }
+        function verifyLock() {
+          if (!S.accountPid) return false;
+          var regs = registrations(), found = null;
+          for (var i = 0; i < regs.length; i++) if (regs[i].player === S.accountPid) { found = regs[i]; break; }
+          if (found) {
+            var changed = S.state !== "locked";
+            S.state = "locked";
+            if (found.username) S.username = String(found.username);
+            if (found.player_name) S.name = String(found.player_name);
+            if (found.wallet_broken) S.walletBroken = String(found.wallet_broken);
+            if (changed) { save(); fire(); }
+            return true;
+          }
+          return false;
+        }
+        function deriveAccount() {
+          if (!S.email) return Promise.resolve(null);
+          return pidForEmail(S.email).then(function (pid) {
+            if (pid && pid !== S.accountPid) { S.accountPid = pid; save(); }
+            if (pid) return walletFor(pid).then(function (w) { S.walletBroken = w.broken; verifyLock(); fire(); return pid; });
+            return pid;
+          }).catch(function () { return null; });
+        }
+
+        function get() {
+          var locked = S.state === "locked";
+          return {
+            name: S.name || "",
+            username: S.username || S.pendingUsername || "",
+            displayName: (locked && S.username) ? S.username : (S.name || ""),
+            email: S.email || "",
+            pid: S.accountPid || S.actionPid || devicePid() || "",
+            accountPid: S.accountPid || "",
+            devicePid: devicePid() || "",
+            state: S.state,
+            locked: locked,
+            claimSent: S.state === "claim-sent",
+            walletBroken: S.walletBroken || "",
+            guestView: !!S.guestView,
+            token: S.token
+          };
+        }
+        function nameIsLockedByOther(name) {
+          var key = String(name || "").trim().toLowerCase();
+          if (!key) return null;
+          var reg = lockedNameMap()[key];
+          if (!reg) return null;
+          if (S.accountPid && reg.player === S.accountPid) return null;
+          return reg;
+        }
+        function canAct() {
+          if (S.state === "locked" || S.state === "claim-sent") return true;
+          if (S.guestView) return false;
+          return !nameIsLockedByOther(S.name);
+        }
+        function actRefusal() {
+          var who = S.name || S.guestViewName || "that name";
+          return "This name is locked — “" + who + "” belongs to a registered player, " +
+            "and this phone has not proven it is them. Prove it with the email the name is " +
+            "locked to (see the YOUR NAME panel on the main page), or use a name of your own. " +
+            "Nothing was sent.";
+        }
+        function lockNote() {
+          return "“" + (get().displayName || S.name) + "” is locked to its email — a locked name " +
+            "cannot be switched here. Locked names change only by the ledger owner's ruling.";
+        }
+        function setName(n) {
+          n = String(n || "").trim();
+          if (!n) return false;
+          if ((S.state === "locked" || S.state === "claim-sent") &&
+              n.toLowerCase() !== String(S.name).toLowerCase()) return false;
+          S.name = n;
+          if (!nameIsLockedByOther(n)) S.guestView = false;
+          save(); fire();
+          return true;
+        }
+        function noteIdentity(pid, name) {
+          if (pid && /^[0-9a-f]{16}$/i.test(String(pid).trim())) {
+            var p = String(pid).trim().toLowerCase();
+            if (p !== S.actionPid) { S.actionPid = p; save(); }
+          }
+          if (name && String(name).trim() &&
+              String(name).trim().toLowerCase() !== String(S.name).toLowerCase()) setName(name);
+        }
+        function usernameStatus(u) {
+          u = String(u || "").trim();
+          if (!USERNAME_RE.test(u)) return { ok: false, msg: "3–20 characters: letters, digits, underscore, dot or dash." };
+          var regs = registrations();
+          for (var i = 0; i < regs.length; i++) {
+            if (regs[i].username && String(regs[i].username).toLowerCase() === u.toLowerCase())
+              return { ok: false, msg: "“" + u + "” is already taken — pick another." };
+            if (regs[i].player_name && String(regs[i].player_name).toLowerCase() === u.toLowerCase() &&
+                (!S.accountPid || regs[i].player !== S.accountPid))
+              return { ok: false, msg: "“" + u + "” matches a locked name — pick another." };
+          }
+          return { ok: true, msg: "“" + u + "” is free." };
+        }
+        function claimUrl(email, username) {
+          var body = { action: "join", player_name: S.name, email: normalizeEmail(email), username: String(username || "").trim() };
+          return "mailto:" + INBOX + "?subject=" + encodeURIComponent("[FUSI-JOIN] register — " + S.name) +
+                 "&body=" + encodeURIComponent(JSON.stringify(body, null, 2));
+        }
+        function sendClaim(email, username) {
+          S.email = normalizeEmail(email);
+          S.pendingUsername = String(username || "").trim();
+          S.state = "claim-sent";
+          S.guestView = false;
+          save(); fire();
+          return deriveAccount();
+        }
+        function restoreWithEmail(email) {
+          var n = normalizeEmail(email);
+          return pidForEmail(n).then(function (pid) {
+            if (!pid) return { ok: false, msg: "That does not look like an email address." };
+            var regs = registrations(), found = null;
+            for (var i = 0; i < regs.length; i++) if (regs[i].player === pid) { found = regs[i]; break; }
+            if (!found) return { ok: false, msg: "No locked account matches that email on the chain yet. If you just sent your claim email, give it a minute to land, then try again." };
+            S.email = n; S.accountPid = pid;
+            S.name = String(found.player_name || S.name);
+            S.username = String(found.username || "");
+            S.walletBroken = String(found.wallet_broken || "");
+            S.state = "locked"; S.guestView = false;
+            save(); fire();
+            return { ok: true, msg: "Welcome back — this device is now proven as " + (S.username || S.name) + "." };
+          });
+        }
+        function startFresh() {
+          var keepToken = S.token;
+          S = { name: "", email: "", username: "", pendingUsername: "", state: "guest",
+                token: keepToken, actionPid: "", accountPid: "", walletBroken: "", guestView: false, guestViewName: "" };
+          lsDel(NAME_KEY);
+          save(); fire();
+        }
+        function gateEnter(typed) {
+          var t = String(typed || "").trim();
+          if (!t) return { name: S.name || "", mode: S.state, note: null };
+          if ((S.state === "locked" || S.state === "claim-sent") && S.name) {
+            if (t.toLowerCase() === String(S.name).toLowerCase())
+              return { name: S.name, mode: S.state, note: null };
+            return { name: S.name, mode: S.state,
+              note: "This phone is locked to “" + S.name + "” — you are in under that name. " +
+                    "To visit as someone else, start fresh in the YOUR NAME panel; a fresh guest " +
+                    "can never take a locked name or its stats." };
+          }
+          var other = nameIsLockedByOther(t);
+          if (other) {
+            S.guestView = true; S.guestViewName = t; save();
+            return { name: t, mode: "guest-view", note: actRefusal() };
+          }
+          setName(t);
+          return { name: t, mode: "guest", note: null };
+        }
+        function welcomeBack() {
+          if (!S.name) return null;
+          if (S.state === "locked")
+            return "Welcome back, " + (S.username || S.name) + " — your name is locked to you, and this phone knows it. Just press enter.";
+          if (S.state === "claim-sent")
+            return "Welcome back, " + S.name + " — your name claim is on its way to the ledger. Just press enter.";
+          return "Welcome back, " + S.name + " — this phone remembers you. Your name is already filled in, here and everywhere on the page. Just press enter.";
+        }
+        function stats() {
+          var pidSet = {};
+          if (S.accountPid) pidSet[S.accountPid] = true;
+          if (S.actionPid) pidSet[S.actionPid] = true;
+          var dp = devicePid(); if (dp) pidSet[dp] = true;
+          var bl = blocks();
+          var revoked = {};
+          bl.forEach(function (b) {
+            var p = (b && b.payload) || {};
+            if (p.kind === "credit_adjust" && p.action === "revoke" && p.cites && typeof p.cites.height === "number")
+              revoked[p.cites.height] = true;
+          });
+          var grants = 0, fusi = 0, grantHeights = {}, coins = [], best = null, runs = 0, dwellCount = 0, dwellSecs = 0;
+          var names = {};
+          if (S.name) names[String(S.name).toLowerCase()] = true;
+          if (S.username) names[String(S.username).toLowerCase()] = true;
+          bl.forEach(function (b) {
+            var p = (b && b.payload) || {};
+            if (p.kind === "earn_grant" && p.player && pidSet[p.player] && !revoked[b.h]) {
+              grants++; fusi += (typeof p.fusi === "number" ? p.fusi : 0); grantHeights[b.h] = true;
+            }
+            if (p.kind === "coin_registry" && p.player && pidSet[p.player])
+              coins.push({ serial: p.serial, house: p.house, achievement: p.achievement || "" });
+            if (p.kind === "game_record") {
+              var r = (p.record && typeof p.record === "object") ? p.record : p;
+              var rn = String(r.player_name || r.name || "").toLowerCase();
+              if ((r.player && pidSet[r.player]) || (rn && names[rn])) {
+                runs++;
+                var d = (typeof r.diamonds === "number") ? r.diamonds : (typeof r.score === "number" ? r.score : null);
+                if (d !== null && (best === null || d > best)) best = d;
+              }
+            }
+            if (p.kind === "dwell_record" && p.player_name && names[String(p.player_name).toLowerCase()]) {
+              dwellCount++; dwellSecs += (typeof p.dwell_seconds === "number" ? p.dwell_seconds : 0);
+            }
+          });
+          return { grants: grants, fusi: fusi, coins: coins, bestDiamonds: best,
+                   recordRuns: runs, dwellVisits: dwellCount, dwellSeconds: dwellSecs,
+                   hasIdentity: !!(S.accountPid || dp) };
+        }
+
+        load();
+        deriveAccount();
+        window.FusiIdentity = {
+          get: get, setName: setName, noteIdentity: noteIdentity, canAct: canAct,
+          actRefusal: actRefusal, lockNote: lockNote, gateEnter: gateEnter,
+          welcomeBack: welcomeBack, usernameStatus: usernameStatus,
+          claimUrl: claimUrl, sendClaim: sendClaim, restoreWithEmail: restoreWithEmail,
+          startFresh: startFresh, verifyLock: verifyLock, stats: stats,
+          pidForEmail: pidForEmail, walletFor: walletFor
+        };
+      })();
+    </script>
+
+    <script>
       // THE ARCADE — additive layer below the snake game.
       // Terms, fees, rentals, milestones and pool balances render from the
       // chain snapshot the rest of this page reads (window.BLOCK_DATA, kept
@@ -4110,6 +4523,11 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
               if (!name && window.__fusiPlayer.name) name = String(window.__fusiPlayer.name() || "").trim();
             } catch (e) {}
           }
+          if ((!pid || !name) && window.FusiIdentity) {
+            var fig = window.FusiIdentity.get();
+            if (!pid && fig.pid) pid = fig.pid;
+            if (!name && fig.displayName) name = fig.displayName;
+          }
           return { pid: pid, name: name };
         }
         function syncArcadeFieldsFromPage() {
@@ -4168,6 +4586,12 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var sig = JSON.stringify(bodyObj);
           if (sig !== draftSigs[slot]) { draftSigs[slot] = sig; draftKeys[slot] = newKey(); }
           bodyObj.idempotency_key = draftKeys[slot];
+          if (bodyObj.player && bodyObj.player_name && window.FusiIdentity && !window.FusiIdentity.canAct()) {
+            btn.classList.add("btn-off");
+            btn.href = "#";
+            hint.textContent = window.FusiIdentity.actRefusal();
+            return;
+          }
           if (bodyObj.player && bodyObj.player_name) {
             btn.classList.remove("btn-off");
             btn.href = mailtoHref(subject, bodyObj);
@@ -4261,8 +4685,8 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             var rentals = $("arc-sl-rentals");
             if (rentals && star.loadout_rentals) {
               rentals.textContent = "";
-              var order = ["spread", "rapid", "lance", "extra_bomb"];
-              var names = { spread: "Spread", rapid: "Rapid", lance: "Lance", extra_bomb: "Extra bomb" };
+              var order = ["spread", "rapid", "lance"];
+              var names = { spread: "Spread", rapid: "Rapid", lance: "Lance" };
               order.forEach(function (k) {
                 var r = star.loadout_rentals[k];
                 if (!r) return;
@@ -4352,7 +4776,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         }
         ["arc-pid", "arc-pname"].forEach(function (id) {
           var n = $(id);
-          if (n) n.addEventListener("input", function () { pushIdentityToMarket(); renderDynamic(); });
+          if (n) n.addEventListener("input", function () { if (window.FusiIdentity) { var iv = identity(); window.FusiIdentity.noteIdentity(iv.pid, iv.name); } pushIdentityToMarket(); renderDynamic(); });
         });
         ["list-pid", "list-name", "delist-pid", "delist-name"].forEach(function (id) {
           var n = $(id);
@@ -4381,7 +4805,6 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         var runSeed = 0;
         var inputLog = [];
         var lastMoveCode = "0,0", lastFire = false;
-        var bombQueued = false;
         var lastRun = null;      // { seed, inputs, ticks, result }
         var keysDown = {};
         var touch = { active: false, x: 0, y: 0 };
@@ -4647,9 +5070,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             if (keysDown.down) dy += 1;
             fire = !!keysDown.fire;
           }
-          var bomb = bombQueued;
-          bombQueued = false;
-          return { dx: dx, dy: dy, fire: fire, bomb: bomb };
+          return { dx: dx, dy: dy, fire: fire };
         }
         var KEYMAP = {
           ArrowLeft: "left", KeyA: "left", ArrowRight: "right", KeyD: "right",
@@ -4667,12 +5088,6 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         // other listener on the page behaves exactly as before.
         document.addEventListener("keydown", function (e) {
           if (!running || isFormTarget(e.target)) return;
-          if (e.code === "KeyK" || e.code === "ShiftLeft" || e.code === "ShiftRight") {
-            if (!e.repeat) bombQueued = true;
-            e.preventDefault();
-            e.stopPropagation();
-            return;
-          }
           var k = KEYMAP[e.code];
           if (k) {
             keysDown[k] = true;
@@ -4742,7 +5157,6 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var mv = input.dx + "," + input.dy;
           if (mv !== lastMoveCode) { inputLog.push([T, "M" + mv]); lastMoveCode = mv; }
           if (input.fire !== lastFire) { inputLog.push([T, input.fire ? "F1" : "F0"]); lastFire = input.fire; }
-          if (input.bomb) inputLog.push([T, "B"]);
           Core.step(run, input);
           // Event-stream effects belong to the 2.8D view when it is
           // live — it consumes run.events itself, so the shell must not
@@ -4752,7 +5166,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             for (var i = seenEvents; i < run.events.length; i++) {
               var ev = run.events[i];
               if (ev.type === "kill" && prevPos[ev.entity_id]) spawnShards(prevPos[ev.entity_id], ev.entity_type);
-              if (ev.type === "bomb" || ev.type === "hit") flash = 1;
+              if (ev.type === "hit") flash = 1;
             }
             seenEvents = run.events.length;
           }
@@ -4766,7 +5180,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           if (slView) slView.reset();
           lastState = run;
           inputLog = [];
-          lastMoveCode = "0,0"; lastFire = false; bombQueued = false;
+          lastMoveCode = "0,0"; lastFire = false;
           keysDown = {}; shards = []; prevPos = {}; seenEvents = 0; flash = 0;
           running = true;
           txt("arc-sl-close", "");
@@ -7562,6 +7976,11 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         nameInput.focus();
         return;
       }
+      if (window.FusiIdentity && !window.FusiIdentity.setName(n)) {
+        setPlayerMsg(window.FusiIdentity.lockNote(), false);
+        nameInput.value = window.FusiIdentity.get().name || n;
+        return;
+      }
       setName(n);
       nameInput.value = n;
       setPlayerMsg("saved — claims now go out under “" + n + "”");
@@ -7571,6 +7990,11 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
       if (ev.key === "Enter") { ev.preventDefault(); doSave(); }
     });
     rowEl.appendChild(saveBtn);
+    if (window.FusiIdentity && window.FusiIdentity.get().locked) {
+      nameInput.readOnly = true;
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Name locked";
+    }
     playerPanel.appendChild(rowEl);
     var idRow = el("div", "font-size:12px;color:" + DIM + ";margin-top:8px;", "player id · ");
     var idVal = el("span", "color:" + GOLD + ";font-family:monospace;", "—");
@@ -7681,6 +8105,10 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
       "Claim all rewards");
     claimAllBtn.setAttribute("type", "button");
     claimAllBtn.onclick = function () {
+      if (window.FusiIdentity && !window.FusiIdentity.canAct()) {
+        setMsg(window.FusiIdentity.actRefusal(), false);
+        return;
+      }
       if (!requireName()) {
         setMsg("set your player name first — claims are paid to the name on them", false);
         return;
@@ -9310,7 +9738,8 @@ if (typeof window !== "undefined") {
 
         var board = null;        // normalized market board currently rendered
         var loadedOnce = false;  // a live snapshot has rendered at least once
-        var identity = { pid: "", name: "" }; // in-memory only, this visit
+        var identity = { pid: "", name: "" }; // seeded from the one page identity (FusiIdentity)
+        if (window.FusiIdentity) { var fiSeed = window.FusiIdentity.get(); if (fiSeed.pid) identity.pid = fiSeed.pid; if (fiSeed.displayName) identity.name = fiSeed.displayName; }
 
         /* ---------------- helpers ---------------- */
         function el(tag, cls, text) {
@@ -9546,6 +9975,13 @@ if (typeof window !== "undefined") {
             if (p.to_player && p.to_player_name) names[p.to_player] = p.to_player_name;
             if (p.lister && p.lister_name) names[p.lister] = p.lister_name;
           });
+          /* usernames win: once a player is registered, the ONLY public
+             name for their player_id is the username (owner rule,
+             2026-10-22) — it overrides every display name above. */
+          asc.forEach(function (b) {
+            var p = b.payload || {};
+            if (p.kind === "account_registration" && p.player && p.username) names[p.player] = p.username;
+          });
 
           function ownerOf(regH, regP) {
             var owner = null;
@@ -9749,13 +10185,15 @@ if (typeof window !== "undefined") {
             form.appendChild(note);
             function syncBuy() {
               identity.pid = pid.value.trim(); identity.name = nm.value.trim();
+              if (window.FusiIdentity) window.FusiIdentity.noteIdentity(identity.pid, identity.name);
               syncIdentityForms();
-              if (identity.pid && identity.name) {
+              if (identity.pid && identity.name && !(window.FusiIdentity && !window.FusiIdentity.canAct())) {
                 send.classList.remove("btn-off");
                 send.href = mailto("[FUSI-TRANSFER] accept listing h=" + l.listing_height,
                   { action: "accept", listing_height: l.listing_height, by_player: identity.pid, by_player_name: identity.name });
               } else {
                 send.classList.add("btn-off"); send.href = "#";
+                if (window.FusiIdentity && !window.FusiIdentity.canAct()) note.textContent = window.FusiIdentity.actRefusal();
               }
             }
             pid.addEventListener("input", syncBuy);
@@ -10067,7 +10505,7 @@ if (typeof window !== "undefined") {
           if (!board || !sel.value) { send.classList.add("btn-off"); send.href = "#"; return; }
           var opt = sel.options[sel.selectedIndex];
           var askN = parseFloat(ask.value);
-          if (identity.pid && identity.name && ask.value !== "" && !isNaN(askN) && askN >= 0) {
+          if (identity.pid && identity.name && ask.value !== "" && !isNaN(askN) && askN >= 0 && !(window.FusiIdentity && !window.FusiIdentity.canAct())) {
             send.classList.remove("btn-off");
             send.href = mailto("[FUSI-MARKET] list " + opt.getAttribute("data-serial"), {
               action: "list",
@@ -10079,7 +10517,7 @@ if (typeof window !== "undefined") {
             hint.textContent = askN === 0 ? "Gift listing — ask 0 FUSI, fee-free." : "Draft arms: " + opt.getAttribute("data-serial") + " at " + fmt(askN) + " FUSI.";
           } else {
             send.classList.add("btn-off"); send.href = "#";
-            hint.textContent = "Fill every field to arm the draft.";
+            hint.textContent = (window.FusiIdentity && !window.FusiIdentity.canAct()) ? window.FusiIdentity.actRefusal() : "Fill every field to arm the draft.";
           }
         }
         function syncDelistForm() {
@@ -10092,7 +10530,7 @@ if (typeof window !== "undefined") {
             hint.textContent = board && board.open_listings.length ? "Pick a listing to arm the draft." : "No open listings to delist right now.";
             return;
           }
-          if (identity.pid && identity.name) {
+          if (identity.pid && identity.name && !(window.FusiIdentity && !window.FusiIdentity.canAct())) {
             send.classList.remove("btn-off");
             send.href = mailto("[FUSI-MARKET] delist listing h=" + sel.value, {
               action: "delist", listing_height: parseInt(sel.value, 10),
@@ -10101,7 +10539,7 @@ if (typeof window !== "undefined") {
             hint.textContent = "Draft arms: delist listing h=" + sel.value + ".";
           } else {
             send.classList.add("btn-off"); send.href = "#";
-            hint.textContent = "Add your player ID and name to arm the draft.";
+            hint.textContent = (window.FusiIdentity && !window.FusiIdentity.canAct()) ? window.FusiIdentity.actRefusal() : "Add your player ID and name to arm the draft.";
           }
         }
         function wireForms() {
@@ -10110,6 +10548,7 @@ if (typeof window !== "undefined") {
             if (!input) return;
             input.addEventListener("input", function () {
               identity[pair[1]] = input.value.trim();
+              if (window.FusiIdentity) window.FusiIdentity.noteIdentity(identity.pid, identity.name);
               syncIdentityForms();
             });
           });
@@ -10384,6 +10823,7 @@ if (typeof window !== "undefined") {
             dwell_display: fmtClock(ms),
             page: "fusi-n-7-live-ledger"
           };
+          if (window.FusiIdentity && !window.FusiIdentity.canAct()) { recordEl.removeAttribute("href"); return; }
           recordEl.href = "mailto:" + INBOX + "?subject=" + encodeURIComponent("[FUSI-DWELL]") +
             "&body=" + encodeURIComponent(JSON.stringify(body, null, 2));
         }
@@ -10461,8 +10901,15 @@ if (typeof window !== "undefined") {
             }
             return;
           }
-          saveName(name);
-          admit(name, true);
+          var finalName = name;
+          if (window.FusiIdentity) {
+            var gr = window.FusiIdentity.gateEnter(name);
+            finalName = gr.name;
+            if (gr.note && hint) hint.textContent = gr.note;
+          } else {
+            saveName(name);
+          }
+          admit(finalName, true);
         });
         if (skipBtn) skipBtn.addEventListener("click", function () { admit(savedName(), false); });
         document.addEventListener("keydown", function (ev) {
@@ -10473,6 +10920,7 @@ if (typeof window !== "undefined") {
         try {
           if (gate) {
             if (nameInput) nameInput.value = savedName();
+            if (window.FusiIdentity && hint) { var wb = window.FusiIdentity.welcomeBack(); if (wb) hint.textContent = wb; }
             gate.hidden = false;
             gate.classList.add("vg-on");
             lockScroll(true);
@@ -10543,6 +10991,7 @@ if (typeof window !== "undefined") {
           { route: "wallet", label: "SUB-PAGE", title: "Wallets", el: $("beat-wallet") },
           { route: "market", label: "SUB-PAGE", title: "Marketplace", el: $("beat-market") },
           { route: "explore", label: "SUB-PAGE", title: "Explore — the rules", el: $("beat-explore") },
+          { route: "home", label: "MAIN LEDGER", title: "Your name — one name, locked to you", el: $("identity-panel") },
           { route: "home", label: "MAIN LEDGER", title: "Time in the vault", el: $("dwell-panel") },
           { route: "play", label: "SUB-PAGE", title: "Play — The Forge, the games themselves", el: $("the-forge") },
           { route: "workshop", label: "SUB-PAGE", title: "Creator workshop", el: $("creator-workshop") },
@@ -10703,5 +11152,188 @@ if (typeof window !== "undefined") {
         applyRoute(resolveHash());
       })();
     </script>
-  </body>
+      <script>
+      /* ============ IDENTITY PANEL + LEARN BUTTONS + STARLANE FULLSCREEN ============
+       * Late UI layer for the 2026-10-22 overhaul: renders the YOUR NAME
+       * panel from window.FusiIdentity, wires the per-game tutorial
+       * entries, and gives STARLANE its fullscreen play control. */
+      (function () {
+        "use strict";
+        var FI = window.FusiIdentity;
+        if (!FI) return;
+        function $(id) { return document.getElementById(id); }
+        function esc(s) {
+          return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        }
+
+        /* ---------- multi-page presence: the panel rides home + wallet + earn + play ---------- */
+        var panel = $("identity-panel");
+        if (panel) {
+          panel.setAttribute("data-pg", "home wallet earn play");
+        }
+
+        function statsHtml(st, g) {
+          function cell(k, v) { return '<div class="idp-cell"><div class="idp-k">' + k + '</div><div class="idp-v">' + v + "</div></div>"; }
+          var dwell = st.dwellSeconds >= 3600
+            ? Math.floor(st.dwellSeconds / 3600) + "h " + Math.floor((st.dwellSeconds % 3600) / 60) + "m"
+            : Math.floor(st.dwellSeconds / 60) + " min";
+          var coins = st.coins.length
+            ? st.coins.map(function (c) { return esc(c.serial); }).join(" · ")
+            : "none yet — play snake to mint your first";
+          var h = '<div class="idp-grid">' +
+            cell("FUSI EARNED (ON-CHAIN)", st.fusi + " FUSI · " + st.grants + (st.grants === 1 ? " grant" : " grants")) +
+            cell("COINS YOU OWN", st.coins.length + " — " + coins) +
+            cell("BEST SNAKE RUN ON RECORD", st.bestDiamonds === null ? "no verified record yet" : st.bestDiamonds + " diamonds") +
+            cell("TIME IN THE VAULT", st.dwellVisits + (st.dwellVisits === 1 ? " visit" : " visits") + " · " + dwell) +
+            "</div>";
+          h += '<p class="note-plain">These numbers are read from the ledger chain itself, counted under your ' +
+            "player ID — never from the name you typed. That is what the lock protects.</p>";
+          return h;
+        }
+
+        function render() {
+          var stateEl = $("idp-state"), body = $("idp-body");
+          if (!stateEl || !body) return;
+          var g = FI.get();
+          var st = FI.stats();
+          var h = "";
+          if (g.locked) {
+            stateEl.innerHTML = "🔒 <b>LOCKED</b> — you are <b>" + esc(g.displayName) + "</b>" +
+              (g.walletBroken ? ' · wallet <span class="ds-data">' + esc(g.walletBroken) + "</span>" : "");
+            h += '<p class="note-plain">Your name is locked to your email. On any phone, entering that email ' +
+              "brings this exact identity back — same name, same wallet, same stats. " +
+              "A locked name changes only by the ledger owner's ruling.</p>";
+            h += statsHtml(st, g);
+            h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">This isn\u2019t me — start fresh on this phone</button>' +
+              '<span class="hint">Starting fresh makes a brand-new guest on this phone. It can never take the locked name, its coins, or its stats.</span></div>';
+          } else if (g.claimSent) {
+            stateEl.innerHTML = "⏳ <b>CLAIM SENT</b> — " + esc(g.name) + " is being locked" +
+              (g.username ? " · username <b>" + esc(g.username) + "</b>" : "") +
+              (g.walletBroken ? ' · wallet <span class="ds-data">' + esc(g.walletBroken) + "</span>" : "");
+            h += '<p class="note-plain">Your claim email is on its way. The moment the ledger records it, this panel ' +
+              "flips to LOCKED and your username + wallet appear here. If you did not send the email yet, " +
+              "it is waiting in your mail app — just press send.</p>";
+            h += statsHtml(st, g);
+            h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">Cancel the claim on this phone</button></div>';
+          } else if (g.name) {
+            stateEl.innerHTML = "👤 <b>" + esc(g.name) + "</b> — remembered on this phone (not locked yet)";
+            h += '<p class="note-plain">Right now this phone knows you as <b>' + esc(g.name) + "</b>, and every form on the page " +
+              "already carries that name. That is the easy part. <b>Locking</b> is what makes the name provably yours:</p>" +
+              '<ul class="idp-list"><li>Your name becomes bound to your email — one account per email, locked on the ledger itself.</li>' +
+              "<li>You choose a <b>username</b> — the name the world sees, unique to you.</li>" +
+              "<li>Your coins, records and stats attach to the lock, not to whatever a stranger types.</li>" +
+              "<li>Nobody can claim rewards, trade, or list under your name without the email proof — not even on another phone.</li></ul>";
+            h += '<div class="idp-form">' +
+              '<label class="idp-lab">Your email — the hard proof. It stays private; only a fingerprint ever touches the ledger.<input id="idp-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>' +
+              '<label class="idp-lab">Choose your username — 3–20 characters: letters, digits, _ . -<input id="idp-username" type="text" autocomplete="off" placeholder="e.g. Moocho954" /></label>' +
+              '<div class="idp-ucheck" id="idp-ucheck"></div>' +
+              '<div class="form-actions"><a class="ds-btn btn-off" id="idp-claim" href="#" target="_blank" rel="noopener">CLAIM YOUR NAME — LOCK IT TO YOUR EMAIL</a>' +
+              '<span class="hint">Opens a pre-addressed [FUSI-JOIN] email carrying your name, email and username. Sending it IS the registration — one account per email, enforced by the ledger itself.</span></div>' +
+              '<div class="idp-msg" id="idp-msg"></div></div>';
+            h += statsHtml(st, g);
+            h += '<div class="idp-restore"><div class="idp-lab">Already locked your name on another phone?</div>' +
+              '<div class="form-actions"><input id="idp-restore-email" type="email" placeholder="the email you locked with" />' +
+              '<button class="ds-btn ds-btn-ghost" id="idp-restore-btn" type="button">THIS IS ME — BRING MY NAME BACK</button></div>' +
+              '<div class="idp-msg" id="idp-restore-msg"></div></div>';
+            h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">Forget this name on this phone</button></div>';
+          } else {
+            stateEl.innerHTML = "👤 <b>Guest</b> — no name on this phone yet";
+            h += '<p class="note-plain">Type your name at the vault door when you enter, and this phone will remember it — ' +
+              "every form on the page fills itself in from then on. When you are ready, come back here and lock the name " +
+              "to your email so it is provably yours, with a username the world knows you by.</p>";
+          }
+          body.innerHTML = h;
+          wire();
+        }
+
+        function wire() {
+          var claim = $("idp-claim"), email = $("idp-email"), uname = $("idp-username"),
+              ucheck = $("idp-ucheck"), msg = $("idp-msg");
+          function syncClaim() {
+            if (!claim || !email || !uname) return;
+            var e = email.value.trim(), u = uname.value.trim();
+            var us = FI.usernameStatus(u);
+            if (ucheck) ucheck.textContent = u ? us.msg : "";
+            var emailOk = /.+@.+\..+/.test(e);
+            if (emailOk && us.ok && u) {
+              claim.classList.remove("btn-off");
+              claim.href = FI.claimUrl(e, u);
+            } else {
+              claim.classList.add("btn-off");
+              claim.href = "#";
+            }
+          }
+          if (email) email.addEventListener("input", syncClaim);
+          if (uname) uname.addEventListener("input", syncClaim);
+          if (claim) claim.addEventListener("click", function () {
+            if (claim.classList.contains("btn-off")) return;
+            FI.sendClaim(email.value, uname.value).then(function () { render(); });
+          });
+          var rb = $("idp-restore-btn"), re = $("idp-restore-email"), rm = $("idp-restore-msg");
+          if (rb && re) rb.addEventListener("click", function () {
+            rm.textContent = "Checking the ledger for that email\u2019s lock\u2026";
+            FI.restoreWithEmail(re.value).then(function (r) {
+              rm.textContent = r.msg;
+              if (r.ok) render();
+            });
+          });
+          var fresh = $("idp-fresh");
+          if (fresh) fresh.addEventListener("click", function () {
+            FI.startFresh();
+            render();
+          });
+          syncClaim();
+        }
+
+        document.addEventListener("fusi-identity", render);
+        render();
+        /* the lock lands on-chain asynchronously — re-check quietly */
+        var lastState = FI.get().state + "|" + (FI.get().username || "");
+        setInterval(function () {
+          FI.verifyLock();
+          var now = FI.get().state + "|" + (FI.get().username || "");
+          if (now !== lastState) { lastState = now; render(); }
+        }, 5000);
+
+        /* ---------- tutorial entries: one tap opens the film, one tap closes it ---------- */
+        Array.prototype.forEach.call(document.querySelectorAll(".learn-btn"), function (btn) {
+          btn.addEventListener("click", function () {
+            var slot = btn.parentNode.querySelector(".learn-slot");
+            if (!slot) return;
+            if (!slot.hidden && slot.querySelector("video")) {
+              slot.innerHTML = ""; slot.hidden = true;
+              btn.textContent = "▶ PRESS HERE TO LEARN HOW TO PLAY";
+              return;
+            }
+            slot.innerHTML = "";
+            var v = document.createElement("video");
+            v.setAttribute("controls", "");
+            v.setAttribute("playsinline", "");
+            v.setAttribute("preload", "metadata");
+            v.src = btn.getAttribute("data-video");
+            slot.appendChild(v);
+            v.addEventListener("error", function () {
+              slot.innerHTML = '<p class="learn-note">The lesson film is not on this copy of the page yet — it ships with the page\u2019s next full publish. The game itself is fully playable right here; its controls are written out under the board.</p>';
+            });
+            slot.hidden = false;
+            btn.textContent = "✕ CLOSE THE LESSON";
+            if (v.play) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+          });
+        });
+
+        /* ---------- STARLANE fullscreen play (FULLSCREEN PLAY LAW) ---------- */
+        var fsBtn = $("arc-sl-fs");
+        if (fsBtn) fsBtn.addEventListener("click", function () {
+          var elx = $("panel-starlane");
+          if (!elx) return;
+          var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+          if (isFs) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+          var req = elx.requestFullscreen || elx.webkitRequestFullscreen;
+          if (req) { var pr = req.call(elx); if (pr && pr.catch) pr.catch(function () {}); }
+        });
+      })();
+    </script>
+</body>
 </html>

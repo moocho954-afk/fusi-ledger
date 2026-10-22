@@ -172,7 +172,7 @@
   <div class="panel">
     <h3>STREAK &amp; THE BONUS ROUND (AS DECLARED, h=356)</h3>
     <p>Every diamond starts a <b style="color:var(--gold)">60-tick window</b>. Eat the next diamond inside the window and the streak grows; let the window lapse and the streak resets. Chain <b style="color:var(--gold)">10 on-pace diamonds</b> and the bonus triggers: the board freezes and you drop through a time pocket into the bonus corridor for <b style="color:var(--gold)">1,000 ticks</b>.</p>
-    <p style="margin-top:8px;">In the corridor the snake&rsquo;s head is enormous and strides forward through three lanes (centres &minus;3 / 0 / +3, walls at |x| = 6). Diamonds stream at you &mdash; be covering their lane at the catch plane to collect. A perfect streak in the corridor escalates the lights, the combo counter and the head&rsquo;s energy, and every corridor catch lands with a shake, a tilt and a buzz. But the corridor is sudden-death: one miss, or an outward steer at the wall lane (an edge), ends the bonus on that tick. Survive to zero on the countdown and you return to the frozen board exactly as it was left &mdash; with the streak spent (it resets to 0).</p>
+    <p style="margin-top:8px;">In the corridor the whole snake &mdash; enormous head and its full body trailing behind it &mdash; strides forward continuously through three lanes (centres &minus;3 / 0 / +3, walls at |x| = 6), the world streaming past it the whole time. Diamonds appear ahead of you, in front, each on its own lane beam &mdash; be covering its lane at the catch plane to collect it. A perfect streak in the corridor escalates the lights, the combo counter and the head&rsquo;s energy, and every corridor catch lands with a shake, a tilt and a buzz. But the corridor is sudden-death: one miss, or an outward steer at the wall lane (an edge), ends the bonus on that tick. Survive to zero on the countdown and you return to the frozen board exactly as it was left &mdash; with the streak spent (it resets to 0).</p>
     <p class="note">All numbers on this page &mdash; the streak, the window, the countdown, every catch and miss &mdash; come from the v7 core&rsquo;s own state and events. The page only renders them.</p>
   </div>
 
@@ -1427,7 +1427,18 @@ module.exports = {
    * so its lane-change motion is the core's pinned 4-tick schedule
    * drawn exactly. Perfect-streak escalation is fed ONLY by bonus
    * events: the core's combo count + the perfect flag (cleared by a
-   * core bonus_miss / bonus_edge event). */
+   * core bonus_miss / bonus_edge event).
+   *
+   * CORRIDOR REFINEMENT (owner order 2026-10-22, renderer-only —
+   * classification in goal hidden_files/
+   * bonus-corridor-refinement-classification-2026-10-22.md): the
+   * world scrolls on a continuous render-clock stride phase; the
+   * snake's WHOLE BODY (the frozen board snake's segment count)
+   * trails the enormous head with a serpentine stride gait; each
+   * in-flight diamond gets a lane beam + horizon spawn flash so it
+   * reads in front of the snake. Nothing here moves a catch, a
+   * crossing or a tick: per-diamond speeds and keep-going-after-a-
+   * miss are mechanics, drafted as an h=356 amendment, NOT built. */
   function drawCorridor(){
     var b = bonusObj() || { bonus_tick: 0, combo: 0 };
     var tick = num(b.bonus_tick, 0);
@@ -1472,10 +1483,19 @@ module.exports = {
       ctx.stroke();
     });
 
-    /* speed stripes — phase driven by the CORE bonus tick */
+    /* CONTINUOUS FORWARD FLOW (corridor refinement A1, renderer-only):
+     * a stride phase on the RENDER clock, so the world streams past
+     * the snake constantly — starship-style — instead of stepping once
+     * per core tick. One full cycle per TRAVEL_TICKS of tick-pacing
+     * wall time, matched to the approach the core already fixes. No
+     * sim quantity reads this phase; catches, crossings and the catch
+     * plane stay exactly where the core puts them. */
+    var flow = (performance.now() / (TICK_MS * TRAVEL_TICKS)) % 1;
+
+    /* speed stripes — phase from the continuous flow above */
     ctx.strokeStyle = "rgba(242,237,225,0.16)";
     for (var si = 0; si < 12; si++) {
-      var sp = ((si / 12) + (tick % 120) / 1440) % 1;
+      var sp = ((si / 12) + flow) % 1;
       var pr2 = proj(sp);
       ctx.globalAlpha = 0.25 + sp * 0.6;
       ctx.lineWidth = 1 + sp * 2;
@@ -1486,9 +1506,26 @@ module.exports = {
     }
     ctx.globalAlpha = 1;
 
+    /* floor chevrons rushing toward the viewer on the same flow —
+     * the ground itself reads as forward stride */
+    ctx.strokeStyle = "rgba(212,175,55,0.28)";
+    for (var ci3 = 0; ci3 < 8; ci3++) {
+      var cp = ((ci3 / 8) + flow) % 1;
+      var cpr = proj(cp);
+      var chw = W * 0.10 * cpr.s;
+      ctx.globalAlpha = 0.12 + cp * 0.5;
+      ctx.lineWidth = 1 + cp * 2.5;
+      ctx.beginPath();
+      ctx.moveTo(vpX - chw, cpr.y - chw * 0.35);
+      ctx.lineTo(vpX, cpr.y);
+      ctx.lineTo(vpX + chw, cpr.y - chw * 0.35);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
     /* corridor lights streaming past; escalate with the perfect streak */
     for (var li = 0; li < 10; li++) {
-      var lp = ((li / 10) + (tick % 120) / 1440) % 1;
+      var lp = ((li / 10) + flow) % 1;
       var lpr = proj(lp);
       [-1, 1].forEach(function(side){
         var lx = vpX + side * W * 0.47 * lpr.s;
@@ -1521,6 +1558,25 @@ module.exports = {
       var pr3 = proj(d.p);
       var dx = laneX(d.p, d.lane), dy = pr3.y;
       var r = (5 + 52 * Math.pow(d.p, 2)) * (1 + energy * 0.12);
+      /* lane beam (corridor refinement A2, renderer-only): a soft
+       * guide running under the diamond from the horizon to the catch
+       * plane, so every diamond reads IN FRONT of the snake, on its
+       * way to be gotten. Position still comes from the core's own
+       * approach progress — the beam changes nothing about timing. */
+      ctx.fillStyle = "rgba(212,175,55," + (0.03 + d.p * 0.05).toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.moveTo(laneX(0.06, d.lane - 0.5), proj(0.06).y);
+      ctx.lineTo(laneX(0.06, d.lane + 0.5), proj(0.06).y);
+      ctx.lineTo(laneX(1, d.lane + 0.5), catchY);
+      ctx.lineTo(laneX(1, d.lane - 0.5), catchY);
+      ctx.closePath(); ctx.fill();
+      if (d.p < 0.15) {
+        /* spawn flash at the horizon — the diamond materialises ahead */
+        ctx.save();
+        ctx.fillStyle = "rgba(255,248,230," + (0.35 * (1 - d.p / 0.15)).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(dx, dy, Math.max(2, r * 2.2), 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
       if (d.p > 0.72) {
         /* approach cue: the diamond's lane floods, a warning ring
          * pulses — driven by its core-reported approach progress */
@@ -1556,12 +1612,40 @@ module.exports = {
       ctx.restore();
     }
 
-    /* ============ THE ENORMOUS HEAD (the core's head_x, exactly) ============ */
-    var hx = laneX(1, headLaneFloat());
-    var hy = H * 0.865;
+    /* ============ THE WHOLE SNAKE (corridor refinement A3 + A1 gait) ====
+     * The corridor sim models the head alone (head_x); the BODY is
+     * presentation: one drawn segment per segment of the frozen board
+     * snake (a read-only read of core state), trailing BEHIND the head
+     * toward the viewer. It never reaches past the catch plane and
+     * every segment stays narrower than the head, so the picture can
+     * never claim a catch the verifier didn't judge (h=356
+     * enormous_head / edge hitbox clauses). The gait: a serpentine
+     * wave travels down the body on the render clock, phase-lagged
+     * segment by segment — the whole animal strides forward,
+     * constantly, like the starship except the snake. */
     var R = Math.min(W, H) * 0.175 * (1 + energy * 0.10);
+    var hx = laneX(1, headLaneFloat());
+    var strideT = performance.now() / 1000;
+    var hy = H * 0.865 + Math.sin(strideT * 3.4) * R * 0.045; /* stride bob */
     ctx.fillStyle = "rgba(0,0,0,0.5)";
     ctx.beginPath(); ctx.ellipse(hx, catchY + (hy - catchY) * 0.4, R * 1.05, R * 0.22, 0, 0, Math.PI * 2); ctx.fill();
+    var segN = Math.max(2, Math.min(28, ((board().snake || []).length) || 3));
+    for (var bi = segN; bi >= 1; bi--) {
+      var bf = bi / segN; /* 0 at the neck, 1 at the tail */
+      var bx = hx + Math.sin(strideT * 2.6 - bi * 0.55) * W * 0.030 * (0.35 + bf);
+      var by = hy + bf * (H - hy) * 0.94 + Math.sin(strideT * 3.4 - bi * 0.9) * R * 0.05;
+      var br = R * (0.88 - bf * 0.38);
+      var bg2 = ctx.createRadialGradient(bx - br * 0.3, by - br * 0.3, br * 0.2, bx, by, br);
+      bg2.addColorStop(0, "#e6c65c");
+      bg2.addColorStop(0.55, "#b8923a");
+      bg2.addColorStop(1, "#6e5518");
+      ctx.fillStyle = bg2;
+      ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "rgba(0,0,0,0.35)";
+      ctx.beginPath(); ctx.ellipse(bx + br * 0.15, by + br * 0.55, br * 0.8, br * 0.28, 0, 0, Math.PI * 2); ctx.fill();
+    }
+
+    /* ============ THE ENORMOUS HEAD (the core's head_x, exactly) ============ */
     if (combo >= 3) { /* energy aura — escalates with the streak */
       ctx.save();
       ctx.strokeStyle = "rgba(212,175,55," + (0.35 + energy * 0.5).toFixed(2) + ")";

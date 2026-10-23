@@ -705,7 +705,7 @@
       .hub input:focus, .hub select:focus { outline: 2px solid var(--gold-deep); outline-offset: 1px; }
       .hub .form-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; margin-top: var(--s-2); }
       .hub .hint { font-size: var(--t-12); color: var(--slate); font-family: var(--font-data); }
-      .hub .btn-off { opacity: .45; pointer-events: none; }
+      .hub .btn-off { opacity: .45; cursor: not-allowed; }
       .hub .buy-form { border-top: 1px dashed var(--edge); padding-top: var(--s-4); margin-top: var(--s-2); }
       .hub .buy-form[hidden] { display: none; }
       .hub .note-plain { font-size: var(--t-14); color: var(--slate); margin-top: var(--s-4); }
@@ -1030,6 +1030,12 @@
       .learn-note { font-size: 12.5px; color: #9a958a; margin-top: 8px; line-height: 1.55; }
       .learn-slot video { width: 100%; max-height: 70vh; background: #000; border: 1px solid #3a352a; border-radius: 6px; margin-top: 10px; }
       #panel-starlane:fullscreen { background: #0e0d0b; overflow-y: auto; padding: 18px; }
+      #panel-getaway:fullscreen { background: #0e0d0b; overflow-y: auto; padding: 18px; }
+      /* ===== 2026-10-22 PAGE PASS — a disarmed draft button answers the tap ===== */
+      @keyframes btn-denied { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+      .btn-denied { animation: btn-denied .3s ease; box-shadow: 0 0 0 2px #c0392b !important; }
+      .hint-flash { color: #e0654f !important; transition: color .25s ease; }
+      @media (prefers-reduced-motion: reduce) { .btn-denied { animation: none; } }
       .idp-h { margin: 2px 0 8px; }
       .idp-state { border: 1px solid #3a352a; background: #0a0908; border-radius: 6px; padding: 10px 12px; margin: 10px 0; font-size: 14px; line-height: 1.55; }
       .idp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 12px 0; }
@@ -2009,7 +2015,7 @@
           .arcade .arc-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
           .arcade .arc-btn-ghost { background: transparent; color: var(--gold); border-color: var(--edge); font-weight: normal; }
           .arcade .arc-btn-ghost:hover { background: var(--panel-2); }
-          .arcade .btn-off { opacity: .45; pointer-events: none; }
+          .arcade .btn-off { opacity: .45; cursor: not-allowed; }
           .arcade .arc-btn[disabled] { opacity: .45; cursor: default; }
           .arcade .arc-btn[disabled]:hover { background: var(--gold); }
           .arcade .arc-btn-ghost[disabled]:hover { background: transparent; }
@@ -2151,7 +2157,7 @@
                 </label>
               </div>
               <div class="arc-actions">
-                <a class="arc-btn btn-off" id="arc-door-send" href="#" target="_blank" rel="noopener">DRAFT DOOR FEE — … FUSI</a>
+                <a class="arc-btn btn-off" id="arc-door-send" href="#" target="_blank" rel="noopener">DRAFT DOOR FEE — … FUSI · CHARGING NOT ACTIVE — NOTHING IS COLLECTED</a>
                 <span class="arc-hint" id="arc-door-hint">Reading the chain snapshot…</span>
               </div>
               <p class="arc-micro"><b>Charging is not active</b> — a draft sent today is validated by the ledger watch and reported <b>CHARGING-NOT-ACTIVE</b>. Nothing is collected until the door activates. A draft is a declared intent, never a payment, and no pass is shown as held until a verified door fee event for today stands on the chain.</p>
@@ -2190,6 +2196,7 @@
                 <button class="arc-btn arc-btn-ghost" id="arc-sl-download" type="button" disabled>Download run claim</button>
               </div>
               <p class="arc-close" id="arc-sl-close" aria-live="polite"></p>
+              <p class="arc-micro" id="arc-sl-claim-hint">The claim buttons arm when a practice run ends — until then there is no run to copy. Finish a run and they hand you its claim.</p>
               <p class="arc-micro" id="arc-sl-verify-note" hidden><b>VERIFY THIS RUN</b> — the buttons above hand you this run's claim (<span style="font-family:var(--font-data)">seed · inputs · ticks · score</span>) as a game-logging v2 record. It is an <b>UNVERIFIED CLAIM</b>: no fee event stands behind the run and no L2 replay has checked it. It is not a record.</p>
 
               <div class="arc-facts">
@@ -2201,7 +2208,7 @@
                     <div class="arc-row"><dt class="arc-k">Loadout</dt><dd class="arc-v"><b>BLASTER — free forever.</b> Practice runs fly the Blaster.</dd></div>
                   </dl>
                   <div class="arc-actions" style="margin-top:10px">
-                    <a class="arc-btn btn-off" id="arc-play-send" href="#" target="_blank" rel="noopener">DRAFT PLAY FEE — … FUSI</a>
+                    <a class="arc-btn btn-off" id="arc-play-send" href="#" target="_blank" rel="noopener">DRAFT PLAY FEE — … FUSI · CHARGING NOT ACTIVE — NOTHING IS COLLECTED</a>
                     <span class="arc-hint" id="arc-play-hint">Reading the chain snapshot…</span>
                   </div>
                   <p class="arc-micro"><b>Charging is not active</b> — a draft sent today is validated by the ledger watch and reported <b>CHARGING-NOT-ACTIVE</b>. Nothing is collected until the door activates.</p>
@@ -2264,10 +2271,12 @@
               </div>
               <div class="arc-actions" style="margin-top:14px">
                 <button class="arc-btn" id="arc-gw-start" type="button">START PRACTICE JOURNEY</button>
+                <button class="arc-btn arc-btn-ghost" id="arc-gw-fs" type="button">⛶ FULL SCREEN — PLAY</button>
                 <button class="arc-btn arc-btn-ghost" id="arc-gw-copy" type="button" disabled>Copy journey claim</button>
                 <button class="arc-btn arc-btn-ghost" id="arc-gw-download" type="button" disabled>Download journey claim</button>
               </div>
               <p class="arc-close" id="arc-gw-close" aria-live="polite"></p>
+              <p class="arc-micro" id="arc-gw-claim-hint">The claim buttons arm when a practice journey ends — until then there is no journey to copy. Finish a journey and they hand you its claim.</p>
               <p class="arc-micro" id="arc-gw-verify-note" hidden><b>VERIFY THIS JOURNEY</b> — the buttons above hand you this journey's claim (<span style="font-family:var(--font-data)">seed · inputs · ticks · score · boards cleared</span>) as a game-logging v2 record. It is an <b>UNVERIFIED CLAIM</b>: no fee event stands behind the journey and no L2 replay has checked it. It is not a record.</p>
 
               <div class="arc-facts">
@@ -4649,7 +4658,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             var df = $("arc-door-fee");
             if (df) df.innerHTML = "<span class='arc-num'>" + doorFee + " FUSI</span> buys admission for <b>one UTC calendar day</b> — the pass expires at the next UTC midnight.";
             var send = $("arc-door-send");
-            if (send) send.textContent = "DRAFT DOOR FEE — " + doorFee + " FUSI";
+            if (send) send.textContent = "DRAFT DOOR FEE — " + doorFee + " FUSI" + (p.charging_active === true ? "" : " · CHARGING NOT ACTIVE — NOTHING IS COLLECTED");
           }
           if (door.covers) txt("arc-door-covers", door.covers + " — no re-charge on switching games, refreshing, or returning.");
           (function () {
@@ -4680,7 +4689,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
               var sf = $("arc-sl-fee");
               if (sf) sf.innerHTML = "<span class='arc-num'>" + playFee + " FUSI</span> per run — declared in the manifest.";
               var ps = $("arc-play-send");
-              if (ps) ps.textContent = "DRAFT PLAY FEE — " + playFee + " FUSI";
+              if (ps) ps.textContent = "DRAFT PLAY FEE — " + playFee + " FUSI" + (p.charging_active === true ? "" : " · CHARGING NOT ACTIVE — NOTHING IS COLLECTED");
             }
             var rentals = $("arc-sl-rentals");
             if (rentals && star.loadout_rentals) {
@@ -5188,6 +5197,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var cb = $("arc-sl-copy"), db = $("arc-sl-download");
           if (cb) cb.disabled = true;
           if (db) db.disabled = true;
+          txt("arc-sl-claim-hint", "Run in progress — the claim buttons arm the moment this run ends.");
           var btn = $("arc-sl-start");
           if (btn) { btn.disabled = true; btn.textContent = "RUNNING — PRACTICE"; }
           txt("arc-sl-state", "PRACTICE — NOT RECORD ELIGIBLE");
@@ -5209,6 +5219,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           var cb = $("arc-sl-copy"), db = $("arc-sl-download");
           if (cb) cb.disabled = false;
           if (db) db.disabled = false;
+          txt("arc-sl-claim-hint", "Run finished — the claim buttons above are armed. The claim is unverified: no fee event, no L2 replay, not a record.");
           var note = $("arc-sl-verify-note"); if (note) note.hidden = false;
           updateHud();
         }
@@ -5480,6 +5491,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             var cb = $("arc-gw-copy"), db = $("arc-gw-download");
             if (cb) cb.disabled = true;
             if (db) db.disabled = true;
+            txt("arc-gw-claim-hint", "Journey in progress — the claim buttons arm the moment this journey ends.");
             var btn = $("arc-gw-start");
             if (btn) { btn.disabled = true; btn.textContent = "JOURNEY RUNNING — PRACTICE"; }
             txt("arc-gw-state", "PRACTICE — NOT RECORD ELIGIBLE");
@@ -5503,6 +5515,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
             var cb = $("arc-gw-copy"), db = $("arc-gw-download");
             if (cb) cb.disabled = false;
             if (db) db.disabled = false;
+            txt("arc-gw-claim-hint", "Journey finished — the claim buttons above are armed. The claim is unverified: no fee event, no L2 replay, not a record.");
             var note = $("arc-gw-verify-note"); if (note) note.hidden = false;
             updateGwHud();
             drawMaze();
@@ -7415,12 +7428,16 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
   function buildClaim() {
     var c = counts();
     var last = chain[chain.length - 1] || {};
+    var idn = (typeof window !== "undefined" && window.FusiIdentity && window.FusiIdentity.get)
+      ? window.FusiIdentity.get() : null;
     return {
       "△": "score claim: fusi-snake",
       "○": "play-chain anchored to main ledger head " + anchor,
       "□": ["device-local play chain, cyrb53 integrity, counts computed from chain"],
       "◇": {
         game: "fusi-snake",
+        player: idn ? (idn.pid || "") : "",
+        player_name: idn ? (idn.name || "") : "",
         score: c.best, games: c.games, diamonds: c.diamonds,
         play_head: last.h, play_hash: last.hash
       },
@@ -8009,6 +8026,23 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     playerPanel.appendChild(playerMsgEl);
     mount.appendChild(playerPanel);
     renderPlayerSummary();
+    /* Display freshness (page pass 2026-10-22): when the identity layer
+     * changes the name — gate entry, a lock landing, a restore — refresh
+     * this field too, unless the player is typing in it right now.
+     * Claims re-read the name at send time; this keeps what the player
+     * SEES true as well. A lock landing also freezes the field, exactly
+     * as the mount-time check above does. */
+    document.addEventListener("fusi-identity", function () {
+      if (!nameInput || document.activeElement === nameInput) return;
+      var idn = (window.FusiIdentity && window.FusiIdentity.get) ? window.FusiIdentity.get() : null;
+      var n = idn ? (idn.name || "") : getName();
+      if (n && nameInput.value !== n) nameInput.value = n;
+      if (idn && idn.locked && !nameInput.readOnly) {
+        nameInput.readOnly = true;
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Name locked";
+      }
+    });
   }
 
   /* --- v1 EARN CLAIM BUNDLE envelope assembly ---
@@ -10180,7 +10214,11 @@ if (typeof window !== "undefined") {
             nameL.appendChild(nm); form.appendChild(nameL);
             var send = el("a", "ds-btn btn-off", "Draft accept email");
             send.target = "_blank"; send.rel = "noopener"; send.href = "#";
-            form.appendChild(send);
+            var buyActions = el("div", "form-actions");
+            buyActions.appendChild(send);
+            var buyHint = el("span", "hint", "Fill in your player ID and display name to arm the draft.");
+            buyActions.appendChild(buyHint);
+            form.appendChild(buyActions);
             var note = el("p", "note-plain", "Sending that email IS your accept. The machine then runs the transfer settlement at the listing's exact terms — gate checks, fee, and wash limit included.");
             form.appendChild(note);
             function syncBuy() {
@@ -10188,12 +10226,18 @@ if (typeof window !== "undefined") {
               if (window.FusiIdentity) window.FusiIdentity.noteIdentity(identity.pid, identity.name);
               syncIdentityForms();
               if (identity.pid && identity.name && !(window.FusiIdentity && !window.FusiIdentity.canAct())) {
+                buyHint.textContent = "Draft armed — sending the email IS your accept, at the listing's exact terms.";
                 send.classList.remove("btn-off");
                 send.href = mailto("[FUSI-TRANSFER] accept listing h=" + l.listing_height,
                   { action: "accept", listing_height: l.listing_height, by_player: identity.pid, by_player_name: identity.name });
               } else {
                 send.classList.add("btn-off"); send.href = "#";
-                if (window.FusiIdentity && !window.FusiIdentity.canAct()) note.textContent = window.FusiIdentity.actRefusal();
+                if (window.FusiIdentity && !window.FusiIdentity.canAct()) {
+                  note.textContent = window.FusiIdentity.actRefusal();
+                  buyHint.textContent = window.FusiIdentity.actRefusal();
+                } else {
+                  buyHint.textContent = "Fill in your player ID and display name to arm the draft.";
+                }
               }
             }
             pid.addEventListener("input", syncBuy);
@@ -10823,7 +10867,12 @@ if (typeof window !== "undefined") {
             dwell_display: fmtClock(ms),
             page: "fusi-n-7-live-ledger"
           };
-          if (window.FusiIdentity && !window.FusiIdentity.canAct()) { recordEl.removeAttribute("href"); return; }
+          if (window.FusiIdentity && window.FusiIdentity.get) {
+            var idg = window.FusiIdentity.get();
+            if (idg && idg.locked && idg.accountPid) body.player_id = idg.accountPid;
+          }
+          if (window.FusiIdentity && !window.FusiIdentity.canAct()) { recordEl.classList.add("btn-off"); recordEl.removeAttribute("href"); return; }
+          recordEl.classList.remove("btn-off");
           recordEl.href = "mailto:" + INBOX + "?subject=" + encodeURIComponent("[FUSI-DWELL]") +
             "&body=" + encodeURIComponent(JSON.stringify(body, null, 2));
         }
@@ -11323,16 +11372,91 @@ if (typeof window !== "undefined") {
           });
         });
 
-        /* ---------- STARLANE fullscreen play (FULLSCREEN PLAY LAW) ---------- */
-        var fsBtn = $("arc-sl-fs");
-        if (fsBtn) fsBtn.addEventListener("click", function () {
-          var elx = $("panel-starlane");
+        /* ---------- fullscreen play (FULLSCREEN PLAY LAW) ---------- */
+        function toggleFs(elx) {
           if (!elx) return;
           var isFs = document.fullscreenElement || document.webkitFullscreenElement;
           if (isFs) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
           var req = elx.requestFullscreen || elx.webkitRequestFullscreen;
           if (req) { var pr = req.call(elx); if (pr && pr.catch) pr.catch(function () {}); }
+        }
+        var fsBtn = $("arc-sl-fs");
+        if (fsBtn) fsBtn.addEventListener("click", function () { toggleFs($("panel-starlane")); });
+        var gwFsBtn = $("arc-gw-fs");
+        if (gwFsBtn) gwFsBtn.addEventListener("click", function () { toggleFs($("panel-getaway")); });
+        /* Offer fullscreen the moment a run starts — the law is that games
+         * go full screen once you start playing them. The offer is chained
+         * from the start button's own click, so the browser counts it as
+         * the player's gesture. If the player leaves fullscreen, it is
+         * never forced again this visit; the toggle buttons stay for
+         * asking again, and where fullscreen does not exist (a phone
+         * browser without it) the offer simply does nothing. */
+        var fsDeclined = {};
+        document.addEventListener("fullscreenchange", function () {
+          if (!document.fullscreenElement) { fsDeclined.sl = true; fsDeclined.gw = true; }
         });
+        document.addEventListener("webkitfullscreenchange", function () {
+          if (!document.webkitFullscreenElement) { fsDeclined.sl = true; fsDeclined.gw = true; }
+        });
+        function offerFs(panelId, key) {
+          if (fsDeclined[key]) return;
+          if (document.fullscreenElement || document.webkitFullscreenElement) return;
+          var elx = $(panelId);
+          if (!elx) return;
+          var req = elx.requestFullscreen || elx.webkitRequestFullscreen;
+          if (!req) return;
+          try { var pr = req.call(elx); if (pr && pr.catch) pr.catch(function () { fsDeclined[key] = true; }); }
+          catch (e) { fsDeclined[key] = true; }
+        }
+        var slStartBtn = $("arc-sl-start"), gwStartBtn = $("arc-gw-start");
+        if (slStartBtn) slStartBtn.addEventListener("click", function () { offerFs("panel-starlane", "sl"); });
+        if (gwStartBtn) gwStartBtn.addEventListener("click", function () { offerFs("panel-getaway", "gw"); });
+      })();
+    </script>
+    <script>
+      /* ============ PAGE PASS 2026-10-22 — a disarmed button answers the tap ============
+       * A draft button wearing .btn-off is disarmed: it must never send,
+       * arm, or navigate. But a tap on it must not feel dead. This one
+       * delegated capture-phase listener intercepts the tap, shakes and
+       * outlines the button, and flashes the hint beside it — the hint
+       * that already carries the live reason (or the identity layer's
+       * refusal, when that is the reason). Armed buttons never match
+       * the selector and are completely untouched. */
+      (function () {
+        "use strict";
+        function findHint(btn) {
+          var node = btn;
+          for (var depth = 0; depth < 4 && node; depth++) {
+            if (node.querySelectorAll) {
+              var hints = node.querySelectorAll(".hint, .arc-hint");
+              for (var j = 0; j < hints.length; j++) if (hints[j] !== btn) return hints[j];
+            }
+            node = node.parentNode;
+          }
+          return null;
+        }
+        document.addEventListener("click", function (e) {
+          var t = e.target;
+          var btn = (t && t.closest) ? t.closest("a.btn-off") : null;
+          if (!btn) return;
+          e.preventDefault();
+          e.stopPropagation();
+          btn.classList.remove("btn-denied");
+          void btn.offsetWidth;
+          btn.classList.add("btn-denied");
+          setTimeout(function () { btn.classList.remove("btn-denied"); }, 500);
+          var hint = findHint(btn);
+          if (hint) {
+            if (window.FusiIdentity && !window.FusiIdentity.canAct())
+              hint.textContent = window.FusiIdentity.actRefusal();
+            if (!hint.textContent || !hint.textContent.trim())
+              hint.textContent = "Not armed yet — fill in the fields beside this button and it lights up.";
+            hint.classList.remove("hint-flash");
+            void hint.offsetWidth;
+            hint.classList.add("hint-flash");
+            setTimeout(function () { hint.classList.remove("hint-flash"); }, 1800);
+          }
+        }, true);
       })();
     </script>
 </body>

@@ -3940,14 +3940,22 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
        * holder token. Every panel on the page reads the name from here —
        * nobody re-types it anywhere.
        *
-       * Layer 2 — EMAIL LOCK (hard proof): "Claim your name" binds the
+       * Layer 2 — LEDGER LOCK (hard proof): "Claim your name" binds the
        * name to an email through the [FUSI-JOIN] registration draft.
-       * player_id = sha256("FUSI-PLAYER:" + normalized email)[:16] —
-       * byte-identical to systems/fusi-accounts/accounts.py. The account
-       * lands on-chain as account_registration (+ account_welcome with
-       * the broken wallet address); this module re-reads the page's chain
-       * snapshot (window.BLOCK_DATA) and flips the identity to LOCKED
-       * when the registration for the derived player_id is present.
+       * HARDENED 2026-10-23 (chain decision h=397, findings h=394):
+       * player_id is RANDOM — minted by accounts.py at registration,
+       * never derived from the email (the old sha256("FUSI-PLAYER:" +
+       * email) derivation let anyone who knew an email recompute the
+       * identity, and is GONE from this file — there is no email->id
+       * function here at all). The account lands on-chain as
+       * account_registration (+ account_welcome carrying the broken
+       * wallet address); this module re-reads the page's chain snapshot
+       * (window.BLOCK_DATA) and flips the identity to LOCKED when the
+       * registration record is present — matched by the persisted
+       * player_id, or, for a fresh claim, by the chosen USERNAME
+       * (unique on-chain), or by an unambiguous exact name registered
+       * after the claim was sent. The wallet address displayed is READ
+       * from the registration record, never computed from an email.
        *
        * At registration the player also chooses a USERNAME — unique
        * across the chain (checked here against the snapshot, enforced
@@ -4013,11 +4021,11 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           return p;
         }
         function normalizeEmail(e) { return String(e || "").trim().toLowerCase(); }
-        function pidForEmail(email) {
-          var n = normalizeEmail(email);
-          if (n.indexOf("@") < 1 || n.charAt(n.length - 1) === "@") return Promise.resolve(null);
-          return sha256hex("FUSI-PLAYER:" + n).then(function (h) { return h.slice(0, 16); });
-        }
+        /* NO email->id derivation exists in this module (decision
+         * h=397). walletFor below is the sanctioned direction only —
+         * player_id in, wallet address out — identical to
+         * systems/fusi-wallet/wallet.py; it is kept for display of an
+         * already-known player_id and is never fed from an email. */
         function walletFor(pid) {
           return sha256hex("FUSI-WALLET:" + pid).then(function (h) {
             var hex = h.slice(0, 24), groups = [];
@@ -4031,7 +4039,8 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         /* --- state --- */
         var S = { name: "", email: "", username: "", pendingUsername: "",
                   state: "guest", token: "", actionPid: "", accountPid: "",
-                  walletBroken: "", guestView: false, guestViewName: "" };
+                  walletBroken: "", guestView: false, guestViewName: "",
+                  claimAt: 0, claimHeight: 0 };
         function load() {
           try {
             var raw = lsGet(STORE_KEY);
@@ -4074,28 +4083,61 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           });
           return m;
         }
+        function adoptRecord(found) {
+          var changed = S.state !== "locked" || S.accountPid !== found.player;
+          S.accountPid = String(found.player);
+          S.state = "locked"; S.guestView = false;
+          if (found.username) S.username = String(found.username);
+          S.pendingUsername = "";
+          if (found.player_name) S.name = String(found.player_name);
+          if (found.wallet_broken) S.walletBroken = String(found.wallet_broken);
+          if (changed) { save(); fire(); }
+          return true;
+        }
         function verifyLock() {
-          if (!S.accountPid) return false;
-          var regs = registrations(), found = null;
-          for (var i = 0; i < regs.length; i++) if (regs[i].player === S.accountPid) { found = regs[i]; break; }
-          if (found) {
-            var changed = S.state !== "locked";
-            S.state = "locked";
-            if (found.username) S.username = String(found.username);
-            if (found.player_name) S.name = String(found.player_name);
-            if (found.wallet_broken) S.walletBroken = String(found.wallet_broken);
-            if (changed) { save(); fire(); }
-            return true;
+          if (S.accountPid) {
+            var regs = registrations(), found = null;
+            for (var i = 0; i < regs.length; i++) if (regs[i].player === S.accountPid) { found = regs[i]; break; }
+            if (found) return adoptRecord(found);
+          }
+          /* A fresh claim carries no player_id yet — the id is minted
+           * by the ledger at registration. Resolve the claim from the
+           * snapshot instead: the chosen username is unique on-chain;
+           * failing that, an unambiguous exact name registered AFTER
+           * the claim was sent (height above the claim-time snapshot). */
+          if (S.state === "claim-sent") {
+            var m = claimMatch();
+            if (m) return adoptRecord(m);
           }
           return false;
         }
-        function deriveAccount() {
-          if (!S.email) return Promise.resolve(null);
-          return pidForEmail(S.email).then(function (pid) {
-            if (pid && pid !== S.accountPid) { S.accountPid = pid; save(); }
-            if (pid) return walletFor(pid).then(function (w) { S.walletBroken = w.broken; verifyLock(); fire(); return pid; });
-            return pid;
-          }).catch(function () { return null; });
+        function claimMatch() {
+          var want = String(S.pendingUsername || S.username || "").trim().toLowerCase();
+          if (want) {
+            var regs = registrations();
+            for (var i = 0; i < regs.length; i++)
+              if (regs[i].username && String(regs[i].username).toLowerCase() === want) return regs[i];
+          }
+          if (!S.name) return null;
+          var key = String(S.name).trim().toLowerCase(), hits = [];
+          blocks().forEach(function (b) {
+            var p = (b && b.payload) || {};
+            if (p.kind !== "account_registration" || !p.player) return;
+            if (String(p.player_name || "").trim().toLowerCase() !== key) return;
+            hits.push({ p: p, h: (typeof b.h === "number" ? b.h : 0) });
+          });
+          /* Adopt on name alone ONLY when the name exists exactly
+           * once on the whole ledger AND that registration landed
+           * after this device sent its claim. Any second carrier of
+           * the name — before or after — makes it ambiguous: the
+           * username match above is the exact path. Fail closed. */
+          if (hits.length !== 1) return null;
+          if (S.claimHeight && hits[0].h <= S.claimHeight) return null;
+          return hits[0].p;
+        }
+        function resolveAccount() {
+          verifyLock();
+          return Promise.resolve(S.accountPid || null);
         }
 
         function get() {
@@ -4132,12 +4174,12 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         function actRefusal() {
           var who = S.name || S.guestViewName || "that name";
           return "This name is locked — “" + who + "” belongs to a registered player, " +
-            "and this phone has not proven it is them. Prove it with the email the name is " +
-            "locked to (see the YOUR NAME panel on the main page), or use a name of your own. " +
+            "and this phone has not proven it is them. Prove it with your username in the " +
+            "YOUR NAME panel on the main page, or use a name of your own. " +
             "Nothing was sent.";
         }
         function lockNote() {
-          return "“" + (get().displayName || S.name) + "” is locked to its email — a locked name " +
+          return "“" + (get().displayName || S.name) + "” is locked on the ledger — a locked name " +
             "cannot be switched here. Locked names change only by the ledger owner's ruling.";
         }
         function setName(n) {
@@ -4151,7 +4193,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           return true;
         }
         function noteIdentity(pid, name) {
-          if (pid && /^[0-9a-f]{16}$/i.test(String(pid).trim())) {
+          if (pid && /^([0-9a-f]{16}|[0-9a-f]{32})$/i.test(String(pid).trim())) {
             var p = String(pid).trim().toLowerCase();
             if (p !== S.actionPid) { S.actionPid = p; save(); }
           }
@@ -4181,28 +4223,43 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
           S.pendingUsername = String(username || "").trim();
           S.state = "claim-sent";
           S.guestView = false;
+          S.claimAt = Date.now();
+          S.claimHeight = blocks().length;
           save(); fire();
-          return deriveAccount();
+          return resolveAccount();
         }
-        function restoreWithEmail(email) {
-          var n = normalizeEmail(email);
-          return pidForEmail(n).then(function (pid) {
-            if (!pid) return { ok: false, msg: "That does not look like an email address." };
-            var regs = registrations(), found = null;
-            for (var i = 0; i < regs.length; i++) if (regs[i].player === pid) { found = regs[i]; break; }
-            if (!found) return { ok: false, msg: "No locked account matches that email on the chain yet. If you just sent your claim email, give it a minute to land, then try again." };
-            S.email = n; S.accountPid = pid;
-            S.name = String(found.player_name || S.name);
-            S.username = String(found.username || "");
-            S.walletBroken = String(found.wallet_broken || "");
-            S.state = "locked"; S.guestView = false;
-            save(); fire();
-            return { ok: true, msg: "Welcome back — this device is now proven as " + (S.username || S.name) + "." };
-          });
+        /* New-device recovery (hardened, h=397): an email can no
+         * longer look an account up — deliberately, since anyone who
+         * knows an email could then find (and target) the identity.
+         * The USERNAME is unique on-chain and resolves exactly; the
+         * exact registered name resolves when it is the only one. */
+        function restoreIdentity(identifier) {
+          var id = String(identifier || "").trim();
+          if (!id) return Promise.resolve({ ok: false, msg: "Type your username — the one you chose when you locked your name." });
+          if (id.indexOf("@") >= 0) {
+            S.email = normalizeEmail(id); save();
+            return Promise.resolve({ ok: false, msg: "An email can't bring your name back anymore — that is deliberate (ledger hardening, Oct 2026): nobody can compute or look up your identity from your email, not even you. Use your USERNAME instead — it is unique on the ledger and printed on your welcome block." });
+          }
+          var regs = registrations(), found = null, i;
+          var wantU = id.toLowerCase();
+          for (i = 0; i < regs.length; i++)
+            if (regs[i].username && String(regs[i].username).toLowerCase() === wantU) { found = regs[i]; break; }
+          if (!found) {
+            var hits = [];
+            for (i = 0; i < regs.length; i++)
+              if (regs[i].player_name && String(regs[i].player_name).trim().toLowerCase() === wantU) hits.push(regs[i]);
+            if (hits.length === 1) found = hits[0];
+            else if (hits.length > 1)
+              return Promise.resolve({ ok: false, msg: "More than one registration carries that name — recover with your username instead; it is unique on the ledger." });
+          }
+          if (!found) return Promise.resolve({ ok: false, msg: "No locked account on the ledger matches that yet. Check the username spelling — or, if you just sent your claim email, give it a minute to land and try again." });
+          adoptRecord(found);
+          return Promise.resolve({ ok: true, msg: "Welcome back — this device is now proven as " + (S.username || S.name) + "." });
         }
         function startFresh() {
           var keepToken = S.token;
           S = { name: "", email: "", username: "", pendingUsername: "", state: "guest",
+                claimAt: 0, claimHeight: 0,
                 token: keepToken, actionPid: "", accountPid: "", walletBroken: "", guestView: false, guestViewName: "" };
           lsDel(NAME_KEY);
           save(); fire();
@@ -4276,14 +4333,15 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         }
 
         load();
-        deriveAccount();
+        resolveAccount();
         window.FusiIdentity = {
           get: get, setName: setName, noteIdentity: noteIdentity, canAct: canAct,
           actRefusal: actRefusal, lockNote: lockNote, gateEnter: gateEnter,
           welcomeBack: welcomeBack, usernameStatus: usernameStatus,
-          claimUrl: claimUrl, sendClaim: sendClaim, restoreWithEmail: restoreWithEmail,
+          claimUrl: claimUrl, sendClaim: sendClaim,
+          restoreIdentity: restoreIdentity, restoreWithEmail: restoreIdentity,
           startFresh: startFresh, verifyLock: verifyLock, stats: stats,
-          pidForEmail: pidForEmail, walletFor: walletFor
+          walletFor: walletFor
         };
       })();
     </script>
@@ -11251,9 +11309,10 @@ if (typeof window !== "undefined") {
           if (g.locked) {
             stateEl.innerHTML = "🔒 <b>LOCKED</b> — you are <b>" + esc(g.displayName) + "</b>" +
               (g.walletBroken ? ' · wallet <span class="ds-data">' + esc(g.walletBroken) + "</span>" : "");
-            h += '<p class="note-plain">Your name is locked to your email. On any phone, entering that email ' +
+            h += '<p class="note-plain">Your name is locked on the ledger. On any phone, entering your <b>username</b> ' +
               "brings this exact identity back — same name, same wallet, same stats. " +
-              "A locked name changes only by the ledger owner's ruling.</p>";
+              "Your email alone can never look it up — that is deliberate, so nobody can compute " +
+              "your identity from your email. A locked name changes only by the ledger owner's ruling.</p>";
             h += statsHtml(st, g);
             h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">This isn\u2019t me — start fresh on this phone</button>' +
               '<span class="hint">Starting fresh makes a brand-new guest on this phone. It can never take the locked name, its coins, or its stats.</span></div>';
@@ -11273,7 +11332,7 @@ if (typeof window !== "undefined") {
               '<ul class="idp-list"><li>Your name becomes bound to your email — one account per email, locked on the ledger itself.</li>' +
               "<li>You choose a <b>username</b> — the name the world sees, unique to you.</li>" +
               "<li>Your coins, records and stats attach to the lock, not to whatever a stranger types.</li>" +
-              "<li>Nobody can claim rewards, trade, or list under your name without the email proof — not even on another phone.</li></ul>";
+              "<li>Nobody can claim rewards, trade, or list under your name without proving the mailbox — not even on another phone. Your player ID is random — it is never computed from your email.</li></ul>";
             h += '<div class="idp-form">' +
               '<label class="idp-lab">Your email — the hard proof. It stays private; only a fingerprint ever touches the ledger.<input id="idp-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>' +
               '<label class="idp-lab">Choose your username — 3–20 characters: letters, digits, _ . -<input id="idp-username" type="text" autocomplete="off" placeholder="e.g. Moocho954" /></label>' +
@@ -11283,7 +11342,7 @@ if (typeof window !== "undefined") {
               '<div class="idp-msg" id="idp-msg"></div></div>';
             h += statsHtml(st, g);
             h += '<div class="idp-restore"><div class="idp-lab">Already locked your name on another phone?</div>' +
-              '<div class="form-actions"><input id="idp-restore-email" type="email" placeholder="the email you locked with" />' +
+              '<div class="form-actions"><input id="idp-restore-email" type="text" placeholder="your username" />' +
               '<button class="ds-btn ds-btn-ghost" id="idp-restore-btn" type="button">THIS IS ME — BRING MY NAME BACK</button></div>' +
               '<div class="idp-msg" id="idp-restore-msg"></div></div>';
             h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">Forget this name on this phone</button></div>';
@@ -11322,7 +11381,7 @@ if (typeof window !== "undefined") {
           });
           var rb = $("idp-restore-btn"), re = $("idp-restore-email"), rm = $("idp-restore-msg");
           if (rb && re) rb.addEventListener("click", function () {
-            rm.textContent = "Checking the ledger for that email\u2019s lock\u2026";
+            rm.textContent = "Checking the ledger for that username\u2019s lock\u2026";
             FI.restoreWithEmail(re.value).then(function (r) {
               rm.textContent = r.msg;
               if (r.ok) render();

@@ -1870,7 +1870,12 @@ module.exports = {
       ctx.strokeRect(3, 3, W - 6, H - 6);
       ctx.fillStyle = "#ff6b5e";
       ctx.shadowColor = "#c0392b"; ctx.shadowBlur = 14;
-      ctx.font = "bold 24px Verdana"; ctx.textAlign = "center";
+      var toastSize = 24;
+      ctx.font = "bold " + toastSize + "px Verdana"; ctx.textAlign = "center";
+      while (toastSize > 13 && ctx.measureText(missToastText).width > W - 24) {
+        toastSize -= 2;
+        ctx.font = "bold " + toastSize + "px Verdana";
+      }
       ctx.fillText(missToastText, vpX, horizonY + 40);
       ctx.restore();
     }

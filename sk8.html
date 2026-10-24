@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SK8 — FUSIÓN-7 Skateboard Demo (STAGED, PROPOSED ECONOMICS)</title>
+<title>SK8 2.8D — FUSIÓN-7 Skateboard Demo (STAGED, PROPOSED ECONOMICS)</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; background: #0e0d0b; color: #f2ede1; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; }
   #wrap { position: fixed; inset: 0; }
   canvas { display: block; width: 100%; height: 100%; touch-action: none; }
-  #hud { position: absolute; top: 0; left: 0; right: 0; padding: calc(10px + env(safe-area-inset-top)) 14px 8px; display: flex; gap: 16px; flex-wrap: wrap; font-weight: 700; text-shadow: 0 1px 3px #000; pointer-events: none; }
+  #hud { position: absolute; top: 0; left: 0; right: 0; padding: calc(10px + env(safe-area-inset-top)) 76px 8px 14px; display: flex; gap: 16px; flex-wrap: wrap; font-weight: 700; text-shadow: 0 1px 3px #000; pointer-events: none; }
   #hud .gold { color: #d4af37; }
+  #pauseBtn { display: none; position: absolute; top: calc(10px + env(safe-area-inset-top)); right: 14px; z-index: 4; background: rgba(14,13,11,.72); color: #d4af37; border: 2px solid #d4af37; border-radius: 10px; padding: 10px 14px; font-size: 16px; font-weight: 900; cursor: pointer; }
   #toast { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); font-size: clamp(28px, 7vw, 54px); font-weight: 900; color: #d4af37; text-shadow: 0 0 18px rgba(212,175,55,.7), 0 2px 4px #000; opacity: 0; transition: opacity .25s; pointer-events: none; text-align: center; }
   #panel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(14,13,11,.88); padding: calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom)); text-align: center; overflow-y: auto; }
   #panel h1 { color: #d4af37; font-size: clamp(44px, 12vw, 96px); margin: 0; letter-spacing: .04em; }
@@ -37,11 +38,12 @@
     <span>BAILS <span class="gold" id="hBails">0/3</span></span>
     <span id="hSpeed">STANDARD</span>
   </div>
+  <button id="pauseBtn" type="button">PAUSE</button>
   <div id="toast"></div>
   <div id="panel">
-    <span class="tag">STAGED DEMO — PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
+    <span class="tag">STAGED DEMO — 2.8D VIEW — PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
     <h1>SK8</h1>
-    <p>Ride the street. Time your tricks. Chain them without bailing and the flow multiplier climbs to x4. Ollie the cars, clear the gaps, grind the rails, drop the stairs.</p>
+    <p>Ride the street. Time your tricks. Chain them without bailing and the flow multiplier climbs to x4. Ollie the cars, clear the gaps, grind the rails, drop the stairs. Now in 2.8D: the street runs away from you toward the city, and your shadow tells you how high you are.</p>
     <div class="row" id="speedRow">
       <button class="speed" data-s="SLOW">SLOW</button>
       <button class="speed on" data-s="STANDARD">STANDARD</button>
@@ -55,17 +57,19 @@
   </div>
   <div id="howto">
     <h2>HOW TO PLAY SK8</h2>
+    <p>The game PAUSES while this is open. Press GOT IT (or PAUSE again) to resume exactly where you left off — no ticks lost, none skipped.</p>
     <ol>
-      <li><b>Ollie — TAP the screen</b> (or press SPACE). Jump. Time it so you are high over a car or across a gap.</li>
-      <li><b>Kickflip — DOUBLE-TAP or SWIPE UP mid-air</b> (or press K / ArrowUp). +25 while airborne. A kickflip inside an obstacle line also grows your chain when you land it.</li>
-      <li><b>Grind — HOLD your finger on a rail</b> (or hold G / ArrowDown). +5 every tick on the rail, +15 for a clean exit. Let go any time — but you must be holding when you reach the rail.</li>
+      <li><b>Ollie — TAP the screen</b> (or press SPACE). Jump. Time it so you are high over a car or across a gap. Your shadow stays on the street while you rise — the gap between you and your shadow is your height.</li>
+      <li><b>Kickflip — DOUBLE-TAP or SWIPE UP mid-air</b> (or press K / ArrowUp). +25 while airborne. A kickflip inside an obstacle line also grows your chain when you land it. Watch the board spin under you.</li>
+      <li><b>Grind — HOLD your finger on a rail</b> (or hold G / ArrowDown). +5 every tick on the rail, +15 for a clean exit. Let go any time — but you must be holding when you reach the rail. Sparks fly while you grind.</li>
       <li><b>Gaps — be airborne when the far edge passes.</b> Grounded over a gap and you fall in: bail. Cars work the same: grounded into a car, or landing on one, is a bail.</li>
       <li><b>Stairs — ollie as you ride over them</b> for a stair-drop bonus. Just riding down is safe, never a bail.</li>
+      <li><b>Pause — press PAUSE (top right) or P any time mid-run.</b> The street freezes and this panel opens. GOT IT resumes.</li>
       <li><b>Chain = money-in-waiting (PROPOSED).</b> Only obstacle-linked tricks grow the chain. Flat tricks score points but never grow it. A bail resets the chain to 0. Three bails ends the run. Full earning rules are PROPOSED ONLY — see the tutorial script in the game package. Nothing pays until four-minds adoption + Game ABI registration.</li>
     </ol>
     <div class="row"><button class="btn" id="closeHow">GOT IT</button></div>
   </div>
-  <div id="foot"><span>SK8 staged demo — FUSIÓN-7</span><span id="seedLine"></span></div>
+  <div id="foot"><span>SK8 2.8D staged demo — FUSIÓN-7</span><span id="seedLine"></span></div>
 </div>
 <script>
 /* SK8 CORE — side-scrolling street run for FUSIÓN-7.
@@ -436,6 +440,7 @@
   var toastEl = document.getElementById('toast');
   var panel = document.getElementById('panel');
   var howto = document.getElementById('howto');
+  var pauseBtn = document.getElementById('pauseBtn');
   var bestLine = document.getElementById('bestLine');
   var seedLine = document.getElementById('seedLine');
   var W = 0, H = 0;
@@ -452,6 +457,7 @@
   var keys = {};
   var touches = {}; // id -> {x0,y0,t0,x,y,swiped}
   var pendingOllie = false, pendingFlip = false, lastTapEnd = 0;
+  var paused = false;
   function snapshot() {
     var now = performance.now();
     var grind = !!keys['KeyG'] || !!keys['ArrowDown'];
@@ -467,7 +473,28 @@
     if (now - lastTapEnd <= 350) pendingFlip = true; // double-tap = kickflip
     lastTapEnd = now;
   }
+  function openHow() {
+    pendingOllie = false; pendingFlip = false; // no stale edge fires on resume
+    howto.style.display = 'block';
+    pauseBtn.style.display = 'none';
+    if (running) paused = true;
+  }
+  function closeHow() {
+    howto.style.display = 'none';
+    if (running) {
+      paused = false;
+      pauseBtn.style.display = 'block';
+      lastTick = performance.now(); // fresh clock, kept acc: no loss, no burst
+    }
+  }
   window.addEventListener('keydown', function (e) {
+    if (e.code === 'KeyP' || e.code === 'Escape') {
+      if (running) {
+        if (howto.style.display === 'block') closeHow(); else openHow();
+      }
+      return;
+    }
+    if (paused) return; // no game input lands while paused
     if (e.code === 'Space') { if (!keys['Space']) pendingOllie = true; keys['Space'] = true; e.preventDefault(); }
     if (e.code === 'KeyK' || e.code === 'ArrowUp') { if (!keys[e.code]) pendingFlip = true; keys[e.code] = true; e.preventDefault(); }
     if (e.code === 'KeyG' || e.code === 'ArrowDown') keys[e.code] = true;
@@ -522,7 +549,9 @@
     mouseRec = null; delete touches['mouse'];
   });
 
-  /* ---- GAME LOOP ---- */
+  /* ---- GAME LOOP (pause-aware: while paused, ticks never advance,
+     the clock stays fresh, and the kept accumulator is untouched, so
+     resume loses no tick and never double-advances) ---- */
   var state = null, speedKey = 'STANDARD', running = false, lastTick = 0, acc = 0, toastT = 0, bestChain = 0;
   try { bestChain = parseInt(window.localStorage.getItem('sk8_best_chain') || '0', 10) || 0; } catch (err) { bestChain = 0; }
   bestLine.textContent = 'Best chain this device: ' + bestChain;
@@ -541,6 +570,7 @@
   }
   function loop(now) {
     if (!running || !state) return;
+    if (paused) { lastTick = now; draw(); requestAnimationFrame(loop); return; }
     if (now - toastT > 1400) toastEl.style.opacity = '0';
     acc += now - lastTick; lastTick = now;
     var tickMs = state.tickMs;
@@ -557,6 +587,7 @@
           try { window.localStorage.setItem('sk8_best_chain', String(bestChain)); } catch (err) {}
         }
         showToast(state.finishReason === 'goal' ? 'LINE COMPLETE! ' + state.score : 'WIPED OUT — ' + state.score);
+        pauseBtn.style.display = 'none';
         setTimeout(function () {
           panel.style.display = 'flex';
           document.querySelector('#panel p').textContent = state.finishReason === 'goal'
@@ -569,73 +600,382 @@
     draw();
     requestAnimationFrame(loop);
   }
-  function draw() {
-    var s = H / 540;
-    var groundY = H * 0.78;
-    var skaterX = W * 0.18;
-    var sx = function (d) { return skaterX + (d - state.distance) * s; };
-    var sy = function (y) { return groundY + (y - 420) * s; };
-    ctx.fillStyle = '#0e0d0b'; ctx.fillRect(0, 0, W, H);
-    // Sun + far skyline (parallax 0.25) + near skyline (0.5)
-    ctx.fillStyle = '#d4af37'; ctx.beginPath(); ctx.arc(W * 0.82, H * 0.16, 26 * s, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#171511';
-    for (var bx = -((state.distance * 0.25 * s) % 160); bx < W + 160; bx += 160) {
-      ctx.fillRect(bx, groundY - 150 * s, 110 * s, 150 * s);
+
+  /* ================= 2.8D RENDERER =================
+     The sim never changes: distance scrolls, the skater rides at a
+     fixed logical spot, obstacles live in distance space. This layer
+     only MAPS sim state to an oblique street view:
+     - ahead a (logical units past the skater) -> depth f = a / AHEAD
+     - perspective scale s(f) = (1 - f)^1.35, clamped [0.10, 1.25]
+     - ground screen y: horizon + 0.70H * s(f)  (0.86H at skater, 0.16H far)
+     - screen px per logical unit at depth f: px(f) = (H/540) * s(f)
+     - street half-width in logical units: 260 (so the street fills the
+       bottom of the frame and narrows to the vanishing point)
+     - skater screen x = frame center + a small render-only sway that
+       is a pure function of distance (the sim has NO lateral state;
+       nothing here feeds back into the sim)
+     - height above ground (logical) -> screen lift: feetY =
+       groundY(0) - heightAbove * (H/540); the shadow stays on the
+       ground line and shrinks as height grows, so an ollie reads as
+       the sprite lifting OFF its shadow. */
+  var AHEAD = 1500;
+  var STREET_HALF = 260;
+  var BLOCK = 240;
+  function hash01(n) { var x = (Math.imul(n, 2654435761)) >>> 0; return x / 4294967296; }
+  function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+  function scaleAt(a) {
+    var s = Math.pow(1 - (a / AHEAD), 1.35);
+    return clamp(s, 0.10, 1.25);
+  }
+  function groundYAt(a) { return H * 0.16 + H * 0.70 * scaleAt(a); }
+  function pxAt(a) { return (H / 540) * scaleAt(a); }
+  function streetHalfAt(a) { return STREET_HALF * pxAt(a); }
+  function cxAt() { return W * 0.5; }
+  function ellipse(c, x, y, rx, ry) { c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); c.fill(); }
+
+  var CAR_COLORS = ['#c0392b', '#2e86ab', '#e8b93a', '#e8e4da', '#7a4fa3', '#3f7d4e'];
+  var HOUSE_COLORS = ['#e8dcc8', '#d9b8a6', '#b9c9a8', '#a8b9c9', '#e0c078', '#c9a8b9'];
+  var ROOF_COLORS = ['#8a4a3a', '#5a4a3a', '#3a4a5a', '#6a3a4a'];
+
+  function drawSky() {
+    var g = ctx.createLinearGradient(0, 0, 0, H * 0.34);
+    g.addColorStop(0, '#79aedd'); g.addColorStop(1, '#e8d9a8');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H * 0.34);
+    // Sun (FUSION gold, up in the sky where it belongs).
+    ctx.fillStyle = 'rgba(212,175,55,0.25)';
+    ellipse(ctx, W * 0.82, H * 0.10, 46, 46);
+    ctx.fillStyle = '#d4af37';
+    ellipse(ctx, W * 0.82, H * 0.10, 26, 26);
+    // Clouds: deterministic drift by distance, slow parallax 0.02.
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    for (var i = 0; i < 4; i++) {
+      var span = W + 400;
+      var x = (((hash01(900 + i) * span - state.distance * 0.02) % span) + span) % span - 200;
+      var y = H * (0.05 + hash01(950 + i) * 0.10);
+      ellipse(ctx, x, y, 52, 16); ellipse(ctx, x + 34, y + 4, 38, 13); ellipse(ctx, x - 34, y + 5, 30, 11);
     }
-    ctx.fillStyle = '#211e19';
-    for (var bx2 = -((state.distance * 0.5 * s) % 220); bx2 < W + 220; bx2 += 220) {
-      ctx.fillRect(bx2, groundY - 90 * s, 150 * s, 90 * s);
+    // Far city skyline (GTA backdrop), parallax 0.05, band overlaps the
+    // street's far edge so no seam shows at the vanishing point.
+    ctx.fillStyle = '#5a6a7d';
+    var step = 130, off = (state.distance * 0.05) % step;
+    for (var bx = -off - step; bx < W + step; bx += step) {
+      var hgt = (50 + hash01(Math.floor(bx / step) + 700) * 110) * (H / 540);
+      ctx.fillRect(bx, H * 0.30 - hgt, 84, hgt + H * 0.06);
     }
-    // Street
-    ctx.fillStyle = '#2a2723'; ctx.fillRect(0, groundY, W, H - groundY);
-    ctx.fillStyle = '#d4af37'; ctx.fillRect(0, groundY, W, 2);
-    // Obstacles
-    for (var i = 0; i < state.obstacles.length; i++) {
-      var ob = state.obstacles[i];
-      var x1 = sx(ob.d1), x2 = sx(ob.d2);
-      if (x2 < -50 || x1 > W + 50) continue;
-      if (ob.kind === 'car') {
-        ctx.fillStyle = '#c0392b';
-        ctx.fillRect(x1, sy(420) - 52 * s, (x2 - x1), 40 * s);
-        ctx.fillStyle = '#7d1f16'; ctx.fillRect(x1 + 12 * s, sy(420) - 68 * s, (x2 - x1) - 24 * s, 18 * s);
-        ctx.fillStyle = '#0e0d0b';
-        ctx.beginPath(); ctx.arc(x1 + 20 * s, sy(420) - 8 * s, 11 * s, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(x2 - 20 * s, sy(420) - 8 * s, 11 * s, 0, Math.PI * 2); ctx.fill();
-      } else if (ob.kind === 'rail') {
-        ctx.fillStyle = '#d4af37'; ctx.fillRect(x1, sy(374), (x2 - x1), 5 * s);
-        ctx.fillStyle = '#3a352a';
-        for (var px = x1 + 10 * s; px < x2; px += 60 * s) ctx.fillRect(px, sy(374) + 5 * s, 4 * s, 41 * s);
-      } else if (ob.kind === 'gap') {
-        ctx.fillStyle = '#000'; ctx.fillRect(x1, groundY, (x2 - x1), H - groundY);
-        ctx.fillStyle = '#c0392b'; ctx.fillRect(x1, groundY, 4, 8); ctx.fillRect(x2 - 4, groundY, 4, 8);
-      } else if (ob.kind === 'stairs') {
-        ctx.fillStyle = '#3a352a';
-        var steps = 3, sw = (x2 - x1) / steps;
-        for (var st = 0; st < steps; st++) ctx.fillRect(x1 + st * sw, groundY + st * 12 * s, sw, H - groundY - st * 12 * s);
+    ctx.fillStyle = '#46545f';
+    for (var bx2 = -off - step + 40; bx2 < W + step; bx2 += step) {
+      var hgt2 = (30 + hash01(Math.floor(bx2 / step) + 770) * 70) * (H / 540);
+      ctx.fillRect(bx2, H * 0.30 - hgt2, 60, hgt2 + H * 0.06);
+    }
+  }
+
+  function drawGroundPlanes() {
+    var cx = cxAt(), gy0 = groundYAt(0), gyF = groundYAt(AHEAD);
+    var sh0 = streetHalfAt(0), shF = streetHalfAt(AHEAD);
+    var sw0 = 46 * pxAt(0), swF = 46 * pxAt(AHEAD);
+    // Lawns (Paperboy suburb green) flank the whole street.
+    ctx.fillStyle = '#4d7a3d';
+    ctx.beginPath();
+    ctx.moveTo(0, H); ctx.lineTo(0, gyF); ctx.lineTo(cx - shF - swF, gyF);
+    ctx.lineTo(cx - sh0 - sw0, gy0); ctx.lineTo(0, gy0); ctx.closePath(); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(W, H); ctx.lineTo(W, gyF); ctx.lineTo(cx + shF + swF, gyF);
+    ctx.lineTo(cx + sh0 + sw0, gy0); ctx.lineTo(W, gy0); ctx.closePath(); ctx.fill();
+    // Sidewalks (concrete strips between lawn and street).
+    ctx.fillStyle = '#9a958a';
+    ctx.beginPath();
+    ctx.moveTo(cx - sh0 - sw0, gy0); ctx.lineTo(cx - shF - swF, gyF);
+    ctx.lineTo(cx - shF, gyF); ctx.lineTo(cx - sh0, gy0); ctx.closePath(); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(cx + sh0 + sw0, gy0); ctx.lineTo(cx + shF + swF, gyF);
+    ctx.lineTo(cx + shF, gyF); ctx.lineTo(cx + sh0, gy0); ctx.closePath(); ctx.fill();
+    // Street (asphalt trapezoid, near-wide to vanishing point).
+    ctx.fillStyle = '#33302b';
+    ctx.beginPath();
+    ctx.moveTo(cx - sh0, gy0); ctx.lineTo(cx + sh0, gy0);
+    ctx.lineTo(cx + shF, gyF); ctx.lineTo(cx - shF, gyF); ctx.closePath(); ctx.fill();
+    // Curb edge lines.
+    ctx.strokeStyle = '#d8d2c4'; ctx.lineWidth = Math.max(1, 2 * pxAt(0));
+    ctx.beginPath(); ctx.moveTo(cx - sh0, gy0); ctx.lineTo(cx - shF, gyF); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx + sh0, gy0); ctx.lineTo(cx + shF, gyF); ctx.stroke();
+    // Center dashes: yellow, converging with depth.
+    ctx.fillStyle = '#d8b93a';
+    for (var a = 60; a < AHEAD; a += 120) {
+      var y1 = groundYAt(a), y2 = groundYAt(a + 40);
+      var w1 = 5 * pxAt(a), w2 = 5 * pxAt(a + 40);
+      ctx.beginPath();
+      ctx.moveTo(cx - w1, y1); ctx.lineTo(cx + w1, y1);
+      ctx.lineTo(cx + w2, y2); ctx.lineTo(cx - w2, y2); ctx.closePath(); ctx.fill();
+    }
+  }
+
+  function drawParkedCar(x, y, s, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x - 42 * s, y - 26 * s, 84 * s, 22 * s);
+    ctx.fillStyle = 'rgba(20,20,24,0.85)';
+    ctx.fillRect(x - 26 * s, y - 38 * s, 52 * s, 14 * s);
+    ctx.fillStyle = '#101014';
+    ellipse(ctx, x - 26 * s, y - 3 * s, 9 * s, 9 * s);
+    ellipse(ctx, x + 26 * s, y - 3 * s, 9 * s, 9 * s);
+  }
+
+  function drawHouse(side, f, bi) {
+    var cx = cxAt(), s = pxAt(f), gy = groundYAt(f);
+    var sh = streetHalfAt(f), sw = 46 * s;
+    var hw = 210 * s, hh = 165 * s;
+    var dir = (side === 'L') ? -1 : 1;
+    var hx = cx + dir * (sh + sw + hw * 0.5 + 14 * s);
+    var col = HOUSE_COLORS[Math.floor(hash01(bi * 7 + (side === 'L' ? 1 : 2)) * HOUSE_COLORS.length) % HOUSE_COLORS.length];
+    var roof = ROOF_COLORS[Math.floor(hash01(bi * 11 + (side === 'L' ? 3 : 4)) * ROOF_COLORS.length) % ROOF_COLORS.length];
+    // Driveway: concrete strip on the ground from the street edge to
+    // the house front (a lateral strip at this depth, not a quad in
+    // depth — all four corners at ground level would be invisible).
+    ctx.fillStyle = '#8f8a80';
+    var dx0 = cx + dir * sh;
+    var xA = Math.min(dx0, hx), xB = Math.max(dx0, hx);
+    ctx.fillRect(xA, gy - 14 * s, xB - xA, 14 * s);
+    // House body + roof + door + windows.
+    ctx.fillStyle = col;
+    ctx.fillRect(hx - hw / 2, gy - hh, hw, hh);
+    ctx.fillStyle = roof;
+    ctx.beginPath();
+    ctx.moveTo(hx - hw * 0.58, gy - hh); ctx.lineTo(hx, gy - hh - 62 * s); ctx.lineTo(hx + hw * 0.58, gy - hh); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#3a2e1e';
+    ctx.fillRect(hx - 14 * s, gy - 52 * s, 28 * s, 52 * s);
+    ctx.fillStyle = '#cfe0ea';
+    ctx.fillRect(hx - hw * 0.36, gy - hh * 0.62, 26 * s, 26 * s);
+    ctx.fillRect(hx + hw * 0.36 - 26 * s, gy - hh * 0.62, 26 * s, 26 * s);
+    // Hedge along the lawn front.
+    ctx.fillStyle = '#3d6a32';
+    ctx.fillRect(hx - hw * 0.5, gy - 14 * s, hw, 14 * s);
+    return { hx: hx, gy: gy, s: s };
+  }
+
+  function drawSideProps() {
+    // Blocks far -> near so nearer props paint over farther ones.
+    var first = Math.floor((state.distance - 120) / BLOCK);
+    var last = Math.floor((state.distance + AHEAD) / BLOCK);
+    for (var bi = last; bi >= first; bi--) {
+      var d0 = bi * BLOCK;
+      var f = d0 - state.distance;
+      if (f > AHEAD + BLOCK || f < -300) continue;
+      var cx = cxAt(), s = pxAt(f), gy = groundYAt(f);
+      var sh = streetHalfAt(f), sw = 46 * s;
+      // Intersection every 10th block: cross street + stop line + light.
+      if (((bi % 10) + 10) % 10 === 0) {
+        ctx.fillStyle = '#2b2926';
+        ctx.fillRect(0, gy - 26 * s, W, 52 * s);
+        ctx.fillStyle = '#e8e4da';
+        for (var sx = cx - sh; sx < cx + sh; sx += 34 * s) ctx.fillRect(sx, gy - 22 * s, 16 * s, 44 * s);
+        ctx.fillStyle = '#22201c';
+        ctx.fillRect(cx + sh + sw * 0.4, gy - 90 * s, 6 * s, 90 * s);
+        ctx.fillStyle = '#101014';
+        ctx.fillRect(cx + sh + sw * 0.4 - 12 * s, gy - 128 * s, 30 * s, 40 * s);
+        ctx.fillStyle = (hash01(bi * 3) > 0.5) ? '#2ecc71' : '#e74c3c';
+        ellipse(ctx, cx + sh + sw * 0.4 + 3 * s, gy - 116 * s, 7 * s, 7 * s);
+      }
+      // Houses (left + right, hashed presence).
+      var hl = hash01(bi * 2 + 1) > 0.25, hr = hash01(bi * 2 + 2) > 0.25;
+      var posL = null, posR = null;
+      if (hl) posL = drawHouse('L', f, bi);
+      if (hr) posR = drawHouse('R', f, bi);
+      // Parked car on a driveway (GTA street life, OFF the street so it
+      // can never be mistaken for a hazard car).
+      if (hl && hash01(bi * 5 + 1) > 0.55 && posL) {
+        drawParkedCar(posL.hx, posL.gy - 8 * s, s * 0.9, CAR_COLORS[Math.floor(hash01(bi * 5 + 2) * CAR_COLORS.length) % CAR_COLORS.length]);
+      }
+      if (hr && hash01(bi * 5 + 3) > 0.55 && posR) {
+        drawParkedCar(posR.hx, posR.gy - 8 * s, s * 0.9, CAR_COLORS[Math.floor(hash01(bi * 5 + 4) * CAR_COLORS.length) % CAR_COLORS.length]);
+      }
+      // Tree, mailbox, trash can on the lawns/sidewalk edges.
+      if (hash01(bi * 13 + 1) > 0.4) {
+        var tx = cx - (sh + sw + 90 * s);
+        ctx.fillStyle = '#5a3d24'; ctx.fillRect(tx - 4 * s, gy - 34 * s, 8 * s, 34 * s);
+        ctx.fillStyle = '#3d7a34';
+        ellipse(ctx, tx, gy - 52 * s, 30 * s, 30 * s); ellipse(ctx, tx - 16 * s, gy - 40 * s, 18 * s, 18 * s);
+      }
+      if (hash01(bi * 13 + 2) > 0.4) {
+        var tx2 = cx + (sh + sw + 90 * s);
+        ctx.fillStyle = '#5a3d24'; ctx.fillRect(tx2 - 4 * s, gy - 34 * s, 8 * s, 34 * s);
+        ctx.fillStyle = '#2e6a2a';
+        ellipse(ctx, tx2, gy - 52 * s, 30 * s, 30 * s); ellipse(ctx, tx2 + 16 * s, gy - 40 * s, 18 * s, 18 * s);
+      }
+      if (hash01(bi * 17 + 1) > 0.5) {
+        var mx = cx - (sh + 12 * s);
+        ctx.fillStyle = '#6a6a6a'; ctx.fillRect(mx - 2 * s, gy - 26 * s, 4 * s, 26 * s);
+        ctx.fillStyle = '#2a4a7a'; ctx.fillRect(mx - 10 * s, gy - 36 * s, 20 * s, 12 * s);
+      }
+      if (hash01(bi * 17 + 2) > 0.5) {
+        var mx2 = cx + (sh + 12 * s);
+        ctx.fillStyle = '#6a6a6a'; ctx.fillRect(mx2 - 2 * s, gy - 26 * s, 4 * s, 26 * s);
+        ctx.fillStyle = '#7a7a7a'; ctx.fillRect(mx2 - 8 * s, gy - 24 * s, 16 * s, 24 * s);
+      }
+      // Pedestrians: sidewalk only, never on the street. Walk bob is a
+      // pure function of distance, so the street never flickers.
+      if (hash01(bi * 19 + 1) > 0.45) {
+        var pd = d0 + hash01(bi * 19 + 2) * 200;
+        var pf = pd - state.distance;
+        if (pf >= -40 && pf <= AHEAD) {
+          var ps = pxAt(pf), py = groundYAt(pf);
+          var psh = streetHalfAt(pf), psw = 46 * ps;
+          var px = cx - (psh + psw * 0.5) + Math.sin(state.distance * 0.05 + bi) * 4 * ps;
+          var bob = Math.sin(state.distance * 0.09 + bi * 2) * 2 * ps;
+          ctx.strokeStyle = '#e8e4da'; ctx.lineWidth = Math.max(1, 3 * ps); ctx.lineCap = 'round';
+          ctx.beginPath(); ctx.moveTo(px, py - 22 * ps + bob); ctx.lineTo(px, py - 2 * ps); ctx.stroke();
+          ctx.fillStyle = '#e8b48a';
+          ellipse(ctx, px, py - 30 * ps + bob, 6 * ps, 6 * ps);
+        }
       }
     }
-    // Skater
-    var kx = skaterX, ky = sy(state.y);
+  }
+
+  function drawObstacles() {
+    var cx = cxAt();
+    // Array is distance-ordered: iterate backwards = far -> near.
+    for (var i = state.obstacles.length - 1; i >= 0; i--) {
+      var ob = state.obstacles[i];
+      if (ob.d2 < state.distance - 80 || ob.d1 > state.distance + AHEAD) continue;
+      var fN = Math.max(ob.d1 - state.distance, -80);
+      var fF = ob.d2 - state.distance;
+      var yN = groundYAt(fN), yF = groundYAt(fF);
+      if (yN > H * 1.02) continue;
+      var pxN = pxAt(Math.max(fN, 0)), pxF = pxAt(fF);
+      var shN = streetHalfAt(fN), shF = streetHalfAt(fF);
+      if (ob.kind === 'car') {
+        var col = CAR_COLORS[Math.floor(hash01(ob.d1) * CAR_COLORS.length) % CAR_COLORS.length];
+        var wN = 150 * pxN, hN = 72 * pxN;
+        // Receding side/top face first, rear face on top at the near end.
+        ctx.fillStyle = 'rgba(0,0,0,0.35)';
+        ctx.beginPath();
+        ctx.moveTo(cx - wN / 2, yN); ctx.lineTo(cx + wN / 2, yN);
+        ctx.lineTo(cx + 75 * pxF, yF); ctx.lineTo(cx - 75 * pxF, yF); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = col;
+        ctx.fillRect(cx - wN / 2, yN - hN, wN, hN);
+        ctx.fillStyle = 'rgba(20,20,24,0.9)';
+        ctx.fillRect(cx - 54 * pxN, yN - hN - 30 * pxN, 108 * pxN, 30 * pxN);
+        ctx.fillStyle = '#cfe0ea';
+        ctx.fillRect(cx - 44 * pxN, yN - hN - 26 * pxN, 34 * pxN, 22 * pxN);
+        ctx.fillRect(cx + 10 * pxN, yN - hN - 26 * pxN, 34 * pxN, 22 * pxN);
+        ctx.fillStyle = '#e74c3c';
+        ctx.fillRect(cx - wN / 2 + 6 * pxN, yN - 16 * pxN, 16 * pxN, 8 * pxN);
+        ctx.fillRect(cx + wN / 2 - 22 * pxN, yN - 16 * pxN, 16 * pxN, 8 * pxN);
+        ctx.fillStyle = '#101014';
+        ellipse(ctx, cx - wN / 2 + 18 * pxN, yN - 4 * pxN, 10 * pxN, 10 * pxN);
+        ellipse(ctx, cx + wN / 2 - 18 * pxN, yN - 4 * pxN, 10 * pxN, 10 * pxN);
+      } else if (ob.kind === 'rail') {
+        ctx.strokeStyle = '#3a352a'; ctx.lineWidth = Math.max(1, 3 * pxN);
+        var stepA = 60;
+        for (var a = Math.max(fN, 0); a <= fF; a += stepA) {
+          var ya = groundYAt(a), pa = pxAt(a);
+          ctx.beginPath(); ctx.moveTo(cx, ya - 46 * pa); ctx.lineTo(cx, ya); ctx.stroke();
+        }
+        ctx.fillStyle = '#c8c8c8';
+        ctx.beginPath();
+        ctx.moveTo(cx - 8 * pxN, yN - 46 * pxN); ctx.lineTo(cx + 8 * pxN, yN - 46 * pxN);
+        ctx.lineTo(cx + 8 * pxF, yF - 46 * pxF); ctx.lineTo(cx - 8 * pxF, yF - 46 * pxF);
+        ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = '#8a8a8a'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cx - 8 * pxN, yN - 46 * pxN); ctx.lineTo(cx - 8 * pxF, yF - 46 * pxF); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + 8 * pxN, yN - 46 * pxN); ctx.lineTo(cx + 8 * pxF, yF - 46 * pxF); ctx.stroke();
+      } else if (ob.kind === 'gap') {
+        ctx.fillStyle = '#050505';
+        ctx.beginPath();
+        ctx.moveTo(cx - shN, yN); ctx.lineTo(cx + shN, yN);
+        ctx.lineTo(cx + shF, yF); ctx.lineTo(cx - shF, yF); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+        for (var gk = 1; gk <= 2; gk++) {
+          var ga = fN + (fF - fN) * gk / 3;
+          var gy2 = groundYAt(ga), sh2 = streetHalfAt(ga);
+          ctx.beginPath(); ctx.moveTo(cx - sh2, gy2); ctx.lineTo(cx + sh2, gy2); ctx.stroke();
+        }
+        // Warning lip at the near edge: alternating red/white blocks.
+        var lipW = 20 * pxN, lx = cx - shN;
+        var k = 0;
+        while (lx < cx + shN) {
+          ctx.fillStyle = (k % 2 === 0) ? '#e74c3c' : '#e8e4da';
+          ctx.fillRect(lx, yN - 3 * pxN, Math.min(lipW, cx + shN - lx), 6 * pxN);
+          lx += lipW; k++;
+        }
+      } else if (ob.kind === 'stairs') {
+        var shades = ['#6a665e', '#7a756c', '#5d5952'];
+        for (var st = 0; st < 3; st++) {
+          var a0 = fN + (fF - fN) * st / 3, a1 = fN + (fF - fN) * (st + 1) / 3;
+          var drop0 = st * 12 * pxAt(a0), drop1 = (st + 1) * 12 * pxAt(a1);
+          var yA = groundYAt(a0) + drop0, yB = groundYAt(a1) + drop1;
+          var shA = streetHalfAt(a0), shB = streetHalfAt(a1);
+          ctx.fillStyle = shades[st % 3];
+          ctx.beginPath();
+          ctx.moveTo(cx - shA, yA); ctx.lineTo(cx + shA, yA);
+          ctx.lineTo(cx + shB, yB); ctx.lineTo(cx - shB, yB); ctx.closePath(); ctx.fill();
+          ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(cx - shA, yA); ctx.lineTo(cx + shA, yA); ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function drawSkater() {
+    var cx = cxAt(), u = H / 540;
+    // Render-only sway: a pure function of distance. The sim has NO
+    // lateral state, so this never feeds back into the sim.
+    var skX = cx + Math.sin(state.distance * 0.002) * 8;
+    var gLogical = SK8.groundLevelAt(state, state.distance);
+    if (gLogical === null) gLogical = 420;
+    var heightAbove = gLogical - state.y;
+    var feetY = groundYAt(0) - heightAbove * u;
+    var groundY0 = groundYAt(0);
+    // Shadow: stays on the ground line, shrinks as height grows.
+    var shScale = 1 - Math.min(0.5, heightAbove / 300);
+    ctx.fillStyle = 'rgba(0,0,0,' + (0.35 * shScale).toFixed(3) + ')';
+    ellipse(ctx, skX, groundY0 + 4 * u, 30 * u * shScale, 7 * u * shScale);
     var tilt = 0;
     if (state.airborne) tilt = state.airFlip ? (state.airTime * 0.5) : -0.25;
     if (state.grinding) tilt = -0.08;
     if (state.stumble > 0) tilt = 0.6;
-    ctx.save(); ctx.translate(kx, ky); ctx.rotate(tilt);
-    ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 4 * s; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(-22 * s, 0); ctx.lineTo(22 * s, 0); ctx.stroke();
-    ctx.fillStyle = '#0e0d0b';
-    ctx.beginPath(); ctx.arc(-14 * s, 5 * s, 4 * s, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(14 * s, 5 * s, 4 * s, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#f2ede1'; ctx.lineWidth = 3 * s;
-    ctx.beginPath(); ctx.moveTo(-4 * s, -2 * s); ctx.lineTo(2 * s, -26 * s); ctx.stroke();
-    ctx.beginPath(); ctx.arc(4 * s, -32 * s, 7 * s, 0, Math.PI * 2); ctx.stroke();
+    // Board (spins on kickflip, independent of body tilt).
+    var spin = state.airFlip ? (state.airTime % 10) * 0.6 : 0;
+    ctx.save(); ctx.translate(skX, feetY); ctx.rotate(spin);
+    ctx.fillStyle = '#141414';
+    ctx.beginPath(); ctx.ellipse(0, 0, 26 * u, 5 * u, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#d4af37';
+    ctx.fillRect(-26 * u, -1.5 * u, 52 * u, 3 * u);
     ctx.restore();
+    // Body (seen from behind, riding up-screen).
+    ctx.save(); ctx.translate(skX, feetY); ctx.rotate(tilt);
+    ctx.strokeStyle = '#f2ede1'; ctx.lineWidth = Math.max(1, 3 * u); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-4 * u, -8 * u); ctx.lineTo(-10 * u, -2 * u); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(5 * u, -8 * u); ctx.lineTo(11 * u, -2 * u); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -26 * u); ctx.lineTo(2 * u, -8 * u); ctx.stroke();
     if (state.grinding) {
-      ctx.fillStyle = 'rgba(212,175,55,.9)';
-      for (var sp = 0; sp < 6; sp++) {
-        ctx.fillRect(kx - 20 * s + Math.random() * 40 * s, ky + 6 * s + Math.random() * 10 * s, 2, 2);
+      ctx.beginPath(); ctx.moveTo(-2 * u, -22 * u); ctx.lineTo(-20 * u, -28 * u); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-2 * u, -22 * u); ctx.lineTo(20 * u, -28 * u); ctx.stroke();
+    } else {
+      ctx.beginPath(); ctx.moveTo(-2 * u, -22 * u); ctx.lineTo(-12 * u, -14 * u); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-2 * u, -22 * u); ctx.lineTo(12 * u, -16 * u); ctx.stroke();
+    }
+    ctx.fillStyle = '#e8b48a';
+    ellipse(ctx, 4 * u, -32 * u, 7 * u, 7 * u);
+    ctx.fillStyle = '#d4af37';
+    ctx.fillRect(-3 * u, -40 * u, 14 * u, 4 * u);
+    ctx.restore();
+    // Grind sparks: deterministic by tick, never Math.random.
+    if (state.grinding) {
+      ctx.fillStyle = 'rgba(212,175,55,0.95)';
+      for (var sp = 0; sp < 8; sp++) {
+        var sxp = skX + (((state.tick * 13 + sp * 29) % 56) - 28) * u;
+        var syp = feetY + 5 * u + ((state.tick * 7 + sp * 17) % 12) * u;
+        ctx.fillRect(sxp, syp, Math.max(2, 2 * u), Math.max(2, 2 * u));
       }
     }
+  }
+
+  function draw() {
+    ctx.fillStyle = '#0e0d0b'; ctx.fillRect(0, 0, W, H);
+    drawSky();
+    drawGroundPlanes();
+    drawSideProps();
+    drawObstacles();
+    drawSkater();
     hud.score.textContent = state.score;
     hud.chain.textContent = state.chain;
     hud.mult.textContent = 'x' + state.mult.toFixed(2);
@@ -643,19 +983,22 @@
     hud.bails.textContent = state.bails + '/3';
     hud.speed.textContent = state.speedKey;
   }
+
   document.getElementById('playBtn').addEventListener('click', function () {
     var seed = (Date.now() % 100000);
     state = SK8.createRun({ seed: seed, speed: speedKey });
     seedLine.textContent = 'seed ' + seed + ' · ' + speedKey;
     panel.style.display = 'none';
-    running = true; lastTick = performance.now(); acc = 0;
+    running = true; paused = false; lastTick = performance.now(); acc = 0;
+    pauseBtn.style.display = 'block';
     var el = document.getElementById('wrap');
     if (el.requestFullscreen) el.requestFullscreen({ navigationUI: 'hide' }).catch(function () {});
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
     requestAnimationFrame(loop);
   });
-  document.getElementById('howBtn').addEventListener('click', function () { howto.style.display = 'block'; });
-  document.getElementById('closeHow').addEventListener('click', function () { howto.style.display = 'none'; });
+  document.getElementById('howBtn').addEventListener('click', function () { openHow(); });
+  document.getElementById('closeHow').addEventListener('click', function () { closeHow(); });
+  pauseBtn.addEventListener('click', function () { if (running) openHow(); });
 })();
 </script>
 </body>

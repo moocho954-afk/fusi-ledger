@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SK8 — FUSIÓN-7 Skateboard Demo (STAGED, PROPOSED ECONOMICS)</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0e0d0b; color: #f2ede1; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; }
+  #wrap { position: fixed; inset: 0; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  #hud { position: absolute; top: 0; left: 0; right: 0; padding: calc(10px + env(safe-area-inset-top)) 14px 8px; display: flex; gap: 16px; flex-wrap: wrap; font-weight: 700; text-shadow: 0 1px 3px #000; pointer-events: none; }
+  #hud .gold { color: #d4af37; }
+  #toast { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); font-size: clamp(28px, 7vw, 54px); font-weight: 900; color: #d4af37; text-shadow: 0 0 18px rgba(212,175,55,.7), 0 2px 4px #000; opacity: 0; transition: opacity .25s; pointer-events: none; text-align: center; }
+  #panel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(14,13,11,.88); padding: calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom)); text-align: center; overflow-y: auto; }
+  #panel h1 { color: #d4af37; font-size: clamp(44px, 12vw, 96px); margin: 0; letter-spacing: .04em; }
+  #panel p { max-width: 560px; line-height: 1.5; margin: 0; }
+  .btn { pointer-events: auto; background: #d4af37; color: #0e0d0b; border: none; border-radius: 12px; padding: 14px 26px; font-size: 19px; font-weight: 900; cursor: pointer; }
+  .btn.ghost { background: transparent; color: #d4af37; border: 2px solid #d4af37; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .speed { padding: 10px 16px; border-radius: 10px; border: 2px solid #3a352a; background: #171511; color: #f2ede1; font-weight: 800; cursor: pointer; }
+  .speed.on { border-color: #d4af37; color: #d4af37; }
+  #howto { display: none; position: absolute; inset: 0; background: rgba(14,13,11,.94); padding: calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom)); overflow-y: auto; z-index: 5; }
+  #howto h2 { color: #d4af37; }
+  #howto li { line-height: 1.6; margin-bottom: 8px; }
+  .tag { display: inline-block; border: 1px solid #d4af37; color: #d4af37; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+  #foot { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 14px calc(10px + env(safe-area-inset-bottom)); display: flex; justify-content: space-between; font-size: 12px; opacity: .75; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game"></canvas>
+  <div id="hud">
+    <span>SCORE <span class="gold" id="hScore">0</span></span>
+    <span>CHAIN <span class="gold" id="hChain">0</span> <span class="gold" id="hMult">x1.00</span></span>
+    <span>DIST <span class="gold" id="hDist">0</span>m</span>
+    <span>BAILS <span class="gold" id="hBails">0/3</span></span>
+    <span id="hSpeed">STANDARD</span>
+  </div>
+  <div id="toast"></div>
+  <div id="panel">
+    <span class="tag">STAGED DEMO — PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
+    <h1>SK8</h1>
+    <p>Ride the street. Time your tricks. Chain them without bailing and the flow multiplier climbs to x4. Ollie the cars, clear the gaps, grind the rails, drop the stairs.</p>
+    <div class="row" id="speedRow">
+      <button class="speed" data-s="SLOW">SLOW</button>
+      <button class="speed on" data-s="STANDARD">STANDARD</button>
+      <button class="speed" data-s="FAST">FAST</button>
+    </div>
+    <div class="row">
+      <button class="btn" id="playBtn">PLAY</button>
+      <button class="btn ghost" id="howBtn">HOW TO PLAY</button>
+    </div>
+    <p id="bestLine">Best chain this device: 0</p>
+  </div>
+  <div id="howto">
+    <h2>HOW TO PLAY SK8</h2>
+    <ol>
+      <li><b>Ollie — TAP the screen</b> (or press SPACE). Jump. Time it so you are high over a car or across a gap.</li>
+      <li><b>Kickflip — DOUBLE-TAP or SWIPE UP mid-air</b> (or press K / ArrowUp). +25 while airborne. A kickflip inside an obstacle line also grows your chain when you land it.</li>
+      <li><b>Grind — HOLD your finger on a rail</b> (or hold G / ArrowDown). +5 every tick on the rail, +15 for a clean exit. Let go any time — but you must be holding when you reach the rail.</li>
+      <li><b>Gaps — be airborne when the far edge passes.</b> Grounded over a gap and you fall in: bail. Cars work the same: grounded into a car, or landing on one, is a bail.</li>
+      <li><b>Stairs — ollie as you ride over them</b> for a stair-drop bonus. Just riding down is safe, never a bail.</li>
+      <li><b>Chain = money-in-waiting (PROPOSED).</b> Only obstacle-linked tricks grow the chain. Flat tricks score points but never grow it. A bail resets the chain to 0. Three bails ends the run. Full earning rules are PROPOSED ONLY — see the tutorial script in the game package. Nothing pays until four-minds adoption + Game ABI registration.</li>
+    </ol>
+    <div class="row"><button class="btn" id="closeHow">GOT IT</button></div>
+  </div>
+  <div id="foot"><span>SK8 staged demo — FUSIÓN-7</span><span id="seedLine"></span></div>
+</div>
+<script>
+/* SK8 CORE — side-scrolling street run for FUSIÓN-7.
+ * STAGED ONLY — PROVISIONAL, NOT GOVERNING. No Game ABI registration,
+ * no economics, no ingestor path. All economics in the companion docs
+ * are PROPOSED ONLY and activate NOTHING until four-minds adoption +
+ * Game ABI registration + owner signature, like every other game.
+ *
+ * Conventions borrowed from the shipped cores (not copied):
+ * - snake v8: pure deterministic simulation. No wall-clock, no
+ *   Math.random. The ONLY entropy source is one seeded mulberry32
+ *   stream per run, consumed in fixed order by obstacle generation.
+ *   Ticks are 1-based. One input snapshot is consumed per tick.
+ * - STARLANE v2 touch fix: the INPUT PATH is per-tick. The core never
+ *   sees raw events — it sees one snapshot per tick,
+ *   {ollie, flip, grind}, where grind is a LEVEL read from live held
+ *   state and ollie/flip are ONE-TICK edges. Keyboard and touch both
+ *   drive this same snapshot (the demo's adapter builds it); a held
+ *   finger grinds only while it is still down — nothing is latched
+ *   from a single touchstart event. Keyboard proof alone never covers
+ *   touch; the scripted playthrough drives the touch-gesture path.
+ *
+ * WORLD (logical pixels, scale 1 — the renderer scales to screen):
+ * - Skater rides at a fixed screen position; distance scrolls.
+ * - Obstacles live in DISTANCE space: the skater is AT `distance`;
+ *   an obstacle spans [d1, d2]. Screen x = SKATER_X + (d - distance).
+ * - Ground line y = GROUND_Y (420). Stairs lower the ground by 36
+ *   inside their span. Gaps have NO ground (fall in = bail).
+ * - Cars are hazards (grounded collision = bail; land on one = bail).
+ *   Rails are opportunities (never bail). Stairs are a drop zone.
+ *
+ * SCORING = trick points x flow multiplier. Multiplier = 1 + 0.25 x
+ * chain, capped at x4. Chain grows ONLY on obstacle-linked tricks
+ * (car ollie, gap clear, stair ollie, grind exit, kickflip linked to
+ * an obstacle line). Flat ollies/flips score points but never grow
+ * the chain — no flat-trick farming. A bail resets the chain to 0.
+ * Run ends at the distance goal (6000) or after 3 bails.
+ */
+(function (global) {
+  'use strict';
+
+  var SPEEDS = {
+    SLOW: { tickMs: 150, scroll: 6 },
+    STANDARD: { tickMs: 120, scroll: 9 },
+    FAST: { tickMs: 90, scroll: 13 }
+  };
+  var GROUND_Y = 420;
+  var SKATER_X = 140;
+  var OLLIE_V = -22;
+  var GRAVITY = 1.6;
+  var GOAL = 6000;
+  var MAX_BAILS = 3;
+  var GRACE_TICKS = 20;
+  var STUMBLE_TICKS = 20;
+  var CAR_TOP = GROUND_Y - 70;
+  var RAIL_Y = GROUND_Y - 46;
+  var STAIR_DROP = 36;
+  var POINTS = {
+    ollieFlat: 5,
+    kickflip: 25,
+    grindTick: 5,
+    grindExit: 15,
+    gapClear: 30,
+    carOllie: 20,
+    stairOllie: 15
+  };
+
+  function mulberry32(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function multFor(chain) {
+    var m = 1 + 0.25 * chain;
+    return m > 4 ? 4 : m;
+  }
+
+  function createRun(opts) {
+    opts = opts || {};
+    var speedKey = opts.speed || 'STANDARD';
+    if (!SPEEDS[speedKey]) speedKey = 'STANDARD';
+    var st = {
+      seed: (opts.seed === undefined ? 1337 : opts.seed),
+      speedKey: speedKey,
+      tickMs: SPEEDS[speedKey].tickMs,
+      scroll: SPEEDS[speedKey].scroll,
+      tick: 0,
+      distance: 0,
+      y: GROUND_Y,
+      vy: 0,
+      airborne: false,
+      grinding: false,
+      rail: null,
+      airTime: 0,
+      airFlip: false,
+      airObstacle: false,
+      chain: 0,
+      mult: 1,
+      score: 0,
+      bails: 0,
+      grace: 0,
+      stumble: 0,
+      status: 'riding',
+      finishReason: null,
+      bestChain: 0,
+      tricks: { ollieFlat: 0, kickflip: 0, grindTick: 0, grindExit: 0, gapClear: 0, carOllie: 0, stairOllie: 0 },
+      obstacles: [],
+      nextD: 900,
+      rng: mulberry32(opts.seed === undefined ? 1337 : opts.seed)
+    };
+    genAhead(st);
+    return st;
+  }
+
+  function genAhead(st) {
+    while (st.obstacles.length === 0 || lastD2(st) < st.distance + 2000) {
+      var r = st.rng();
+      var ob = { kind: 'car', d1: st.nextD, d2: st.nextD + 110 };
+      if (r < 0.35) {
+        ob.kind = 'car'; ob.d2 = st.nextD + 110;
+      } else if (r < 0.60) {
+        ob.kind = 'rail'; ob.d2 = st.nextD + 200 + Math.floor(st.rng() * 120);
+      } else if (r < 0.80) {
+        ob.kind = 'gap'; ob.d2 = st.nextD + 90 + Math.floor(st.rng() * 50);
+      } else {
+        ob.kind = 'stairs'; ob.d2 = st.nextD + 180;
+      }
+      st.obstacles.push(ob);
+      st.nextD = ob.d2 + 500 + Math.floor(st.rng() * 400);
+    }
+  }
+
+  function lastD2(st) {
+    return st.obstacles[st.obstacles.length - 1].d2;
+  }
+
+  // Ground level at a distance, or null where there is no ground (gap).
+  function groundLevelAt(st, d) {
+    for (var i = 0; i < st.obstacles.length; i++) {
+      var ob = st.obstacles[i];
+      if (d >= ob.d1 && d <= ob.d2) {
+        if (ob.kind === 'gap') return null;
+        if (ob.kind === 'stairs') return GROUND_Y + STAIR_DROP;
+        return GROUND_Y;
+      }
+    }
+    return GROUND_Y;
+  }
+
+  function inSpan(d, ob, pad) {
+    return d >= ob.d1 + pad && d <= ob.d2 - pad;
+  }
+
+  function railAt(st, d) {
+    for (var i = 0; i < st.obstacles.length; i++) {
+      var ob = st.obstacles[i];
+      if (ob.kind === 'rail' && d >= ob.d1 && d <= ob.d2) return ob;
+    }
+    return null;
+  }
+
+  function addScore(st, base) {
+    var pts = Math.round(base * st.mult);
+    st.score += pts;
+    return pts;
+  }
+
+  function bumpChain(st) {
+    st.chain += 1;
+    if (st.chain > st.bestChain) st.bestChain = st.chain;
+    st.mult = multFor(st.chain);
+  }
+
+  function doBail(st, reason, events) {
+    st.bails += 1;
+    st.chain = 0;
+    st.mult = 1;
+    st.airborne = false;
+    st.grinding = false;
+    st.rail = null;
+    st.vy = 0;
+    var g = groundLevelAt(st, st.distance);
+    st.y = (g === null ? GROUND_Y : g);
+    st.grace = GRACE_TICKS;
+    st.stumble = STUMBLE_TICKS;
+    events.push({ type: 'bail', reason: reason });
+  }
+
+  // One tick. `input` is the per-tick snapshot {ollie, flip, grind}.
+  // Returns the tick's events (for trace + toasts).
+  function step(st, input) {
+    if (st.status !== 'riding') return [];
+    input = input || {};
+    var events = [];
+    var prevD = st.distance;
+    st.tick += 1;
+    st.distance += st.scroll;
+    if (st.grace > 0) st.grace -= 1;
+    if (st.stumble > 0) st.stumble -= 1;
+    genAhead(st);
+
+    // --- grinding branch (grind is a per-tick LEVEL, never latched) ---
+    if (st.grinding) {
+      var rail = st.rail;
+      if (!rail || st.distance > rail.d2) {
+        st.grinding = false; st.rail = null; st.airborne = true; st.vy = 2;
+        st.airTime = 0; st.airFlip = false; st.airObstacle = false;
+        var p = addScore(st, POINTS.grindExit);
+        st.tricks.grindExit += 1; bumpChain(st);
+        events.push({ type: 'grind_exit', points: p, auto: true });
+      } else if (!input.grind) {
+        st.grinding = false; st.rail = null; st.airborne = true; st.vy = 2;
+        st.airTime = 0; st.airFlip = false; st.airObstacle = false;
+        var p2 = addScore(st, POINTS.grindExit);
+        st.tricks.grindExit += 1; bumpChain(st);
+        events.push({ type: 'grind_exit', points: p2, auto: false });
+      } else {
+        var p3 = addScore(st, POINTS.grindTick);
+        st.tricks.grindTick += 1;
+        events.push({ type: 'grind_tick', points: p3 });
+      }
+      finishCheck(st);
+      return events;
+    }
+
+    // --- airborne branch ---
+    if (st.airborne) {
+      st.airTime += 1;
+      var prevY = st.y;
+      st.vy += GRAVITY;
+      st.y += st.vy;
+      if (input.flip && !st.airFlip) {
+        st.airFlip = true;
+        var pf = addScore(st, POINTS.kickflip);
+        st.tricks.kickflip += 1;
+        events.push({ type: 'kickflip', points: pf });
+      }
+      // Crossing checks (car cleared / gap cleared) at span exits.
+      for (var i = 0; i < st.obstacles.length; i++) {
+        var ob = st.obstacles[i];
+        if (prevD < ob.d2 && st.distance >= ob.d2) {
+          if (ob.kind === 'car' && st.y + 30 <= CAR_TOP) {
+            var pc = addScore(st, POINTS.carOllie);
+            st.tricks.carOllie += 1; bumpChain(st); st.airObstacle = true;
+            events.push({ type: 'car_ollie', points: pc });
+          } else if (ob.kind === 'gap') {
+            var pg = addScore(st, POINTS.gapClear);
+            st.tricks.gapClear += 1; bumpChain(st); st.airObstacle = true;
+            events.push({ type: 'gap_clear', points: pg });
+          }
+        }
+      }
+      // Rail snap: falling onto a rail while holding grinds it.
+      if (st.vy > 0 && input.grind) {
+        var r2 = railAt(st, st.distance);
+        if (r2 && prevY < RAIL_Y && st.y >= RAIL_Y) {
+          st.grinding = true; st.rail = r2; st.airborne = false; st.y = RAIL_Y; st.vy = 0;
+          events.push({ type: 'grind_start' });
+          finishCheck(st);
+          return events;
+        }
+      }
+      // Landing.
+      var gl = groundLevelAt(st, st.distance);
+      if (gl === null) {
+        if (st.y > GROUND_Y + 80) doBail(st, 'gap_fall', events);
+      } else if (st.y >= gl) {
+        var carHit = false;
+        for (var j = 0; j < st.obstacles.length; j++) {
+          var co = st.obstacles[j];
+          if (co.kind === 'car' && inSpan(st.distance, co, 8)) { carHit = true; break; }
+        }
+        if (carHit && st.grace === 0) {
+          doBail(st, 'landed_on_car', events);
+        } else {
+          st.airborne = false; st.y = gl; st.vy = 0;
+          if (st.airFlip && st.airObstacle) {
+            bumpChain(st);
+            events.push({ type: 'land_flip_link', points: 0 });
+          } else {
+            events.push({ type: 'land', points: 0 });
+          }
+          st.airFlip = false; st.airObstacle = false;
+        }
+      }
+      finishCheck(st);
+      return events;
+    }
+
+    // --- grounded branch ---
+    if (input.ollie) {
+      st.airborne = true; st.vy = OLLIE_V; st.airTime = 0; st.airFlip = false; st.airObstacle = false;
+      var onStairs = false;
+      for (var k = 0; k < st.obstacles.length; k++) {
+        var so = st.obstacles[k];
+        if (so.kind === 'stairs' && st.distance >= so.d1 && st.distance <= so.d2) { onStairs = true; break; }
+      }
+      if (onStairs) {
+        var ps = addScore(st, POINTS.stairOllie);
+        st.tricks.stairOllie += 1; bumpChain(st); st.airObstacle = true;
+        events.push({ type: 'stair_ollie', points: ps });
+      } else {
+        var po = addScore(st, POINTS.ollieFlat);
+        st.tricks.ollieFlat += 1;
+        events.push({ type: 'ollie', points: po });
+      }
+      finishCheck(st);
+      return events;
+    }
+    if (input.grind) {
+      var r3 = railAt(st, st.distance);
+      if (r3) {
+        st.grinding = true; st.rail = r3; st.y = RAIL_Y; st.vy = 0;
+        events.push({ type: 'grind_start' });
+        finishCheck(st);
+        return events;
+      }
+    }
+    // Ground hazards (grace = post-bail invulnerability).
+    if (st.grace === 0) {
+      for (var m = 0; m < st.obstacles.length; m++) {
+        var ho = st.obstacles[m];
+        if (ho.kind === 'car' && inSpan(st.distance, ho, 8)) { doBail(st, 'hit_car', events); break; }
+        if (ho.kind === 'gap' && st.distance >= ho.d1 && st.distance <= ho.d2) { doBail(st, 'fell_in_gap', events); break; }
+      }
+    }
+    if (!st.airborne && !st.grinding) {
+      var g2 = groundLevelAt(st, st.distance);
+      st.y = (g2 === null ? st.y : g2);
+    }
+    finishCheck(st);
+    return events;
+  }
+
+  function finishCheck(st) {
+    if (st.status !== 'riding') return;
+    if (st.distance >= GOAL) { st.status = 'finished'; st.finishReason = 'goal'; }
+    else if (st.bails >= MAX_BAILS) { st.status = 'finished'; st.finishReason = 'wiped'; }
+  }
+
+  var SK8 = {
+    SPEEDS: SPEEDS,
+    GROUND_Y: GROUND_Y,
+    SKATER_X: SKATER_X,
+    GOAL: GOAL,
+    MAX_BAILS: MAX_BAILS,
+    POINTS: POINTS,
+    createRun: createRun,
+    step: step,
+    groundLevelAt: groundLevelAt
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = SK8;
+  global.SK8 = SK8;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var cv = document.getElementById('game');
+  var ctx = cv.getContext('2d');
+  var hud = { score: document.getElementById('hScore'), chain: document.getElementById('hChain'), mult: document.getElementById('hMult'), dist: document.getElementById('hDist'), bails: document.getElementById('hBails'), speed: document.getElementById('hSpeed') };
+  var toastEl = document.getElementById('toast');
+  var panel = document.getElementById('panel');
+  var howto = document.getElementById('howto');
+  var bestLine = document.getElementById('bestLine');
+  var seedLine = document.getElementById('seedLine');
+  var W = 0, H = 0;
+  function resize() { W = window.innerWidth; H = window.innerHeight; cv.width = W; cv.height = H; }
+  resize(); window.addEventListener('resize', resize);
+
+  /* ---- INPUT ADAPTER: one per-tick snapshot, same path for all ----
+     Grind is a LEVEL recomputed from LIVE held state every tick
+     (a finger still down past 250ms, or G / ArrowDown held). It is
+     NEVER latched from a touchstart event: when the finger lifts,
+     the next tick's snapshot reads grind=false. Tap / double-tap /
+     swipe-up are ONE-TICK edges: set on the event, consumed by the
+     next tick's snapshot, then cleared — never buffered further. */
+  var keys = {};
+  var touches = {}; // id -> {x0,y0,t0,x,y,swiped}
+  var pendingOllie = false, pendingFlip = false, lastTapEnd = 0;
+  function snapshot() {
+    var now = performance.now();
+    var grind = !!keys['KeyG'] || !!keys['ArrowDown'];
+    for (var id in touches) {
+      if (now - touches[id].t0 >= 250) { grind = true; break; }
+    }
+    var s = { ollie: pendingOllie, flip: pendingFlip, grind: grind };
+    pendingOllie = false; pendingFlip = false; // consumed, never buffered
+    return s;
+  }
+  function quickTap(now) {
+    pendingOllie = true;
+    if (now - lastTapEnd <= 350) pendingFlip = true; // double-tap = kickflip
+    lastTapEnd = now;
+  }
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space') { if (!keys['Space']) pendingOllie = true; keys['Space'] = true; e.preventDefault(); }
+    if (e.code === 'KeyK' || e.code === 'ArrowUp') { if (!keys[e.code]) pendingFlip = true; keys[e.code] = true; e.preventDefault(); }
+    if (e.code === 'KeyG' || e.code === 'ArrowDown') keys[e.code] = true;
+  });
+  window.addEventListener('keyup', function (e) { keys[e.code] = false; });
+  function tStart(e) {
+    for (var i = 0; i < e.changedTouches.length; i++) {
+      var t = e.changedTouches[i];
+      touches[t.identifier] = { x0: t.clientX, y0: t.clientY, t0: performance.now(), x: t.clientX, y: t.clientY, swiped: false };
+    }
+    if (e.cancelable) e.preventDefault();
+  }
+  function tMove(e) {
+    for (var i = 0; i < e.changedTouches.length; i++) {
+      var t = e.changedTouches[i];
+      var rec = touches[t.identifier];
+      if (!rec) continue;
+      rec.x = t.clientX; rec.y = t.clientY;
+      if (!rec.swiped && rec.y0 - rec.y > 40 && performance.now() - rec.t0 < 300) { rec.swiped = true; pendingFlip = true; }
+    }
+    if (e.cancelable) e.preventDefault();
+  }
+  function tEnd(e) {
+    for (var i = 0; i < e.changedTouches.length; i++) {
+      var t = e.changedTouches[i];
+      var rec = touches[t.identifier];
+      if (!rec) continue;
+      var dt = performance.now() - rec.t0;
+      var moved = Math.max(Math.abs(rec.x - rec.x0), Math.abs(rec.y - rec.y0));
+      if (dt < 250 && moved < 24 && !rec.swiped) quickTap(performance.now());
+      delete touches[t.identifier];
+    }
+    if (e.cancelable) e.preventDefault();
+  }
+  cv.addEventListener('touchstart', tStart, { passive: false });
+  cv.addEventListener('touchmove', tMove, { passive: false });
+  cv.addEventListener('touchend', tEnd, { passive: false });
+  cv.addEventListener('touchcancel', tEnd, { passive: false });
+  // Mouse mirrors the same adapter (desktop testing), same one-tick edges.
+  var mouseRec = null;
+  cv.addEventListener('mousedown', function (e) { mouseRec = { x0: e.clientX, y0: e.clientY, t0: performance.now(), x: e.clientX, y: e.clientY, swiped: false }; touches['mouse'] = mouseRec; });
+  cv.addEventListener('mousemove', function (e) {
+    if (!mouseRec) return;
+    mouseRec.x = e.clientX; mouseRec.y = e.clientY;
+    if (!mouseRec.swiped && mouseRec.y0 - mouseRec.y > 40 && performance.now() - mouseRec.t0 < 300) { mouseRec.swiped = true; pendingFlip = true; }
+  });
+  cv.addEventListener('mouseup', function (e) {
+    if (!mouseRec) return;
+    var dt = performance.now() - mouseRec.t0;
+    var moved = Math.max(Math.abs(mouseRec.x - mouseRec.x0), Math.abs(mouseRec.y - mouseRec.y0));
+    if (dt < 250 && moved < 24 && !mouseRec.swiped) quickTap(performance.now());
+    mouseRec = null; delete touches['mouse'];
+  });
+
+  /* ---- GAME LOOP ---- */
+  var state = null, speedKey = 'STANDARD', running = false, lastTick = 0, acc = 0, toastT = 0, bestChain = 0;
+  try { bestChain = parseInt(window.localStorage.getItem('sk8_best_chain') || '0', 10) || 0; } catch (err) { bestChain = 0; }
+  bestLine.textContent = 'Best chain this device: ' + bestChain;
+  document.getElementById('speedRow').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-s]');
+    if (!b) return;
+    speedKey = b.getAttribute('data-s');
+    var btns = document.querySelectorAll('#speedRow .speed');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i] === b);
+  });
+  function showToast(text) { toastEl.textContent = text; toastEl.style.opacity = '1'; toastT = performance.now(); }
+  function fmtEv(ev) {
+    var names = { ollie: 'OLLIE', kickflip: 'KICKFLIP!', grind_start: 'GRIND!', grind_exit: 'CLEAN EXIT', gap_clear: 'GAP CLEAR!', car_ollie: 'OVER THE CAR!', stair_ollie: 'STAIR DROP!', bail: 'BAIL!' };
+    var n = names[ev.type] || ev.type;
+    return ev.points ? n + ' +' + ev.points : n;
+  }
+  function loop(now) {
+    if (!running || !state) return;
+    if (now - toastT > 1400) toastEl.style.opacity = '0';
+    acc += now - lastTick; lastTick = now;
+    var tickMs = state.tickMs;
+    while (acc >= tickMs && state.status === 'riding') {
+      acc -= tickMs;
+      var evs = SK8.step(state, snapshot());
+      for (var i = 0; i < evs.length; i++) {
+        if (evs[i].type === 'grind_tick') continue;
+        showToast(fmtEv(evs[i]));
+      }
+      if (state.status === 'finished') {
+        if (state.bestChain > bestChain) {
+          bestChain = state.bestChain;
+          try { window.localStorage.setItem('sk8_best_chain', String(bestChain)); } catch (err) {}
+        }
+        showToast(state.finishReason === 'goal' ? 'LINE COMPLETE! ' + state.score : 'WIPED OUT — ' + state.score);
+        setTimeout(function () {
+          panel.style.display = 'flex';
+          document.querySelector('#panel p').textContent = state.finishReason === 'goal'
+            ? ('Line complete! Score ' + state.score + ', best chain ' + state.bestChain + '.')
+            : ('Wiped out after ' + state.bails + ' bails. Score ' + state.score + ', best chain ' + state.bestChain + '.');
+          bestLine.textContent = 'Best chain this device: ' + bestChain;
+        }, 1600);
+      }
+    }
+    draw();
+    requestAnimationFrame(loop);
+  }
+  function draw() {
+    var s = H / 540;
+    var groundY = H * 0.78;
+    var skaterX = W * 0.18;
+    var sx = function (d) { return skaterX + (d - state.distance) * s; };
+    var sy = function (y) { return groundY + (y - 420) * s; };
+    ctx.fillStyle = '#0e0d0b'; ctx.fillRect(0, 0, W, H);
+    // Sun + far skyline (parallax 0.25) + near skyline (0.5)
+    ctx.fillStyle = '#d4af37'; ctx.beginPath(); ctx.arc(W * 0.82, H * 0.16, 26 * s, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#171511';
+    for (var bx = -((state.distance * 0.25 * s) % 160); bx < W + 160; bx += 160) {
+      ctx.fillRect(bx, groundY - 150 * s, 110 * s, 150 * s);
+    }
+    ctx.fillStyle = '#211e19';
+    for (var bx2 = -((state.distance * 0.5 * s) % 220); bx2 < W + 220; bx2 += 220) {
+      ctx.fillRect(bx2, groundY - 90 * s, 150 * s, 90 * s);
+    }
+    // Street
+    ctx.fillStyle = '#2a2723'; ctx.fillRect(0, groundY, W, H - groundY);
+    ctx.fillStyle = '#d4af37'; ctx.fillRect(0, groundY, W, 2);
+    // Obstacles
+    for (var i = 0; i < state.obstacles.length; i++) {
+      var ob = state.obstacles[i];
+      var x1 = sx(ob.d1), x2 = sx(ob.d2);
+      if (x2 < -50 || x1 > W + 50) continue;
+      if (ob.kind === 'car') {
+        ctx.fillStyle = '#c0392b';
+        ctx.fillRect(x1, sy(420) - 52 * s, (x2 - x1), 40 * s);
+        ctx.fillStyle = '#7d1f16'; ctx.fillRect(x1 + 12 * s, sy(420) - 68 * s, (x2 - x1) - 24 * s, 18 * s);
+        ctx.fillStyle = '#0e0d0b';
+        ctx.beginPath(); ctx.arc(x1 + 20 * s, sy(420) - 8 * s, 11 * s, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x2 - 20 * s, sy(420) - 8 * s, 11 * s, 0, Math.PI * 2); ctx.fill();
+      } else if (ob.kind === 'rail') {
+        ctx.fillStyle = '#d4af37'; ctx.fillRect(x1, sy(374), (x2 - x1), 5 * s);
+        ctx.fillStyle = '#3a352a';
+        for (var px = x1 + 10 * s; px < x2; px += 60 * s) ctx.fillRect(px, sy(374) + 5 * s, 4 * s, 41 * s);
+      } else if (ob.kind === 'gap') {
+        ctx.fillStyle = '#000'; ctx.fillRect(x1, groundY, (x2 - x1), H - groundY);
+        ctx.fillStyle = '#c0392b'; ctx.fillRect(x1, groundY, 4, 8); ctx.fillRect(x2 - 4, groundY, 4, 8);
+      } else if (ob.kind === 'stairs') {
+        ctx.fillStyle = '#3a352a';
+        var steps = 3, sw = (x2 - x1) / steps;
+        for (var st = 0; st < steps; st++) ctx.fillRect(x1 + st * sw, groundY + st * 12 * s, sw, H - groundY - st * 12 * s);
+      }
+    }
+    // Skater
+    var kx = skaterX, ky = sy(state.y);
+    var tilt = 0;
+    if (state.airborne) tilt = state.airFlip ? (state.airTime * 0.5) : -0.25;
+    if (state.grinding) tilt = -0.08;
+    if (state.stumble > 0) tilt = 0.6;
+    ctx.save(); ctx.translate(kx, ky); ctx.rotate(tilt);
+    ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 4 * s; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-22 * s, 0); ctx.lineTo(22 * s, 0); ctx.stroke();
+    ctx.fillStyle = '#0e0d0b';
+    ctx.beginPath(); ctx.arc(-14 * s, 5 * s, 4 * s, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(14 * s, 5 * s, 4 * s, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#f2ede1'; ctx.lineWidth = 3 * s;
+    ctx.beginPath(); ctx.moveTo(-4 * s, -2 * s); ctx.lineTo(2 * s, -26 * s); ctx.stroke();
+    ctx.beginPath(); ctx.arc(4 * s, -32 * s, 7 * s, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+    if (state.grinding) {
+      ctx.fillStyle = 'rgba(212,175,55,.9)';
+      for (var sp = 0; sp < 6; sp++) {
+        ctx.fillRect(kx - 20 * s + Math.random() * 40 * s, ky + 6 * s + Math.random() * 10 * s, 2, 2);
+      }
+    }
+    hud.score.textContent = state.score;
+    hud.chain.textContent = state.chain;
+    hud.mult.textContent = 'x' + state.mult.toFixed(2);
+    hud.dist.textContent = Math.floor(state.distance / 10);
+    hud.bails.textContent = state.bails + '/3';
+    hud.speed.textContent = state.speedKey;
+  }
+  document.getElementById('playBtn').addEventListener('click', function () {
+    var seed = (Date.now() % 100000);
+    state = SK8.createRun({ seed: seed, speed: speedKey });
+    seedLine.textContent = 'seed ' + seed + ' · ' + speedKey;
+    panel.style.display = 'none';
+    running = true; lastTick = performance.now(); acc = 0;
+    var el = document.getElementById('wrap');
+    if (el.requestFullscreen) el.requestFullscreen({ navigationUI: 'hide' }).catch(function () {});
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    requestAnimationFrame(loop);
+  });
+  document.getElementById('howBtn').addEventListener('click', function () { howto.style.display = 'block'; });
+  document.getElementById('closeHow').addEventListener('click', function () { howto.style.display = 'none'; });
+})();
+</script>
+</body>
+</html>

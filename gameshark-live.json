@@ -1,6 +1,6 @@
 {
-  "tip_height": 1622,
-  "tip_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
+  "tip_height": 1623,
+  "tip_hash": "9370bd0baf8e3a2c5e7a46dfd62fafe5ab0955f07d061109c2c9b896c723eb29",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
@@ -56,5 +56,5 @@
       "event_id": "401909852"
     }
   ],
-  "updated_at": "2026-10-24T17:02:58.706869+00:00"
+  "updated_at": "2026-10-24T22:32:04.446368+00:00"
 }

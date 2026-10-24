@@ -7412,6 +7412,24 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
 
   /* --- chain --- */
   var anchor = "unknown";
+  /* Live head: the snapshot poll refreshes window.BLOCK_DATA on every poll,
+   * so the highest-h block there is the current main-ledger head. New play
+   * chains anchor there, never to a hardcoded hash that can age past the
+   * 7-day S6/C3a cap. Falls back to the mount anchor when no snapshot has
+   * landed yet (play requires sync anyway). Order-independent: takes max h. */
+  function liveHeadHash() {
+    try {
+      var b = window.BLOCK_DATA;
+      if (Array.isArray(b) && b.length) {
+        var best = null;
+        for (var i = 0; i < b.length; i++) {
+          if (b[i] && typeof b[i].h === "number" && (!best || b[i].h > best.h)) best = b[i];
+        }
+        if (best && best.hash) return best.hash;
+      }
+    } catch (e) {}
+    return null;
+  }
   function load() {
     try { return JSON.parse(localStorage.getItem(KEY)) || []; }
     catch (e) { return []; }
@@ -7422,6 +7440,8 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
   var chain = load();
 
   function genesis() {
+    var lh = liveHeadHash();
+    if (lh) anchor = lh;
     var b = { h: 0, ts: Date.now(), type: "genesis", score: 0, prev: "0", anchor: anchor };
     b.hash = hashBlock(b);
     return b;
@@ -7809,6 +7829,23 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
     return c.length ? c[c.length - 1] : null;
   }
 
+  /* Live head (same rule as the memory block): highest-h block in
+   * window.BLOCK_DATA, refreshed on every snapshot poll. Claims prefer it
+   * over S.anchor so the envelope head never ages past the 7-day cap. */
+  function liveHeadHash() {
+    try {
+      var b = window.BLOCK_DATA;
+      if (Array.isArray(b) && b.length) {
+        var best = null;
+        for (var i = 0; i < b.length; i++) {
+          if (b[i] && typeof b[i].h === "number" && (!best || b[i].h > best.h)) best = b[i];
+        }
+        if (best && best.hash) return best.hash;
+      }
+    } catch (e) {}
+    return null;
+  }
+
   /* --- claim (FUSIÓN-7, per POLICY.md) --- */
   function buildClaim(id, playHash) {
     var a = byId(id);
@@ -7820,7 +7857,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         fusi: a.fusi,
         at: new Date().toISOString(),
         play_block_hash: playHash,
-        chain_head_hash: S.anchor,
+        chain_head_hash: (liveHeadHash() || S.anchor),
         player: S.player,
         player_name: getName()
       },
@@ -8212,7 +8249,7 @@ if (typeof globalThis !== "undefined") { globalThis.STARLANE_SINE_TABLE = SINE_T
         game: "fusi-snake",
         player: S.player,
         player_name: getName(),
-        chain_head_hash: S.anchor,
+        chain_head_hash: (liveHeadHash() || S.anchor),
         claims: claims,
         play_chain: readChain()
       }

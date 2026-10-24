@@ -11579,5 +11579,165 @@ if (typeof window !== "undefined") {
         }, true);
       })();
     </script>
+
+<!-- FUSI-WIDOW v1 (h=468) -->
+<script>
+/* FUSI-WIDOW v1 — the black widow of the spider-web build (owner order, chain h=468).
+   Silent. No audio. She crawls the blocks and the strands all day, weaving silk
+   between the places she visits. Silk marks ties; she never claims a check that
+   did not run — where no tie data exists, she simply patrols. */
+(function () {
+  if (window.__fusiWidow) return; window.__fusiWidow = true;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.createElement('canvas');
+  cv.id = 'fusi-widow-canvas';
+  cv.setAttribute('aria-hidden', 'true');
+  cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:99990;';
+  document.body.appendChild(cv);
+  var ctx = cv.getContext('2d');
+  var W = 0, H = 0, DPR = 1;
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = Math.floor(W * DPR); cv.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  var S = {
+    x: W * 0.82, y: 90, tx: W * 0.6, ty: 200, ang: 0, speed: reduced ? 0 : 0.55,
+    legPhase: 0, mode: 'crawl', hangT: 0, hangY: 0, idleT: 0
+  };
+  var anchors = [];   // woven silk: {x1,y1,x2,y2,born}
+  var trail = [];     // short-lived crawl trail
+  var lastAnchor = null;
+  var MAX_ANCHORS = 26, ANCHOR_LIFE = 90000;
+
+  function pickTarget() {
+    // Prefer real page blocks/sections — she crawls the blocks, not empty air.
+    var sels = ['[data-height]', '.block-card', '.sheet', '.page-sheet', 'section', '.card'];
+    var els = [];
+    for (var i = 0; i < sels.length; i++) {
+      var n = document.querySelectorAll(sels[i]);
+      for (var j = 0; j < n.length && els.length < 400; j++) els.push(n[j]);
+      if (els.length > 12) break;
+    }
+    var tries = 0;
+    while (tries++ < 8 && els.length) {
+      var el = els[(Math.random() * els.length) | 0];
+      var r = el.getBoundingClientRect();
+      if (r.width > 30 && r.height > 20 && r.bottom > 0 && r.top < H && r.right > 0 && r.left < W) {
+        var x = r.left + 20 + Math.random() * Math.max(10, r.width - 40);
+        var y = r.top + 14 + Math.random() * Math.max(10, Math.min(r.height - 20, 160));
+        return { x: x, y: y, el: true };
+      }
+    }
+    return { x: 40 + Math.random() * (W - 80), y: 50 + Math.random() * (H - 120), el: false };
+  }
+
+  function weaveTo(x, y) {
+    if (lastAnchor) {
+      anchors.push({ x1: lastAnchor.x, y1: lastAnchor.y, x2: x, y2: y, born: performance.now() });
+      if (anchors.length > MAX_ANCHORS) anchors.shift();
+    }
+    lastAnchor = { x: x, y: y };
+  }
+
+  function drawLeg(side, idx, phase) {
+    // Two-segment leg, knee up; gait phase offsets per leg pair.
+    var spread = 13 + idx * 3.2;
+    var hipX = side * 4, hipY = -4 + idx * 3.4;
+    var swing = Math.sin(phase + idx * 1.7 + (side > 0 ? 0 : Math.PI)) * 4;
+    var kneeX = side * (14 + idx * 1.6), kneeY = hipY - 10 + swing * 0.4;
+    var footX = side * (spread + 9), footY = hipY + 6 + swing;
+    ctx.beginPath(); ctx.moveTo(hipX, hipY); ctx.lineTo(kneeX, kneeY); ctx.lineTo(footX, footY);
+    ctx.strokeStyle = 'rgba(10,9,8,0.95)'; ctx.lineWidth = 2.1; ctx.lineCap = 'round'; ctx.stroke();
+  }
+
+  function drawWidow(now) {
+    ctx.save(); ctx.translate(S.x, S.y); ctx.rotate(S.ang + Math.PI / 2);
+    var moving = (S.mode === 'crawl');
+    if (moving) S.legPhase += 0.22;
+    for (var s = -1; s <= 1; s += 2) for (var i = 0; i < 4; i++) drawLeg(s, i, S.legPhase);
+    // Abdomen (rear, large oval)
+    var g = ctx.createRadialGradient(-2, 14, 2, 0, 15, 17);
+    g.addColorStop(0, '#3a3733'); g.addColorStop(0.55, '#14120f'); g.addColorStop(1, '#000000');
+    ctx.beginPath(); ctx.ellipse(0, 15, 10.5, 13.5, 0, 0, Math.PI * 2);
+    ctx.fillStyle = g; ctx.fill();
+    // Red hourglass
+    ctx.fillStyle = '#d21f2c';
+    ctx.beginPath(); ctx.moveTo(0, 22); ctx.lineTo(-3.6, 15.5); ctx.lineTo(3.6, 15.5); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0, 9.5); ctx.lineTo(-3.0, 15.0); ctx.lineTo(3.0, 15.0); ctx.closePath(); ctx.fill();
+    // Cephalothorax + head
+    ctx.beginPath(); ctx.ellipse(0, 0, 6.4, 7.6, 0, 0, Math.PI * 2);
+    ctx.fillStyle = '#0b0a09'; ctx.fill();
+    ctx.beginPath(); ctx.arc(0, -7.5, 3.1, 0, Math.PI * 2); ctx.fillStyle = '#000'; ctx.fill();
+    ctx.restore();
+    void now;
+  }
+
+  var lastT = performance.now(), nextPick = 0;
+  function frame(now) {
+    var dt = Math.min(50, now - lastT); lastT = now;
+    ctx.clearRect(0, 0, W, H);
+
+    // Woven silk (persistent, slowly fading) — the web she has strengthened.
+    anchors = anchors.filter(function (a) { return now - a.born < ANCHOR_LIFE; });
+    ctx.lineWidth = 0.8;
+    for (var i = 0; i < anchors.length; i++) {
+      var a = anchors[i], age = (now - a.born) / ANCHOR_LIFE;
+      ctx.beginPath(); ctx.moveTo(a.x1, a.y1); ctx.lineTo(a.x2, a.y2);
+      ctx.strokeStyle = 'rgba(212,175,55,' + (0.20 * (1 - age)).toFixed(3) + ')'; ctx.stroke();
+    }
+    // Crawl trail (short silk drag behind her)
+    trail.push({ x: S.x, y: S.y, born: now });
+    trail = trail.filter(function (p) { return now - p.born < 2600; });
+    ctx.beginPath();
+    for (var k = 0; k < trail.length; k++) { var p = trail[k]; if (k === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); }
+    ctx.strokeStyle = 'rgba(240,238,230,0.16)'; ctx.lineWidth = 0.7; ctx.stroke();
+
+    if (reduced) {
+      // Resting at the hub corner, near-still.
+      S.x = W - 44; S.y = 42; S.ang = 2.4;
+      drawWidow(now);
+      requestAnimationFrame(frame); return;
+    }
+
+    if (S.mode === 'hang') {
+      // Descend on a silk line from the top, pause, climb back.
+      ctx.beginPath(); ctx.moveTo(S.x, 0); ctx.lineTo(S.x, S.y);
+      ctx.strokeStyle = 'rgba(240,238,230,0.5)'; ctx.lineWidth = 0.8; ctx.stroke();
+      S.hangT += dt;
+      var target = S.hangY;
+      if (S.hangT < 2600) S.y += (target - S.y) * 0.03 + 0.4;
+      else if (S.hangT > 4200) { S.y -= 1.6; if (S.y <= 46) { S.mode = 'crawl'; S.hangT = 0; var t = pickTarget(); S.tx = t.x; S.ty = t.y; } }
+      drawWidow(now);
+      requestAnimationFrame(frame); return;
+    }
+
+    // Crawl toward target
+    var dx = S.tx - S.x, dy = S.ty - S.y, dist = Math.hypot(dx, dy);
+    if (dist < 7 || now > nextPick) {
+      weaveTo(S.tx, S.ty);
+      if (Math.random() < 0.16) { S.mode = 'hang'; S.hangT = 0; S.hangY = 140 + Math.random() * (H * 0.35); }
+      var t2 = pickTarget(); S.tx = t2.x; S.ty = t2.y;
+      nextPick = now + 14000 + Math.random() * 12000;
+    } else {
+      var want = Math.atan2(dy, dx);
+      var diff = want - S.ang;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      S.ang += diff * 0.08;
+      var sp = S.speed * (dt / 16.7);
+      S.x += Math.cos(S.ang) * sp; S.y += Math.sin(S.ang) * sp;
+    }
+    drawWidow(now);
+    requestAnimationFrame(frame);
+  }
+  var t0 = pickTarget(); S.tx = t0.x; S.ty = t0.y;
+  requestAnimationFrame(frame);
+})();
+
+</script>
 </body>
 </html>

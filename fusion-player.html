@@ -302,7 +302,7 @@
   function step(dir) {
     ensureGraph();
     resumeCtx();
-    var nxt = (current < 0) ? playable(0, 1) : playable(current, dir);
+    var nxt = (current < 0) ? playable(-1, dir) : playable(current, dir);
     if (nxt < 0) return;
     current = nxt;
     playCurrent();
@@ -312,7 +312,7 @@
     ensureGraph();
     resumeCtx();
     if (playing) { pauseCurrent(); return; }
-    if (current < 0) current = playable(0, 1);
+    if (current < 0) current = playable(-1, 1);
     if (current >= 0) playCurrent();
   });
   prevBtn.addEventListener('click', function () { step(-1); });

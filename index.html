@@ -1020,6 +1020,27 @@
         font-family: var(--font-data); font-size: var(--t-14); font-weight: 700;
         letter-spacing: .1em; color: var(--gold); padding: var(--s-4);
       }
+/* ===== 2026-10-24 GAMESHARK HYPERLOOP PORTAL — black-hole crossing ===== */
+.hub .ad-display.gs-portal {
+  position: relative; grid-column: 1 / -1;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 1px rgba(212,175,55,.35), 0 0 42px rgba(212,175,55,.28), var(--shadow-panel);
+  animation: gs-portal-bob 5s ease-in-out infinite;
+}
+.hub .gs-portal .gs-portal-title { font-size: clamp(52px, 13vw, 110px); line-height: .95; letter-spacing: .02em; color: var(--gold); text-shadow: 0 0 26px rgba(212,175,55,.55); text-align: center; }
+.hub .gs-hole { display: block; width: 190px; height: 190px; margin: var(--s-4) auto 0; border-radius: 50%; background: conic-gradient(from 0deg,#000,#d4af37,#000,#8a6d1f,#000,#d4af37,#000); animation: gs-portal-spin 6s linear infinite; box-shadow: 0 0 42px rgba(212,175,55,.55), 0 0 90px rgba(212,175,55,.25); position: relative; }
+.hub .gs-hole::after { content: ""; position: absolute; inset: 34px; border-radius: 50%; background: radial-gradient(circle,#000 55%,#1a1508 78%,#d4af37 100%); box-shadow: inset 0 0 30px #000; }
+.hub .gs-bleed { font-family: var(--font-data); font-size: var(--t-12); color: var(--gold); padding: var(--s-2) var(--s-4) 0; letter-spacing: .04em; }
+.hub .gs-bleed .gs-chip { display: inline-block; border: 1px solid var(--gold-deep); border-radius: 6px; padding: 2px 8px; margin: 2px 3px; }
+@keyframes gs-portal-spin { to { transform: rotate(360deg); } }
+@keyframes gs-portal-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+.gs-flight-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%,#000 30%,#0e0d0b 70%); z-index: 10000; overflow: hidden; }
+.gs-flight-overlay .gs-flight-vortex { position: absolute; left: 50%; top: 50%; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; background: conic-gradient(from 0deg,#000,#d4af37,#000,#8a6d1f,#000,#d4af37,#000); animation: gs-portal-spin 1.2s linear infinite; box-shadow: 0 0 80px rgba(212,175,55,.7); }
+.gs-flight-chip { position: absolute; left: 50%; top: 50%; background: #171511; border: 1px solid #d4af37; color: #f2ede1; border-radius: 8px; padding: 8px 12px; font-size: 14px; white-space: nowrap; opacity: 0; animation: gs-flight-fly 1.4s ease-in forwards; }
+.gs-flight-stub { position: absolute; left: 50%; top: 50%; background: #171511; border: 1px dashed #d4af37; color: #d4af37; border-radius: 8px; padding: 8px 12px; font-size: 13px; white-space: nowrap; opacity: 0; animation: gs-flight-fly 1.4s ease-in forwards; }
+.gs-flight-ball { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe9a8, #d4af37 55%, #8a6d1f); box-shadow: 0 0 26px rgba(212,175,55,.6); opacity: 0; animation: gs-flight-fly 1.4s ease-in forwards; }
+@keyframes gs-flight-fly { 0% { opacity: 0; transform: translate(-50%,-50%) scale(.3); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.6); } }
+@media (prefers-reduced-motion: reduce) { .hub .ad-display.gs-portal, .hub .gs-hole, .gs-flight-overlay .gs-flight-vortex { animation: none; } }
     </style>
     <style>
       /* ===== 2026-10-22 OVERHAUL — legibility floor, learn, identity, starlane fullscreen ===== */
@@ -1295,6 +1316,14 @@
           </div>
           <p class="beat-why">The main ledger carries advertising displays for the pages that carry the platform. Each display below stands in its own section on this front page — tap one and it takes you straight to the page it advertises.</p>
           <div class="beat-body ad-grid">
+<a class="ad-display gs-portal" id="gs-portal" href="gameshark.html">
+  <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">GameShark</span></span>
+  <span class="gs-hole" aria-hidden="true"></span>
+  <span class="ad-head ds-display gs-portal-title">GAMESHARK</span>
+  <span class="ad-copy">The NBA data ledger — every leg, every ticket, every game hash-linked. Bridged to the FUSIÓN-7 ledger: two chains, one proof. Cross the black hole and fly through the ledger.</span>
+  <span class="gs-bleed" id="gs-bleed">The GameShark ledger, live — tap the hole to cross.</span>
+  <span class="ad-cta">PRESS THE HOLE <i class="g g-connector"></i></span>
+</a>
             <a class="ad-display" href="#/play">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Play · The Forge</span></span>
               <img src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
@@ -12175,6 +12204,61 @@ if (typeof window !== "undefined") {
     });
   }
   Septimus.watchChain(getBlocks, { intervalMs: 60000 });
+})();
+</script>
+<script>
+(function () {
+  var portal = document.getElementById('gs-portal');
+  if (!portal) { return; }
+  var bleed = document.getElementById('gs-bleed');
+  var flightData = null;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function renderBleed(data) {
+    if (!bleed || !data || !data.finals || !data.finals.length) { return; }
+    var chips = data.finals.slice(-3).map(function (g) {
+      return '<span class="gs-chip">' + g.away + ' ' + g.away_score + ' @ ' + g.home + ' ' + g.home_score + '</span>';
+    }).join(' ');
+    bleed.innerHTML = 'LIVE — GameShark tip h=' + data.tip_height + ' · ' + chips;
+    flightData = data;
+  }
+  function fetchLive() {
+    fetch('gameshark-live.json', { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) { throw new Error('not ok'); }
+      return r.json();
+    }).then(renderBleed).catch(function () {
+      /* fetch failed (not pushed yet, offline): bleed keeps its generic
+         fallback text with NO scores, and a press navigates at once. */
+    });
+  }
+  fetchLive();
+  window.setInterval(fetchLive, 60000);
+  portal.addEventListener('click', function (ev) {
+    if (reduced || !flightData) { return; }
+    ev.preventDefault();
+    var dest = portal.getAttribute('href');
+    var ov = document.createElement('div');
+    ov.className = 'gs-flight-overlay';
+    var vort = document.createElement('div');
+    vort.className = 'gs-flight-vortex';
+    ov.appendChild(vort);
+    document.body.appendChild(ov);
+    var items = [];
+    flightData.finals.slice(-6).forEach(function (g) {
+      items.push({ kind: 'chip', text: g.away + ' ' + g.away_score + ' @ ' + g.home + ' ' + g.home_score });
+      items.push({ kind: 'stub', text: 'TICKET · ' + g.away + ' @ ' + g.home + ' · FINAL' });
+      items.push({ kind: 'ball', text: '' });
+    });
+    items.forEach(function (it, i) {
+      var el = document.createElement('div');
+      el.className = it.kind === 'chip' ? 'gs-flight-chip' : (it.kind === 'stub' ? 'gs-flight-stub' : 'gs-flight-ball');
+      if (it.text) { el.textContent = it.text; }
+      el.style.animationDelay = (i * 0.16) + 's';
+      el.style.marginLeft = ((i % 5) - 2) * 70 + 'px';
+      el.style.marginTop = ((i % 3) - 1) * 60 + 'px';
+      ov.appendChild(el);
+    });
+    window.setTimeout(function () { window.location.href = dest; }, 2800);
+  });
 })();
 </script>
 </body>

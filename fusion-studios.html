@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FUSIÓN-7 STUDIOS — Working Sandbox</title>
+<title>FUSIÓN-7 STUDIOS — v3 Guided Sandbox</title>
 <style>
   :root{
     --void:#0e0d0b; --panel:#171511; --gold:#d4af37; --ink:#f2ede1; --edge:#3a352a;
@@ -244,132 +244,156 @@
     .frame{height:420px;}
     .ruler{margin-left:0;} .track .tlabel{width:96px;} .playhead{left:33%;}
   }
+
+  /* ================= FUSIÓN-7 STUDIOS v3 — guided layout ================= */
+  body{display:block; overflow:auto;}
+  .main{display:block; max-width:880px; margin:0 auto; width:100%; padding:0 14px 28px;}
+  .topbar{position:sticky; top:0; z-index:10;}
+  .intro{border:1px solid var(--edge); border-radius:6px; background:var(--panel); padding:14px 16px; margin:16px 0;}
+  .intro p{font-size:13px; line-height:1.6; color:var(--ink);}
+  .intro p b{color:var(--gold);}
+  .intro .answers{font-size:12px; line-height:1.6; color:var(--ink-dim); margin-top:8px;}
+  .steps-nav{display:flex; gap:8px; margin:16px 0;}
+  .step-dot{flex:1; border:1px solid var(--edge); border-radius:6px; background:var(--panel); padding:10px 12px; text-align:left;}
+  .step-dot .n{font-size:12px; font-weight:700; letter-spacing:.1em; color:var(--gold);}
+  .step-dot .t{font-size:13px; font-weight:700; letter-spacing:.04em; margin-top:2px;}
+  .step-dot .s{font-size:12px; color:var(--ink-dim); margin-top:2px;}
+  .step-dot.current{border-color:var(--gold); background:var(--gold-dim);}
+  .step-dot.done{border-color:var(--gold);}
+  .step{display:none; border:1px solid var(--edge); border-radius:6px; background:var(--panel); padding:18px 16px; margin-bottom:16px;}
+  .step.active{display:block;}
+  .step h2{font-size:16px; letter-spacing:.06em; margin-bottom:6px;}
+  .step h2 .dia{margin-right:8px;}
+  .helper{font-size:13px; line-height:1.6; color:var(--ink-dim); margin-bottom:14px;}
+  .helper b{color:var(--gold);}
+  .prompt-input{min-height:110px; font-size:15px;}
+  .examples{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px;}
+  .example-btn{background:var(--void); color:var(--ink); border:1px solid var(--edge); border-radius:20px; padding:7px 13px; font-size:12px; cursor:pointer; font-family:inherit; text-align:left;}
+  .example-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .example-btn b{color:var(--gold);}
+  .nextline{font-size:13px; line-height:1.6; color:var(--ink-dim); margin-top:12px;}
+  .nextline b{color:var(--ink);}
+  .bigbtn{font-size:15px; padding:14px 12px; letter-spacing:.1em;}
+  .backbtn{background:var(--void); color:var(--ink-dim); border:1px solid var(--edge); border-radius:4px; font-size:13px; padding:9px 12px; cursor:pointer; font-family:inherit; width:100%; margin-top:8px;}
+  .backbtn:hover{color:var(--ink); border-color:var(--gold);}
+  .costguard{border:1px dashed var(--gold); border-radius:5px; padding:11px 12px; background:var(--gold-dim); margin-top:12px;}
+  .costguard p{font-size:13px; line-height:1.6; color:var(--ink);}
+  .costguard p b{color:var(--gold);}
+  .stage{display:block; padding:0; background:transparent; background-image:none;}
+  .frame{width:min(100%,430px); height:auto; aspect-ratio:9/16; margin:0 auto; box-shadow:0 0 0 6px var(--panel), 0 0 44px rgba(0,0,0,.8);}
+  #stageCanvas{width:100%; height:100%; display:block;}
+  .stage-tools{justify-content:center; flex-wrap:wrap; margin-top:10px;}
+  .gate-label{margin-top:10px;}
+  .drawer-head{border:1px solid var(--edge); border-radius:6px; background:var(--panel); padding:14px 16px;}
+  #advancedBtn{width:100%; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:4px; font-size:14px; font-weight:700; letter-spacing:.06em; padding:13px 12px; cursor:pointer; font-family:inherit; text-align:left;}
+  #advancedBtn:hover{background:var(--gold-dim);}
+  #advancedDrawer{display:none; margin-top:12px;}
+  #advancedDrawer.open{display:block;}
+  #advancedDrawer .tabs{display:flex; flex-direction:row; flex-wrap:wrap; padding:0 0 8px; gap:6px;}
+  #advancedDrawer .tab{width:auto; padding:8px 12px;}
+  #advancedDrawer .tab .tsub{display:none;}
+  #advancedDrawer .panels{padding:8px 0 4px;}
+  .drawer-note{font-size:12px; line-height:1.6; color:var(--ink-dim); margin-bottom:12px;}
+  .foot-note{font-size:12px; line-height:1.6; color:var(--ink-faint); text-align:center; margin-top:20px;}
+  @media (max-width:980px){
+    .steps-nav{flex-direction:column;}
+    .topbar{position:static;}
+  }
 </style>
 </head>
 <body>
 
 <div class="ribbon">WORKING SANDBOX — PYTHON-IDENTICAL JOB COMPILER · LOCAL DRAFT RENDERER · VENDOR SEATS PENDING · TEST FUSI ONLY · CHARGING INACTIVE</div>
 
-<!-- ======================= TOP BAR ======================= -->
 <header class="topbar">
-  <div class="brand"><span class="dia"></span>FUSIÓN-7 STUDIOS <small>editor · sandbox</small></div>
+  <div class="brand"><span class="dia"></span>FUSIÓN-7 STUDIOS <small>guided · sandbox · v3</small></div>
   <div class="jobname"><span class="dia sm"></span><b id="jobNameText">no job compiled</b><span class="mono" id="jobNameHash">job —</span></div>
   <span class="chip design">SESSION · SANDBOX</span>
   <span class="chip inactive">CHARGING INACTIVE</span>
   <div class="spacer"></div>
   <div class="wallet"><span>SANDBOX WALLET</span><b><span id="balanceVal">100</span> TEST FUSI</b><button class="mini-btn" id="resetBtn" type="button">RESET</button></div>
-  <button class="export-btn">EXPORT <span style="font-size:11px; font-weight:600; border:1px solid var(--void); padding:0 5px; border-radius:3px;">INACTIVE</span></button>
+  <button class="export-btn">EXPORT <span style="font-size:12px; font-weight:600; border:1px solid var(--void); padding:0 5px; border-radius:3px;">INACTIVE</span></button>
 </header>
 
-<!-- ======================= MAIN ======================= -->
 <div class="main">
 
-  <!-- ========== LEFT RAIL : MODULE TABS ========== -->
-  <aside class="rail">
-    <nav class="tabs">
-      <button class="tab" data-target="panel-vault"><span class="dia sm"></span><span class="tname">THE VAULT<span class="tsub">media · job-hashed</span></span><span class="chip planned">PLANNED</span></button>
-      <button class="tab" data-target="panel-blueprints"><span class="dia sm hollow"></span><span class="tname">FUSI BLUEPRINTS<span class="tsub">templates = job fragments</span></span><span class="chip planned">PLANNED</span></button>
-      <button class="tab" data-target="panel-wordsmith"><span class="dia sm"></span><span class="tname">WORDSMITH<span class="tsub">text · local render only</span></span><span class="chip design">DESIGN</span></button>
-      <button class="tab" data-target="panel-sonic"><span class="dia sm hollow"></span><span class="tname">SONIC FORGE<span class="tsub">audio · fusi-audio</span></span><span class="chip design">DESIGN</span></button>
-      <button class="tab" data-target="panel-effects"><span class="dia sm"></span><span class="tname">FORGE EFFECTS<span class="tsub">procedural + vendor shelves</span></span><span class="chip planned">PLANNED</span></button>
-      <button class="tab active" data-target="panel-engine"><span class="dia sm"></span><span class="tname">ENGINE ROOM<span class="tsub">the five seats · ours only</span></span><span class="chip live">LIVE · SANDBOX</span></button>
-    </nav>
+  <div class="intro">
+    <p><b>What is this?</b> Describe an idea in plain English. The Studio turns it into a picture or a short video — with a FUSIÓN-7 watermark on it.</p>
+    <p class="answers">What to press: follow the three steps below, one screen at a time. What happens next: each step tells you, in plain words. This page is a sandbox: TEST FUSI only, nothing charges today.</p>
+  </div>
 
-    <div class="panels">
+  <nav class="steps-nav" aria-label="Three steps">
+    <div class="step-dot current" id="dot1"><div class="n">STEP 1</div><div class="t">DESCRIBE</div><div class="s">Tell it your idea</div></div>
+    <div class="step-dot" id="dot2"><div class="n">STEP 2</div><div class="t">REFINE</div><div class="s">Check the brief</div></div>
+    <div class="step-dot" id="dot3"><div class="n">STEP 3</div><div class="t">GENERATE</div><div class="s">Make it, watermarked</div></div>
+  </nav>
 
-      <!-- VAULT -->
-      <section class="panel" id="panel-vault">
-        <h3><span class="dia sm"></span>THE VAULT</h3>
-        <p class="note">User media + everything the seats generated. Nothing enters without a job record — every item carries its job hash.</p>
-        <div class="card"><div class="row"><span class="ttl">hero_plate.png</span><span class="chip design">SEAT OUTPUT</span></div><div class="sub mono">job 7db0c5c1… · gemini plate · sha 5b41b9a9…</div></div>
-        <div class="card"><div class="row"><span class="ttl">crown_master.png</span><span class="chip inactive">LOCKED</span></div><div class="sub">Clean master · hash committed at birth · release = verified fee event only</div></div>
-        <div class="card"><div class="row"><span class="ttl">house-gold-void</span><span class="chip planned">STYLE VAULT</span></div><div class="sub mono">style fragment v3 · closed vocabulary · hash-versioned</div></div>
-        <div class="card"><div class="row"><span class="ttl">my-logo.svg</span><span class="chip live">USER MEDIA</span></div><div class="sub mono">registered · job a41f…c2</div></div>
-      </section>
-
-      <!-- BLUEPRINTS -->
-      <section class="panel" id="panel-blueprints">
-        <h3><span class="dia sm hollow"></span>FUSI BLUEPRINTS</h3>
-        <p class="note">A blueprint is a FUSI-Script fragment, not a black box. Opening one shows the exact record you will run.</p>
-        <div class="card"><div class="row"><span class="ttl">NEON CROWN DROP</span><span class="chip planned">PLANNED</span></div><div class="sub">subject + style + motion pre-compiled · 9:16 video</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
-        <div class="card"><div class="row"><span class="ttl">PRODUCT ORBIT</span><span class="chip planned">PLANNED</span></div><div class="sub">image → latent anchor → orbit pass · still first</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
-        <div class="card"><div class="row"><span class="ttl">FOUR-MINDS SHOWDOWN</span><span class="chip design">DESIGN</span></div><div class="sub">same prompt, four pipelines side by side · your pick is recorded</div></div>
-      </section>
-
-      <!-- WORDSMITH -->
-      <section class="panel" id="panel-wordsmith">
-        <h3><span class="dia sm"></span>WORDSMITH — TEXT, LOCAL ONLY</h3>
-        <p class="note">Text is rendered locally and deterministically — never through a model (platform law). What cannot fail goes on as a local overlay.</p>
-        <div class="card"><div class="row"><span class="ttl">Title overlay</span><span class="chip live">LOCAL</span></div><div class="sub mono">text_exact: ["ON MY OWN"] → gate checks letter by letter</div></div>
-        <div class="card"><div class="row"><span class="ttl">Captions</span><span class="chip design">DESIGN</span></div><div class="sub">Local forced alignment of the actual audio — word-timed, never model-guessed.</div></div>
-        <div class="card"><div class="row"><span class="ttl">Watermark strip</span><span class="chip design">DESIGN</span></div><div class="sub">The mark carries the job-hash prefix and links to the provenance card.</div></div>
-      </section>
-
-      <!-- SONIC FORGE -->
-      <section class="panel" id="panel-sonic">
-        <h3><span class="dia sm hollow"></span>SONIC FORGE</h3>
-        <p class="note">Procedural sound from fusi-audio — byte-reproducible in the procedural lane — plus the platform sonic tag and licensed / user audio.</p>
-        <div class="card"><div class="row"><span class="ttl">fusi-audio bed</span><span class="chip design">PROCEDURAL</span></div><div class="sub mono">program digest 9c…e1 · same record → same bytes</div></div>
-        <div class="card"><div class="row"><span class="ttl">Sonic tag</span><span class="chip live">PLATFORM</span></div><div class="sub">Ships on platform outputs per standing law.</div></div>
-        <div class="card"><div class="row"><span class="ttl">Licensed track</span><span class="chip inactive">EMPTY</span></div><div class="sub">No licensed audio loaded in this sandbox.</div></div>
-      </section>
-
-      <!-- FORGE EFFECTS -->
-      <section class="panel" id="panel-effects">
-        <h3><span class="dia sm"></span>FORGE EFFECTS</h3>
-        <div class="shelf-label">SHELF A — PROCEDURAL · DETERMINISTIC · WATERMARK-EXACT</div>
-        <div class="card"><div class="row"><span class="ttl">gold-pulse</span><span class="chip design">DESIGN</span></div><div class="sub">Code effect · re-execution verifiable</div></div>
-        <div class="card"><div class="row"><span class="ttl">diamond-wipe</span><span class="chip design">DESIGN</span></div><div class="sub">Transition · integer-timed, device-identical</div></div>
-        <div class="shelf-label">SHELF B — VENDOR · LABELED, NEVER SILENTLY SWAPPED</div>
-        <div class="card"><div class="row"><span class="ttl">vendor-glow</span><span class="chip planned">PLANNED</span></div><div class="sub mono">vendor: — · model: — · status: planned</div></div>
-        <div class="card"><div class="row"><span class="ttl">film-grain-pro</span><span class="chip pending">PENDING</span></div><div class="sub mono">vendor: — · model: — · access unverified</div></div>
-      </section>
-
-      <!-- ENGINE ROOM (WORKING) -->
-      <section class="panel active" id="panel-engine">
-        <h3><span class="dia sm"></span>THE ENGINE ROOM — FIVE SEATS</h3>
-        <div class="flabel"><span>PROMPT · ENGLISH</span><span class="chip mono">user_prompt · untrusted</span></div>
-        <textarea class="prompt-input" id="promptInput" spellcheck="false">a golden diamond crown over a dark city, cinematic</textarea>
-        <div class="flabel"><span>OUTPUT</span><span class="chip design">SANDBOX</span></div>
-        <div class="toggle">
-          <button type="button" id="modeImage" class="on">IMAGE</button>
-          <button type="button" id="modeVideo">VIDEO</button>
-        </div>
-        <div class="btnrow">
-          <button class="btn ghost" id="compileBtn" type="button">COMPILE →</button>
-        </div>
-        <div class="compile-strip">
-          <span style="font-size:12px; font-weight:700; letter-spacing:.08em;">JOB</span>
-          <span class="arrow">→</span>
-          <span class="jobchip" id="jobChip">not compiled</span>
-        </div>
-        <div class="hashline" id="jobHashLine">job hash — compile a prompt to mint the FUSI job record (Python-identical compiler).</div>
-        <div class="btnrow">
-          <button class="btn ghost" id="confirmBtn" type="button" disabled>CONFIRM BRIEF</button>
-          <button class="btn" id="generateBtn" type="button" disabled>GENERATE · 10 TEST FUSI</button>
-        </div>
-        <div class="btnrow">
-          <button class="btn ghost" id="removeBtn" type="button" disabled>REMOVE WATERMARK · 10 TEST FUSI</button>
-        </div>
-        <div class="statusline" id="engineStatus">Sandbox ready. <b>COMPILE</b> the prompt, read the brief in the inspector, <b>CONFIRM</b>, then <b>GENERATE</b>. Entry fee is simulated in TEST FUSI only.</div>
-        <div class="flabel"><span>SEAT STATUS · HONEST, LIVE-CHECKED</span></div>
-        <div class="seats">
-          <div class="seatrow"><span class="dia sm"></span><span class="sname">GEMINI<span class="ssub">Nano Banana tiers · video line · art direction</span></span><span class="chip pending">PENDING</span></div>
-          <div class="seatrow"><span class="dia sm"></span><span class="sname">CHATGPT<span class="ssub">image tools · independent variants</span></span><span class="chip planned">PLANNED</span></div>
-          <div class="seatrow"><span class="dia sm"></span><span class="sname">FLOW / VIDS<span class="ssub">motion direction · per-job pick</span></span><span class="chip pending">PENDING</span></div>
-          <div class="seatrow"><span class="dia sm"></span><span class="sname">CLAUDE GATE<span class="ssub">frame critic · can block, never unlock · SHADOW here</span></span><span class="chip design">SHADOW</span></div>
-          <div class="seatrow"><span class="dia sm"></span><span class="sname">MUSE FINISH<span class="ssub">orchestrate · local draft renderer · watermark · export</span></span><span class="chip live">LIVE · SANDBOX</span></div>
-        </div>
-        <div class="flabel"><span>BOUNCE COUNTER</span></div>
-        <div class="card"><div class="sub" style="margin-top:0;">Gate retries <b style="color:var(--ink)">0 / 2</b> (platform-paid) · bounce cycles <b style="color:var(--ink)">0 / 3</b> · in this sandbox the gate runs SHADOW: mechanical checks only, never a creative verdict.</div></div>
-      </section>
-
+  <!-- ================= STEP 1 : DESCRIBE ================= -->
+  <section class="step active" id="step1">
+    <h2><span class="dia sm"></span>Step 1 — Describe your idea</h2>
+    <p class="helper">Type one idea in plain English, pick <b>IMAGE</b> or <b>VIDEO</b>, then press <b>COMPILE</b>. Nothing charges yet — compiling only turns your words into a brief you can check.</p>
+    <div class="flabel"><span>PROMPT · ENGLISH</span><span class="chip mono">user_prompt · untrusted</span></div>
+    <textarea class="prompt-input" id="promptInput" spellcheck="false">a golden diamond crown over a dark city, cinematic</textarea>
+    <div class="flabel"><span>TRY AN EXAMPLE — TAP ONE TO FILL THE BOX</span></div>
+    <div class="examples">
+      <button class="example-btn" type="button" data-prompt="a golden diamond crown over a dark city, cinematic"><b>Picture:</b> a golden diamond crown over a dark city, cinematic</button>
+      <button class="example-btn" type="button" data-prompt="a golden diamond over a black void, dramatic, slow zoom"><b>Video:</b> a golden diamond over a black void, dramatic, slow zoom</button>
+      <button class="example-btn" type="button" data-prompt="a royal crown product orbit, minimal, cinematic"><b>Picture:</b> a royal crown product orbit, minimal, cinematic</button>
     </div>
-  </aside>
+    <div class="flabel"><span>OUTPUT</span><span class="chip design">SANDBOX</span></div>
+    <div class="toggle">
+      <button type="button" id="modeImage" class="on">IMAGE</button>
+      <button type="button" id="modeVideo">VIDEO</button>
+    </div>
+    <div class="btnrow" style="margin-top:14px;">
+      <button class="btn bigbtn" id="compileBtn" type="button">COMPILE →</button>
+    </div>
+    <div class="compile-strip">
+      <span style="font-size:12px; font-weight:700; letter-spacing:.08em;">JOB</span>
+      <span class="arrow">→</span>
+      <span class="jobchip" id="jobChip">not compiled</span>
+    </div>
+    <div class="hashline" id="jobHashLine">job hash — compile a prompt to mint the FUSI job record (Python-identical compiler).</div>
+    <p class="nextline"><b>What happens next:</b> we turn your words into a brief you can check — nothing charges yet. Press COMPILE and you move to Step 2.</p>
+  </section>
 
-  <!-- ========== CENTER PREVIEW STAGE ========== -->
-  <section class="stage">
-    <div class="frame-wrap">
+  <!-- ================= STEP 2 : REFINE ================= -->
+  <section class="step" id="step2">
+    <h2><span class="dia sm"></span>Step 2 — Check the brief</h2>
+    <p class="helper">This is what the Studio understood from your words. If it matches, press <b>CONFIRM BRIEF</b>. If not, go back and change one thing, then compile again.</p>
+    <div class="card" style="background:var(--void);">
+      <p class="brief" id="briefText">Nothing compiled yet. Compile a prompt in Step 1 first.</p>
+      <div class="brief-lines" id="briefLines" style="margin-top:8px;"></div>
+    </div>
+    <div class="kv"><span>Mode</span><b id="kvMode">—</b></div>
+    <div class="kv"><span>Compiled from</span><b>your English prompt</b></div>
+    <div class="kv"><span>Drift vs your words</span><b>none flagged</b></div>
+    <div class="kv"><span>Gate</span><b>SHADOW · mechanical only</b></div>
+    <div class="kv"><span>Entry (sandbox)</span><b>10 TEST FUSI / job</b></div>
+    <div class="kv"><span>Clean release (sandbox)</span><b>10 TEST FUSI / output</b></div>
+    <div class="kv"><span>Fee destination (design)</span><b>STUDIO POOL · unregistered</b></div>
+    <h3 style="margin-top:16px;"><span class="dia sm hollow"></span>FUSI JOB RECORD</h3>
+    <div class="fusi-block" id="fusiRecord">— compile a prompt in Step 1 —</div>
+    <div class="costguard">
+      <p><b>Cost guard, in plain words:</b> 10 FUSI per session — charging is INACTIVE until legal review passes, so nothing charges today. A session cap also stops any one job from running away with fees. In this sandbox you spend TEST FUSI only, and every fee shows in the ledger on Step 3.</p>
+    </div>
+    <div class="row" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+      <span class="chip design">SESSION · SANDBOX</span>
+      <span class="chip inactive">CHARGING INACTIVE</span>
+      <span class="chip design">GATE · SHADOW — CAN BLOCK, NEVER UNLOCK</span>
+    </div>
+    <div class="btnrow" style="margin-top:14px;">
+      <button class="btn bigbtn" id="confirmBtn" type="button" disabled>CONFIRM BRIEF</button>
+    </div>
+    <button class="backbtn" id="backTo1" type="button">← Change the idea (back to Step 1)</button>
+    <p class="nextline"><b>What happens next:</b> confirming moves you to Step 3, where one big button makes the picture or video.</p>
+  </section>
+
+  <!-- ================= STEP 3 : GENERATE ================= -->
+  <section class="step" id="step3">
+    <h2><span class="dia sm"></span>Step 3 — Make it</h2>
+    <p class="helper">Press <b>GENERATE</b>. Your picture (or looping video) appears below with the <b>FUSIÓN-7 watermark</b> on it. The clean copy without the mark costs 10 more in the model, and only releases when the fee event verifies.</p>
+    <div class="stage">
       <div class="frame">
         <canvas id="stageCanvas" width="1080" height="1920"></canvas>
         <span class="chip mono corner-tag" id="cornerTag">STAGE · EMPTY</span>
@@ -382,27 +406,15 @@
         <span class="tbtn">DOUBLE RENDER AT BIRTH</span>
       </div>
     </div>
-  </section>
-
-  <!-- ========== RIGHT INSPECTOR : JOB CARD ========== -->
-  <aside class="inspector">
-    <h3><span class="dia sm"></span>JOB CARD — PLAIN LANGUAGE</h3>
-    <div class="card" style="background:var(--void);">
-      <p class="brief" id="briefText">Nothing compiled yet. The Engine Room compiles your English prompt into a FUSI job record — the same compiler as the Python sandbox, so the job hash you see here is the hash the platform would cite. <span class="warn">This is a sandbox: TEST FUSI only, local draft renders, charging INACTIVE.</span></p>
-      <div class="brief-lines" id="briefLines" style="margin-top:8px;"></div>
+    <div class="statusline" id="engineStatus">Sandbox ready. Compile in Step 1, confirm the brief in Step 2, then GENERATE here. Entry fee is simulated in TEST FUSI only.</div>
+    <div class="btnrow" style="margin-top:14px;">
+      <button class="btn bigbtn" id="generateBtn" type="button" disabled>GENERATE · 10 TEST FUSI</button>
     </div>
-    <div class="kv"><span>Mode</span><b id="kvMode">—</b></div>
-    <div class="kv"><span>Compiled from</span><b>your English prompt</b></div>
-    <div class="kv"><span>Drift vs your words</span><b>none flagged</b></div>
-    <div class="kv"><span>Gate</span><b>SHADOW · mechanical only</b></div>
-    <div class="kv"><span>Entry (sandbox)</span><b>10 TEST FUSI / job</b></div>
-    <div class="kv"><span>Clean release (sandbox)</span><b>10 TEST FUSI / output</b></div>
-    <div class="kv"><span>Fee destination (design)</span><b>STUDIO POOL · unregistered</b></div>
-
-    <h3 style="margin-top:16px;"><span class="dia sm hollow"></span>FUSI JOB RECORD</h3>
-    <div class="fusi-block" id="fusiRecord">— compile a prompt in the Engine Room —</div>
-
-    <h3><span class="dia sm"></span>PROVENANCE · HASHES</h3>
+    <div class="btnrow">
+      <button class="btn ghost" id="removeBtn" type="button" disabled>REMOVE WATERMARK · 10 TEST FUSI</button>
+    </div>
+    <button class="backbtn" id="backTo2" type="button">← Back to the brief (Step 2)</button>
+    <h3 style="margin-top:16px;"><span class="dia sm"></span>PROVENANCE · HASHES</h3>
     <div class="card" style="background:var(--void);">
       <div class="row"><span class="chip design">ATTESTED BY THE PLATFORM</span></div>
       <div class="fee-lines" id="provLines" style="margin-top:7px;">
@@ -411,74 +423,140 @@
         <div>display hash: — (watermarked)</div>
         <div>release&nbsp;&nbsp;&nbsp;&nbsp;: LOCKED</div>
       </div>
-      <div class="sub">Derived from the seat tracks below — what actually ran, what was skipped, what was substituted. Attested, never “verified.”</div>
+      <div class="sub">Derived from what actually ran, what was skipped, what was substituted. Attested, never “verified.”</div>
     </div>
-
     <h3 style="margin-top:16px;"><span class="dia sm"></span>FEE LEDGER · SANDBOX</h3>
     <div class="card" style="background:var(--void);">
       <div class="fee-lines" id="feeLedger">
         <div>sandbox opened · balance 100 TEST FUSI</div>
       </div>
     </div>
+    <p class="nextline"><b>What happens next:</b> your watermarked result stays here. REMOVE WATERMARK releases the clean master in the model. When the real Studio flips on, this same flow runs with real seats and real fees — the steps do not change.</p>
+  </section>
 
-    <div class="gatehouse">
-      <div class="row"><span class="dia sm"></span><b style="letter-spacing:.08em; font-size:13px;">THE GATEHOUSE · EXPORT</b><span class="chip inactive">INACTIVE</span></div>
-      <p>Every export declares its watermark status + provenance state before it runs, and refuses if the checks fail. Clean-master release is a separate, explicit act: verified fee event → the exact committed master, hash shown. In this sandbox the release is the REMOVE WATERMARK button — simulated, TEST FUSI only.</p>
+  <!-- ================= ADVANCED DRAWER : ALL 9 MODULES ================= -->
+  <div class="drawer-head">
+    <button id="advancedBtn" type="button" aria-expanded="false" aria-controls="advancedDrawer">ADVANCED — ALL 9 MODULES · TAP TO OPEN</button>
+    <div id="advancedDrawer">
+      <p class="drawer-note">Everything from the full Studio, in one place — nothing removed, just tucked away so the three steps stay clear. The Engine Room's buttons live on the steps above; its seat status and bounce counter are below. The frame itself is on Step 3; its description is here.</p>
+      <nav class="tabs">
+        <button class="tab active" data-target="panel-vault"><span class="dia sm"></span><span class="tname">THE VAULT</span><span class="chip planned">PLANNED</span></button>
+        <button class="tab" data-target="panel-blueprints"><span class="dia sm hollow"></span><span class="tname">FUSI BLUEPRINTS</span><span class="chip planned">PLANNED</span></button>
+        <button class="tab" data-target="panel-wordsmith"><span class="dia sm"></span><span class="tname">WORDSMITH</span><span class="chip design">DESIGN</span></button>
+        <button class="tab" data-target="panel-sonic"><span class="dia sm hollow"></span><span class="tname">SONIC FORGE</span><span class="chip design">DESIGN</span></button>
+        <button class="tab" data-target="panel-effects"><span class="dia sm"></span><span class="tname">FORGE EFFECTS</span><span class="chip planned">PLANNED</span></button>
+      </nav>
+      <div class="panels">
+        <section class="panel active" id="panel-vault">
+          <h3><span class="dia sm"></span>THE VAULT</h3>
+          <p class="note">User media + everything the seats generated. Nothing enters without a job record — every item carries its job hash.</p>
+          <div class="card"><div class="row"><span class="ttl">hero_plate.png</span><span class="chip design">SEAT OUTPUT</span></div><div class="sub mono">job 7db0c5c1… · gemini plate · sha 5b41b9a9…</div></div>
+          <div class="card"><div class="row"><span class="ttl">crown_master.png</span><span class="chip inactive">LOCKED</span></div><div class="sub">Clean master · hash committed at birth · release = verified fee event only</div></div>
+          <div class="card"><div class="row"><span class="ttl">house-gold-void</span><span class="chip planned">STYLE VAULT</span></div><div class="sub mono">style fragment v3 · closed vocabulary · hash-versioned</div></div>
+          <div class="card"><div class="row"><span class="ttl">my-logo.svg</span><span class="chip live">USER MEDIA</span></div><div class="sub mono">registered · job a41f…c2</div></div>
+        </section>
+        <section class="panel" id="panel-blueprints">
+          <h3><span class="dia sm hollow"></span>FUSI BLUEPRINTS</h3>
+          <p class="note">A blueprint is a FUSI-Script fragment, not a black box. Opening one shows the exact record you will run.</p>
+          <div class="card"><div class="row"><span class="ttl">NEON CROWN DROP</span><span class="chip planned">PLANNED</span></div><div class="sub">subject + style + motion pre-compiled · 9:16 video</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
+          <div class="card"><div class="row"><span class="ttl">PRODUCT ORBIT</span><span class="chip planned">PLANNED</span></div><div class="sub">image → latent anchor → orbit pass · still first</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
+          <div class="card"><div class="row"><span class="ttl">FOUR-MINDS SHOWDOWN</span><span class="chip design">DESIGN</span></div><div class="sub">same prompt, four pipelines side by side · your pick is recorded</div></div>
+        </section>
+        <section class="panel" id="panel-wordsmith">
+          <h3><span class="dia sm"></span>WORDSMITH — TEXT, LOCAL ONLY</h3>
+          <p class="note">Text is rendered locally and deterministically — never through a model (platform law). What cannot fail goes on as a local overlay.</p>
+          <div class="card"><div class="row"><span class="ttl">Title overlay</span><span class="chip live">LOCAL</span></div><div class="sub mono">text_exact: ["ON MY OWN"] → gate checks letter by letter</div></div>
+          <div class="card"><div class="row"><span class="ttl">Captions</span><span class="chip design">DESIGN</span></div><div class="sub">Local forced alignment of the actual audio — word-timed, never model-guessed.</div></div>
+          <div class="card"><div class="row"><span class="ttl">Watermark strip</span><span class="chip design">DESIGN</span></div><div class="sub">The mark carries the job-hash prefix and links to the provenance card.</div></div>
+        </section>
+        <section class="panel" id="panel-sonic">
+          <h3><span class="dia sm hollow"></span>SONIC FORGE</h3>
+          <p class="note">Procedural sound from fusi-audio — byte-reproducible in the procedural lane — plus the platform sonic tag and licensed / user audio.</p>
+          <div class="card"><div class="row"><span class="ttl">fusi-audio bed</span><span class="chip design">PROCEDURAL</span></div><div class="sub mono">program digest 9c…e1 · same record → same bytes</div></div>
+          <div class="card"><div class="row"><span class="ttl">Sonic tag</span><span class="chip live">PLATFORM</span></div><div class="sub">Ships on platform outputs per standing law.</div></div>
+          <div class="card"><div class="row"><span class="ttl">Licensed track</span><span class="chip inactive">EMPTY</span></div><div class="sub">No licensed audio loaded in this sandbox.</div></div>
+        </section>
+        <section class="panel" id="panel-effects">
+          <h3><span class="dia sm"></span>FORGE EFFECTS</h3>
+          <div class="shelf-label">SHELF A — PROCEDURAL · DETERMINISTIC · WATERMARK-EXACT</div>
+          <div class="card"><div class="row"><span class="ttl">gold-pulse</span><span class="chip design">DESIGN</span></div><div class="sub">Code effect · re-execution verifiable</div></div>
+          <div class="card"><div class="row"><span class="ttl">diamond-wipe</span><span class="chip design">DESIGN</span></div><div class="sub">Transition · integer-timed, device-identical</div></div>
+          <div class="shelf-label">SHELF B — VENDOR · LABELED, NEVER SILENTLY SWAPPED</div>
+          <div class="card"><div class="row"><span class="ttl">vendor-glow</span><span class="chip planned">PLANNED</span></div><div class="sub mono">vendor: — · model: — · status: planned</div></div>
+          <div class="card"><div class="row"><span class="ttl">film-grain-pro</span><span class="chip pending">PENDING</span></div><div class="sub mono">vendor: — · model: — · access unverified</div></div>
+        </section>
+      </div>
+
+      <h3 style="margin-top:8px;"><span class="dia sm"></span>ENGINE ROOM — SEAT STATUS · HONEST, LIVE-CHECKED</h3>
+      <div class="seats">
+        <div class="seatrow"><span class="dia sm"></span><span class="sname">GEMINI<span class="ssub">Nano Banana tiers · video line · art direction</span></span><span class="chip pending">PENDING</span></div>
+        <div class="seatrow"><span class="dia sm"></span><span class="sname">CHATGPT<span class="ssub">image tools · independent variants</span></span><span class="chip planned">PLANNED</span></div>
+        <div class="seatrow"><span class="dia sm"></span><span class="sname">FLOW / VIDS<span class="ssub">motion direction · per-job pick</span></span><span class="chip pending">PENDING</span></div>
+        <div class="seatrow"><span class="dia sm"></span><span class="sname">CLAUDE GATE<span class="ssub">frame critic · can block, never unlock · SHADOW here</span></span><span class="chip design">SHADOW</span></div>
+        <div class="seatrow"><span class="dia sm"></span><span class="sname">MUSE FINISH<span class="ssub">orchestrate · local draft renderer · watermark · export</span></span><span class="chip live">LIVE · SANDBOX</span></div>
+      </div>
+      <div class="flabel"><span>BOUNCE COUNTER</span></div>
+      <div class="card"><div class="sub" style="margin-top:0;">Gate retries <b style="color:var(--ink)">0 / 2</b> (platform-paid) · bounce cycles <b style="color:var(--ink)">0 / 3</b> · in this sandbox the gate runs SHADOW: mechanical checks only, never a creative verdict.</div></div>
+
+      <h3 style="margin-top:16px;"><span class="dia sm"></span>THE FRAME</h3>
+      <div class="card"><div class="sub" style="margin-top:0;">The 9:16 stage (1080×1920) on Step 3 is this module at work: the watermark is drawn on the canvas itself, the clean master is rendered at birth, and the frame never shows a stripped copy as if it were clean.</div></div>
+
+      <h3 style="margin-top:16px;"><span class="dia sm"></span>SEAT TRACKS</h3>
+      <div class="timeline">
+        <div class="tl-head">
+          <span class="t"><span class="dia sm"></span>SEAT TRACKS</span>
+          <span class="hint">the timeline is the execution shadow — what actually ran, pinned where it happened</span>
+          <span class="chip design" style="margin-left:auto;">STUDIO-SHADOW · CANDIDATE</span>
+        </div>
+        <div class="tl-body">
+          <div class="ruler">
+            <span style="left:0%">f0</span><span style="left:16.6%">f6</span><span style="left:33.3%">f12</span><span style="left:50%">f18</span><span style="left:66.6%">f24</span><span style="left:83.3%">f30</span><span style="left:99%">f36</span>
+            <i style="left:0%"></i><i style="left:16.6%"></i><i style="left:33.3%"></i><i style="left:50%"></i><i style="left:66.6%"></i><i style="left:83.3%"></i><i style="left:99%"></i>
+          </div>
+          <div class="track">
+            <div class="tlabel">GEMINI<small>plates · video passes</small></div>
+            <div class="lane" id="laneGemini">
+              <div class="clip dim dashed" style="left:1%; width:30%;">no pass yet · seat PENDING</div>
+            </div>
+          </div>
+          <div class="track">
+            <div class="tlabel">CHATGPT<small>independent variants</small></div>
+            <div class="lane" id="laneChatgpt">
+              <div class="clip dim dashed" style="left:1%; width:30%;">variants · seat PLANNED</div>
+            </div>
+          </div>
+          <div class="track">
+            <div class="tlabel">FLOW / VIDS<small>motion direction</small></div>
+            <div class="lane" id="laneFlow">
+              <div class="clip dim dashed" style="left:1%; width:30%;">motion pass · seat PENDING</div>
+            </div>
+          </div>
+          <div class="track">
+            <div class="tlabel">CLAUDE GATE<small>blocks · never unlocks · SHADOW</small></div>
+            <div class="lane" id="laneGate">
+              <div class="clip dim dashed" style="left:1%; width:34%;">shadow checks appear here</div>
+            </div>
+          </div>
+          <div class="track" style="border-bottom:none;">
+            <div class="tlabel">MUSE FINISH<small>assembly · watermark · export</small></div>
+            <div class="lane" id="laneFinish">
+              <div class="clip dim dashed" style="left:1%; width:30%;">assembly appears here</div>
+            </div>
+          </div>
+          <div class="playhead"><span class="ph-tag">f0</span></div>
+        </div>
+      </div>
+
+      <div class="gatehouse" style="margin-top:16px;">
+        <div class="row"><span class="dia sm"></span><b style="letter-spacing:.08em; font-size:13px;">THE GATEHOUSE · EXPORT</b><span class="chip inactive">INACTIVE</span></div>
+        <p>Every export declares its watermark status + provenance state before it runs, and refuses if the checks fail. Clean-master release is a separate, explicit act: verified fee event → the exact committed master, hash shown. In this sandbox the release is the REMOVE WATERMARK button — simulated, TEST FUSI only.</p>
+      </div>
     </div>
-  </aside>
+  </div>
+
+  <p class="foot-note">FUSIÓN-7 STUDIOS v3 — guided sandbox. DESIGN / sandbox until the declared flip: vendor seats PENDING, charging INACTIVE, TEST FUSI only. The compiler above is the same Python-identical compiler as v2 — same words, same job hash.</p>
 </div>
 
-<!-- ======================= TIMELINE : SEAT TRACKS ======================= -->
-<footer class="timeline">
-  <div class="tl-head">
-    <span class="t"><span class="dia sm"></span>SEAT TRACKS</span>
-    <span class="hint">the timeline is the execution shadow — what actually ran, pinned where it happened</span>
-    <span class="chip design" style="margin-left:auto;">STUDIO-SHADOW · CANDIDATE</span>
-  </div>
-  <div class="tl-body">
-    <div class="ruler">
-      <span style="left:0%">f0</span><span style="left:16.6%">f6</span><span style="left:33.3%">f12</span><span style="left:50%">f18</span><span style="left:66.6%">f24</span><span style="left:83.3%">f30</span><span style="left:99%">f36</span>
-      <i style="left:0%"></i><i style="left:16.6%"></i><i style="left:33.3%"></i><i style="left:50%"></i><i style="left:66.6%"></i><i style="left:83.3%"></i><i style="left:99%"></i>
-    </div>
-
-    <div class="track">
-      <div class="tlabel">GEMINI<small>plates · video passes</small></div>
-      <div class="lane" id="laneGemini">
-        <div class="clip dim dashed" style="left:1%; width:30%;">no pass yet · seat PENDING</div>
-      </div>
-    </div>
-
-    <div class="track">
-      <div class="tlabel">CHATGPT<small>independent variants</small></div>
-      <div class="lane" id="laneChatgpt">
-        <div class="clip dim dashed" style="left:1%; width:30%;">variants · seat PLANNED</div>
-      </div>
-    </div>
-
-    <div class="track">
-      <div class="tlabel">FLOW / VIDS<small>motion direction</small></div>
-      <div class="lane" id="laneFlow">
-        <div class="clip dim dashed" style="left:1%; width:30%;">motion pass · seat PENDING</div>
-      </div>
-    </div>
-
-    <div class="track">
-      <div class="tlabel">CLAUDE GATE<small>blocks · never unlocks · SHADOW</small></div>
-      <div class="lane" id="laneGate">
-        <div class="clip dim dashed" style="left:1%; width:34%;">shadow checks appear here</div>
-      </div>
-    </div>
-
-    <div class="track" style="border-bottom:none;">
-      <div class="tlabel">MUSE FINISH<small>assembly · watermark · export</small></div>
-      <div class="lane" id="laneFinish">
-        <div class="clip dim dashed" style="left:1%; width:30%;">assembly appears here</div>
-      </div>
-    </div>
-
-    <div class="playhead"><span class="ph-tag">f0</span></div>
-  </div>
-</footer>
 
 <script>
 /* =====================================================================
@@ -929,6 +1007,50 @@ document.querySelectorAll('.tab').forEach(function(tab){
 });
 
 drawPlaceholder();
+})();
+</script>
+<script>
+/* =====================================================================
+   V3 STEP CONTROLLER — navigation only. It never touches the compiler,
+   the fee model, or the renderer: it only shows one step at a time and
+   moves the user forward after COMPILE / CONFIRM succeed.
+   ===================================================================== */
+(function(){
+"use strict";
+function $(id){return document.getElementById(id);}
+var steps={1:$('step1'),2:$('step2'),3:$('step3')};
+var dots={1:$('dot1'),2:$('dot2'),3:$('dot3')};
+var current=1;
+function showStep(n){
+  current=n;
+  for(var k in steps){
+    var on=(+k===n);
+    steps[k].classList.toggle('active',on);
+    steps[k].style.display=on?'block':'none';
+    dots[k].classList.toggle('current',on);
+    if(+k<n) dots[k].classList.add('done'); else dots[k].classList.remove('done');
+  }
+  window.scrollTo(0,0);
+}
+var compileBtn=$('compileBtn'), confirmBtn=$('confirmBtn');
+if(compileBtn) compileBtn.addEventListener('click',function(){ showStep(2); });
+if(confirmBtn) confirmBtn.addEventListener('click',function(){ showStep(3); });
+var b1=$('backTo1'); if(b1) b1.addEventListener('click',function(){ showStep(1); });
+var b2=$('backTo2'); if(b2) b2.addEventListener('click',function(){ showStep(2); });
+document.querySelectorAll('.example-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var p=$('promptInput');
+    if(p){ p.value=btn.getAttribute('data-prompt'); }
+  });
+});
+var advBtn=$('advancedBtn'), drawer=$('advancedDrawer');
+if(advBtn&&drawer) advBtn.addEventListener('click',function(){
+  var open=drawer.classList.toggle('open');
+  drawer.style.display=open?'block':'none';
+  advBtn.setAttribute('aria-expanded',open?'true':'false');
+  advBtn.textContent=open?'ADVANCED — ALL 9 MODULES · TAP TO CLOSE':'ADVANCED — ALL 9 MODULES · TAP TO OPEN';
+});
+showStep(1);
 })();
 </script>
 </body>

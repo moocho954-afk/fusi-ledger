@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUSIÓN-7 STUDIOS — Working Sandbox</title>
+<style>
+  :root{
+    --void:#0e0d0b; --panel:#171511; --gold:#d4af37; --ink:#f2ede1; --edge:#3a352a;
+    --ink-dim:rgba(242,237,225,.62); --ink-faint:rgba(242,237,225,.38);
+    --gold-dim:rgba(212,175,55,.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--void); color:var(--ink);
+    font-family:"Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    font-size:14px; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .dia{display:inline-block; width:8px; height:8px; background:var(--gold); transform:rotate(45deg); flex:none;}
+  .dia.sm{width:6px; height:6px;}
+  .dia.hollow{background:transparent; border:1.5px solid var(--gold);}
+
+  /* ---------- chips (honesty law, on the face) ---------- */
+  .chip{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:12px; font-weight:600; letter-spacing:.06em;
+    padding:2px 8px; border-radius:3px; border:1px solid var(--edge);
+    color:var(--ink-dim); white-space:nowrap; background:var(--void);
+  }
+  .chip.live{background:var(--gold); border-color:var(--gold); color:var(--void);}
+  .chip.design{border-color:var(--gold); color:var(--gold); background:var(--gold-dim);}
+  .chip.inactive{color:var(--ink-faint); border-style:solid;}
+  .chip.pending{border-style:dashed; border-color:var(--gold); color:var(--gold);}
+  .chip.planned{color:var(--ink-dim);}
+  .chip.pass{border-color:var(--gold); color:var(--gold);}
+  .chip.repair{border-color:var(--ink); color:var(--ink); background:var(--edge);}
+  .chip.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-weight:500; letter-spacing:0;}
+
+  /* ---------- ribbon ---------- */
+  .ribbon{
+    background:var(--gold); color:var(--void); text-align:center;
+    font-size:12px; font-weight:700; letter-spacing:.14em; padding:5px 10px; flex:none;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex; align-items:center; gap:16px; padding:10px 16px;
+    background:var(--panel); border-bottom:1px solid var(--edge); flex:none; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-size:17px; font-weight:700; letter-spacing:.08em;}
+  .brand .dia{width:11px; height:11px;}
+  .brand small{font-size:12px; color:var(--ink-dim); font-weight:500; letter-spacing:.04em;}
+  .jobname{
+    display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink);
+    border:1px solid var(--edge); border-radius:4px; padding:5px 10px; background:var(--void);
+  }
+  .jobname span{color:var(--ink-dim); font-size:12px;}
+  .topbar .spacer{flex:1;}
+  .budget{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-dim);}
+  .budget .bar{width:90px; height:6px; background:var(--void); border:1px solid var(--edge); border-radius:3px; overflow:hidden;}
+  .budget .bar i{display:block; height:100%; width:24%; background:var(--gold);}
+  .wallet{
+    display:flex; align-items:center; gap:9px; font-size:12px; color:var(--ink-dim);
+    border:1px solid var(--gold); border-radius:4px; padding:5px 10px; background:var(--void);
+  }
+  .wallet b{color:var(--gold); font-size:14px;}
+  .mini-btn{
+    background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:3px;
+    font-size:12px; font-weight:700; letter-spacing:.06em; padding:3px 9px; cursor:pointer;
+  }
+  .mini-btn:hover{background:var(--gold-dim);}
+  .export-btn{
+    background:var(--gold); color:var(--void); border:none; border-radius:4px;
+    font-size:13px; font-weight:700; letter-spacing:.1em; padding:9px 22px; cursor:default;
+    display:inline-flex; align-items:center; gap:8px; opacity:.55;
+  }
+
+  /* ---------- main grid ---------- */
+  .main{flex:1; display:grid; grid-template-columns:308px 1fr 304px; min-height:0;}
+
+  /* ---------- left rail ---------- */
+  .rail{background:var(--panel); border-right:1px solid var(--edge); display:flex; flex-direction:column; min-height:0;}
+  .tabs{display:flex; flex-direction:column; padding:10px 10px 4px; gap:4px; flex:none;}
+  .tab{
+    display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:4px;
+    border:1px solid transparent; cursor:pointer; background:transparent; color:var(--ink);
+    font-size:13px; font-weight:600; text-align:left; width:100%;
+  }
+  .tab:hover{border-color:var(--edge);}
+  .tab.active{background:var(--void); border-color:var(--gold);}
+  .tab .tname{flex:1; letter-spacing:.03em;}
+  .tab .tsub{display:block; font-size:12px; font-weight:400; color:var(--ink-dim); letter-spacing:0;}
+  .panels{flex:1; overflow-y:auto; padding:8px 12px 14px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel h3{font-size:12px; letter-spacing:.12em; color:var(--gold); margin:8px 0 8px; display:flex; align-items:center; gap:8px;}
+  .panel p.note{font-size:12px; line-height:1.55; color:var(--ink-dim); margin:6px 0;}
+  .card{
+    border:1px solid var(--edge); border-radius:5px; background:var(--void);
+    padding:10px 11px; margin-bottom:9px;
+  }
+  .card .row{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .card .ttl{font-size:13px; font-weight:600; flex:1;}
+  .card .sub{font-size:12px; color:var(--ink-dim); margin-top:4px; line-height:1.5;}
+  .card .sub.mono, .mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;}
+  .shelf-label{font-size:12px; letter-spacing:.1em; color:var(--ink-dim); margin:12px 0 6px;}
+
+  /* engine room specifics */
+  .prompt-input{
+    width:100%; border:1px solid var(--edge); border-radius:5px; background:var(--void);
+    padding:10px 11px; font-size:13px; line-height:1.55; color:var(--ink); min-height:64px;
+    font-family:inherit; resize:vertical;
+  }
+  .prompt-input:focus{outline:none; border-color:var(--gold);}
+  .flabel{font-size:12px; letter-spacing:.1em; color:var(--ink-dim); margin:12px 0 6px; display:flex; justify-content:space-between; align-items:center;}
+  .compile-strip{
+    display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;
+    border:1px dashed var(--gold); border-radius:5px; padding:9px 10px; background:var(--gold-dim);
+  }
+  .compile-strip .arrow{color:var(--gold); font-weight:700;}
+  .compile-strip .jobchip{
+    font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:12px;
+    border:1px solid var(--gold); color:var(--gold); border-radius:3px; padding:3px 8px; background:var(--void);
+  }
+  .hashline{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:12px; color:var(--ink-dim); margin-top:7px; word-break:break-all; line-height:1.5;}
+  .toggle{display:flex; border:1px solid var(--edge); border-radius:5px; overflow:hidden; margin-top:6px;}
+  .toggle button{
+    flex:1; text-align:center; padding:9px 0; font-size:13px; font-weight:700; letter-spacing:.1em;
+    color:var(--ink-dim); background:var(--void); border:none; cursor:pointer; font-family:inherit;
+  }
+  .toggle button.on{background:var(--gold); color:var(--void);}
+  .btn{
+    background:var(--gold); color:var(--void); border:1px solid var(--gold); border-radius:4px;
+    font-size:13px; font-weight:700; letter-spacing:.08em; padding:9px 12px; cursor:pointer;
+    font-family:inherit; width:100%;
+  }
+  .btn.ghost{background:var(--void); color:var(--gold);}
+  .btn:hover:not(:disabled){filter:brightness(1.08);}
+  .btn:disabled{opacity:.35; cursor:not-allowed;}
+  .btnrow{display:flex; gap:8px; margin-top:8px;}
+  .btnrow .btn{flex:1;}
+  .statusline{
+    font-size:12.5px; line-height:1.55; color:var(--ink-dim); margin-top:10px;
+    border:1px solid var(--edge); border-radius:5px; background:var(--void); padding:8px 10px; min-height:38px;
+  }
+  .statusline b{color:var(--gold);}
+  .thumbs{display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:6px;}
+  .thumb{
+    aspect-ratio:9/16; border:1px solid var(--edge); border-radius:4px; background:var(--panel);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    font-size:12px; color:var(--ink-dim); text-align:center; padding:4px;
+  }
+  .thumb .dia{opacity:.55;}
+  .seats{display:flex; flex-direction:column; gap:6px; margin-top:4px;}
+  .seatrow{display:flex; align-items:center; gap:8px; font-size:13px;}
+  .seatrow .sname{flex:1; font-weight:600; letter-spacing:.03em;}
+  .seatrow .ssub{font-size:12px; color:var(--ink-dim); font-weight:400; display:block;}
+
+  /* ---------- center stage ---------- */
+  .stage{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; padding:18px 12px; min-width:0; background:var(--void);
+    background-image:radial-gradient(circle at 50% 42%, rgba(212,175,55,.05), transparent 62%);
+  }
+  .frame-wrap{display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:center;}
+  .frame{
+    position:relative; aspect-ratio:9/16; height:min(100%, 560px); max-height:100%;
+    background:#000; border:1px solid var(--edge); border-radius:6px; overflow:hidden;
+    box-shadow:0 0 0 6px var(--panel), 0 0 44px rgba(0,0,0,.8);
+  }
+  #stageCanvas{width:100%; height:100%; display:block; background:var(--void);}
+  .frame .corner-tag{position:absolute; left:10px; top:10px; z-index:3;}
+  .gate-label{
+    display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--ink-dim);
+    border:1px solid var(--edge); background:var(--panel); border-radius:4px; padding:6px 12px;
+  }
+  .gate-label b{color:var(--ink); font-weight:600;}
+  .stage-caption{font-size:12px; letter-spacing:.08em; color:var(--gold); text-align:center; min-height:15px;}
+  .stage-tools{display:flex; gap:8px; align-items:center; font-size:12px; color:var(--ink-dim);}
+  .stage-tools .tbtn{border:1px solid var(--edge); border-radius:4px; padding:5px 10px; background:var(--panel); color:var(--ink-dim); display:inline-flex; gap:6px; align-items:center;}
+
+  /* ---------- right inspector ---------- */
+  .inspector{background:var(--panel); border-left:1px solid var(--edge); overflow-y:auto; padding:14px 14px 18px; min-height:0;}
+  .inspector h3{font-size:12px; letter-spacing:.12em; color:var(--gold); margin:4px 0 9px; display:flex; align-items:center; gap:8px;}
+  .brief{font-size:13.5px; line-height:1.6; color:var(--ink);}
+  .brief .warn{color:var(--gold);}
+  .brief-lines{font-size:13px; line-height:1.65; color:var(--ink);}
+  .brief-lines .bl-k{color:var(--ink-dim); font-size:12px; letter-spacing:.08em;}
+  .kv{display:flex; justify-content:space-between; font-size:12px; color:var(--ink-dim); padding:4px 0; border-bottom:1px dotted var(--edge);}
+  .kv b{color:var(--ink); font-weight:600; text-align:right;}
+  .fusi-block{
+    font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:12px; line-height:1.65;
+    background:var(--void); border:1px solid var(--edge); border-radius:5px; padding:11px 12px; color:var(--ink-dim);
+    white-space:pre-wrap; word-break:break-word; margin-bottom:12px;
+  }
+  .fee-lines{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace; font-size:12px; line-height:1.75; color:var(--ink-dim); word-break:break-word;}
+  .fee-lines .ref{color:var(--gold); font-weight:700;}
+  .fee-lines .ok{color:var(--ink);}
+  .gatehouse{border:1px dashed var(--gold); border-radius:5px; padding:11px 12px; background:var(--gold-dim); margin-top:12px;}
+  .gatehouse p{font-size:12px; line-height:1.55; color:var(--ink-dim); margin-top:5px;}
+
+  /* ---------- timeline ---------- */
+  .timeline{flex:none; background:var(--panel); border-top:1px solid var(--edge); padding:8px 14px 12px; position:relative;}
+  .tl-head{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
+  .tl-head .t{font-size:12px; letter-spacing:.12em; color:var(--gold); font-weight:700; display:flex; gap:8px; align-items:center;}
+  .tl-head .hint{font-size:12px; color:var(--ink-dim);}
+  .tl-body{position:relative;}
+  .ruler{position:relative; height:16px; margin-left:128px; border-bottom:1px solid var(--edge);}
+  .ruler span{position:absolute; top:0; font-size:12px; color:var(--ink-faint); transform:translateX(-50%);}
+  .ruler i{position:absolute; bottom:0; width:1px; height:5px; background:var(--edge);}
+  .track{display:flex; align-items:stretch; height:34px; border-bottom:1px solid rgba(58,53,42,.55);}
+  .track .tlabel{
+    width:128px; flex:none; display:flex; flex-direction:column; justify-content:center; gap:1px;
+    font-size:12px; font-weight:700; letter-spacing:.06em; padding-right:10px;
+  }
+  .track .tlabel small{font-size:12px; font-weight:400; color:var(--ink-dim); letter-spacing:0;}
+  .lane{position:relative; flex:1; background:rgba(14,13,11,.55);}
+  .clip{
+    position:absolute; top:5px; height:24px; border:1px solid var(--gold); border-radius:3px;
+    background:var(--gold-dim); color:var(--ink); font-size:12px; padding:3px 8px;
+    display:flex; align-items:center; gap:6px; overflow:hidden; white-space:nowrap;
+  }
+  .clip.dim{border-color:var(--edge); color:var(--ink-dim); background:var(--void);}
+  .clip.dashed{border-style:dashed;}
+  .marker{
+    position:absolute; top:4px; transform:translateX(-50%);
+    font-size:12px; font-weight:700; letter-spacing:.04em; padding:3px 7px; border-radius:3px; white-space:nowrap;
+  }
+  .marker.pass{background:var(--gold); color:var(--void);}
+  .marker.repair{background:var(--edge); color:var(--ink); border:1px solid var(--ink-faint);}
+  .marker.unres{background:var(--void); color:var(--ink-dim); border:1px dashed var(--edge);}
+  .playhead{position:absolute; top:0; bottom:0; left:calc(128px + (100% - 128px) * 0.333); width:2px; background:var(--gold); z-index:5;}
+  .playhead::before{content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%) rotate(45deg); width:9px; height:9px; background:var(--gold);}
+  .playhead .ph-tag{
+    position:absolute; top:16px; left:6px; font-size:12px; color:var(--void); background:var(--gold);
+    padding:1px 6px; border-radius:3px; font-weight:700; white-space:nowrap;
+  }
+
+  @media (max-width:980px){
+    body{overflow:auto;}
+    .main{grid-template-columns:1fr; }
+    .rail,.inspector{border:none; border-bottom:1px solid var(--edge);}
+    .frame{height:420px;}
+    .ruler{margin-left:0;} .track .tlabel{width:96px;} .playhead{left:33%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon">WORKING SANDBOX — PYTHON-IDENTICAL JOB COMPILER · LOCAL DRAFT RENDERER · VENDOR SEATS PENDING · TEST FUSI ONLY · CHARGING INACTIVE</div>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="topbar">
+  <div class="brand"><span class="dia"></span>FUSIÓN-7 STUDIOS <small>editor · sandbox</small></div>
+  <div class="jobname"><span class="dia sm"></span><b id="jobNameText">no job compiled</b><span class="mono" id="jobNameHash">job —</span></div>
+  <span class="chip design">SESSION · SANDBOX</span>
+  <span class="chip inactive">CHARGING INACTIVE</span>
+  <div class="spacer"></div>
+  <div class="wallet"><span>SANDBOX WALLET</span><b><span id="balanceVal">100</span> TEST FUSI</b><button class="mini-btn" id="resetBtn" type="button">RESET</button></div>
+  <button class="export-btn">EXPORT <span style="font-size:11px; font-weight:600; border:1px solid var(--void); padding:0 5px; border-radius:3px;">INACTIVE</span></button>
+</header>
+
+<!-- ======================= MAIN ======================= -->
+<div class="main">
+
+  <!-- ========== LEFT RAIL : MODULE TABS ========== -->
+  <aside class="rail">
+    <nav class="tabs">
+      <button class="tab" data-target="panel-vault"><span class="dia sm"></span><span class="tname">THE VAULT<span class="tsub">media · job-hashed</span></span><span class="chip planned">PLANNED</span></button>
+      <button class="tab" data-target="panel-blueprints"><span class="dia sm hollow"></span><span class="tname">FUSI BLUEPRINTS<span class="tsub">templates = job fragments</span></span><span class="chip planned">PLANNED</span></button>
+      <button class="tab" data-target="panel-wordsmith"><span class="dia sm"></span><span class="tname">WORDSMITH<span class="tsub">text · local render only</span></span><span class="chip design">DESIGN</span></button>
+      <button class="tab" data-target="panel-sonic"><span class="dia sm hollow"></span><span class="tname">SONIC FORGE<span class="tsub">audio · fusi-audio</span></span><span class="chip design">DESIGN</span></button>
+      <button class="tab" data-target="panel-effects"><span class="dia sm"></span><span class="tname">FORGE EFFECTS<span class="tsub">procedural + vendor shelves</span></span><span class="chip planned">PLANNED</span></button>
+      <button class="tab active" data-target="panel-engine"><span class="dia sm"></span><span class="tname">ENGINE ROOM<span class="tsub">the five seats · ours only</span></span><span class="chip live">LIVE · SANDBOX</span></button>
+    </nav>
+
+    <div class="panels">
+
+      <!-- VAULT -->
+      <section class="panel" id="panel-vault">
+        <h3><span class="dia sm"></span>THE VAULT</h3>
+        <p class="note">User media + everything the seats generated. Nothing enters without a job record — every item carries its job hash.</p>
+        <div class="card"><div class="row"><span class="ttl">hero_plate.png</span><span class="chip design">SEAT OUTPUT</span></div><div class="sub mono">job 7db0c5c1… · gemini plate · sha 5b41b9a9…</div></div>
+        <div class="card"><div class="row"><span class="ttl">crown_master.png</span><span class="chip inactive">LOCKED</span></div><div class="sub">Clean master · hash committed at birth · release = verified fee event only</div></div>
+        <div class="card"><div class="row"><span class="ttl">house-gold-void</span><span class="chip planned">STYLE VAULT</span></div><div class="sub mono">style fragment v3 · closed vocabulary · hash-versioned</div></div>
+        <div class="card"><div class="row"><span class="ttl">my-logo.svg</span><span class="chip live">USER MEDIA</span></div><div class="sub mono">registered · job a41f…c2</div></div>
+      </section>
+
+      <!-- BLUEPRINTS -->
+      <section class="panel" id="panel-blueprints">
+        <h3><span class="dia sm hollow"></span>FUSI BLUEPRINTS</h3>
+        <p class="note">A blueprint is a FUSI-Script fragment, not a black box. Opening one shows the exact record you will run.</p>
+        <div class="card"><div class="row"><span class="ttl">NEON CROWN DROP</span><span class="chip planned">PLANNED</span></div><div class="sub">subject + style + motion pre-compiled · 9:16 video</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
+        <div class="card"><div class="row"><span class="ttl">PRODUCT ORBIT</span><span class="chip planned">PLANNED</span></div><div class="sub">image → latent anchor → orbit pass · still first</div><div class="row" style="margin-top:6px;"><span class="chip mono">view record</span></div></div>
+        <div class="card"><div class="row"><span class="ttl">FOUR-MINDS SHOWDOWN</span><span class="chip design">DESIGN</span></div><div class="sub">same prompt, four pipelines side by side · your pick is recorded</div></div>
+      </section>
+
+      <!-- WORDSMITH -->
+      <section class="panel" id="panel-wordsmith">
+        <h3><span class="dia sm"></span>WORDSMITH — TEXT, LOCAL ONLY</h3>
+        <p class="note">Text is rendered locally and deterministically — never through a model (platform law). What cannot fail goes on as a local overlay.</p>
+        <div class="card"><div class="row"><span class="ttl">Title overlay</span><span class="chip live">LOCAL</span></div><div class="sub mono">text_exact: ["ON MY OWN"] → gate checks letter by letter</div></div>
+        <div class="card"><div class="row"><span class="ttl">Captions</span><span class="chip design">DESIGN</span></div><div class="sub">Local forced alignment of the actual audio — word-timed, never model-guessed.</div></div>
+        <div class="card"><div class="row"><span class="ttl">Watermark strip</span><span class="chip design">DESIGN</span></div><div class="sub">The mark carries the job-hash prefix and links to the provenance card.</div></div>
+      </section>
+
+      <!-- SONIC FORGE -->
+      <section class="panel" id="panel-sonic">
+        <h3><span class="dia sm hollow"></span>SONIC FORGE</h3>
+        <p class="note">Procedural sound from fusi-audio — byte-reproducible in the procedural lane — plus the platform sonic tag and licensed / user audio.</p>
+        <div class="card"><div class="row"><span class="ttl">fusi-audio bed</span><span class="chip design">PROCEDURAL</span></div><div class="sub mono">program digest 9c…e1 · same record → same bytes</div></div>
+        <div class="card"><div class="row"><span class="ttl">Sonic tag</span><span class="chip live">PLATFORM</span></div><div class="sub">Ships on platform outputs per standing law.</div></div>
+        <div class="card"><div class="row"><span class="ttl">Licensed track</span><span class="chip inactive">EMPTY</span></div><div class="sub">No licensed audio loaded in this sandbox.</div></div>
+      </section>
+
+      <!-- FORGE EFFECTS -->
+      <section class="panel" id="panel-effects">
+        <h3><span class="dia sm"></span>FORGE EFFECTS</h3>
+        <div class="shelf-label">SHELF A — PROCEDURAL · DETERMINISTIC · WATERMARK-EXACT</div>
+        <div class="card"><div class="row"><span class="ttl">gold-pulse</span><span class="chip design">DESIGN</span></div><div class="sub">Code effect · re-execution verifiable</div></div>
+        <div class="card"><div class="row"><span class="ttl">diamond-wipe</span><span class="chip design">DESIGN</span></div><div class="sub">Transition · integer-timed, device-identical</div></div>
+        <div class="shelf-label">SHELF B — VENDOR · LABELED, NEVER SILENTLY SWAPPED</div>
+        <div class="card"><div class="row"><span class="ttl">vendor-glow</span><span class="chip planned">PLANNED</span></div><div class="sub mono">vendor: — · model: — · status: planned</div></div>
+        <div class="card"><div class="row"><span class="ttl">film-grain-pro</span><span class="chip pending">PENDING</span></div><div class="sub mono">vendor: — · model: — · access unverified</div></div>
+      </section>
+
+      <!-- ENGINE ROOM (WORKING) -->
+      <section class="panel active" id="panel-engine">
+        <h3><span class="dia sm"></span>THE ENGINE ROOM — FIVE SEATS</h3>
+        <div class="flabel"><span>PROMPT · ENGLISH</span><span class="chip mono">user_prompt · untrusted</span></div>
+        <textarea class="prompt-input" id="promptInput" spellcheck="false">a golden diamond crown over a dark city, cinematic</textarea>
+        <div class="flabel"><span>OUTPUT</span><span class="chip design">SANDBOX</span></div>
+        <div class="toggle">
+          <button type="button" id="modeImage" class="on">IMAGE</button>
+          <button type="button" id="modeVideo">VIDEO</button>
+        </div>
+        <div class="btnrow">
+          <button class="btn ghost" id="compileBtn" type="button">COMPILE →</button>
+        </div>
+        <div class="compile-strip">
+          <span style="font-size:12px; font-weight:700; letter-spacing:.08em;">JOB</span>
+          <span class="arrow">→</span>
+          <span class="jobchip" id="jobChip">not compiled</span>
+        </div>
+        <div class="hashline" id="jobHashLine">job hash — compile a prompt to mint the FUSI job record (Python-identical compiler).</div>
+        <div class="btnrow">
+          <button class="btn ghost" id="confirmBtn" type="button" disabled>CONFIRM BRIEF</button>
+          <button class="btn" id="generateBtn" type="button" disabled>GENERATE · 10 TEST FUSI</button>
+        </div>
+        <div class="btnrow">
+          <button class="btn ghost" id="removeBtn" type="button" disabled>REMOVE WATERMARK · 10 TEST FUSI</button>
+        </div>
+        <div class="statusline" id="engineStatus">Sandbox ready. <b>COMPILE</b> the prompt, read the brief in the inspector, <b>CONFIRM</b>, then <b>GENERATE</b>. Entry fee is simulated in TEST FUSI only.</div>
+        <div class="flabel"><span>SEAT STATUS · HONEST, LIVE-CHECKED</span></div>
+        <div class="seats">
+          <div class="seatrow"><span class="dia sm"></span><span class="sname">GEMINI<span class="ssub">Nano Banana tiers · video line · art direction</span></span><span class="chip pending">PENDING</span></div>
+          <div class="seatrow"><span class="dia sm"></span><span class="sname">CHATGPT<span class="ssub">image tools · independent variants</span></span><span class="chip planned">PLANNED</span></div>
+          <div class="seatrow"><span class="dia sm"></span><span class="sname">FLOW / VIDS<span class="ssub">motion direction · per-job pick</span></span><span class="chip pending">PENDING</span></div>
+          <div class="seatrow"><span class="dia sm"></span><span class="sname">CLAUDE GATE<span class="ssub">frame critic · can block, never unlock · SHADOW here</span></span><span class="chip design">SHADOW</span></div>
+          <div class="seatrow"><span class="dia sm"></span><span class="sname">MUSE FINISH<span class="ssub">orchestrate · local draft renderer · watermark · export</span></span><span class="chip live">LIVE · SANDBOX</span></div>
+        </div>
+        <div class="flabel"><span>BOUNCE COUNTER</span></div>
+        <div class="card"><div class="sub" style="margin-top:0;">Gate retries <b style="color:var(--ink)">0 / 2</b> (platform-paid) · bounce cycles <b style="color:var(--ink)">0 / 3</b> · in this sandbox the gate runs SHADOW: mechanical checks only, never a creative verdict.</div></div>
+      </section>
+
+    </div>
+  </aside>
+
+  <!-- ========== CENTER PREVIEW STAGE ========== -->
+  <section class="stage">
+    <div class="frame-wrap">
+      <div class="frame">
+        <canvas id="stageCanvas" width="1080" height="1920"></canvas>
+        <span class="chip mono corner-tag" id="cornerTag">STAGE · EMPTY</span>
+      </div>
+      <div class="stage-caption" id="stageCaption">LOCAL DRAFT RENDERER — NOTHING GENERATED YET</div>
+      <div class="gate-label"><span class="dia sm"></span><span><b>CLAUDE GATE · SHADOW</b> — mechanical checks only (aspect · watermark presence). It never issues a creative verdict here, and it can block, never unlock.</span><span class="chip design">SHADOW</span></div>
+      <div class="stage-tools">
+        <span class="tbtn"><span class="dia sm"></span>FRAME 9:16 · 1080×1920</span>
+        <span class="tbtn">WATERMARK · DRAWN ON CANVAS</span>
+        <span class="tbtn">DOUBLE RENDER AT BIRTH</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RIGHT INSPECTOR : JOB CARD ========== -->
+  <aside class="inspector">
+    <h3><span class="dia sm"></span>JOB CARD — PLAIN LANGUAGE</h3>
+    <div class="card" style="background:var(--void);">
+      <p class="brief" id="briefText">Nothing compiled yet. The Engine Room compiles your English prompt into a FUSI job record — the same compiler as the Python sandbox, so the job hash you see here is the hash the platform would cite. <span class="warn">This is a sandbox: TEST FUSI only, local draft renders, charging INACTIVE.</span></p>
+      <div class="brief-lines" id="briefLines" style="margin-top:8px;"></div>
+    </div>
+    <div class="kv"><span>Mode</span><b id="kvMode">—</b></div>
+    <div class="kv"><span>Compiled from</span><b>your English prompt</b></div>
+    <div class="kv"><span>Drift vs your words</span><b>none flagged</b></div>
+    <div class="kv"><span>Gate</span><b>SHADOW · mechanical only</b></div>
+    <div class="kv"><span>Entry (sandbox)</span><b>10 TEST FUSI / job</b></div>
+    <div class="kv"><span>Clean release (sandbox)</span><b>10 TEST FUSI / output</b></div>
+    <div class="kv"><span>Fee destination (design)</span><b>STUDIO POOL · unregistered</b></div>
+
+    <h3 style="margin-top:16px;"><span class="dia sm hollow"></span>FUSI JOB RECORD</h3>
+    <div class="fusi-block" id="fusiRecord">— compile a prompt in the Engine Room —</div>
+
+    <h3><span class="dia sm"></span>PROVENANCE · HASHES</h3>
+    <div class="card" style="background:var(--void);">
+      <div class="row"><span class="chip design">ATTESTED BY THE PLATFORM</span></div>
+      <div class="fee-lines" id="provLines" style="margin-top:7px;">
+        <div>job hash&nbsp;&nbsp;&nbsp;: —</div>
+        <div>master hash : — (committed at render)</div>
+        <div>display hash: — (watermarked)</div>
+        <div>release&nbsp;&nbsp;&nbsp;&nbsp;: LOCKED</div>
+      </div>
+      <div class="sub">Derived from the seat tracks below — what actually ran, what was skipped, what was substituted. Attested, never “verified.”</div>
+    </div>
+
+    <h3 style="margin-top:16px;"><span class="dia sm"></span>FEE LEDGER · SANDBOX</h3>
+    <div class="card" style="background:var(--void);">
+      <div class="fee-lines" id="feeLedger">
+        <div>sandbox opened · balance 100 TEST FUSI</div>
+      </div>
+    </div>
+
+    <div class="gatehouse">
+      <div class="row"><span class="dia sm"></span><b style="letter-spacing:.08em; font-size:13px;">THE GATEHOUSE · EXPORT</b><span class="chip inactive">INACTIVE</span></div>
+      <p>Every export declares its watermark status + provenance state before it runs, and refuses if the checks fail. Clean-master release is a separate, explicit act: verified fee event → the exact committed master, hash shown. In this sandbox the release is the REMOVE WATERMARK button — simulated, TEST FUSI only.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- ======================= TIMELINE : SEAT TRACKS ======================= -->
+<footer class="timeline">
+  <div class="tl-head">
+    <span class="t"><span class="dia sm"></span>SEAT TRACKS</span>
+    <span class="hint">the timeline is the execution shadow — what actually ran, pinned where it happened</span>
+    <span class="chip design" style="margin-left:auto;">STUDIO-SHADOW · CANDIDATE</span>
+  </div>
+  <div class="tl-body">
+    <div class="ruler">
+      <span style="left:0%">f0</span><span style="left:16.6%">f6</span><span style="left:33.3%">f12</span><span style="left:50%">f18</span><span style="left:66.6%">f24</span><span style="left:83.3%">f30</span><span style="left:99%">f36</span>
+      <i style="left:0%"></i><i style="left:16.6%"></i><i style="left:33.3%"></i><i style="left:50%"></i><i style="left:66.6%"></i><i style="left:83.3%"></i><i style="left:99%"></i>
+    </div>
+
+    <div class="track">
+      <div class="tlabel">GEMINI<small>plates · video passes</small></div>
+      <div class="lane" id="laneGemini">
+        <div class="clip dim dashed" style="left:1%; width:30%;">no pass yet · seat PENDING</div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="tlabel">CHATGPT<small>independent variants</small></div>
+      <div class="lane" id="laneChatgpt">
+        <div class="clip dim dashed" style="left:1%; width:30%;">variants · seat PLANNED</div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="tlabel">FLOW / VIDS<small>motion direction</small></div>
+      <div class="lane" id="laneFlow">
+        <div class="clip dim dashed" style="left:1%; width:30%;">motion pass · seat PENDING</div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="tlabel">CLAUDE GATE<small>blocks · never unlocks · SHADOW</small></div>
+      <div class="lane" id="laneGate">
+        <div class="clip dim dashed" style="left:1%; width:34%;">shadow checks appear here</div>
+      </div>
+    </div>
+
+    <div class="track" style="border-bottom:none;">
+      <div class="tlabel">MUSE FINISH<small>assembly · watermark · export</small></div>
+      <div class="lane" id="laneFinish">
+        <div class="clip dim dashed" style="left:1%; width:30%;">assembly appears here</div>
+      </div>
+    </div>
+
+    <div class="playhead"><span class="ph-tag">f0</span></div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   VERBATIM COMPILER — pasted character-for-character from compile_v2.js
+   (JS port of the Python studio.py compile_job; proven against the
+   image + video test vectors). Do not edit inside this block.
+   ===================================================================== */
+const K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+function sha256hex(str){
+  const bytes=new TextEncoder().encode(str);
+  const l=bytes.length;
+  const total=Math.ceil((l+9)/64)*64;
+  const msg=new Uint8Array(total);
+  msg.set(bytes); msg[l]=0x80;
+  const dv=new DataView(msg.buffer);
+  dv.setUint32(total-4,(l*8)>>>0); dv.setUint32(total-8,Math.floor(l/0x20000000));
+  let h0=0x6a09e667,h1=0xbb67ae85,h2=0x3c6ef372,h3=0xa54ff53a,h4=0x510e527f,h5=0x9b05688c,h6=0x1f83d9ab,h7=0x5be0cd19;
+  const w=new Int32Array(64);
+  const rotr=(x,n)=>(x>>>n)|(x<<(32-n));
+  for(let off=0;off<total;off+=64){
+    for(let i=0;i<16;i++)w[i]=dv.getInt32(off+i*4);
+    for(let i=16;i<64;i++){const s0=rotr(w[i-15],7)^rotr(w[i-15],18)^(w[i-15]>>>3);const s1=rotr(w[i-2],17)^rotr(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)|0}
+    let a=h0,b=h1,c=h2,d=h3,e=h4,f=h5,g=h6,h=h7;
+    for(let i=0;i<64;i++){
+      const S1=rotr(e,6)^rotr(e,11)^rotr(e,25);
+      const ch=(e&f)^(~e&g);
+      const t1=(h+S1+ch+K[i]+w[i])|0;
+      const S0=rotr(a,2)^rotr(a,13)^rotr(a,22);
+      const maj=(a&b)^(a&c)^(b&c);
+      const t2=(S0+maj)|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;
+    }
+    h0=(h0+a)|0;h1=(h1+b)|0;h2=(h2+c)|0;h3=(h3+d)|0;h4=(h4+e)|0;h5=(h5+f)|0;h6=(h6+g)|0;h7=(h7+h)|0;
+  }
+  return [h0,h1,h2,h3,h4,h5,h6,h7].map(h=>(h>>>0).toString(16).padStart(8,"0")).join("");
+}
+
+const STYLE_VOCAB=["cinematic","neon","retro","minimal","minimalist","dramatic","dreamy","golden","dark","moody","vibrant","pastel","monochrome","futuristic","vintage","epic","cosmic","royal"];
+const MOTION_VOCAB=["zoom","zooming","pan","panning","spin","spinning","rotate","rotating","fly","flying","drift","drifting","rise","rising","fall","falling","orbit","orbiting","pulse","pulsing","sway","tilt"];
+const LEAD_PHRASES=["please generate","please create","please draw","generate","create","draw","make","render","paint","imagine","show me","a picture of","an image of","a video of","picture of","image of"];
+
+function pyStr(s){let out='"';for(const ch of s){const c=ch.codePointAt(0);if(ch==='"')out+='\\"';else if(ch==='\\')out+='\\\\';else if(ch==='\n')out+='\\n';else if(ch==='\r')out+='\\r';else if(ch==='\t')out+='\\t';else if(c<0x20||c>0x7e)out+='\\u'+c.toString(16).padStart(4,'0');else out+=ch}return out+'"'}
+function canonical(v){if(typeof v==='bigint')return v.toString();if(typeof v==='number')return String(v);if(typeof v==='string')return pyStr(v);if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';if(v&&typeof v==='object'){return '{'+Object.keys(v).sort().map(ky=>pyStr(ky)+':'+canonical(v[ky])).join(',')+'}'}throw new Error('bad type')}
+
+function compileJob(prompt,mode){
+  const text=prompt.trim().toLowerCase().split(/\s+/).filter(Boolean).join(" ");
+  let body=text;
+  const leads=[...LEAD_PHRASES].sort((a,b)=>b.length-a.length);
+  for(const ph of leads){if(body.startsWith(ph+" ")){body=body.slice(ph.length+1);break}}
+  const strip=s=>s.replace(/^[.,!?'"]+|[.,!?'"]+$/g,"");
+  const tokens=body.split(" ").map(strip).filter(t=>t.length>0);
+  const style=[...new Set(tokens.filter(t=>STYLE_VOCAB.includes(t)))].sort();
+  let motion=[...new Set(tokens.filter(t=>MOTION_VOCAB.includes(t)))].sort();
+  const stop=new Set(["a","an","the","with","and"]);
+  const subjectTokens=tokens.filter(t=>!STYLE_VOCAB.includes(t)&&!MOTION_VOCAB.includes(t)&&!stop.has(t));
+  const subject=subjectTokens.slice(0,8).join(" ")||"untitled fusion study";
+  if(mode==="video"&&motion.length===0)motion=["slow-zoom"];
+  const seedHex=sha256hex("fusi-studio|"+mode+"|"+text);
+  const seed=BigInt("0x"+seedHex.slice(0,16));
+  const record={schema:"FUSI-SCRIPT/STUDIO-JOB/0",mode:mode,subject:subject,style_tokens:style,
+    palette:{void:"#0e0d0b",gold:"#d4af37",ink:"#f2ede1"},aspect:{w:1080,h:1920},
+    duration_secs:mode==="video"?4:0,motion_verbs:mode==="video"?motion:[],negative:["garbled-text","vendor-watermark","off-brand-colors"],
+    seed:seed,prompt_normalized:text};
+  return {record:record, hash:sha256hex(canonical(record))};
+}
+/* ==================== END VERBATIM COMPILER ==================== */
+</script>
+<script>
+/* =====================================================================
+   SANDBOX APP — everything below is client-side simulation.
+   TEST FUSI only · local draft renderer · vendor seats PENDING.
+   ===================================================================== */
+(function(){
+"use strict";
+var GOLD='#d4af37', VOID='#0e0d0b', INK='#f2ede1', EDGE='#3a352a', PANEL='#171511';
+var ENTRY_FEE=10, REMOVAL_FEE=10;
+var balance=100;
+var mode='image';
+var currentJob=null;      // {record, hash} from compileJob (verbatim compiler above)
+var confirmed=false;
+var cleanCanvas=null;     // the clean master render (kept from birth)
+var released=false;
+var masterHash=null, wmHash=null;
+var animId=null;
+var laneSlots={laneGemini:0, laneGate:0, laneFinish:0};
+
+function $(id){return document.getElementById(id);}
+var promptInput=$('promptInput'), modeImage=$('modeImage'), modeVideo=$('modeVideo'),
+    compileBtn=$('compileBtn'), confirmBtn=$('confirmBtn'), generateBtn=$('generateBtn'),
+    removeBtn=$('removeBtn'), jobChip=$('jobChip'), jobHashLine=$('jobHashLine'),
+    jobNameText=$('jobNameText'), jobNameHash=$('jobNameHash'), balanceVal=$('balanceVal'),
+    resetBtn=$('resetBtn'), engineStatus=$('engineStatus'), stageCanvas=$('stageCanvas'),
+    stageCaption=$('stageCaption'), cornerTag=$('cornerTag'), briefText=$('briefText'),
+    briefLines=$('briefLines'), kvMode=$('kvMode'), fusiRecord=$('fusiRecord'),
+    provLines=$('provLines'), feeLedger=$('feeLedger');
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function setStatus(html){engineStatus.innerHTML=html;}
+function updateBalance(){balanceVal.textContent=balance;}
+function feeLine(html, cls){
+  var d=document.createElement('div');
+  if(cls) d.className=cls;
+  d.innerHTML=html;
+  feeLedger.appendChild(d);
+}
+
+/* ---------- fees (mirror of the Python sandbox) ---------- */
+function chargeFee(amount, kindLabel, refusalText, job){
+  if(balance<amount){
+    feeLine(refusalText+' (job '+job.hash.slice(0,12)+'…)','ref');
+    setStatus('<b>'+refusalText+'</b> — nothing charged.');
+    return false;
+  }
+  balance-=amount; updateBalance();
+  feeLine(kindLabel+' −'+amount+' · job '+job.hash.slice(0,12)+'… · balance '+balance+' TEST FUSI','ok');
+  return true;
+}
+
+/* ---------- deterministic local draft renderer ---------- */
+function makeRng(seed){
+  var lo=Number(seed & 0xffffffffn)>>>0;
+  var hi=Number((seed>>32n) & 0xffffffffn)>>>0;
+  var s=(lo ^ Math.imul((hi+0x9e3779b9)>>>0, 0x85ebca6b))>>>0;
+  if(s===0) s=0x6d2b79f5;
+  return function(){
+    s=(s+0x6d2b79f5)>>>0;
+    var t=s;
+    t=Math.imul(t^(t>>>15), t|1);
+    t^=t+Math.imul(t^(t>>>7), t|61);
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+function diaPath(c,cx,cy,r){
+  c.beginPath();
+  c.moveTo(cx,cy-r); c.lineTo(cx+r,cy); c.lineTo(cx,cy+r); c.lineTo(cx-r,cy);
+  c.closePath();
+}
+function wrapText(c, text, cx, y, maxW, lh, maxLines){
+  var words=text.split(' '), lines=[], line='';
+  for(var i=0;i<words.length;i++){
+    var t=line? line+' '+words[i] : words[i];
+    if(c.measureText(t).width>maxW && line){ lines.push(line); line=words[i]; if(lines.length>=maxLines){ line=''; break; } }
+    else line=t;
+  }
+  if(line && lines.length<maxLines) lines.push(line);
+  for(var j=0;j<lines.length;j++) c.fillText(lines[j], cx, y+j*lh);
+}
+function renderComposition(rec){
+  var cv=document.createElement('canvas'); cv.width=1080; cv.height=1920;
+  var c=cv.getContext('2d');
+  var rnd=makeRng(rec.seed);
+  var i, j;
+  c.fillStyle=VOID; c.fillRect(0,0,1080,1920);
+  var glow=c.createRadialGradient(540,840,80,540,840,920);
+  glow.addColorStop(0,'rgba(212,175,55,0.13)'); glow.addColorStop(1,'rgba(212,175,55,0)');
+  c.fillStyle=glow; c.fillRect(0,0,1080,1920);
+  // sparkles (seeded)
+  var n=80+Math.floor(rnd()*70);
+  for(i=0;i<n;i++){
+    c.globalAlpha=0.18+rnd()*0.6; c.fillStyle=GOLD;
+    diaPath(c, rnd()*1080, rnd()*1500, 1.5+rnd()*5); c.fill();
+  }
+  c.globalAlpha=1;
+  // rays
+  c.strokeStyle=GOLD;
+  for(j=0;j<14;j++){
+    var ang=rnd()*Math.PI*2, r0=300+rnd()*60, r1=520+rnd()*260;
+    c.globalAlpha=0.05+rnd()*0.09; c.lineWidth=2;
+    c.beginPath();
+    c.moveTo(540+Math.cos(ang)*r0, 840+Math.sin(ang)*r0);
+    c.lineTo(540+Math.cos(ang)*r1, 840+Math.sin(ang)*r1);
+    c.stroke();
+  }
+  c.globalAlpha=1;
+  // concentric halo diamonds
+  for(j=0;j<4;j++){
+    c.globalAlpha=0.16+j*0.10; c.strokeStyle=GOLD; c.lineWidth=2;
+    diaPath(c,540,840,470-j*62); c.stroke();
+  }
+  c.globalAlpha=1;
+  // crown (seeded spike count)
+  var spikes=3+Math.floor(rnd()*3), baseY=600, topY=452, x0=372, x1=708, bw=x1-x0;
+  c.beginPath();
+  c.moveTo(x0,baseY);
+  for(j=0;j<spikes;j++){
+    var sx=x0+bw*(j+0.5)/spikes;
+    c.lineTo(sx-bw/spikes*0.28, baseY-26);
+    c.lineTo(sx, topY+rnd()*22);
+    c.lineTo(sx+bw/spikes*0.28, baseY-26);
+  }
+  c.lineTo(x1,baseY); c.lineTo(x1,baseY+38); c.lineTo(x0,baseY+38); c.closePath();
+  var cg=c.createLinearGradient(0,topY,0,baseY+38);
+  cg.addColorStop(0,GOLD); cg.addColorStop(1,'rgba(212,175,55,0.72)');
+  c.fillStyle=cg; c.fill(); c.strokeStyle=EDGE; c.lineWidth=3; c.stroke();
+  for(j=0;j<spikes;j++){
+    var gx=x0+bw*(j+0.5)/spikes;
+    c.fillStyle=INK; diaPath(c,gx,topY-16,11); c.fill();
+    c.fillStyle=VOID; diaPath(c,gx,baseY+19,7); c.fill();
+  }
+  // main diamond
+  var mg=c.createLinearGradient(330,630,750,1050);
+  mg.addColorStop(0,'rgba(212,175,55,0.96)'); mg.addColorStop(0.55,GOLD); mg.addColorStop(1,'rgba(212,175,55,0.78)');
+  diaPath(c,540,840,212); c.fillStyle=mg; c.fill(); c.strokeStyle=EDGE; c.lineWidth=3; c.stroke();
+  diaPath(c,540,840,128); c.fillStyle=VOID; c.fill(); c.strokeStyle=GOLD; c.lineWidth=2; c.stroke();
+  diaPath(c,540,840,54); c.fillStyle=GOLD; c.fill();
+  diaPath(c,540,840,20); c.fillStyle=INK; c.fill();
+  c.globalAlpha=0.35; c.strokeStyle=VOID; c.lineWidth=2;
+  c.beginPath(); c.moveTo(540,628); c.lineTo(540,1052); c.moveTo(328,840); c.lineTo(752,840); c.stroke();
+  c.globalAlpha=1;
+  // style line + subject text — drawn LOCALLY, in ink, never through a model
+  var styleLine=(rec.style_tokens.length? rec.style_tokens.join(' · ') : 'fusion study').toUpperCase();
+  c.textAlign='center'; c.fillStyle=GOLD;
+  c.font='600 30px "Segoe UI", system-ui, sans-serif';
+  try{ c.letterSpacing='8px'; }catch(e){}
+  c.fillText(styleLine, 540, 1470);
+  c.fillStyle=INK;
+  c.font='700 52px "Segoe UI", system-ui, sans-serif';
+  try{ c.letterSpacing='4px'; }catch(e){}
+  wrapText(c, rec.subject.toUpperCase(), 540, 1545, 920, 62, 2);
+  try{ c.letterSpacing='0px'; }catch(e){}
+  // skyline plinth (seeded)
+  var x=0;
+  while(x<1080){
+    var w=56+rnd()*110, h=90+rnd()*210;
+    c.fillStyle=PANEL; c.fillRect(x,1920-h,w,h);
+    c.fillStyle=EDGE; c.fillRect(x,1920-h,w,4);
+    c.fillStyle=GOLD;
+    var rows=Math.floor(h/44), cols=Math.floor(w/34);
+    for(var wy=0;wy<rows;wy++) for(var wx=0;wx<cols;wx++){
+      if(rnd()>0.55){ c.globalAlpha=0.25+rnd()*0.5; c.fillRect(x+10+wx*34, 1920-h+16+wy*44, 9, 13); }
+    }
+    c.globalAlpha=1;
+    x+=w+6+rnd()*22;
+  }
+  return cv;
+}
+function drawWatermark(c){
+  c.save();
+  var label='◇ FUSIÓN-7', size=64;
+  c.font='700 '+size+'px "Segoe UI", system-ui, sans-serif';
+  var w=c.measureText(label).width;
+  if(w>0) size=Math.max(30, Math.floor(size*(172/w)));   // ≈15% of frame width
+  c.font='700 '+size+'px "Segoe UI", system-ui, sans-serif';
+  c.textAlign='right'; c.textBaseline='top';
+  c.shadowColor='rgba(0,0,0,0.6)'; c.shadowBlur=8;
+  c.fillStyle=GOLD;
+  c.fillText(label, 1080-30, 30);
+  c.restore();
+}
+function displayRender(){
+  var ctx=stageCanvas.getContext('2d');
+  ctx.fillStyle=VOID; ctx.fillRect(0,0,1080,1920);
+  if(cleanCanvas) ctx.drawImage(cleanCanvas,0,0);
+  if(cleanCanvas && !released) drawWatermark(ctx);
+  cornerTag.textContent=!cleanCanvas ? 'STAGE · EMPTY' : (released ? 'PREVIEW · CLEAN MASTER' : 'PREVIEW · WATERMARKED');
+}
+function drawPlaceholder(){
+  var ctx=stageCanvas.getContext('2d');
+  ctx.fillStyle=VOID; ctx.fillRect(0,0,1080,1920);
+  ctx.strokeStyle=EDGE; ctx.lineWidth=3;
+  diaPath(ctx,540,880,150); ctx.stroke();
+  ctx.strokeStyle=GOLD; ctx.globalAlpha=0.7; ctx.lineWidth=2;
+  diaPath(ctx,540,880,96); ctx.stroke(); ctx.globalAlpha=1;
+  ctx.fillStyle='rgba(242,237,225,0.5)';
+  ctx.font='600 30px "Segoe UI", system-ui, sans-serif'; ctx.textAlign='center';
+  ctx.fillText('COMPILE · CONFIRM · GENERATE', 540, 1130);
+}
+
+/* ---------- video : ~4s looping local draft animation ---------- */
+function stopAnim(){ if(animId!==null){ cancelAnimationFrame(animId); animId=null; } }
+function startVideo(rec){
+  stopAnim();
+  var ctx=stageCanvas.getContext('2d');
+  var mv=rec.motion_verbs.join(' ');
+  var t0=performance.now();
+  function frame(now){
+    var t=((now-t0)%4000)/4000, ph=t*Math.PI*2;
+    var scale=1+0.10*(0.5-0.5*Math.cos(ph));            // seamless slow zoom
+    var dx=0, dy=0, rot=0;
+    if(mv.indexOf('drift')>=0){ dx=34*Math.sin(ph); dy=20*Math.cos(ph*0.9); }
+    if(mv.indexOf('pan')>=0){ dx=46*Math.sin(ph); }
+    if(mv.indexOf('sway')>=0){ dx=26*Math.sin(ph*2); }
+    if(mv.indexOf('rise')>=0){ dy=-26*(0.5-0.5*Math.cos(ph)); }
+    if(mv.indexOf('fall')>=0){ dy=26*(0.5-0.5*Math.cos(ph)); }
+    if(mv.indexOf('spin')>=0||mv.indexOf('rotat')>=0||mv.indexOf('orbit')>=0){ rot=0.035*Math.sin(ph); }
+    if(mv.indexOf('tilt')>=0){ rot=0.02*Math.sin(ph); }
+    if(mv.indexOf('pulse')>=0){ scale=1+0.06*(0.5-0.5*Math.cos(ph*2)); }
+    if(mv.indexOf('fly')>=0){ scale=1+0.16*(0.5-0.5*Math.cos(ph)); }
+    ctx.fillStyle=VOID; ctx.fillRect(0,0,1080,1920);
+    ctx.save();
+    ctx.translate(540+dx,960+dy); ctx.rotate(rot); ctx.scale(scale,scale);
+    ctx.drawImage(cleanCanvas,-540,-960);
+    ctx.restore();
+    if(!released) drawWatermark(ctx);
+    animId=requestAnimationFrame(frame);
+  }
+  animId=requestAnimationFrame(frame);
+}
+
+/* ---------- inspector rendering ---------- */
+function recordPretty(rec){
+  return '{\n'+
+  '  "schema": "'+rec.schema+'",\n'+
+  '  "mode": "'+rec.mode+'",\n'+
+  '  "subject": '+JSON.stringify(rec.subject)+',\n'+
+  '  "style_tokens": '+JSON.stringify(rec.style_tokens)+',\n'+
+  '  "palette": {"void": "#0e0d0b", "gold": "#d4af37", "ink": "#f2ede1"},\n'+
+  '  "aspect": {"w": 1080, "h": 1920},\n'+
+  '  "duration_secs": '+rec.duration_secs+',\n'+
+  '  "motion_verbs": '+JSON.stringify(rec.motion_verbs)+',\n'+
+  '  "negative": '+JSON.stringify(rec.negative)+',\n'+
+  '  "seed": '+rec.seed.toString()+',\n'+
+  '  "prompt_normalized": '+JSON.stringify(rec.prompt_normalized)+'\n'+
+  '}';
+}
+function renderBrief(rec){
+  var style=rec.style_tokens.length? rec.style_tokens.join(', ') : 'none';
+  var motion=rec.mode==='video'? rec.motion_verbs.join(', ') : '— (still)';
+  var dur=rec.mode==='video'? '4s loop' : 'still image';
+  briefLines.innerHTML=
+    '<div><span class="bl-k">SUBJECT&nbsp;&nbsp;</span> '+escapeHtml(rec.subject)+'</div>'+
+    '<div><span class="bl-k">STYLE&nbsp;&nbsp;&nbsp;&nbsp;</span> '+escapeHtml(style)+'</div>'+
+    '<div><span class="bl-k">MOTION&nbsp;&nbsp;&nbsp;</span> '+escapeHtml(motion)+'</div>'+
+    '<div><span class="bl-k">DURATION&nbsp;</span> '+dur+' · 9:16 · 1080×1920</div>';
+  briefText.innerHTML='Your brief, compiled: <b>'+escapeHtml(rec.subject)+'</b>'+
+    (rec.style_tokens.length? ', style: <b>'+escapeHtml(style)+'</b>' : '')+
+    (rec.mode==='video'? ', motion: <b>'+escapeHtml(motion)+'</b>, 4 second loop.' : '. Still image.')+
+    ' If this matches your words, CONFIRM BRIEF. <span class="warn">Sandbox: TEST FUSI only, local draft render, charging INACTIVE.</span>';
+  kvMode.textContent=rec.mode.toUpperCase()+(rec.mode==='video'?' · 4s loop':' · still');
+}
+function provHtml(job, releaseLine){
+  return '<div>job hash&nbsp;&nbsp;&nbsp;: '+job.hash+'</div>'+
+         '<div>master hash : '+masterHash+' (committed at render)</div>'+
+         '<div>display hash: '+wmHash+' (watermarked)</div>'+
+         releaseLine;
+}
+
+/* ---------- timeline : the execution shadow ---------- */
+function addClip(laneId, text, cls){
+  var lane=$(laneId); if(!lane) return;
+  var n=laneSlots[laneId]||0; laneSlots[laneId]=n+1;
+  var lefts=[35,68,1], widths=[30,29,30], cyc=n%3;
+  var d=document.createElement('div');
+  d.className='clip '+(cls||'');
+  d.style.left=lefts[cyc]+'%'; d.style.width=widths[cyc]+'%';
+  d.textContent=text;
+  lane.appendChild(d);
+}
+function appendTimeline(){
+  addClip('laneGemini','vendor tiers PENDING — local draft stands in','dashed');
+  addClip('laneGate','SHADOW · mechanical checks: aspect ✓ · watermark ✓','');
+  addClip('laneFinish','assembly + watermark','');
+}
+
+/* ---------- flow : compile → confirm → generate ---------- */
+function invalidate(msg){
+  confirmed=false;
+  generateBtn.disabled=true;
+  confirmBtn.disabled=true;
+  if(msg) setStatus(msg);
+}
+function doCompile(){
+  stopAnim();
+  var out=compileJob(promptInput.value, mode);
+  currentJob=out; confirmed=false;
+  jobChip.textContent='FUSI JOB · '+out.hash.slice(0,8)+'…';
+  jobHashLine.textContent='job hash '+out.hash;
+  jobNameText.textContent=out.record.subject.replace(/\s+/g,'-');
+  jobNameHash.textContent='job '+out.hash.slice(0,8)+'…';
+  renderBrief(out.record);
+  fusiRecord.textContent=recordPretty(out.record);
+  confirmBtn.disabled=false;
+  generateBtn.disabled=true;
+  removeBtn.disabled=true;
+  setStatus('Compiled — job <b>'+out.hash.slice(0,12)+'…</b> Read the plain-language brief (right). If it matches your words, <b>CONFIRM BRIEF</b>.');
+}
+compileBtn.addEventListener('click', doCompile);
+confirmBtn.addEventListener('click', function(){
+  if(!currentJob) return;
+  confirmed=true;
+  generateBtn.disabled=false;
+  setStatus('Brief confirmed for job <b>'+currentJob.hash.slice(0,12)+'…</b> GENERATE charges '+ENTRY_FEE+' TEST FUSI (sandbox).');
+});
+generateBtn.addEventListener('click', function(){
+  if(!currentJob||!confirmed) return;
+  var job=currentJob;
+  if(!chargeFee(ENTRY_FEE,'entry','REFUSED: sandbox balance cannot cover entry fee',job)) return;
+  stopAnim();
+  cleanCanvas=renderComposition(job.record);
+  released=false;
+  masterHash=sha256hex(job.hash+'|clean');
+  wmHash=sha256hex(job.hash+'|watermarked');
+  if(job.record.mode==='video'){
+    startVideo(job.record);
+    stageCaption.textContent='VIDEO · LOCAL DRAFT ANIMATION — MP4 ASSEMBLY LIVES IN THE PYTHON SANDBOX';
+    removeBtn.disabled=true;
+    setStatus('Generated (video) — entry charged. The watermark rides every frame. MP4 assembly lives in the Python sandbox; clean release is simulated for stills only.');
+  } else {
+    displayRender();
+    stageCaption.textContent='LOCAL DRAFT — PROCEDURAL COMPOSITION, NOT AI IMAGERY';
+    removeBtn.disabled=false;
+    setStatus('Generated — entry charged. This is the <b>watermarked</b> copy; the clean master was rendered at birth and its hash committed. REMOVE WATERMARK releases it for '+REMOVAL_FEE+' TEST FUSI.');
+  }
+  provLines.innerHTML=provHtml(job,'<div>release&nbsp;&nbsp;&nbsp;&nbsp;: LOCKED</div>');
+  appendTimeline();
+});
+removeBtn.addEventListener('click', function(){
+  if(!currentJob||!cleanCanvas||released) return;
+  var job=currentJob;
+  if(!chargeFee(REMOVAL_FEE,'watermark removal','REFUSED: sandbox balance cannot cover removal fee',job)) return;
+  released=true;
+  displayRender();
+  provLines.innerHTML=provHtml(job,'<div class="ok">release&nbsp;&nbsp;&nbsp;&nbsp;: CLEAN MASTER RELEASED (sandbox)</div>');
+  setStatus('<b>CLEAN MASTER RELEASED (sandbox)</b> — master hash committed at render: '+masterHash.slice(0,16)+'… You are looking at the exact clean render — never a stripped copy.');
+  removeBtn.disabled=true;
+});
+resetBtn.addEventListener('click', function(){
+  balance=100; updateBalance();
+  feeLine('RESET · balance restored to 100 TEST FUSI');
+  stopAnim(); cleanCanvas=null; released=false;
+  drawPlaceholder();
+  cornerTag.textContent='STAGE · EMPTY';
+  stageCaption.textContent='LOCAL DRAFT RENDERER — NOTHING GENERATED YET';
+  removeBtn.disabled=true;
+  setStatus('Sandbox wallet reset to <b>100 TEST FUSI</b>.');
+});
+function setMode(m){
+  if(mode===m) return;
+  mode=m;
+  modeImage.classList.toggle('on', m==='image');
+  modeVideo.classList.toggle('on', m==='video');
+  invalidate('Mode changed — <b>COMPILE</b> again for the '+m+' record.');
+}
+modeImage.addEventListener('click', function(){ setMode('image'); });
+modeVideo.addEventListener('click', function(){ setMode('video'); });
+promptInput.addEventListener('input', function(){
+  invalidate('Prompt changed — <b>COMPILE</b> again to refresh the job record.');
+});
+
+/* ---------- module tabs (from the v1 mock) ---------- */
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+  });
+});
+
+drawPlaceholder();
+})();
+</script>
+</body>
+</html>

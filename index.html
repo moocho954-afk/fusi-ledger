@@ -11653,12 +11653,15 @@ if (typeof window !== "undefined") {
       })();
     </script>
 
-<!-- FUSI-WIDOW v1 (h=468) -->
+<!-- FUSI-WIDOW v2 (portal patrol + live-arrival weave; v1 h=468) -->
 <script>
-/* FUSI-WIDOW v1 — the black widow of the spider-web build (owner order, chain h=468).
+/* FUSI-WIDOW v2 — the black widow of the spider-web build (owner order, chain h=468).
    Silent. No audio. She crawls the blocks and the strands all day, weaving silk
    between the places she visits. Silk marks ties; she never claims a check that
-   did not run — where no tie data exists, she simply patrols. */
+   did not run — where no tie data exists, she simply patrols.
+   V2: she peers into the hyperloop portal (never presses through — only the
+   human travels) and weaves once, with a hang, when the polled snapshot's head
+   genuinely advances. The weave marks only "a new block arrived", never a check. */
 (function () {
   if (window.__fusiWidow) return; window.__fusiWidow = true;
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -11679,7 +11682,8 @@ if (typeof window !== "undefined") {
 
   var S = {
     x: W * 0.82, y: 90, tx: W * 0.6, ty: 200, ang: 0, speed: reduced ? 0 : 0.55,
-    legPhase: 0, mode: 'crawl', hangT: 0, hangY: 0, idleT: 0
+    legPhase: 0, mode: 'crawl', hangT: 0, hangY: 0, idleT: 0,
+    portalTgt: false, peerT: 0, headT: 0, seenHead: null
   };
   var anchors = [];   // woven silk: {x1,y1,x2,y2,born}
   var trail = [];     // short-lived crawl trail
@@ -11687,6 +11691,17 @@ if (typeof window !== "undefined") {
   var MAX_ANCHORS = 26, ANCHOR_LIFE = 90000;
 
   function pickTarget() {
+    // V2: sometimes peer into the hyperloop portal — a real anchor, never a click.
+    if (Math.random() < 0.25) {
+      var portal = document.getElementById('gs-portal');
+      if (portal) {
+        var pr = portal.getBoundingClientRect();
+        if (pr.width > 30 && pr.height > 20 && pr.bottom > 0 && pr.top < H && pr.right > 0 && pr.left < W) {
+          S.portalTgt = true;
+          return { x: pr.left + pr.width / 2, y: pr.top + pr.height / 2, el: true, portal: true };
+        }
+      }
+    }
     // Prefer real page blocks/sections — she crawls the blocks, not empty air.
     var sels = ['[data-height]', '.block-card', '.sheet', '.page-sheet', 'section', '.card'];
     var els = [];
@@ -11702,9 +11717,11 @@ if (typeof window !== "undefined") {
       if (r.width > 30 && r.height > 20 && r.bottom > 0 && r.top < H && r.right > 0 && r.left < W) {
         var x = r.left + 20 + Math.random() * Math.max(10, r.width - 40);
         var y = r.top + 14 + Math.random() * Math.max(10, Math.min(r.height - 20, 160));
+        S.portalTgt = false;
         return { x: x, y: y, el: true };
       }
     }
+    S.portalTgt = false;
     return { x: 40 + Math.random() * (W - 80), y: 50 + Math.random() * (H - 120), el: false };
   }
 
@@ -11776,6 +11793,26 @@ if (typeof window !== "undefined") {
       requestAnimationFrame(frame); return;
     }
 
+    // V2 LIVE-ARRIVAL WEAVE: watch the snapshot machinery's own blocks array.
+    // Prime silently on first read; a genuine head advance weaves once + a hang.
+    // The weave marks only "a new block arrived in the polled snapshot".
+    if (window.BLOCK_DATA && window.BLOCK_DATA.length) {
+      S.headT += dt;
+      if (S.headT >= 1000) {
+        S.headT = 0;
+        var headH = 0;
+        for (var bi = 0; bi < window.BLOCK_DATA.length; bi++) {
+          if (window.BLOCK_DATA[bi].h > headH) headH = window.BLOCK_DATA[bi].h;
+        }
+        if (S.seenHead === null) { S.seenHead = headH; }
+        else if (headH > S.seenHead) {
+          S.seenHead = headH;
+          weaveTo(S.x, S.y);
+          if (S.mode === 'crawl') { S.mode = 'hang'; S.hangT = 0; S.hangY = 140 + Math.random() * (H * 0.35); }
+        }
+      }
+    }
+
     if (S.mode === 'hang') {
       // Descend on a silk line from the top, pause, climb back.
       ctx.beginPath(); ctx.moveTo(S.x, 0); ctx.lineTo(S.x, S.y);
@@ -11783,7 +11820,19 @@ if (typeof window !== "undefined") {
       S.hangT += dt;
       var target = S.hangY;
       if (S.hangT < 2600) S.y += (target - S.y) * 0.03 + 0.4;
-      else if (S.hangT > 4200) { S.y -= 1.6; if (S.y <= 46) { S.mode = 'crawl'; S.hangT = 0; var t = pickTarget(); S.tx = t.x; S.ty = t.y; } }
+      else if (S.hangT > 4200) { S.y -= 1.6; if (S.y <= 46) { S.mode = 'crawl'; S.hangT = 0; var t = pickTarget(); S.tx = t.x; S.ty = t.y; nextPick = now + 14000 + Math.random() * 12000; } }
+      drawWidow(now);
+      requestAnimationFrame(frame); return;
+    }
+
+    if (S.mode === 'peer') {
+      // Peering into the hole: still, watching, never pressing through.
+      S.peerT -= dt;
+      if (S.peerT <= 0) {
+        S.mode = 'crawl';
+        var t3 = pickTarget(); S.tx = t3.x; S.ty = t3.y;
+        nextPick = now + 14000 + Math.random() * 12000;
+      }
       drawWidow(now);
       requestAnimationFrame(frame); return;
     }
@@ -11792,9 +11841,12 @@ if (typeof window !== "undefined") {
     var dx = S.tx - S.x, dy = S.ty - S.y, dist = Math.hypot(dx, dy);
     if (dist < 7 || now > nextPick) {
       weaveTo(S.tx, S.ty);
-      if (Math.random() < 0.16) { S.mode = 'hang'; S.hangT = 0; S.hangY = 140 + Math.random() * (H * 0.35); }
-      var t2 = pickTarget(); S.tx = t2.x; S.ty = t2.y;
-      nextPick = now + 14000 + Math.random() * 12000;
+      if (S.portalTgt) { S.mode = 'peer'; S.peerT = 2200; }
+      else {
+        if (Math.random() < 0.16) { S.mode = 'hang'; S.hangT = 0; S.hangY = 140 + Math.random() * (H * 0.35); }
+        var t2 = pickTarget(); S.tx = t2.x; S.ty = t2.y;
+        nextPick = now + 14000 + Math.random() * 12000;
+      }
     } else {
       var want = Math.atan2(dy, dx);
       var diff = want - S.ang;

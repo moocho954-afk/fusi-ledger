@@ -67,9 +67,9 @@
   </div>
   <div id="hint">OLLIE jumps &middot; FLIP spins &middot; hold GRIND on rails</div>
   <div id="panel">
-    <span class="tag">STAGED DEMO &mdash; GFX PHASE 1 &mdash; PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
+    <span class="tag">STAGED DEMO &mdash; N64 STEP (PHASE 2) &mdash; PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
     <h1>SK8</h1>
-    <p>Ride the street in upgraded 3D: dusk, day, or flat looks on one tap, textured streets and houses, real shadows, and a rebuilt skater &mdash; Bigg&rsquo;s likeness with rounded joints, clustered curls, goatee, white tee, and a beaded gold chain. Time your tricks. Chain them without bailing and the flow multiplier climbs to x4. Ollie the cars, clear the gaps, grind the rails, drop the stairs. Big thumb buttons run the whole game: OLLIE, FLIP, hold GRIND.</p>
+    <p>Ride the street in upgraded 3D: dusk, day, flat, or N64 looks on one tap, fully textured streets, houses, cars, and skater, smooth shading, heavy N64 fog, real shadows, and a rebuilt skater &mdash; Bigg&rsquo;s likeness with rounded joints, clustered curls, goatee, white tee, and a beaded gold chain. Time your tricks. Chain them without bailing and the flow multiplier climbs to x4. Ollie the cars, clear the gaps, grind the rails, drop the stairs. Big thumb buttons run the whole game: OLLIE, FLIP, hold GRIND.</p>
     <div class="row" id="speedRow">
       <button class="speed" data-s="SLOW">SLOW</button>
       <button class="speed on" data-s="STANDARD">STANDARD</button>
@@ -79,6 +79,7 @@
       <button class="look on" data-look="look/sk8-dusk">DUSK</button>
       <button class="look" data-look="look/sk8-day">DAY</button>
       <button class="look" data-look="look/sk8-flat">FLAT</button>
+      <button class="look" data-look="look/sk8-n64">N64</button>
     </div>
     <p id="lookLine"></p>
     <div id="turnWrap">
@@ -98,8 +99,9 @@
       <button class="look on" data-look="look/sk8-dusk">DUSK</button>
       <button class="look" data-look="look/sk8-day">DAY</button>
       <button class="look" data-look="look/sk8-flat">FLAT</button>
+      <button class="look" data-look="look/sk8-n64">N64</button>
     </div>
-    <p>Looks: DUSK is golden-hour, DAY is bright noon, FLAT is the old flat look for comparison. Same game under every look.</p>
+    <p>Looks: DUSK is golden-hour, DAY is bright noon, FLAT is the old flat look for comparison, N64 is the Nintendo 64 rung: smooth-shaded, fully textured, heavy fog. Same game under every look.</p>
     <ol>
       <li><b>Buttons first &mdash; OLLIE (bottom left), FLIP (bottom right), GRIND (bottom right, hold).</b> These big gold buttons are the whole game. OLLIE jumps. FLIP spins the board mid-air. GRIND only counts while you are HOLDING it &mdash; lift your thumb and the grind stops on the very next tick. Nothing is latched.</li>
       <li><b>Gestures still work as alternates.</b> TAP the street = ollie. DOUBLE-TAP or SWIPE UP mid-air = kickflip. HOLD your finger on a rail = grind. Keys: SPACE ollie, K / ArrowUp flip, G / ArrowDown grind.</li>
@@ -592,7 +594,14 @@
       key_color: 0xFFFFFF, key_k: 700, fill_color: 0x808080, fill_k: 0,
       amb_sky: 0xB8C4D4, amb_ground: 0x808080, amb_k: 500,
       fog_color: 0xB8C4D4, fog_near_mm: 25000, fog_far_mm: 70000,
-      grade_tone: 'none', grade_sat_k: 1000, grade_vignette_k: 0, use_tex: 0, spec: 0 }
+      grade_tone: 'none', grade_sat_k: 1000, grade_vignette_k: 0, use_tex: 0, spec: 0 },
+    { kind: 'gfx.look', id: 'look/sk8-n64', v: 1, name: 'N64', era: 'n64',
+      sky_top: 0x3D6FB4, sky_horizon: 0xC9D8E6, sun_az_mdeg: 200000, sun_el_mdeg: 38000,
+      key_color: 0xFFF2CC, key_k: 1000, fill_color: 0x8AA0C0, fill_k: 400,
+      amb_sky: 0xB9CDE6, amb_ground: 0x5A5A44, amb_k: 500,
+      fog_color: 0xC9D8E6, fog_near_mm: 12000, fog_far_mm: 68000,
+      grade_tone: 'filmic1', grade_sat_k: 1000, grade_vignette_k: 150, use_tex: 1, spec: 1,
+      lineage: 'phase1:dbf794697aa2558e' }
   ];
   GFX.textures = [
     { kind: 'gfx.texture', id: 'tex/asphalt', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7731, params: { base: 0x3A3A40, speck: 0x55555C, density_k: 240 } },
@@ -601,6 +610,23 @@
     { kind: 'gfx.texture', id: 'tex/facade-brick', v: 1, gen: 'proc', recipe: 'facade', size: 256, seed: 7734, params: { base: 0xB06050, mortar: 0xC9B8A6, rows: 8, cols: 4, lit_k: 350 } },
     { kind: 'gfx.texture', id: 'tex/facade-stucco', v: 1, gen: 'proc', recipe: 'facade', size: 256, seed: 7735, params: { base: 0xE8DCC8, mortar: 0xC9B8A6, rows: 6, cols: 3, lit_k: 300 } },
     { kind: 'gfx.texture', id: 'tex/roof', v: 1, gen: 'proc', recipe: 'shingles', size: 256, seed: 7736, params: { base: 0x5A4A3A, line: 0x3A2E24, rows: 8 } },
+    { kind: 'gfx.texture', id: 'tex/skin', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7745, params: { base: 0x6E4426, speck: 0x5A3418, density_k: 300 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/tee-weave', v: 1, gen: 'proc', recipe: 'weave', size: 256, seed: 7746, params: { base: 0xF2F2F2, line: 0xD8D8D8 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/hair', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7747, params: { base: 0x141414, speck: 0x2E2E2E, density_k: 500 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/deck', v: 1, gen: 'proc', recipe: 'deck', size: 256, seed: 7748, params: { base: 0x1A1A1A, gold: 0xD4AF37 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/grip', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7749, params: { base: 0x111111, speck: 0x2E2E2E, density_k: 600 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/car-flake', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7750, params: { base: 0xF2F2F2, speck: 0xC8C8C8, density_k: 200 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/denim', v: 1, gen: 'proc', recipe: 'twill', size: 256, seed: 7751, params: { base: 0xE8E8E8, line: 0xC8C8C8 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/tire', v: 1, gen: 'proc', recipe: 'tread', size: 256, seed: 7752, params: { base: 0x101014, line: 0x2A2A30 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/rail-metal', v: 1, gen: 'proc', recipe: 'brushed', size: 256, seed: 7753, params: { base: 0xC8C8C8, line: 0x9A9A9A }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/bark', v: 1, gen: 'proc', recipe: 'bark', size: 256, seed: 7754, params: { base: 0x5A3D24, line: 0x3A2818 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/foliage', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7755, params: { base: 0x3D7A34, speck: 0x5A9A4A, density_k: 500 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/concrete', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7756, params: { base: 0x8A857C, speck: 0x6E695E, density_k: 300 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/glass-streak', v: 1, gen: 'proc', recipe: 'glass', size: 256, seed: 7757, params: { base: 0x18202A, streak: 0x4A5A6A }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/sun-glow', v: 1, gen: 'proc', recipe: 'radial', size: 256, seed: 7758, params: { center: 0xFFF6DC, edge: 0xFF9A3A }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/lamp-glow', v: 1, gen: 'proc', recipe: 'radial', size: 256, seed: 7759, params: { center: 0xFFFFFF, edge: 0x8A8A8A }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/wood', v: 1, gen: 'proc', recipe: 'planks', size: 256, seed: 7760, params: { base: 0x6A4A2A, line: 0x4A3018 }, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.texture', id: 'tex/gold-flake', v: 1, gen: 'proc', recipe: 'speckle', size: 256, seed: 7761, params: { base: 0xF2E2A0, speck: 0xD4AF37, density_k: 300 }, lineage: 'phase1:dbf794697aa2558e' },
     { kind: 'gfx.texture', id: 'tex/decal-graffiti-1', v: 1, gen: 'ai', size: 256, derivable: false, origin: 'media-pipeline', prompt_hash: '21cf43e466beda06', sha256: '4660a6abfca88a1f8d947ec40ce84abe3f0d7f625bf9688ac0af60dc4fbf1c00' },
     { kind: 'gfx.texture', id: 'tex/decal-poster-1', v: 1, gen: 'ai', size: 256, derivable: false, origin: 'media-pipeline', prompt_hash: '230c7c5e335da9c1', sha256: '0d1e57b03dbc9d25cb7cd60e4b62a86a0d99309a93806799f1d46db572d2797f' },
     { kind: 'gfx.texture', id: 'tex/decal-sign-1', v: 1, gen: 'ai', size: 256, derivable: false, origin: 'media-pipeline', prompt_hash: 'de21b3a231dc1d07', sha256: 'cdb512b2a71fda2089f80cd5da2c932bcb5ab08c7aeae008719c0e6cff296018' },
@@ -617,14 +643,24 @@
     { kind: 'gfx.material', id: 'mat/facade-brick', v: 1, model: 'lambert', tex: 'tex/facade-brick', tint: 0xFFFFFF, spec_k: 0, fallback: 0xB06050, tile_world_k: 2000 },
     { kind: 'gfx.material', id: 'mat/facade-stucco', v: 1, model: 'lambert', tex: 'tex/facade-stucco', tint: 0xFFFFFF, spec_k: 0, fallback: 0xE8DCC8, tile_world_k: 2000 },
     { kind: 'gfx.material', id: 'mat/roof', v: 1, model: 'lambert', tex: 'tex/roof', tint: 0xFFFFFF, spec_k: 0, fallback: 0x5A4A3A, tile_world_k: 2000 },
-    { kind: 'gfx.material', id: 'mat/car-paint', v: 1, model: 'lambert', tex: null, tint: 0xFFFFFF, spec_k: 800, fallback: 0xC0392B, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/gold', v: 1, model: 'matcap', tex: null, tint: 0xD4AF37, spec_k: 1000, fallback: 0xD4AF37, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/skin', v: 1, model: 'lambert', tex: null, tint: 0x6E4426, spec_k: 0, fallback: 0x6E4426, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/hair', v: 1, model: 'lambert', tex: null, tint: 0x141414, spec_k: 0, fallback: 0x141414, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/tee', v: 1, model: 'lambert', tex: null, tint: 0xF2EDE1, spec_k: 0, fallback: 0xF2EDE1, tile_world_k: 1000 },
+    { kind: 'gfx.material', id: 'mat/car-paint', v: 2, model: 'lambert', tex: 'tex/car-flake', tint: 0xFFFFFF, spec_k: 800, fallback: 0xC0392B, tile_world_k: 1000, supersedes: 'a5e69a331258' },
+    { kind: 'gfx.material', id: 'mat/gold', v: 2, model: 'matcap', tex: 'tex/gold-flake', tint: 0xD4AF37, spec_k: 1000, fallback: 0xD4AF37, tile_world_k: 1000, supersedes: '0e9958f0fd7e' },
+    { kind: 'gfx.material', id: 'mat/skin', v: 2, model: 'lambert', tex: 'tex/skin', tint: 0x6E4426, spec_k: 0, fallback: 0x6E4426, tile_world_k: 1000, supersedes: '5e21651bccab' },
+    { kind: 'gfx.material', id: 'mat/hair', v: 2, model: 'lambert', tex: 'tex/hair', tint: 0x141414, spec_k: 0, fallback: 0x141414, tile_world_k: 1000, supersedes: 'a7e1b01ac838' },
+    { kind: 'gfx.material', id: 'mat/tee', v: 2, model: 'lambert', tex: 'tex/tee-weave', tint: 0xF2EDE1, spec_k: 0, fallback: 0xF2EDE1, tile_world_k: 1000, supersedes: 'baea92b3324c' },
     { kind: 'gfx.material', id: 'mat/decal', v: 1, model: 'decal', tex: null, tint: 0xFFFFFF, spec_k: 0, fallback: 0xFFFFFF, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/glass', v: 1, model: 'lambert', tex: null, tint: 0x18202A, spec_k: 600, fallback: 0x18202A, tile_world_k: 1000 },
-    { kind: 'gfx.material', id: 'mat/emissive-lamp', v: 1, model: 'emissive', tex: null, tint: 0xFFE9A8, spec_k: 0, fallback: 0xFFE9A8, tile_world_k: 1000 }
+    { kind: 'gfx.material', id: 'mat/glass', v: 2, model: 'lambert', tex: 'tex/glass-streak', tint: 0x18202A, spec_k: 600, fallback: 0x18202A, tile_world_k: 1000, supersedes: '7bf6067cec2a' },
+    { kind: 'gfx.material', id: 'mat/emissive-lamp', v: 2, model: 'emissive', tex: 'tex/lamp-glow', tint: 0xFFE9A8, spec_k: 0, fallback: 0xFFE9A8, tile_world_k: 1000, supersedes: '5acf37f47d27' },
+    { kind: 'gfx.material', id: 'mat/denim', v: 1, model: 'lambert', tex: 'tex/denim', tint: 0xFFFFFF, spec_k: 0, fallback: 0x232A3A, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/tire', v: 1, model: 'lambert', tex: 'tex/tire', tint: 0xFFFFFF, spec_k: 0, fallback: 0x101014, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/rail-metal', v: 1, model: 'lambert', tex: 'tex/rail-metal', tint: 0xFFFFFF, spec_k: 400, fallback: 0xC8C8C8, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/bark', v: 1, model: 'lambert', tex: 'tex/bark', tint: 0xFFFFFF, spec_k: 0, fallback: 0x5A3D24, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/foliage', v: 1, model: 'lambert', tex: 'tex/foliage', tint: 0xFFFFFF, spec_k: 0, fallback: 0x3D7A34, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/concrete', v: 1, model: 'lambert', tex: 'tex/concrete', tint: 0xFFFFFF, spec_k: 0, fallback: 0x8A857C, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/deck', v: 1, model: 'lambert', tex: 'tex/deck', tint: 0xFFFFFF, spec_k: 0, fallback: 0x1A1A1A, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/grip', v: 1, model: 'lambert', tex: 'tex/grip', tint: 0xFFFFFF, spec_k: 0, fallback: 0x111111, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/wood', v: 1, model: 'lambert', tex: 'tex/wood', tint: 0xFFFFFF, spec_k: 0, fallback: 0x6A4A2A, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' },
+    { kind: 'gfx.material', id: 'mat/sun', v: 1, model: 'emissive', tex: 'tex/sun-glow', tint: 0xFFFFFF, spec_k: 0, fallback: 0xFFD94A, tile_world_k: 1000, lineage: 'phase1:dbf794697aa2558e' }
   ];
   GFX.rig = { kind: 'gfx.rig', id: 'rig/bigg', v: 1,
     bones: [
@@ -657,7 +693,7 @@
       { when: { state: 'stumble' }, clip: 'clip/stumble' },
       { when: {}, clip: 'clip/ride' }
     ] };
-  GFX.scene = { kind: 'gfx.scene', id: 'scene/sk8-street', v: 1, look: 'look/sk8-dusk',
+  GFX.scene = { kind: 'gfx.scene', id: 'scene/sk8-street', v: 2, look: 'look/sk8-dusk', render: 'smooth-curved-normals+full-texture', lineage: 'phase1:dbf794697aa2558e', supersedes: 'dbf794697aa2558e',
     nodes: [
       { id: 'n/street', mat: 'mat/asphalt', tris_est: 24 },
       { id: 'n/walks', mat: 'mat/sidewalk', tris_est: 24 },
@@ -673,7 +709,7 @@
     camera: { fov_deg: 55, near_mm: 100, far_mm: 200000 },
     emitters: [{ id: 'e/dust', max: 200 }],
     budget: 'budget/phone-mid' };
-  GFX.budget = { kind: 'gfx.budget', id: 'budget/phone-mid', v: 1, tris_max: 60000, draws_max: 120, tex_kb_max: 24000, dpr_max_k: 2000, frame_ms: 16 };
+  GFX.budget = { kind: 'gfx.budget', id: 'budget/phone-mid', v: 2, tris_max: 60000, draws_max: 120, tex_kb_max: 32000, dpr_max_k: 2000, frame_ms: 16, lineage: 'phase1:dbf794697aa2558e' };
   var SIM_INTERFACE = ['state', 'trick', 'grinding', 'airborne', 'stumble', 'airTime', 'distance', 'speedKey', 'vy', 'y', 'tick', 'chain', 'mult', 'score', 'bails'];
   var MATERIAL_MODELS = ['lambert', 'toon', 'matcap', 'emissive', 'decal', 'ground'];
 
@@ -829,11 +865,36 @@
       });
     }
   }
+  // N64 normal policy: curved primitives (sphere / torus / cylinder sides) emit
+  // per-vertex averaged normals through triN/quadN (smooth Gouraud shading).
+  // Boxes, prism roofs, rails, stairs, and caps keep flat face normals through
+  // tri/quad - those ARE the model's hard edges (box corners, roof ridges,
+  // cap rims). Nothing else facets.
+  function norm3(v) { var l = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; }
+  function triN(out, a, b, c, na, nb, nc, col, uvA, uvB, uvC, aoA, aoB, aoC, spec) {
+    out.pos.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
+    out.norm.push(na[0], na[1], na[2], nb[0], nb[1], nb[2], nc[0], nc[1], nc[2]);
+    for (var i = 0; i < 3; i++) out.col.push(col[0], col[1], col[2]);
+    out.uv.push(uvA[0], uvA[1], uvB[0], uvB[1], uvC[0], uvC[1]);
+    out.ao.push(aoA, aoB, aoC);
+    out.spec.push(spec, spec, spec);
+    if (out.shadow) {
+      var sd = out.sunDir, gy = 0.03;
+      [a, b, c].forEach(function (p) {
+        var t = (gy - p[1]) / sd[1];
+        out.shPos.push(p[0] + sd[0] * t, gy, p[2] + sd[2] * t);
+      });
+    }
+  }
+  function quadN(out, a, b, c, d, na, nb, nc, nd, col, uvA, uvB, uvC, uvD, aoA, aoB, aoC, aoD, spec) {
+    triN(out, a, b, c, na, nb, nc, col, uvA, uvB, uvC, aoA, aoB, aoC, spec);
+    triN(out, a, c, d, na, nc, nd, col, uvA, uvC, uvD, aoA, aoC, aoD, spec);
+  }
   function quad(out, a, b, c, d, n, col, uvA, uvB, uvC, uvD, aoA, aoB, aoC, aoD, spec) {
     tri(out, a, b, c, n, col, uvA, uvB, uvC, aoA, aoB, aoC, spec);
     tri(out, a, c, d, n, col, uvA, uvC, uvD, aoA, aoC, aoD, spec);
   }
-  var ATLAS = { size: 1024, tile: 256, pad: 6, rects: {} };
+  var ATLAS = { size: 2048, tile: 256, pad: 6, rects: {} };
   function atlasUV(tileId, u, v) {
     var r = ATLAS.rects[tileId];
     if (!r) return [0, 0];
@@ -873,10 +934,11 @@
     tri(out, P(-hw,0,-hd), P(hw,0,-hd), P(0,hh,-hd), D(0,0,-1), col, T(-hw,0), T(hw,0), T(0,hh), 0.62, 0.62, 1, 0);
     tri(out, P(hw,0,hd), P(-hw,0,hd), P(0,hh,hd), D(0,0,1), col, T(hw,0), T(-hw,0), T(0,hh), 0.62, 0.62, 1, 0);
   }
-  function cylinder(out, m, r, h, seg, col, spec) {
+  function cylinder(out, m, r, h, seg, col, spec, mat) {
     var P = function (x, y, z) { return xformPoint(m, [x, y, z]); };
     var D = function (x, y, z) { return xformDir(m, [x, y, z]); };
     var sp = spec || 0;
+    var TM = mat ? function (u, v) { return atlasUV(mat.tex, u, v); } : function () { return WHITE_UV; };
     var top = [], bot = [];
     for (var i = 0; i <= seg; i++) {
       var a = i / seg * Math.PI * 2;
@@ -885,21 +947,21 @@
     }
     for (var j = 0; j < seg; j++) {
       var a0 = j / seg * Math.PI * 2, a1 = (j + 1) / seg * Math.PI * 2;
-      var n = [(Math.cos(a0) + Math.cos(a1)) / 2, 0, (Math.sin(a0) + Math.sin(a1)) / 2];
-      var nl = Math.sqrt(n[0] * n[0] + n[2] * n[2]) || 1;
-      n = [n[0] / nl, 0, n[2] / nl];
-      quad(out, P(bot[j][0],bot[j][1],bot[j][2]), P(bot[j+1][0],bot[j+1][1],bot[j+1][2]), P(top[j+1][0],top[j+1][1],top[j+1][2]), P(top[j][0],top[j][1],top[j][2]), D(n[0],n[1],n[2]), col, [0.875,0.125],[0.875,0.125],[0.875,0.125],[0.875,0.125], 0.8, 0.8, 1, 1, sp);
+      var n0 = norm3(D(Math.cos(a0), 0, Math.sin(a0))), n1 = norm3(D(Math.cos(a1), 0, Math.sin(a1)));
+      quadN(out, P(bot[j][0],bot[j][1],bot[j][2]), P(bot[j+1][0],bot[j+1][1],bot[j+1][2]), P(top[j+1][0],top[j+1][1],top[j+1][2]), P(top[j][0],top[j][1],top[j][2]), n0, n1, n1, n0, col, TM(j / seg, 0), TM((j + 1) / seg, 0), TM((j + 1) / seg, 1), TM(j / seg, 1), 0.8, 0.8, 1, 1, sp);
     }
     var tc = P(0, h / 2, 0), bc = P(0, -h / 2, 0);
     for (var k = 0; k < seg; k++) {
-      tri(out, tc, P(top[k+1][0],top[k+1][1],top[k+1][2]), P(top[k][0],top[k][1],top[k][2]), D(0,1,0), col, [0.875,0.125],[0.875,0.125],[0.875,0.125], 1, 1, 1, sp);
-      tri(out, bc, P(bot[k][0],bot[k][1],bot[k][2]), P(bot[k+1][0],bot[k+1][1],bot[k+1][2]), D(0,-1,0), col, [0.875,0.125],[0.875,0.125],[0.875,0.125], 0.62, 0.62, 0.62, sp);
+      var ak0 = k / seg * Math.PI * 2, ak1 = (k + 1) / seg * Math.PI * 2;
+      tri(out, tc, P(top[k+1][0],top[k+1][1],top[k+1][2]), P(top[k][0],top[k][1],top[k][2]), D(0,1,0), col, TM(0.5, 0.5), TM(Math.cos(ak1) / 2 + 0.5, Math.sin(ak1) / 2 + 0.5), TM(Math.cos(ak0) / 2 + 0.5, Math.sin(ak0) / 2 + 0.5), 1, 1, 1, sp);
+      tri(out, bc, P(bot[k][0],bot[k][1],bot[k][2]), P(bot[k+1][0],bot[k+1][1],bot[k+1][2]), D(0,-1,0), col, TM(0.5, 0.5), TM(Math.cos(ak0) / 2 + 0.5, Math.sin(ak0) / 2 + 0.5), TM(Math.cos(ak1) / 2 + 0.5, Math.sin(ak1) / 2 + 0.5), 0.62, 0.62, 0.62, sp);
     }
   }
-  function torus(out, m, R, r, radial, tubular, col, spec) {
+  function torus(out, m, R, r, radial, tubular, col, spec, mat) {
     var P = function (x, y, z) { return xformPoint(m, [x, y, z]); };
     var D = function (x, y, z) { return xformDir(m, [x, y, z]); };
     var sp = spec || 0;
+    var TM = mat ? function (u, v) { return atlasUV(mat.tex, u, v); } : function () { return WHITE_UV; };
     for (var i = 0; i < radial; i++) {
       for (var j = 0; j < tubular; j++) {
         var u0 = i / radial * Math.PI * 2, u1 = (i + 1) / radial * Math.PI * 2;
@@ -907,42 +969,43 @@
         var pt = function (u, v) { return [(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)]; };
         var nr = function (u, v) { return [Math.cos(v) * Math.cos(u), Math.sin(v), Math.cos(v) * Math.sin(u)]; };
         var a = pt(u0, v0), b = pt(u1, v0), c = pt(u1, v1), d = pt(u0, v1);
-        var n = nr(u0, v0);
-        quad(out, P(a[0],a[1],a[2]), P(b[0],b[1],b[2]), P(c[0],c[1],c[2]), P(d[0],d[1],d[2]), D(n[0],n[1],n[2]), col, [0.875,0.125],[0.875,0.125],[0.875,0.125],[0.875,0.125], 1, 1, 1, 1, sp);
+        var na = nr(u0, v0), nb = nr(u1, v0), nc = nr(u1, v1), nd = nr(u0, v1);
+        quadN(out, P(a[0],a[1],a[2]), P(b[0],b[1],b[2]), P(c[0],c[1],c[2]), P(d[0],d[1],d[2]), norm3(D(na[0],na[1],na[2])), norm3(D(nb[0],nb[1],nb[2])), norm3(D(nc[0],nc[1],nc[2])), norm3(D(nd[0],nd[1],nd[2])), col, TM(i / radial, j / tubular), TM((i + 1) / radial, j / tubular), TM((i + 1) / radial, (j + 1) / tubular), TM(i / radial, (j + 1) / tubular), 1, 1, 1, 1, sp);
       }
     }
   }
-  function sphere(out, m, r, lat, lon, col, spec) {
+  function sphere(out, m, r, lat, lon, col, spec, mat) {
     var P = function (x, y, z) { return xformPoint(m, [x, y, z]); };
     var D = function (x, y, z) { return xformDir(m, [x, y, z]); };
     var sp = spec || 0;
+    var TM = mat ? function (u, v) { return atlasUV(mat.tex, u, v); } : function () { return WHITE_UV; };
     for (var i = 0; i < lat; i++) {
       var th0 = Math.PI * i / lat, th1 = Math.PI * (i + 1) / lat;
       for (var j = 0; j < lon; j++) {
         var ph0 = 2 * Math.PI * j / lon, ph1 = 2 * Math.PI * (j + 1) / lon;
         var pt = function (th, ph) { return [r * Math.sin(th) * Math.cos(ph), r * Math.cos(th), r * Math.sin(th) * Math.sin(ph)]; };
         var a = pt(th0, ph0), b = pt(th0, ph1), c = pt(th1, ph1), d = pt(th1, ph0);
-        quad(out, P(a[0],a[1],a[2]), P(b[0],b[1],b[2]), P(c[0],c[1],c[2]), P(d[0],d[1],d[2]), D(a[0],a[1],a[2]), col, [0.875,0.125],[0.875,0.125],[0.875,0.125],[0.875,0.125], 1, 1, 1, 1, sp);
+        quadN(out, P(a[0],a[1],a[2]), P(b[0],b[1],b[2]), P(c[0],c[1],c[2]), P(d[0],d[1],d[2]), norm3(D(a[0],a[1],a[2])), norm3(D(b[0],b[1],b[2])), norm3(D(c[0],c[1],c[2])), norm3(D(d[0],d[1],d[2])), col, TM(ph0 / (2 * Math.PI), th0 / Math.PI), TM(ph1 / (2 * Math.PI), th0 / Math.PI), TM(ph1 / (2 * Math.PI), th1 / Math.PI), TM(ph0 / (2 * Math.PI), th1 / Math.PI), 1, 1, 1, 1, sp);
       }
     }
   }
-  function circleFlat(out, m, r, seg, col) {
+  function circleFlat(out, m, r, seg, col, mat) {
     var P = function (x, y, z) { return xformPoint(m, [x, y, z]); };
     var D = function (x, y, z) { return xformDir(m, [x, y, z]); };
+    var TM = mat ? function (u, v) { return atlasUV(mat.tex, u, v); } : function () { return WHITE_UV; };
     var c = P(0, 0, 0);
     for (var i = 0; i < seg; i++) {
       var a0 = 2 * Math.PI * i / seg, a1 = 2 * Math.PI * (i + 1) / seg;
-      tri(out, c, P(Math.cos(a1) * r, 0, Math.sin(a1) * r), P(Math.cos(a0) * r, 0, Math.sin(a0) * r), D(0, 1, 0), col, [0.875,0.125],[0.875,0.125],[0.875,0.125], 1, 1, 1, 0);
+      tri(out, c, P(Math.cos(a1) * r, 0, Math.sin(a1) * r), P(Math.cos(a0) * r, 0, Math.sin(a0) * r), D(0, 1, 0), col, TM(0.5, 0.5), TM(Math.cos(a1) / 2 + 0.5, Math.sin(a1) / 2 + 0.5), TM(Math.cos(a0) / 2 + 0.5, Math.sin(a0) / 2 + 0.5), 1, 1, 1, 0);
     }
   }
   // Capsule: cylinder + sphere caps (rounded joint segments, not boxes).
-  function capsule(out, m, r, len, col, spec) {
+  function capsule(out, m, r, len, col, spec, mat) {
     var body = matTranslate(m, 0, 0, 0);
-    cylinder(out, body, r, len, 8, col, spec);
-    sphere(out, matTranslate(m, 0, len / 2, 0), r, 3, 8, col, spec);
-    sphere(out, matTranslate(m, 0, -len / 2, 0), r, 3, 8, col, spec);
+    cylinder(out, body, r, len, 8, col, spec, mat);
+    sphere(out, matTranslate(m, 0, len / 2, 0), r, 3, 8, col, spec, mat);
+    sphere(out, matTranslate(m, 0, -len / 2, 0), r, 3, 8, col, spec, mat);
   }
-
   /* ---------------- PROCEDURAL TEXTURES (canvas at load, seeded, 0 bytes) ---------------- */
   function makeCanvas(s) { var c = document.createElement('canvas'); c.width = s; c.height = s; return c; }
   function paintSpeckle(ctx, s, base, speck, density, rng) {
@@ -1033,7 +1096,60 @@
     ctx.lineTo(s * 0.4, s * 0.92); ctx.lineTo(s * 0.72, s * 0.45); ctx.lineTo(s * 0.53, s * 0.45);
     ctx.closePath(); ctx.fill();
   }
-  var PROC_PAINTERS = { speckle: paintSpeckle, tiles: paintTiles, facade: paintFacade, shingles: paintShingles, graffiti: paintGraffiti, rays: paintRays, 'diamond-sign': paintDiamondSign, bolt: paintBolt };
+  function paintWeave(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = line;
+    for (var x = 0; x < s; x += 4) ctx.fillRect(x, 0, 1, s);
+    for (var y = 0; y < s; y += 4) ctx.fillRect(0, y, s, 1);
+  }
+  function paintDeck(ctx, s, base, gold) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = gold;
+    for (var i = -2; i < 6; i++) { ctx.beginPath(); ctx.moveTo(i * s / 4, s); ctx.lineTo(i * s / 4 + s / 2, 0); ctx.lineTo(i * s / 4 + s / 2 + s / 16, 0); ctx.lineTo(i * s / 4 + s / 16, s); ctx.closePath(); ctx.fill(); }
+    ctx.beginPath(); ctx.moveTo(s * 0.5, s * 0.3); ctx.lineTo(s * 0.68, s * 0.5); ctx.lineTo(s * 0.5, s * 0.7); ctx.lineTo(s * 0.32, s * 0.5); ctx.closePath(); ctx.fill();
+  }
+  function paintTwill(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.strokeStyle = line; ctx.lineWidth = 1;
+    for (var d = -s; d < s * 2; d += 4) { ctx.beginPath(); ctx.moveTo(d, 0); ctx.lineTo(d + s, s); ctx.stroke(); }
+  }
+  function paintTread(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = line;
+    for (var y = 0; y < s; y += 32) for (var x = 0; x < s; x += 32) ctx.fillRect(x + 4, y + 6, 24, 20);
+  }
+  function paintBrushed(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.strokeStyle = line; ctx.lineWidth = 1;
+    for (var y = 0; y < s; y += 3) { ctx.globalAlpha = 0.25 + ((y * 7) % 10) / 20; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(s, y); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+  function paintBark(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = line;
+    for (var x = 0; x < s; x += 6) { var w = 2 + (x % 3); ctx.fillRect(x, 0, w, s); }
+  }
+  function paintGlassStreak(ctx, s, base, streak) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = streak;
+    for (var x = 8; x < s; x += 32) { ctx.globalAlpha = 0.35; ctx.fillRect(x, 0, 4, s); }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#FFD98A';
+    for (var wx = 16; wx < s; wx += 64) for (var wy = 16; wy < s; wy += 64) ctx.fillRect(wx, wy, 14, 18);
+  }
+  function paintRadialGlow(ctx, s, center, edge) {
+    var g = ctx.createRadialGradient(s / 2, s / 2, 4, s / 2, s / 2, s / 2);
+    g.addColorStop(0, center); g.addColorStop(1, edge);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, s, s);
+  }
+  function paintPlanks(ctx, s, base, line) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, s, s);
+    ctx.strokeStyle = line; ctx.lineWidth = 2;
+    for (var x = 0; x <= s; x += 32) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, s); ctx.stroke(); }
+    ctx.fillStyle = line;
+    for (var y = 8; y < s; y += 32) ctx.fillRect(0, y, s, 1);
+  }
+  var PROC_PAINTERS = { speckle: paintSpeckle, tiles: paintTiles, facade: paintFacade, shingles: paintShingles, graffiti: paintGraffiti, rays: paintRays, 'diamond-sign': paintDiamondSign, bolt: paintBolt, weave: paintWeave, deck: paintDeck, twill: paintTwill, tread: paintTread, brushed: paintBrushed, bark: paintBark, glass: paintGlassStreak, radial: paintRadialGlow, planks: paintPlanks };
   function buildProcTile(tex) {
     var c = makeCanvas(256), ctx = c.getContext('2d');
     var rng = mulberry32(tex.seed);
@@ -1046,6 +1162,15 @@
     else if (tex.recipe === 'rays') paintRays(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.gold)));
     else if (tex.recipe === 'diamond-sign') paintDiamondSign(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.gold)));
     else if (tex.recipe === 'bolt') paintBolt(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.gold)));
+    else if (tex.recipe === 'weave') paintWeave(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
+    else if (tex.recipe === 'deck') paintDeck(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.gold)));
+    else if (tex.recipe === 'twill') paintTwill(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
+    else if (tex.recipe === 'tread') paintTread(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
+    else if (tex.recipe === 'brushed') paintBrushed(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
+    else if (tex.recipe === 'bark') paintBark(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
+    else if (tex.recipe === 'glass') paintGlassStreak(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.streak)));
+    else if (tex.recipe === 'radial') paintRadialGlow(ctx, 256, hexOf(intToRgb(p.center)), hexOf(intToRgb(p.edge)));
+    else if (tex.recipe === 'planks') paintPlanks(ctx, 256, hexOf(intToRgb(p.base)), hexOf(intToRgb(p.line)));
     return c;
   }
   /* AI decal data (embedded data URIs; assembly injects them). Origin +
@@ -1091,19 +1216,19 @@
     var prevShadow = out.shadow; out.shadow = true;
     var dark = rgb('#18202a'), tyre = rgb('#101014'), light = rgb('#fff2b8'), tail = rgb('#e74c3c');
     var body = matTranslate(m, 0, 0.42, 0);
-    boxAt(out, body, 0.85, 0.30, 1.15, col, 1); // car paint: specular flag
+    boxAtM(out, body, 0.85, 0.30, 1.15, col, MATS['mat/car-paint'], 1); // car paint: flake texture x car color, specular flag
     var cab = matTranslate(m, 0, 0.72, -0.15);
-    boxAt(out, cab, 0.70, 0.28, 0.70, dark, 1); // glass: specular flag (reflections)
+    boxAtM(out, cab, 0.70, 0.28, 0.70, dark, MATS['mat/glass'], 1); // glass: streak texture, specular flag (reflections)
     var hl = matTranslate(m, 0, 0.45, 1.16);
-    boxAt(out, hl, 0.55, 0.08, 0.02, light, 0);
+    boxAtM(out, hl, 0.55, 0.08, 0.02, light, MATS['mat/emissive-lamp'], 0);
     var tl = matTranslate(m, 0, 0.45, -1.16);
-    boxAt(out, tl, 0.55, 0.08, 0.02, tail, 0);
+    boxAtM(out, tl, 0.55, 0.08, 0.02, tail, MATS['mat/emissive-lamp'], 0);
     var wpos = [[-0.82, 0.28, 0.72], [0.82, 0.28, 0.72], [-0.82, 0.28, -0.72], [0.82, 0.28, -0.72]];
     for (var i = 0; i < 4; i++) {
       var wm = matTranslate(m, wpos[i][0], wpos[i][1], wpos[i][2]);
       wm = matRotX(wm, spinAngle || 0);
       wm = matRotZ(wm, Math.PI / 2);
-      cylinder(out, wm, 0.28, 0.22, 10, tyre, 0);
+      cylinder(out, wm, 0.28, 0.22, 10, tyre, 0, MATS['mat/tire']);
     }
     out.shadow = prevShadow;
   }
@@ -1118,13 +1243,13 @@
     // Roof overhang: prism slightly wider than the body.
     prismRoof(out, matTranslate(mat4(), hx, 3.2, zc), 3.3, 1.4, 2.5, tinted(roofCol, tint), MATS['mat/roof']);
     // Baked shadow strip on the ground at the house base (sun-opposite side).
-    box(out, hx - dir * 0.5, 0.03, zc, 2.2, 0.01, 2.2, rgb('#1a1a16'), 0);
+    boxM(out, hx - dir * 0.5, 0.03, zc, 2.2, 0.01, 2.2, rgb('#1a1a16'), MATS['mat/asphalt'], 0);
     // Door + awning plane.
     var doorX = hx - dir * 3.02;
-    box(out, doorX, 0.55, zc, 0.03, 0.55, 0.4, rgb('#3a2e1e'), 0);
+    boxM(out, doorX, 0.55, zc, 0.03, 0.55, 0.4, rgb('#3a2e1e'), MATS['mat/wood'], 0);
     var awn = matTranslate(mat4(), doorX, 1.25, zc);
     awn = matRotZ(awn, dir * 0.35);
-    boxAt(out, awn, 0.06, 0.06, 0.55, rgb('#7a2a2a'), 0);
+    boxAtM(out, awn, 0.06, 0.06, 0.55, rgb('#7a2a2a'), MATS['mat/tee'], 0);
     // Decal dressing on the street-facing wall (bounded quads, never repeats).
     var dh = hash01(bi * 41 + (side === 'L' ? 5 : 6));
     var wx = hx - dir * 3.04;
@@ -1133,13 +1258,13 @@
     else if (dh < 0.5) addDecal('tex/decal-sign-1', [wx, 1.6, zc - 0.7], [wx, 1.6, zc + 0.7], [wx, 2.5, zc + 0.7], [wx, 2.5, zc - 0.7]);
     else if (dh < 0.6) addDecal('tex/decal-graffiti-2', [wx, 0.5, zc - 0.6], [wx, 0.5, zc + 0.6], [wx, 1.5, zc + 0.6], [wx, 1.5, zc - 0.6]);
     // Hedge along the lawn front.
-    box(out, dir * 5.6, 0.25, zc, 0.3, 0.25, 2.2, rgb('#3d6a32'), 0);
+    boxM(out, dir * 5.6, 0.25, zc, 0.3, 0.25, 2.2, rgb('#3d6a32'), MATS['mat/foliage'], 0);
   }
   function treeTris(out, x, z) {
     var trunk = matTranslate(mat4(), x, 0.6, z);
-    cylinder(out, trunk, 0.12, 1.2, 8, rgb('#5a3d24'), 0);
-    box(out, x, 1.65, z, 0.5, 0.5, 0.5, rgb('#3d7a34'), 0);
-    box(out, x, 2.25, z, 0.35, 0.35, 0.35, rgb('#2e6a2a'), 0);
+    cylinder(out, trunk, 0.12, 1.2, 8, rgb('#5a3d24'), 0, MATS['mat/bark']);
+    boxM(out, x, 1.65, z, 0.5, 0.5, 0.5, rgb('#3d7a34'), MATS['mat/foliage'], 0);
+    boxM(out, x, 2.25, z, 0.35, 0.35, 0.35, rgb('#2e6a2a'), MATS['mat/foliage'], 0);
   }
   function pedestrianTris(out, x, z, bi, d, facing) {
     var prevShadow = out.shadow; out.shadow = true;
@@ -1150,17 +1275,17 @@
     var m = matTranslate(mat4(), x, 0.12 + bob, z);
     if (facing < 0) m = matRotY(m, Math.PI);
     var legL = matTranslate(m, -0.11, 0.7, 0); legL = matRotX(legL, swing);
-    boxAt(out, matTranslate(legL, 0, -0.35, 0), 0.07, 0.35, 0.07, rgb('#232a3a'), 0);
+    boxAtM(out, matTranslate(legL, 0, -0.35, 0), 0.07, 0.35, 0.07, rgb('#232a3a'), MATS['mat/denim'], 0);
     var legR = matTranslate(m, 0.11, 0.7, 0); legR = matRotX(legR, -swing);
-    boxAt(out, matTranslate(legR, 0, -0.35, 0), 0.07, 0.35, 0.07, rgb('#232a3a'), 0);
+    boxAtM(out, matTranslate(legR, 0, -0.35, 0), 0.07, 0.35, 0.07, rgb('#232a3a'), MATS['mat/denim'], 0);
     var torso = matTranslate(m, 0, 1.0, 0);
-    boxAt(out, torso, 0.21, 0.32, 0.12, shirt, 0);
+    boxAtM(out, torso, 0.21, 0.32, 0.12, shirt, MATS['mat/tee'], 0);
     var head = matTranslate(m, 0, 1.48, 0);
-    boxAt(out, head, 0.13, 0.13, 0.13, skin, 0);
+    boxAtM(out, head, 0.13, 0.13, 0.13, skin, MATS['mat/skin'], 0);
     var armL = matTranslate(m, -0.28, 1.0, 0); armL = matRotX(armL, -swing);
-    boxAt(out, matTranslate(armL, 0, -0.28, 0), 0.06, 0.28, 0.06, skin, 0);
+    boxAtM(out, matTranslate(armL, 0, -0.28, 0), 0.06, 0.28, 0.06, skin, MATS['mat/skin'], 0);
     var armR = matTranslate(m, 0.28, 1.0, 0); armR = matRotX(armR, swing);
-    boxAt(out, matTranslate(armR, 0, -0.28, 0), 0.06, 0.28, 0.06, skin, 0);
+    boxAtM(out, matTranslate(armR, 0, -0.28, 0), 0.06, 0.28, 0.06, skin, MATS['mat/skin'], 0);
     out.shadow = prevShadow;
   }
   function stairTopAt(st, d) {
@@ -1182,22 +1307,22 @@
     boxM(out, -10.2, -0.05, -15, 5.8, 0.05, 19, rgb('#4d7a3d'), MATS['mat/lawn'], 0);
     boxM(out, 10.2, -0.05, -15, 5.8, 0.05, 19, rgb('#4d7a3d'), MATS['mat/lawn'], 0);
     // Curbs along both street edges.
-    box(out, -3.2, 0.08, -15, 0.08, 0.08, 19, rgb('#b0aa9e'), 0);
-    box(out, 3.2, 0.08, -15, 0.08, 0.08, 19, rgb('#b0aa9e'), 0);
+    boxM(out, -3.2, 0.08, -15, 0.08, 0.08, 19, rgb('#b0aa9e'), MATS['mat/concrete'], 0);
+    boxM(out, 3.2, 0.08, -15, 0.08, 0.08, 19, rgb('#b0aa9e'), MATS['mat/concrete'], 0);
     for (var a = 60; a < AHEAD; a += 120) {
-      box(out, 0, 0.02, zOf(a + 20), 0.12, 0.02, 0.8, rgb('#d8b93a'), 0);
+      boxM(out, 0, 0.02, zOf(a + 20), 0.12, 0.02, 0.8, rgb('#d8b93a'), MATS['mat/concrete'], 0);
     }
     var first = Math.floor((d - 120) / 240), last = Math.floor((d + AHEAD) / 240);
     for (var bi = last; bi >= first; bi--) {
       var zc = zOf(bi * 240 + 120 - d);
       if (zc < -34 || zc > 6) continue;
       if (((bi % 10) + 10) % 10 === 0) {
-        box(out, 0, 0.01, zc, 16, 0.02, 1.2, rgb('#2b2926'), 0);
-        box(out, 0, 0.03, zc - 0.9, 2.6, 0.02, 0.12, rgb('#e8e4da'), 0);
+        boxM(out, 0, 0.01, zc, 16, 0.02, 1.2, rgb('#2b2926'), MATS['mat/asphalt'], 0);
+        boxM(out, 0, 0.03, zc - 0.9, 2.6, 0.02, 0.12, rgb('#e8e4da'), MATS['mat/concrete'], 0);
         var pole = matTranslate(mat4(), 4.6, 1.4, zc);
-        cylinder(out, pole, 0.05, 2.8, 6, rgb('#22201c'), 0);
-        box(out, 4.6, 2.9, zc, 0.22, 0.45, 0.22, rgb('#101014'), 0);
-        box(out, 4.6, 3.0, zc + 0.24, 0.12, 0.12, 0.02, hash01(bi * 3) > 0.5 ? rgb('#2ecc71') : rgb('#e74c3c'), 0);
+        cylinder(out, pole, 0.05, 2.8, 6, rgb('#22201c'), 0, MATS['mat/rail-metal']);
+        boxM(out, 4.6, 2.9, zc, 0.22, 0.45, 0.22, rgb('#101014'), MATS['mat/rail-metal'], 0);
+        boxM(out, 4.6, 3.0, zc + 0.24, 0.12, 0.12, 0.02, hash01(bi * 3) > 0.5 ? rgb('#2ecc71') : rgb('#e74c3c'), MATS['mat/emissive-lamp'], 0);
       }
       var hl = hash01(bi * 2 + 1) > 0.25, hr = hash01(bi * 2 + 2) > 0.25;
       if (hl) houseTris(out, 'L', zc, bi);
@@ -1215,13 +1340,13 @@
       if (hash01(bi * 13 + 1) > 0.4) treeTris(out, -(6.0 + hash01(bi * 13 + 3) * 3), zc + (hash01(bi * 13 + 5) - 0.5) * 3);
       if (hash01(bi * 13 + 2) > 0.4) treeTris(out, 6.0 + hash01(bi * 13 + 4) * 3, zc + (hash01(bi * 13 + 6) - 0.5) * 3);
       if (hash01(bi * 17 + 1) > 0.5) {
-        box(out, -4.55, 0.35, zc + 1.0, 0.03, 0.35, 0.03, rgb('#6a6a6a'), 0);
-        box(out, -4.55, 0.75, zc + 1.0, 0.16, 0.12, 0.10, rgb('#2a4a7a'), 0);
+        boxM(out, -4.55, 0.35, zc + 1.0, 0.03, 0.35, 0.03, rgb('#6a6a6a'), MATS['mat/rail-metal'], 0);
+        boxM(out, -4.55, 0.75, zc + 1.0, 0.16, 0.12, 0.10, rgb('#2a4a7a'), MATS['mat/rail-metal'], 0);
       }
       if (hash01(bi * 17 + 2) > 0.5) {
-        box(out, 4.55, 0.35, zc - 1.0, 0.03, 0.35, 0.03, rgb('#6a6a6a'), 0);
+        boxM(out, 4.55, 0.35, zc - 1.0, 0.03, 0.35, 0.03, rgb('#6a6a6a'), MATS['mat/rail-metal'], 0);
         var can = matTranslate(mat4(), 4.7, 0.4, zc - 1.0);
-        cylinder(out, can, 0.22, 0.55, 8, rgb('#7a7a7a'), 0);
+        cylinder(out, can, 0.22, 0.55, 8, rgb('#7a7a7a'), 0, MATS['mat/rail-metal']);
       }
       if (hash01(bi * 19 + 1) > 0.45) pedestrianTris(out, -3.8, zc + hash01(bi * 19 + 2) * 3.6 - 1.8, bi, d, 1);
       if (hash01(bi * 19 + 3) > 0.55) pedestrianTris(out, 3.8, zc + hash01(bi * 19 + 4) * 3.6 - 1.8, bi + 1, d, -1);
@@ -1235,24 +1360,24 @@
         carTris(out, cm, CAR_COLORS[Math.floor(hash01(ob.d1) * CAR_COLORS.length) % CAR_COLORS.length], spin);
       } else if (ob.kind === 'rail') {
         var rl = Math.abs(z2 - z1);
-        box(out, 0, 0.48, (z1 + z2) / 2, 0.07, 0.07, rl / 2, rgb('#c8c8c8'), 0);
-        for (var pz3 = z1; pz3 >= z2; pz3 -= 2) box(out, 0, 0.24, pz3, 0.05, 0.24, 0.05, rgb('#3a352a'), 0);
+        boxM(out, 0, 0.48, (z1 + z2) / 2, 0.07, 0.07, rl / 2, rgb('#c8c8c8'), MATS['mat/rail-metal'], 0);
+        for (var pz3 = z1; pz3 >= z2; pz3 -= 2) boxM(out, 0, 0.24, pz3, 0.05, 0.24, 0.05, rgb('#3a352a'), MATS['mat/wood'], 0);
       } else if (ob.kind === 'gap') {
-        box(out, 0, -0.32, (z1 + z2) / 2, 3.2, 0.30, Math.abs(z2 - z1) / 2, rgb('#050505'), 0);
+        boxM(out, 0, -0.32, (z1 + z2) / 2, 3.2, 0.30, Math.abs(z2 - z1) / 2, rgb('#050505'), MATS['mat/asphalt'], 0);
       } else if (ob.kind === 'stairs') {
         var len = Math.abs(z2 - z1);
         for (var s = 0; s < 3; s++) {
           var sz = z1 - (s + 0.5) * len / 3;
-          box(out, 0, -s * 0.144 - 0.15, sz, 3.2, 0.15, len / 6, s === 0 ? rgb('#6a665e') : (s === 1 ? rgb('#7a756c') : rgb('#5d5952')), 0);
+          boxM(out, 0, -s * 0.144 - 0.15, sz, 3.2, 0.15, len / 6, s === 0 ? rgb('#6a665e') : (s === 1 ? rgb('#7a756c') : rgb('#5d5952')), MATS['mat/concrete'], 0);
         }
       }
     }
     for (var bx = -60; bx <= 60; bx += 7) {
       var bh = 8 + hash01(bx * 3 + 700) * 16;
-      box(out, bx, bh / 2, -58, 2.6, bh / 2, 2.6, hash01(bx) > 0.5 ? rgb('#5a6a7d') : rgb('#46545f'), 0);
+      boxM(out, bx, bh / 2, -58, 2.6, bh / 2, 2.6, hash01(bx) > 0.5 ? rgb('#5a6a7d') : rgb('#46545f'), MATS['mat/glass'], 0);
     }
     var sun = matTranslate(mat4(), -28, 26, -68);
-    sphere(out, sun, 3, 8, 12, rgb('#ffd94a'), 0);
+    sphere(out, sun, 3, 8, 12, rgb('#ffd94a'), 0, MATS['mat/sun']);
   }
 
   /* ---------------- CHARACTER — REBUILT RIG (likeness = acceptance test) ----------------
@@ -1317,22 +1442,22 @@
       var sh = matTranslate(root, side * 0.30, 1.42, 0);
       sh = matRotZ(sh, shRz); sh = matRotX(sh, shRx);
       var up = matTranslate(sh, 0, -0.22, 0);
-      capsule(out, up, 0.07, 0.3, SKIN, 0);
-      sphere(out, matTranslate(sh, 0, 0, 0), 0.08, 3, 6, SKIN, 0);
+      capsule(out, up, 0.07, 0.3, SKIN, 0, MATS['mat/skin']);
+      sphere(out, matTranslate(sh, 0, 0, 0), 0.08, 3, 6, SKIN, 0, MATS['mat/skin']);
       var el = matTranslate(sh, 0, -0.44, 0);
       el = matRotX(el, elRx);
-      capsule(out, matTranslate(el, 0, -0.20, 0), 0.06, 0.28, SKIN, 0);
-      sphere(out, matTranslate(el, 0, 0, 0), 0.065, 3, 6, SKIN, 0);
+      capsule(out, matTranslate(el, 0, -0.20, 0), 0.06, 0.28, SKIN, 0, MATS['mat/skin']);
+      sphere(out, matTranslate(el, 0, 0, 0), 0.065, 3, 6, SKIN, 0, MATS['mat/skin']);
     } else {
       var hip = matTranslate(root, side * 0.13, 0.95, 0);
       hip = matRotX(hip, hipRx);
-      capsule(out, matTranslate(hip, 0, -0.25, 0), 0.09, 0.36, PANTS, 0);
-      sphere(out, matTranslate(hip, 0, 0, 0), 0.095, 3, 6, PANTS, 0);
+      capsule(out, matTranslate(hip, 0, -0.25, 0), 0.09, 0.36, PANTS, 0, MATS['mat/denim']);
+      sphere(out, matTranslate(hip, 0, 0, 0), 0.095, 3, 6, PANTS, 0, MATS['mat/denim']);
       var knee = matTranslate(hip, 0, -0.5, 0);
       knee = matRotX(knee, kneeRx);
-      capsule(out, matTranslate(knee, 0, -0.25, 0), 0.08, 0.36, PANTS, 0);
-      sphere(out, matTranslate(knee, 0, 0, 0), 0.085, 3, 6, PANTS, 0);
-      boxAt(out, matTranslate(knee, 0, -0.52, -0.03), 0.09, 0.06, 0.17, SHOE, 0);
+      capsule(out, matTranslate(knee, 0, -0.25, 0), 0.08, 0.36, PANTS, 0, MATS['mat/denim']);
+      sphere(out, matTranslate(knee, 0, 0, 0), 0.085, 3, 6, PANTS, 0, MATS['mat/denim']);
+      boxAtM(out, matTranslate(knee, 0, -0.52, -0.03), 0.09, 0.06, 0.17, SHOE, MATS['mat/grip'], 0);
     }
   }
   function buildSkater(out, st, swayX) {
@@ -1352,8 +1477,8 @@
     var boardTilt = st.grinding ? -0.1 : p.roll * 0.4;
     var board = matTranslate(root, 0, 0.05, 0);
     board = matRotX(board, nose); board = matRotZ(board, spin + boardTilt);
-    boxAt(out, board, 0.14, 0.025, 0.45, rgb('#1a1a1a'), 0);
-    boxAt(out, matTranslate(board, 0, 0.028, 0), 0.14, 0.006, 0.45, rgb('#8a8a8a'), 0);
+    boxAtM(out, board, 0.14, 0.025, 0.45, rgb('#1a1a1a'), MATS['mat/grip'], 0);
+    boxAtM(out, matTranslate(board, 0, 0.028, 0), 0.14, 0.006, 0.45, rgb('#ffffff'), MATS['mat/deck'], 0);
     // Board deck art decal on top (visible from the chase cam above).
     addDecal('tex/decal-deck-1',
       xformPoint(board, [-0.12, 0.036, -0.4]), xformPoint(board, [0.12, 0.036, -0.4]),
@@ -1361,9 +1486,9 @@
     limb(out, root, -1, p.hipL, p.kneeL, false);
     limb(out, root, 1, p.hipR, p.kneeR, false);
     // Torso: white tee box + swaying hem strip (spring, visual only).
-    boxAt(out, matTranslate(root, 0, 1.22, 0), 0.26, 0.32, 0.15, TEE, 0);
+    boxAtM(out, matTranslate(root, 0, 1.22, 0), 0.26, 0.32, 0.15, TEE, MATS['mat/tee'], 0);
     var hem = matTranslate(root, hemSpring.x * 0.05, 0.90, 0);
-    boxAt(out, hem, 0.27, 0.05, 0.16, rgb('#e2ddd0'), 0);
+    boxAtM(out, hem, 0.27, 0.05, 0.16, rgb('#e2ddd0'), MATS['mat/tee'], 0);
     // Tee print decal on the chest front (travel direction = -Z).
     addDecal('tex/decal-tee-1',
       xformPoint(root, [-0.16, 1.05, -0.16]), xformPoint(root, [0.16, 1.05, -0.16]),
@@ -1371,33 +1496,33 @@
     limb(out, root, -1, 0, 0, true, p.armL, p.armRx, p.elRx);
     limb(out, root, 1, 0, 0, true, p.armR, p.armRx, p.elRx);
     // Head: dark skin rounded box, NO cap. Hair = modeled volume + 10 curl lumps.
-    boxAt(out, matTranslate(root, 0, 1.70, 0), 0.17, 0.17, 0.17, SKIN, 0);
-    sphere(out, matTranslate(root, 0, 1.90, 0), 0.19, 4, 8, HAIR, 0);
-    boxAt(out, matTranslate(root, 0, 1.78, 0.16), 0.17, 0.22, 0.04, HAIR, 0);
+    boxAtM(out, matTranslate(root, 0, 1.70, 0), 0.17, 0.17, 0.17, SKIN, MATS['mat/skin'], 0);
+    sphere(out, matTranslate(root, 0, 1.90, 0), 0.19, 4, 8, HAIR, 0, MATS['mat/hair']);
+    boxAtM(out, matTranslate(root, 0, 1.78, 0.16), 0.17, 0.22, 0.04, HAIR, MATS['mat/hair'], 0);
     var bumps = [[-0.12, 2.0, -0.08], [0.12, 2.0, -0.08], [0, 2.02, 0.05], [-0.06, 1.99, 0.12], [0.08, 1.99, 0.12], [0, 2.0, -0.14], [-0.15, 1.96, 0.02], [0.15, 1.96, 0.02], [-0.05, 2.04, -0.05], [0.05, 2.04, -0.05]];
     for (var b = 0; b < bumps.length; b++) {
-      sphere(out, matTranslate(root, bumps[b][0], bumps[b][1], bumps[b][2]), 0.07, 3, 6, HAIR, 0);
+      sphere(out, matTranslate(root, bumps[b][0], bumps[b][1], bumps[b][2]), 0.07, 3, 6, HAIR, 0, MATS['mat/hair']);
     }
     // Goatee: small dark mesh on the lower face (front = -Z).
-    sphere(out, matTranslate(root, 0, 1.58, -0.18), 0.07, 3, 6, rgb('#1a1a1a'), 0);
-    boxAt(out, matTranslate(root, 0, 1.62, -0.18), 0.09, 0.03, 0.02, rgb('#1a1a1a'), 0);
+    sphere(out, matTranslate(root, 0, 1.58, -0.18), 0.07, 3, 6, rgb('#1a1a1a'), 0, MATS['mat/hair']);
+    boxAtM(out, matTranslate(root, 0, 1.62, -0.18), 0.09, 0.03, 0.02, rgb('#1a1a1a'), MATS['mat/hair'], 0);
     // Gold chain: ring of 14 beads with specular glint, spring-swayed.
     var chainBase = matTranslate(root, chainSpring.x * 0.03, 1.50, -0.02);
     chainBase = matRotX(chainBase, 1.15);
     for (var bd = 0; bd < 14; bd++) {
       var a = bd / 14 * Math.PI * 2;
-      sphere(out, matTranslate(chainBase, Math.cos(a) * 0.20, Math.sin(a) * 0.05, Math.sin(a) * 0.20), 0.028, 3, 6, GOLD, 1);
+      sphere(out, matTranslate(chainBase, Math.cos(a) * 0.20, Math.sin(a) * 0.05, Math.sin(a) * 0.20), 0.028, 3, 6, GOLD, 1, MATS['mat/gold']);
     }
     // Blob shadow fallback (stays even with planar shadows on).
     var shScale = 1 - Math.min(0.5, heightAbove / 300);
     var sh = matTranslate(mat4(), swayX, 0.02 + stairTopAt(st, st.distance), 0);
-    circleFlat(out, sh, 0.55 * shScale, 20, rgb('#0a0a0a'));
+    circleFlat(out, sh, 0.55 * shScale, 20, rgb('#0a0a0a'), MATS['mat/asphalt']);
     // Grind sparks: deterministic by tick, never random.
     if (st.grinding) {
       for (var sp = 0; sp < 8; sp++) {
         var sxp = swayX + (((st.tick * 13 + sp * 29) % 56) - 28) * 0.012;
         var syp = 0.56 + ((st.tick * 7 + sp * 17) % 12) * 0.012;
-        box(out, sxp, syp, 0.1, 0.02, 0.02, 0.02, rgb('#ffe9a8'), 0);
+        boxM(out, sxp, syp, 0.1, 0.02, 0.02, 0.02, rgb('#ffe9a8'), MATS['mat/emissive-lamp'], 0);
       }
     }
     out.shadow = prevShadow;
@@ -1440,7 +1565,7 @@
       var bq = [pt.x + r[0] * s - u[0] * s, pt.y + r[1] * s - u[1] * s, pt.z + r[2] * s - u[2] * s];
       var cq = [pt.x + r[0] * s + u[0] * s, pt.y + r[1] * s + u[1] * s, pt.z + r[2] * s + u[2] * s];
       var dq = [pt.x - r[0] * s + u[0] * s, pt.y - r[1] * s + u[1] * s, pt.z - r[2] * s + u[2] * s];
-      quad(out, a, bq, cq, dq, [0, 0, 1], col, [0.875, 0.125], [0.875, 0.125], [0.875, 0.125], [0.875, 0.125], 1, 1, 1, 1, 0);
+      quad(out, a, bq, cq, dq, [0, 0, 1], col, atlasUV('tex/lamp-glow', 0, 0), atlasUV('tex/lamp-glow', 1, 0), atlasUV('tex/lamp-glow', 1, 1), atlasUV('tex/lamp-glow', 0, 1), 1, 1, 1, 1, 0);
     }
   }
   function buildSceneGeometry(st, camRight, camUp) {
@@ -1486,7 +1611,7 @@
   }
 
   /* ---------------- GL PROGRAMS (frozen template set — no user GLSL) ---------------- */
-  var WHITE_UV = [0.875, 0.125]; // center of the white atlas tile (3,3)
+  var WHITE_UV = [0.9375, 0.0625]; // center of the white atlas tile (7,7) on the 2048 atlas
   var VS_MAIN = 'attribute vec3 aPos; attribute vec3 aNorm; attribute vec3 aCol; attribute vec2 aUv; attribute float aAo; attribute float aSpec; uniform mat4 uProj; uniform mat4 uView; varying vec3 vCol; varying vec2 vUv; varying float vAo; varying float vSpec; varying vec3 vNorm; varying vec3 vWorld; varying float vDepth; void main() { vec4 vp = uView * vec4(aPos, 1.0); gl_Position = uProj * vp; vCol = aCol; vUv = aUv; vAo = aAo; vSpec = aSpec; vNorm = aNorm; vWorld = aPos; vDepth = -vp.z; }';
   var FS_MAIN = 'precision mediump float; varying vec3 vCol; varying vec2 vUv; varying float vAo; varying float vSpec; varying vec3 vNorm; varying vec3 vWorld; varying float vDepth; uniform sampler2D uAtlas; uniform vec3 uCamPos; uniform vec3 uKeyDir; uniform vec3 uKeyColor; uniform float uKeyK; uniform vec3 uFillDir; uniform vec3 uFillColor; uniform float uFillK; uniform vec3 uAmbSky; uniform vec3 uAmbGround; uniform float uAmbK; uniform vec3 uFogColor; uniform float uFogNear; uniform float uFogFar; uniform float uUseTex; uniform float uFlat; uniform float uGrade; uniform float uSat; uniform float uVignette; uniform float uSpecOn; uniform vec2 uScreen; void main() { vec3 N = normalize(vNorm); vec3 V = normalize(uCamPos - vWorld); float diffK = max(dot(N, normalize(uKeyDir)), 0.0); float diffF = max(dot(N, normalize(uFillDir)), 0.0); vec3 tex = texture2D(uAtlas, vUv).rgb; vec3 flatC = vCol; vec3 base = mix(flatC, tex * vCol, uUseTex); float fogF = clamp((vDepth - uFogNear) / (uFogFar - uFogNear), 0.0, 1.0); base = mix(base, flatC, fogF * 0.8 * uUseTex); vec3 col; if (uFlat > 0.5) { col = flatC * (0.5 + 0.7 * diffK); } else { float hemi = N.y * 0.5 + 0.5; vec3 amb = mix(uAmbGround, uAmbSky, hemi) * uAmbK; vec3 light = amb + uKeyColor * uKeyK * diffK + uFillColor * uFillK * diffF; col = base * light * vAo; if (uSpecOn > 0.5 && vSpec > 0.5) { vec3 R = reflect(-normalize(uKeyDir), N); float sp = pow(max(dot(R, V), 0.0), 24.0); col += uKeyColor * sp * 0.6; } } if (uGrade > 0.5) { col = col * (2.51 * col + 0.03) / (col * (2.43 * col + 0.59) + 0.14); float luma = dot(col, vec3(0.299, 0.587, 0.114)); col = mix(vec3(luma), col, uSat); } col = mix(col, uFogColor, fogF); vec2 sc = gl_FragCoord.xy / uScreen; float d2 = dot(sc - 0.5, sc - 0.5); col *= 1.0 - uVignette * d2 * 1.6; gl_FragColor = vec4(col, 1.0); }';
   var VS_SKY = 'attribute vec2 aPos; varying vec3 vDir; uniform mat4 uInvView; void main() { vec4 d = uInvView * vec4(aPos.x, aPos.y, -1.0, 0.0); vDir = normalize(d.xyz); gl_Position = vec4(aPos, 1.0, 1.0); }';
@@ -1522,13 +1647,13 @@
     gl.generateMipmap(gl.TEXTURE_2D);
   }
   function buildAtlas() {
-    atlasCanvas = makeCanvas(1024);
+    atlasCanvas = makeCanvas(2048);
     var ctx = atlasCanvas.getContext('2d');
-    var cells = { 'tex/asphalt': [0, 0], 'tex/sidewalk': [256, 0], 'tex/lawn': [512, 0], 'tex/facade-brick': [768, 0], 'tex/facade-stucco': [0, 256], 'tex/roof': [256, 256] };
+    var cells = { 'tex/asphalt': [0, 0], 'tex/sidewalk': [256, 0], 'tex/lawn': [512, 0], 'tex/facade-brick': [768, 0], 'tex/facade-stucco': [1024, 0], 'tex/roof': [1280, 0], 'tex/skin': [1536, 0], 'tex/tee-weave': [1792, 0], 'tex/hair': [0, 256], 'tex/deck': [256, 256], 'tex/grip': [512, 256], 'tex/car-flake': [768, 256], 'tex/denim': [1024, 256], 'tex/tire': [1280, 256], 'tex/rail-metal': [1536, 256], 'tex/bark': [1792, 256], 'tex/foliage': [0, 512], 'tex/concrete': [256, 512], 'tex/glass-streak': [512, 512], 'tex/sun-glow': [768, 512], 'tex/lamp-glow': [1024, 512], 'tex/wood': [1280, 512], 'tex/gold-flake': [1536, 512] };
     ATLAS.rects = {};
     Object.keys(cells).forEach(function (id) { ATLAS.rects[id] = { x: cells[id][0], y: cells[id][1] }; });
-    ATLAS.rects['__white'] = { x: 768, y: 768 };
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(768, 768, 256, 256);
+    ATLAS.rects['__white'] = { x: 1792, y: 1792 };
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(1792, 1792, 256, 256);
     GFX.textures.forEach(function (t) {
       if (t.gen !== 'proc' || !cells[t.id]) return;
       var tile = buildProcTile(t);
@@ -2089,7 +2214,38 @@
     var lookResults = {};
     GFX.looks.forEach(function (l) { currentLook = LOOKS[l.id]; lookResults[l.id] = scriptedRun(); });
     currentLook = prevLook;
-    out.lookInvariant = lookResults['look/sk8-dusk'] === lookResults['look/sk8-day'] && lookResults['look/sk8-day'] === lookResults['look/sk8-flat'];
+    out.lookInvariant = lookResults['look/sk8-dusk'] === lookResults['look/sk8-day'] && lookResults['look/sk8-day'] === lookResults['look/sk8-flat'] && lookResults['look/sk8-flat'] === lookResults['look/sk8-n64'];
+    out.n64LookPresent = !!LOOKS['look/sk8-n64'];
+    out.materialsTextured = GFX.materials.every(function (m) { return m.id === 'mat/decal' || !!m.tex; });
+    out.materialTexturesResolve = GFX.materials.every(function (m) {
+      if (!m.tex) return true;
+      return GFX.textures.some(function (t) { return t.id === m.tex; });
+    });
+    var sg = newGeo();
+    sphere(sg, mat4(), 1, 4, 8, [1, 1, 1], 0, null);
+    var sNormVary = false;
+    for (var ni = 0; ni < sg.norm.length; ni += 9) {
+      if (!(sg.norm[ni] === sg.norm[ni + 3] && sg.norm[ni + 1] === sg.norm[ni + 4] && sg.norm[ni + 2] === sg.norm[ni + 5])) { sNormVary = true; break; }
+    }
+    var bg = newGeo();
+    box(bg, 0, 0, 0, 1, 1, 1, [1, 1, 1], 0);
+    var bNormFlat = true;
+    for (var bi = 0; bi < bg.norm.length; bi += 9) {
+      if (!(bg.norm[bi] === bg.norm[bi + 3] && bg.norm[bi + 1] === bg.norm[bi + 4] && bg.norm[bi + 2] === bg.norm[bi + 5])) { bNormFlat = false; break; }
+    }
+    out.smoothNormals = sNormVary && bNormFlat;
+    var probeRun = SK8.createRun({ seed: 1337, speed: 'STANDARD' });
+    for (var pt2 = 0; pt2 < 50; pt2++) SK8.step(probeRun, { ollie: false, flip: false, grind: false });
+    var probeGeo = buildSceneGeometry(probeRun, [1, 0, 0], [0, 1, 0]).geo;
+    var whiteTris = 0;
+    for (var ui = 0; ui < probeGeo.uv.length; ui += 6) {
+      if (probeGeo.uv[ui] === WHITE_UV[0] && probeGeo.uv[ui + 1] === WHITE_UV[1] &&
+          probeGeo.uv[ui + 2] === WHITE_UV[0] && probeGeo.uv[ui + 3] === WHITE_UV[1] &&
+          probeGeo.uv[ui + 4] === WHITE_UV[0] && probeGeo.uv[ui + 5] === WHITE_UV[1]) whiteTris++;
+    }
+    out.whiteUvTris = whiteTris;
+    out.texturedSurfaces = whiteTris === 0;
+    out.probeTriCount = probeGeo.pos.length / 9;
     out.lookResults = lookResults;
     var savedRng = visRng;
     visRng = mulberry32(0x1234);

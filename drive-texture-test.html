@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SK8 Drive Texture Test — minimal, not SK8</title>
+<style>
+  body { background:#0e0d0b; color:#f2ede1; font-family: monospace; margin:20px; }
+  h1 { font-size:18px; color:#d4af37; }
+  #log { white-space:pre-wrap; font-size:14px; line-height:1.5; }
+  #verdict { font-size:28px; font-weight:bold; margin:16px 0; }
+  .pass { color:#2e8b57; } .fail { color:#c0392b; }
+  canvas { border:2px solid #d4af37; margin-right:16px; }
+</style>
+</head>
+<body>
+<h1>SK8 Drive Texture Test (fold first build — separate minimal page)</h1>
+<div id="verdict">RUNNING…</div>
+<div id="log"></div>
+<canvas id="gl" width="256" height="256"></canvas>
+<canvas id="preview" width="256" height="256"></canvas>
+<script>
+(function () {
+  var logEl = document.getElementById('log');
+  var verdictEl = document.getElementById('verdict');
+  function log(s) { logEl.textContent += s + '\n'; }
+  function fail(msg) {
+    verdictEl.textContent = 'FAIL — ' + msg;
+    verdictEl.className = 'fail';
+    log('VERDICT: FAIL — ' + msg);
+  }
+  function pass() {
+    verdictEl.textContent = 'PASS — textured quad rendered from Drive blob';
+    verdictEl.className = 'pass';
+    log('VERDICT: PASS');
+  }
+  var FILE_ID = '1h0l7Hdbi_IZIUMH73fCLDUqWVn3wnXec';
+  var URL = 'https://drive.usercontent.google.com/download?id=' + FILE_ID + '&export=download&confirm=t';
+  log('page origin: ' + window.location.origin);
+  log('fetch URL host: drive.usercontent.google.com (file ID present, game art only)');
+  fetch(URL).then(function (resp) {
+    log('HTTP status: ' + resp.status + ' ' + resp.statusText);
+    log('content-type: ' + resp.headers.get('content-type'));
+    log('access-control-allow-origin: ' + resp.headers.get('access-control-allow-origin'));
+    if (!resp.ok) { fail('HTTP ' + resp.status); return null; }
+    return resp.blob();
+  }).then(function (blob) {
+    if (!blob) return;
+    log('blob size: ' + blob.size + ' bytes; blob type: ' + blob.type);
+    if (blob.type.indexOf('image/') !== 0) { fail('blob is not an image (got ' + blob.type + ' — likely a confirmation page)'); return null; }
+    return createImageBitmap(blob);
+  }).then(function (bmp) {
+    if (!bmp) return;
+    log('createImageBitmap: ' + bmp.width + 'x' + bmp.height);
+    var pv = document.getElementById('preview').getContext('2d');
+    pv.drawImage(bmp, 0, 0);
+    var canvas = document.getElementById('gl');
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) { fail('no WebGL context'); return; }
+    var vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, 'attribute vec2 p; attribute vec2 uv; varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(p, 0.0, 1.0); }');
+    gl.compileShader(vs);
+    var fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, 'precision mediump float; varying vec2 vUv; uniform sampler2D tex; void main(){ gl_FragColor = texture2D(tex, vUv); }');
+    gl.compileShader(fs);
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { fail('shader link failed: ' + gl.getProgramInfoLog(prog)); return; }
+    gl.useProgram(prog);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 0,0,  1,-1, 1,0,  -1,1, 0,1,  1,1, 1,1]), gl.STATIC_DRAW);
+    var pLoc = gl.getAttribLocation(prog, 'p');
+    var uvLoc = gl.getAttribLocation(prog, 'uv');
+    gl.enableVertexAttribArray(pLoc);
+    gl.enableVertexAttribArray(uvLoc);
+    gl.vertexAttribPointer(pLoc, 2, gl.FLOAT, false, 16, 0);
+    gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 16, 8);
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    try {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bmp);
+    } catch (e) {
+      fail('texImage2D threw (taint/CORS): ' + e.message);
+      return;
+    }
+    gl.clearColor(1, 0, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    var px = new Uint8Array(4);
+    gl.readPixels(128, 128, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    log('center pixel RGBA: ' + px[0] + ',' + px[1] + ',' + px[2] + ',' + px[3]);
+    if (px[0] === 255 && px[1] === 0 && px[2] === 255) { fail('quad is still clear color — texture did not draw'); return; }
+    pass();
+  }).catch(function (e) {
+    fail('fetch/bitmap threw: ' + e.message);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
-  "tip_height": 1623,
-  "tip_hash": "9370bd0baf8e3a2c5e7a46dfd62fafe5ab0955f07d061109c2c9b896c723eb29",
+  "tip_height": 1718,
+  "tip_hash": "af28c204c8f2553086e380dd99cce53340c98cd92b5c988812902db3eff72b9d",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
@@ -8,53 +8,53 @@
   "fusion_audit_height": 506,
   "finals": [
     {
-      "date": "2026-10-23",
-      "away": "DET",
-      "away_score": 128,
-      "home": "MIA",
-      "home_score": 111,
-      "event_id": "401909847"
+      "date": "2026-10-24",
+      "away": "MIL",
+      "away_score": 116,
+      "home": "PHI",
+      "home_score": 127,
+      "event_id": "401909855"
     },
     {
-      "date": "2026-10-23",
-      "away": "CHI",
-      "away_score": 132,
-      "home": "MIL",
-      "home_score": 125,
-      "event_id": "401909848"
+      "date": "2026-10-24",
+      "away": "HOU",
+      "away_score": 121,
+      "home": "ATL",
+      "home_score": 114,
+      "event_id": "401909856"
     },
     {
-      "date": "2026-10-23",
+      "date": "2026-10-24",
+      "away": "WSH",
+      "away_score": 124,
+      "home": "CHI",
+      "home_score": 120,
+      "event_id": "401909857"
+    },
+    {
+      "date": "2026-10-24",
+      "away": "SA",
+      "away_score": 122,
+      "home": "DAL",
+      "home_score": 106,
+      "event_id": "401909858"
+    },
+    {
+      "date": "2026-10-24",
       "away": "NO",
-      "away_score": 119,
-      "home": "UTAH",
-      "home_score": 120,
-      "event_id": "401909849"
+      "away_score": 135,
+      "home": "DEN",
+      "home_score": 141,
+      "event_id": "401909859"
     },
     {
-      "date": "2026-10-23",
-      "away": "MEM",
-      "away_score": 111,
-      "home": "GS",
-      "home_score": 108,
-      "event_id": "401909850"
-    },
-    {
-      "date": "2026-10-23",
-      "away": "LAC",
-      "away_score": 117,
-      "home": "LAL",
-      "home_score": 125,
-      "event_id": "401909851"
-    },
-    {
-      "date": "2026-10-23",
-      "away": "POR",
-      "away_score": 128,
-      "home": "SAC",
-      "home_score": 120,
-      "event_id": "401909852"
+      "date": "2026-10-24",
+      "away": "GS",
+      "away_score": 122,
+      "home": "PHX",
+      "home_score": 131,
+      "event_id": "401909860"
     }
   ],
-  "updated_at": "2026-10-24T22:32:04.446368+00:00"
+  "updated_at": "2026-10-25T11:58:32.857140+00:00"
 }

@@ -12924,6 +12924,14 @@ var BLOCK_DATA = [{
       }
     };
     document.addEventListener("keydown", function (e) {
+      /* Typing guard: a keystroke aimed at a form field is never the
+         game's. Without this, the first key typed into any field on
+         the page started a run — and start() offers fullscreen, which
+         tears focus out of the field (and drops the phone keyboard),
+         so only the first letter ever landed. Mirrors the guard the
+         other games' key handlers already carry. */
+      var tgt = e.target;
+      if (tgt && (tgt.tagName === "INPUT" || tgt.tagName === "TEXTAREA" || tgt.tagName === "SELECT")) return;
       if (window.__fusiSnakeMode === "3d") return;
       var d = KEYS[e.code];
       if (d) {
@@ -15979,6 +15987,8 @@ window.__fusiSnakeMode = "2d";
         }
       };
       document.addEventListener("keydown", function (e) {
+        var tgt = e.target;
+        if (tgt && (tgt.tagName === "INPUT" || tgt.tagName === "TEXTAREA" || tgt.tagName === "SELECT")) return;
         if (window.__fusiSnakeMode !== "3d") return;
         var d = KEYS[e.code];
         if (d) {

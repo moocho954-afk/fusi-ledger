@@ -1116,6 +1116,64 @@
       .route-intro .ri-name { font-family: Georgia, "Times New Roman", serif; font-size: clamp(25px, 6vw, 38px); letter-spacing: 3px; text-transform: uppercase; color: #ece5d0; margin-top: 12px; }
       .route-intro .ri-tag { color: #b9b096; font-size: 15.5px; margin-top: 7px; max-width: 480px; }
       @media (prefers-reduced-motion: reduce) { .route-intro { display: none !important; } }
+      /* ===== 2026-10-25 AUTO-ROTATE PASS — the page follows the phone.
+         Nothing on this page locks orientation: when the phone's own
+         auto-rotate setting is on, the browser turns the page and this
+         block lays it out for the short, wide landscape viewport
+         instead of squeezing the portrait page sideways. ===== */
+      @media (orientation: landscape) and (max-height: 560px) and (pointer: coarse) {
+        /* header + sections breathe less; the screen is short now */
+        header { padding-top: 22px; }
+        h1 { font-size: clamp(30px, 5.2vw, 40px); margin-top: 12px; }
+        section { margin-top: 34px; }
+        .stats { margin-top: 20px; }
+        /* four-across stats instead of the 2x2 portrait stack */
+        .stats { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .stat { padding: 12px 14px 10px; }
+        /* playable builds + marquee use the width */
+        .marquee-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .builder-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+        /* hub grids widen to match the landscape width */
+        .hub .stats { grid-template-columns: repeat(4, 1fr); }
+        .hub .houses { grid-template-columns: repeat(4, 1fr); }
+        .hub .house-coin { width: 84px; height: 84px; }
+        .hub .quest-list, .hub .rules, .hub .cards { grid-template-columns: 1fr 1fr; }
+        .hub .rarity-list { grid-template-columns: 1fr 1fr 1fr; }
+        .hub .house-totals { grid-template-columns: repeat(4, 1fr); }
+        .hub .listing-grid, .hub .form-grid { grid-template-columns: 1fr 1fr; }
+        .hub .gallery-grid { grid-template-columns: 1fr 1fr 1fr; }
+        .hub .hero h1 { font-size: var(--t-39); }
+        .hub .beat { margin-top: var(--s-8); }
+        /* arcade boards: cap each canvas by width so its natural
+           aspect keeps the whole playfield inside the short screen,
+           centered — Starlane is 3:2, Getaway is square, and the
+           canvas bitmap is never stretched, so touch mapping stays
+           exact */
+        .arcade canvas.arc-canvas { margin-left: auto; margin-right: auto; }
+        .arcade canvas#arc-sl-canvas { max-width: calc(62vh * 1.5); }
+        .arcade canvas#arc-gw-canvas { max-width: 62vh; }
+        /* tutorial videos stop eating the whole short screen */
+        .learn-slot video { max-height: 58vh; }
+        .ws-video { max-height: 62vh; width: auto; max-width: 100%; }
+        /* vault gate: coin art shrinks to the short screen */
+        .vg-stage { width: min(40vh, 300px); }
+        /* chain table: keep the real table in landscape — the width is
+           there; only the hash column wraps to stay inside it */
+        table.chain, table.chain tbody, table.chain tr, table.chain td { display: revert; width: auto; }
+        table.chain thead { display: table-header-group; }
+        table.chain tr { border: none; background: transparent; margin-bottom: 0; padding: 0; }
+        table.chain td {
+          border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+          background: var(--bg-raise); padding: 10px 10px;
+        }
+        table.chain td:first-child { border-left: 1px solid var(--line); }
+        table.chain td:last-child { border-right: 1px solid var(--line); }
+        td.num::before, td.hash::before, td.actor::before { content: none; }
+        td.hash { white-space: normal; word-break: break-all; }
+        td.exp-cell { position: static; width: 38px; text-align: right; }
+        table.chain tr.detail-row.open { display: table-row; }
+        table.chain tr.detail-row td { padding: 0 0 6px; border: none; background: transparent; }
+      }
     </style>
     <style data-hatch-cvm-bundle></style>
 </head>
@@ -17909,5 +17967,33 @@ window.__fusiSnakeMode = "2d";
     }, 2800);
   });
 })();</script>
+<script>
+/* ===== AUTO-ROTATE — the page follows the phone, never fights it =====
+   This page never locks orientation. If the phone's own auto-rotate
+   setting is on, the browser turns the page; this handler then makes
+   sure every viewport-sized piece (game canvases, overlays) refits to
+   the new shape the moment the turn lands. If auto-rotate is off on
+   the phone, nothing here overrides it — the page stays put, exactly
+   as the phone's owner chose. */
+(function () {
+  function refit() {
+    /* A synthetic resize wakes every resize-driven fit on the page
+       (snake board, widow canvas, fullscreen stages) for the new
+       viewport shape. */
+    try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+  }
+  function onTurn() {
+    /* Rotation settles in two beats: the event, then the final size a
+       frame later. Refit on both so nothing is left mid-turn. */
+    refit();
+    window.setTimeout(refit, 60);
+    window.setTimeout(refit, 300);
+  }
+  if (window.screen && screen.orientation && typeof screen.orientation.addEventListener === "function") {
+    screen.orientation.addEventListener("change", onTurn);
+  }
+  window.addEventListener("orientationchange", onTurn);
+})();
+</script>
 </body>
 </html>

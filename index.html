@@ -1175,6 +1175,42 @@
         table.chain tr.detail-row td { padding: 0 0 6px; border: none; background: transparent; }
       }
     </style>
+    <style>
+      /* ===== 2026-10-25 DESKTOP FIT + LEDGER WEB PASS — every game board
+         is capped by the screen's height as well as its width, so the
+         whole game fits the computer screen it is played on; THE LEDGER
+         (the chain page) hangs inside a real spider web, woven by the
+         script at the end of the body; every other page stays regular.
+         The page itself holds on desktop, phone portrait, and phone
+         landscape alike: nothing scrolls sideways, ever. ===== */
+      html, body { overflow-x: clip; }
+      img, video { max-width: 100%; }
+
+      /* --- games fit the screen: boards are sized by height too --- */
+      .arcade canvas#arc-sl-canvas { max-width: min(100%, 87vh); max-width: min(100%, 87dvh); margin-left: auto; margin-right: auto; }
+      .arcade canvas#arc-gw-canvas { max-width: min(100%, 58vh); max-width: min(100%, 58dvh); margin-left: auto; margin-right: auto; }
+      .fusi-stage3d { max-width: min(720px, 100%, 83vh) !important; max-width: min(720px, 100%, 83dvh) !important; }
+      /* phone landscape keeps the auto-rotate pass's tighter fit */
+      @media (orientation: landscape) and (max-height: 560px) and (pointer: coarse) {
+        .arcade canvas#arc-sl-canvas { max-width: calc(62vh * 1.5); }
+        .arcade canvas#arc-gw-canvas { max-width: 62vh; }
+      }
+
+      /* --- THE LEDGER hangs in the Widow's web --- */
+      #chain { position: relative; }
+      #chain .ledger-web { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+      #chain .ledger-web svg { display: block; width: 100%; height: 100%; }
+      #chain > *:not(.ledger-web) { position: relative; z-index: 1; }
+      /* the blocks hang in the web: cells go translucent so the silk
+         shows through the ledger instead of hiding behind it */
+      #chain table.chain td { background: rgba(22, 20, 16, 0.86); }
+      #chain table.chain tr:hover td { background: rgba(34, 29, 17, 0.92); }
+      #chain table.chain .head-row td { background: rgba(46, 38, 15, 0.9); }
+      @media (max-width: 720px) {
+        #chain table.chain tr { background: rgba(22, 20, 16, 0.88); }
+        #chain table.chain td { background: transparent; }
+      }
+    </style>
     <style data-hatch-cvm-bundle></style>
 </head>
   <body>
@@ -11942,10 +11978,28 @@ var BLOCK_DATA = [{
       e.stopPropagation();
       toggleFs();
     });
+    var fitKey = "";
     function fitCanvas() {
       if (!isFs()) {
-        if (canvas.style.width) __tunnel.setStyle(canvas, "width", "");
-        if (canvas.style.height) __tunnel.setStyle(canvas, "height", "");
+        /* Inline play: the whole board fits the screen. The board is
+           capped by the window's height as well as the column's width,
+           so a grown arena never runs off a desktop monitor — shrink
+           to fit, aspect always preserved, never stretched. */
+        var sw = stage.clientWidth || 0;
+        if (sw <= 0 || !canvas.width || !canvas.height) return;
+        var key = canvas.width + "x" + canvas.height + "|" + sw + "|" + window.innerWidth + "x" + window.innerHeight;
+        if (key === fitKey) return;
+        fitKey = key;
+        var budgetH = Math.max(200, Math.floor(window.innerHeight * 0.62) - (hud.offsetHeight || 40) - 10);
+        var sc = Math.min(sw / canvas.width, budgetH / canvas.height);
+        if (sc >= 0.999) {
+          if (canvas.style.width) __tunnel.setStyle(canvas, "width", "");
+          if (canvas.style.height) __tunnel.setStyle(canvas, "height", "");
+          return;
+        }
+        __tunnel.setStyle(canvas, "width", Math.max(50, Math.floor(canvas.width * sc)) + "px");
+        __tunnel.setStyle(canvas, "height", Math.max(50, Math.floor(canvas.height * sc)) + "px");
+        __tunnel.setStyle(canvas, "margin", "0 auto");
         return;
       }
       var aw = (stage.clientWidth || 0) - 16;
@@ -11966,7 +12020,7 @@ var BLOCK_DATA = [{
       fitCanvas();
     });
     window.addEventListener("resize", function () {
-      if (isFs()) fitCanvas();
+      fitCanvas();
     });
     function spawnSparkles(cx, cy, n, spread) {
       for (var i = 0; i < n; i++) {
@@ -12401,6 +12455,7 @@ var BLOCK_DATA = [{
         }
       }
       draw();
+      fitCanvas();
     }
     function start() {
       if (timer) return;
@@ -12433,6 +12488,7 @@ var BLOCK_DATA = [{
       }
       timer = setInterval(tick, tickMs);
       draw();
+      fitCanvas();
     }
     var KEYS = {
       ArrowUp: {
@@ -12507,6 +12563,7 @@ var BLOCK_DATA = [{
     });
     canvas.addEventListener("mousedown", start);
     draw();
+    fitCanvas();
   }
   window.mountFusiSnake = mountFusiSnake;
 })();
@@ -14053,18 +14110,35 @@ window.__fusiSnakeMode = "2d";
     m2d.hidden = is3d;
     m3d.hidden = !is3d;
     if (is3d && !mounted3d) {
-      mounted3d = true;
       var showFallback = function () {
+        mounted3d = false;
         __tunnel.setInnerHTML(m3d, "", "innerHTML");
         var msg = document.createElement("div");
         __tunnel.setStyle(msg, "cssText", "max-width:420px;margin:0 auto;text-align:center;color:#d4af37;" + "font-family:Georgia,serif;background:#0a0908;border:1px solid #3a352a;" + "border-radius:6px;padding:28px 18px;font-size:15px;line-height:1.5;");
         msg.textContent = "3D needs WebGL — this device can't render it. " + "The 2D serpent still plays on the ledger.";
         m3d.appendChild(msg);
       };
-      if (window.__fusiSnake3DLoad) {
-        window.__fusiSnake3DLoad().then(function (ok) {
-          if (ok && window.mountFusiSnake3D) mountFusiSnake3D("fusi-snake-3d-mount");else showFallback();
-        });
+      var tryMount = function () {
+        try {
+          mountFusiSnake3D("fusi-snake-3d-mount");
+          mounted3d = true;
+        } catch (e) {
+          showFallback();
+        }
+      };
+      __tunnel.setInnerHTML(m3d, "", "innerHTML");
+      var wait = document.createElement("div");
+      __tunnel.setStyle(wait, "cssText", "max-width:420px;margin:0 auto;text-align:center;color:#d4af37;" + "font-family:Georgia,serif;padding:28px 18px;font-size:15px;");
+      wait.textContent = "Raising the 3D serpent…";
+      m3d.appendChild(wait);
+      if (window.mountFusiSnake3D) tryMount();else if (window.__fusiSnake3DLoad) {
+        try {
+          window.__fusiSnake3DLoad().then(function (ok) {
+            if (ok && window.mountFusiSnake3D) tryMount();else showFallback();
+          }, showFallback);
+        } catch (e) {
+          showFallback();
+        }
       } else showFallback();
     }
   }
@@ -14077,16 +14151,43 @@ window.__fusiSnakeMode = "2d";
 })();
 ;
 (function () {
-  var THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+  var THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js";
   var loading = null;
   window.__fusiSnake3DLoad = function () {
     if (window.mountFusiSnake3D) return Promise.resolve(true);
+    if (window.THREE) {
+      try {
+        __fusiSnake3DInit(window.THREE);
+      } catch (e) {}
+      return Promise.resolve(!!window.mountFusiSnake3D);
+    }
     if (!loading) {
-      loading = __tunnel.import(THREE_URL).then(function (THREE) {
-        __fusiSnake3DInit(THREE);
-        return !!window.mountFusiSnake3D;
-      }).catch(function () {
-        return false;
+      loading = new Promise(function (resolve) {
+        var done = false;
+        var finish = function (ok) {
+          if (done) return;
+          done = true;
+          if (!ok) loading = null;
+          resolve(ok);
+        };
+        var s = document.createElement("script");
+        s.src = THREE_URL;
+        s.async = true;
+        s.onload = function () {
+          if (window.THREE) {
+            try {
+              __fusiSnake3DInit(window.THREE);
+            } catch (e) {}
+            finish(!!window.mountFusiSnake3D);
+          } else finish(false);
+        };
+        s.onerror = function () {
+          finish(false);
+        };
+        (document.head || document.documentElement).appendChild(s);
+        setTimeout(function () {
+          finish(!!window.mountFusiSnake3D);
+        }, 20000);
       });
     }
     return loading;
@@ -17993,6 +18094,132 @@ window.__fusiSnakeMode = "2d";
     screen.orientation.addEventListener("change", onTurn);
   }
   window.addEventListener("orientationchange", onTurn);
+})();
+</script>
+<script>
+/* ===== THE LEDGER HANGS IN THE WIDOW'S WEB =====
+   The chain page — and only the chain page — is woven into a real
+   spider web: radial strands run from a hub under the heading out to
+   every edge of the ledger, capture rings sag between them ring after
+   ring all the way down the chain, and the Widow sits on her hub.
+   Every other page stays regular: arrive at the ledger and you are in
+   the web, leave it and you are back out. The web is re-woven to the
+   ledger's exact measurements whenever the ledger changes size — a
+   block detail opens, the page turns, the window moves. */
+(function () {
+  var section = document.getElementById("chain");
+  if (!section) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var holder = document.createElement("div");
+  holder.className = "ledger-web";
+  holder.setAttribute("aria-hidden", "true");
+  section.insertBefore(holder, section.firstChild);
+  var svg = document.createElementNS(NS, "svg");
+  holder.appendChild(svg);
+  var lastW = 0, lastH = 0;
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e);
+    return e;
+  }
+  function rayRect(cx, cy, ang, w, h) {
+    var dx = Math.cos(ang), dy = Math.sin(ang), t = Infinity;
+    if (dx > 0.0001) t = Math.min(t, (w - cx) / dx);
+    else if (dx < -0.0001) t = Math.min(t, -cx / dx);
+    if (dy > 0.0001) t = Math.min(t, (h - cy) / dy);
+    else if (dy < -0.0001) t = Math.min(t, -cy / dy);
+    return t;
+  }
+  function build() {
+    var w = section.clientWidth, h = section.clientHeight;
+    if (w < 80 || h < 80) return;
+    if (w === lastW && h === lastH) return;
+    lastW = w; lastH = h;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    var defs = el("defs", {});
+    var grad = el("radialGradient", { id: "ledger-web-glow", cx: "50%", cy: "50%", r: "50%" }, defs);
+    el("stop", { offset: "0%", "stop-color": "rgba(212,175,55,0.14)" }, grad);
+    el("stop", { offset: "100%", "stop-color": "rgba(212,175,55,0)" }, grad);
+    var cx = Math.round(w / 2), cy = 92, i, j;
+    var SPOKES = 18, angs = [], ends = [], maxR = 0;
+    for (i = 0; i < SPOKES; i++) {
+      var a = (i / SPOKES) * Math.PI * 2 - Math.PI / 2 + (i % 2 ? 0.035 : -0.025);
+      angs.push(a);
+      ends.push(rayRect(cx, cy, a, w, h) * 1.03);
+      if (ends[i] > maxR) maxR = ends[i];
+    }
+    el("circle", { cx: cx, cy: cy, r: Math.min(340, maxR), fill: "url(#ledger-web-glow)" });
+    /* radial strands — hub to every edge of the ledger */
+    for (i = 0; i < SPOKES; i++) {
+      el("line", {
+        x1: cx, y1: cy,
+        x2: (cx + Math.cos(angs[i]) * ends[i]).toFixed(1),
+        y2: (cy + Math.sin(angs[i]) * ends[i]).toFixed(1),
+        stroke: "rgba(228,220,196,0.50)", "stroke-width": 1.1
+      });
+    }
+    /* capture rings — every segment sags toward the hub, the way silk does */
+    var r = 30, ring = 0;
+    while (r < maxR) {
+      var pts = [];
+      for (j = 0; j < SPOKES; j++) {
+        var rr = Math.min(r, ends[j]);
+        pts.push([cx + Math.cos(angs[j]) * rr, cy + Math.sin(angs[j]) * rr]);
+      }
+      var d = "";
+      for (j = 0; j < SPOKES; j++) {
+        var p1 = pts[j], p2 = pts[(j + 1) % SPOKES];
+        var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
+        var qx = cx + (mx - cx) * 0.86, qy = cy + (my - cy) * 0.86;
+        if (j === 0) d += "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1);
+        d += " Q" + qx.toFixed(1) + " " + qy.toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
+      }
+      el("path", {
+        d: d + " Z", fill: "none",
+        stroke: ring % 5 === 4 ? "rgba(212,175,55,0.34)" : "rgba(228,220,196,0.40)",
+        "stroke-width": 1
+      });
+      r += 34 + r * 0.055;
+      ring++;
+    }
+    el("circle", { cx: cx, cy: cy, r: 4, fill: "rgba(228,220,196,0.65)" });
+    /* the Widow on her hub — the same black widow that patrols the page */
+    var g = el("g", { transform: "translate(" + cx + " " + (cy + 4) + ")" });
+    for (var s = -1; s <= 1; s += 2) {
+      for (i = 0; i < 4; i++) {
+        el("path", {
+          d: "M" + (s * 3) + " " + (-2 + i * 2.6) +
+             " L" + (s * (11 + i * 1.5)) + " " + (-9 + i * 1.2) +
+             " L" + (s * (18 + i * 2.6)) + " " + (3 + i * 2.2),
+          fill: "none", stroke: "#35302a", "stroke-width": 2.1, "stroke-linecap": "round"
+        }, g);
+      }
+    }
+    el("ellipse", { cx: 0, cy: 16, rx: 10.5, ry: 13.5, fill: "#100e0b", stroke: "rgba(228,220,196,0.35)", "stroke-width": 0.8 }, g);
+    el("path", { d: "M0 22.5 L-3.6 15.8 L3.6 15.8 Z", fill: "#d21f2c" }, g);
+    el("path", { d: "M0 9.8 L-3 15.2 L3 15.2 Z", fill: "#d21f2c" }, g);
+    el("ellipse", { cx: 0, cy: 1, rx: 6.4, ry: 7.6, fill: "#171410" }, g);
+    el("circle", { cx: 0, cy: -6.5, r: 3.1, fill: "#000" }, g);
+  }
+  var timer = 0;
+  function schedule() {
+    if (timer) return;
+    timer = setTimeout(function () { timer = 0; build(); }, 180);
+  }
+  window.addEventListener("resize", schedule);
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(schedule).observe(section); } catch (e) {}
+  }
+  if (window.MutationObserver) {
+    try {
+      new MutationObserver(schedule).observe(document.body, { attributes: true, attributeFilter: ["data-route"] });
+    } catch (e) {}
+  }
+  build();
+  setTimeout(build, 600);
 })();
 </script>
 </body>

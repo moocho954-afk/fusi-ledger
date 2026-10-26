@@ -1072,6 +1072,51 @@
       .idp-restore { border-top: 1px solid #3a352a; margin-top: 14px; padding-top: 6px; }
       .idp-privacy { margin-top: 12px; }
     </style>
+    <style>
+      /* ===== 2026-10-25 FIELD + NAV PASS — keyboard-safe fields, sticky
+         category bar, vault-gate scroll fix, themed sub-page intros ===== */
+      /* The gate overlay scrolls itself, so a phone keyboard can always
+         lift the focused name field into view instead of dropping it. */
+      .vg.vg-on { overflow-x: hidden; overflow-y: auto; justify-content: flex-start; }
+      .vg-stage { margin-top: auto; }
+      .vg-panel { margin-bottom: auto; }
+      /* Category bar: pinned to the top, one tap to any sub-page from
+         anywhere on the ledger — no scrolling back up to navigate. */
+      .page-nav { position: sticky; top: 0; z-index: 90; box-shadow: 0 12px 26px rgba(0, 0, 0, .5); }
+      .page-nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 12px; }
+      .page-nav .pn-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--slate, #9a958a); padding: 0 6px 0 2px; }
+      /* Touch devices: text fields never render under 16px — smaller
+         fields make phone browsers auto-zoom and drop the keyboard. */
+      @media (pointer: coarse) {
+        .hub input[type="text"], .hub input[type="email"], .hub input:not([type]),
+        .hub textarea, .hub select,
+        #fusi-player-name-input,
+        #creator-workshop input, #creator-workshop textarea,
+        #the-forge input, #the-forge textarea { font-size: 16px !important; }
+      }
+      /* Sub-page intro — the vault doors part on the destination's sigil,
+         then the page is simply there. Tap-through, brief, skippable by
+         reduced-motion. */
+      .route-intro { position: fixed; inset: 0; z-index: 99980; pointer-events: none; visibility: hidden; overflow: hidden; }
+      .route-intro.on { visibility: visible; }
+      .route-intro .ri-door { position: absolute; top: 0; bottom: 0; width: 50.5%; background: linear-gradient(180deg, #171410 0%, #0a0908 60%, #060505 100%); }
+      .route-intro .ri-door-l { left: 0; border-right: 1px solid rgba(212, 175, 55, .55); }
+      .route-intro .ri-door-r { right: 0; border-left: 1px solid rgba(212, 175, 55, .55); }
+      .route-intro.on .ri-door-l { animation: ri-open-l .95s cubic-bezier(.72, 0, .3, 1) forwards; }
+      .route-intro.on .ri-door-r { animation: ri-open-r .95s cubic-bezier(.72, 0, .3, 1) forwards; }
+      @keyframes ri-open-l { 0%, 30% { transform: translateX(0); } 100% { transform: translateX(-103%); } }
+      @keyframes ri-open-r { 0%, 30% { transform: translateX(0); } 100% { transform: translateX(103%); } }
+      .route-intro .ri-core {
+        position: absolute; inset: 0; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; text-align: center; padding: 0 22px;
+      }
+      .route-intro.on .ri-core { animation: ri-core .95s ease forwards; }
+      @keyframes ri-core { 0% { opacity: 0; transform: scale(.93); } 16% { opacity: 1; transform: scale(1); } 58% { opacity: 1; } 100% { opacity: 0; transform: scale(1.05); } }
+      .route-intro .ri-glyph { font-size: 62px; line-height: 1; color: #d4af37; text-shadow: 0 0 32px rgba(212, 175, 55, .65); }
+      .route-intro .ri-name { font-family: Georgia, "Times New Roman", serif; font-size: clamp(25px, 6vw, 38px); letter-spacing: 3px; text-transform: uppercase; color: #ece5d0; margin-top: 12px; }
+      .route-intro .ri-tag { color: #b9b096; font-size: 15.5px; margin-top: 7px; max-width: 480px; }
+      @media (prefers-reduced-motion: reduce) { .route-intro { display: none !important; } }
+    </style>
     <style data-hatch-cvm-bundle></style>
 </head>
   <body>
@@ -16323,6 +16368,9 @@ window.__fusiSnakeMode = "2d";
     lockScroll(false);
     if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
     gate = null;
+    try {
+      window.dispatchEvent(new CustomEvent("fusi-vault-entered"));
+    } catch (e) {}
   }
   function admit(name, cinematic) {
     if (entered) return;
@@ -16340,7 +16388,18 @@ window.__fusiSnakeMode = "2d";
       startDwell(name);
     }, 1150);
     setTimeout(function () {
-      if (gate) gate.classList.add("vg-flying");
+      if (!gate) return;
+      gate.classList.add("vg-flying");
+      try {
+        var stEl = gate.querySelector(".vg-stage");
+        var sr = stEl ? stEl.getBoundingClientRect() : null;
+        window.dispatchEvent(new CustomEvent("fusi-vault-flight", {
+          detail: {
+            x: sr ? sr.left + sr.width / 2 : window.innerWidth / 2,
+            y: sr ? sr.top + sr.height / 2 : window.innerHeight / 2
+          }
+        }));
+      } catch (e) {}
     }, 1750);
     setTimeout(function () {
       if (gate) gate.classList.add("vg-granted-on");
@@ -16389,16 +16448,36 @@ window.__fusiSnakeMode = "2d";
       gate.hidden = false;
       gate.classList.add("vg-on");
       lockScroll(true);
-      if (nameInput && !reduced) {
+      var finePointer = false;
+      try {
+        finePointer = !!(window.matchMedia && window.matchMedia("(pointer: fine)").matches);
+      } catch (e) {}
+      if (nameInput && !reduced && finePointer) {
         try {
           nameInput.focus({
             preventScroll: true
           });
         } catch (e) {}
       }
-      setTimeout(function () {
-        if (!entered) admit(savedName(), false);
-      }, 60000);
+      var idleTimer = null;
+      function armIdle() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () {
+          if (entered) return;
+          if (document.activeElement === nameInput) {
+            armIdle();
+            return;
+          }
+          if (nameInput && nameInput.value.trim()) {
+            armIdle();
+            return;
+          }
+          admit(savedName(), false);
+        }, 60000);
+      }
+      gate.addEventListener("input", armIdle);
+      gate.addEventListener("focusin", armIdle);
+      armIdle();
     } else {
       startDwell(savedName());
     }
@@ -16530,6 +16609,8 @@ window.__fusiSnakeMode = "2d";
     __tunnel.setInnerHTML(band, '<span class="sb-num">' + pg.label + "</span>" + '<span class="sb-title">' + pg.title + "</span>" + '<span class="sb-tag">FUSIÓN-7 · Live Ledger</span>', "innerHTML");
     pg.el.insertBefore(band, pg.el.firstChild);
   });
+  var vgSec = $("vault-gallery");
+  if (vgSec) __tunnel.setAttr(vgSec, "data-pg", "coin");
   ["hub-pools", "c4-decision-panel", "c2-trace-panel", "panel-pool-boards"].forEach(function (id) {
     var el = $(id);
     if (el) el.classList.add("subsheet");
@@ -16564,7 +16645,7 @@ window.__fusiSnakeMode = "2d";
   var nav = document.createElement("nav");
   nav.className = "page-nav";
   __tunnel.setAttr(nav, "aria-label", "Ledger pages");
-  __tunnel.setInnerHTML(nav, ORDER.map(function (r) {
+  __tunnel.setInnerHTML(nav, '<span class="pn-label" aria-hidden="true">Go to</span>' + ORDER.map(function (r) {
     return '<a href="#/' + r + '" data-nav="' + r + '">' + NAMES[r] + "</a>";
   }).join(""), "innerHTML");
   wrap.insertBefore(nav, hub);
@@ -16620,6 +16701,48 @@ window.__fusiSnakeMode = "2d";
       anchor: id
     };
   }
+  var THEMES = {
+    home: { g: "△", tag: "The chain, live — every page starts here." },
+    play: { g: "▲", tag: "Into the Forge — the games, fullscreen." },
+    earn: { g: "○", tag: "Verified play turns into FUSI." },
+    coin: { g: "◇", tag: "One-of-one coins, and the Vault Gallery." },
+    wallet: { g: "□", tag: "Your name, your wallet, your coins." },
+    market: { g: "◆", tag: "The declared market — listings and bids." },
+    explore: { g: "✦", tag: "The rules of the house, in the open." },
+    workshop: { g: "⬡", tag: "Build a coin of your own." },
+    chain: { g: "≡", tag: "Every block, newest first — genesis at the bottom." },
+    ais: { g: "AI", tag: "For the machines reading along." },
+    humans: { g: "◎", tag: "What all of this is, in plain words." }
+  };
+  var introEl = document.createElement("div");
+  introEl.className = "route-intro";
+  __tunnel.setAttr(introEl, "aria-hidden", "true");
+  __tunnel.setInnerHTML(introEl, '<div class="ri-door ri-door-l"></div><div class="ri-door ri-door-r"></div>' + '<div class="ri-core"><div class="ri-glyph"></div><div class="ri-name"></div><div class="ri-tag"></div></div>', "innerHTML");
+  document.body.appendChild(introEl);
+  var introTimer = null;
+  function playIntro(route) {
+    if (reducedMotion()) return;
+    var th = THEMES[route];
+    if (!th) return;
+    introEl.querySelector(".ri-glyph").textContent = th.g;
+    introEl.querySelector(".ri-name").textContent = NAMES[route] || "";
+    introEl.querySelector(".ri-tag").textContent = th.tag;
+    introEl.classList.remove("on");
+    void introEl.offsetWidth;
+    introEl.classList.add("on");
+    if (introTimer) clearTimeout(introTimer);
+    introTimer = setTimeout(function () {
+      introEl.classList.remove("on");
+    }, 1020);
+  }
+  function reducedMotion() {
+    try {
+      return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    } catch (e) {
+      return false;
+    }
+  }
+  var lastRoute = null;
   function applyRoute(res) {
     var route = res.route;
     __tunnel.setAttr(document.body, "data-route", route);
@@ -16650,6 +16773,8 @@ window.__fusiSnakeMode = "2d";
     }
     document.title = route === "home" ? "FUSIÓN-7 — Live Ledger" : "FUSIÓN-7 — " + NAMES[route];
     __tunnel.setAttr(document.body, "data-ledger-layout", "sub-pages");
+    if (lastRoute !== null && lastRoute !== route) playIntro(route);
+    lastRoute = route;
     var target = res.anchor ? $(res.anchor) : null;
     function land() {
       if (target && target.scrollIntoView) target.scrollIntoView();else window.scrollTo(0, 0);
@@ -16669,6 +16794,24 @@ window.__fusiSnakeMode = "2d";
       ev.preventDefault();
       applyRoute(resolveHash());
     }
+  });
+  var guardArmed = false;
+  function armGuard() {
+    if (guardArmed) return;
+    guardArmed = true;
+    try {
+      history.pushState({
+        fusiGuard: 1
+      }, "", location.href);
+    } catch (e) {}
+  }
+  window.addEventListener("fusi-vault-entered", armGuard);
+  document.addEventListener("focusin", function (ev) {
+    var t = ev.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")) armGuard();
+  });
+  window.addEventListener("popstate", function () {
+    if (guardArmed) guardArmed = false;
   });
   applyRoute(resolveHash());
 })();
@@ -16712,6 +16855,20 @@ window.__fusiSnakeMode = "2d";
     var stateEl = $("idp-state"),
       body = $("idp-body");
     if (!stateEl || !body) return;
+    var ae = document.activeElement;
+    var keep = null;
+    if (ae && body.contains(ae) && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA") && ae.id) {
+      keep = {
+        id: ae.id,
+        v: ae.value,
+        s: null,
+        e: null
+      };
+      try {
+        keep.s = ae.selectionStart;
+        keep.e = ae.selectionEnd;
+      } catch (err0) {}
+    }
     var g = FI.get();
     var st = FI.stats();
     var h = "";
@@ -16737,6 +16894,24 @@ window.__fusiSnakeMode = "2d";
       h += '<p class="note-plain">Type your name at the vault door when you enter, and this phone will remember it — ' + "every form on the page fills itself in from then on. When you are ready, come back here and lock the name " + "to your email so it is provably yours, with a username the world knows you by.</p>";
     }
     __tunnel.setInnerHTML(body, h, "innerHTML");
+    if (keep) {
+      var nx = $(keep.id);
+      if (nx) {
+        if (nx.value !== keep.v) nx.value = keep.v;
+        try {
+          nx.focus({
+            preventScroll: true
+          });
+        } catch (err1) {
+          try {
+            nx.focus();
+          } catch (err2) {}
+        }
+        try {
+          if (keep.s !== null && keep.s !== undefined) nx.setSelectionRange(keep.s, keep.e);
+        } catch (err3) {}
+      }
+    }
     wire();
   }
   function wire() {
@@ -16962,7 +17137,13 @@ window.__fusiSnakeMode = "2d";
     portalTgt: false,
     peerT: 0,
     headT: 0,
-    seenHead: null
+    seenHead: null,
+    scale: 1,
+    alpha: 1,
+    suckT: 0,
+    suckFrom: null,
+    suckTo: null,
+    land: false
   };
   var anchors = [];
   var trail = [];
@@ -17050,7 +17231,9 @@ window.__fusiSnakeMode = "2d";
   }
   function drawWidow(now) {
     ctx.save();
+    ctx.globalAlpha = S.alpha;
     ctx.translate(S.x, S.y);
+    ctx.scale(S.scale, S.scale);
     ctx.rotate(S.ang + Math.PI / 2);
     var moving = S.mode === 'crawl';
     if (moving) S.legPhase += 0.22;
@@ -17151,6 +17334,31 @@ window.__fusiSnakeMode = "2d";
         }
       }
     }
+    if (S.mode === 'suck') {
+      S.suckT += dt;
+      var st = Math.min(1, S.suckT / 1350),
+        se = st * st * (3 - 2 * st),
+        scx = S.suckTo.x,
+        scy = S.suckTo.y,
+        srx = (S.suckFrom.x - scx) * (1 - se),
+        sry = (S.suckFrom.y - scy) * (1 - se),
+        sang = st * 5.4,
+        sca = Math.cos(sang),
+        ssa = Math.sin(sang);
+      S.x = scx + srx * sca - sry * ssa;
+      S.y = scy + srx * ssa + sry * sca;
+      S.ang += 0.33;
+      S.scale = 1 - se * 0.88;
+      S.alpha = 1 - se * 0.5;
+      drawWidow(now);
+      if (st >= 1) S.mode = 'gone';
+      requestAnimationFrame(frame);
+      return;
+    }
+    if (S.mode === 'gone') {
+      requestAnimationFrame(frame);
+      return;
+    }
     if (S.mode === 'hang') {
       ctx.beginPath();
       ctx.moveTo(S.x, 0);
@@ -17160,6 +17368,18 @@ window.__fusiSnakeMode = "2d";
       ctx.stroke();
       S.hangT += dt;
       var target = S.hangY;
+      if (S.land && S.hangT > 700 && Math.abs(S.y - target) < 16) {
+        S.land = false;
+        S.mode = 'crawl';
+        S.hangT = 0;
+        var lt = pickTarget();
+        S.tx = lt.x;
+        S.ty = lt.y;
+        nextPick = now + 14000 + Math.random() * 12000;
+        drawWidow(now);
+        requestAnimationFrame(frame);
+        return;
+      }
       if (S.hangT < 2600) S.y += (target - S.y) * 0.03 + 0.4;else if (S.hangT > 4200) {
         S.y -= 1.6;
         if (S.y <= 46) {
@@ -17220,6 +17440,33 @@ window.__fusiSnakeMode = "2d";
     drawWidow(now);
     requestAnimationFrame(frame);
   }
+  window.addEventListener('fusi-vault-flight', function (ev) {
+    if (reduced) return;
+    var d = ev && ev.detail || {};
+    S.suckFrom = {
+      x: S.x,
+      y: S.y
+    };
+    S.suckTo = {
+      x: typeof d.x === 'number' ? d.x : W / 2,
+      y: typeof d.y === 'number' ? d.y : H / 2
+    };
+    S.suckT = 0;
+    S.mode = 'suck';
+    weaveTo(S.suckTo.x, S.suckTo.y);
+  });
+  window.addEventListener('fusi-vault-entered', function () {
+    if (reduced) return;
+    if (S.mode !== 'gone' && S.mode !== 'suck') return;
+    S.mode = 'hang';
+    S.land = true;
+    S.hangT = 0;
+    S.scale = 1;
+    S.alpha = 1;
+    S.x = Math.max(30, Math.min(W - 30, S.suckTo ? S.suckTo.x : W / 2));
+    S.y = 8;
+    S.hangY = 120 + Math.random() * (H * 0.25);
+  });
   var t0 = pickTarget();
   S.tx = t0.x;
   S.ty = t0.y;

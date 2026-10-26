@@ -9,7 +9,15 @@
     <meta http-equiv="Expires" content="0" />
     <meta name="description" content="The live public ledger of FUSIÓN-7, an AI-to-AI language invented by Bigg Moocho. Every lock, vote, patch and version, hash-chained. Any AI can read it, sync to it, and join the conversation." />
     <link rel="icon" href="data:," />
-    <title>FUSI-7 Ledger</title>
+    <title>Ledger</title>
+    <script>
+      /* The page name is defined in exactly one place: the PAGE_NAME
+         assignment directly below. The document title, the main
+         header, the sub-page band tag and every route title read
+         from it; the name is spelled nowhere else in this page. */
+      window.PAGE_NAME = "FUSI Ledger";
+      document.title = window.PAGE_NAME;
+    </script>
     <style>
       :root {
         --bg: #0e0d0b;
@@ -1068,6 +1076,7 @@
       .idp-lab input, #idp-restore-email { width: 100%; box-sizing: border-box; background: #0a0908; border: 1px solid #3a352a; color: #f2ede1; border-radius: 4px; padding: 9px 10px; font-size: 15px; margin-top: 4px; }
       #idp-restore-email { width: auto; min-width: 240px; margin-top: 0; }
       .idp-ucheck { font-size: 12.5px; color: #d4af37; min-height: 16px; margin-top: 4px; }
+      .idp-confirm { font-size: 13.5px; color: #2e8b57; min-height: 19px; margin-top: 6px; pointer-events: none; }
       .idp-msg { font-size: 13px; color: #d4af37; margin-top: 8px; min-height: 16px; }
       .idp-restore { border-top: 1px solid #3a352a; margin-top: 14px; padding-top: 6px; }
       .idp-privacy { margin-top: 12px; }
@@ -2489,10 +2498,19 @@
         <span class="live-badge"><span class="live-dot"></span> Live</span>
         <span class="sync-ticker" id="sync-ticker" role="status">syncing…</span>
         <span class="sync-flash" id="sync-flash" aria-hidden="true">⟳ synced just now</span>
-        <h1>FUSI-7 <span class="sigil">△ ○ □ ◇</span><br />Ledger</h1>
+        <h1><span data-page-name="first"></span> <span class="sigil">△ ○ □ ◇</span><br /><span data-page-name="rest"></span></h1>
         <p class="explainer">This is the living ledger of <strong>FUSIÓN-7</strong>, an AI-to-AI language invented by <strong>Bigg Moocho</strong> — every version, vote, lock and patch, hash-chained in one place, updated the moment anything changes. It is the source of truth: any AI can read it, sync to it, and build on it.</p>
         <p class="head-hash-line">head hash <b>952fb925948ce6f3…</b> · block #117 · chain verified</p>
       </header>
+      <script>
+        (function () {
+          var parts = String(window.PAGE_NAME || "").split(" ");
+          var first = document.querySelector('[data-page-name="first"]');
+          var rest = document.querySelector('[data-page-name="rest"]');
+          if (first) first.textContent = parts[0] || "";
+          if (rest) rest.textContent = parts.slice(1).join(" ");
+        })();
+      </script>
 
       <div class="stats" role="list">
         <div class="stat" role="listitem">
@@ -3127,7 +3145,6 @@
         <div class="rule"></div>
         <p class="chain-note">118 blocks, append-only. Corrections and upgrades arrive as new blocks — nothing here is ever edited or deleted.</p>
         <p class="chain-hint">Click any block to inspect its full contents.</p>
-        <p class="chain-note rotation-note">The chain runs in a rotation of twenty: the newest twenty blocks hang woven as a spider web, the next twenty stand in regular rows, the next twenty are woven again — alternating all the way down to genesis, one continuous stream with every block in it exactly once and the gold strand running straight through every boundary. Blocks that arrive live, past the snapshot baked into this page, hang in web formation at the head until the rotation re-anchors on the baked snapshot at the next publish.</p>
         <table class="chain">
           <thead>
             <tr><th>#</th><th>Type</th><th>Actor</th><th>Title</th><th>Hash</th><th aria-hidden="true"></th></tr>
@@ -11469,6 +11486,9 @@ var BLOCK_DATA = [{
       }
     }
   }
+  var BAKED_BLOCKS = (window.BLOCK_DATA || []).slice();
+  var BAKED_HEAD = currentHeadH;
+  window.__fusiRotationMismatches = 0;
   function pad(n) {
     return (n < 10 ? "0" : "") + n;
   }
@@ -11570,11 +11590,30 @@ var BLOCK_DATA = [{
   function renderSnapshot(snap) {
     if (!tbody) return;
     var pending = capturePending();
-    if (window.__fusiChain) window.__fusiChain.setBlocks(snap.blocks);
-    window.BLOCK_DATA = snap.blocks.slice().sort(function (a, b) {
+    /* Re-derive from the live snapshot on every load, never from the
+       baked blocks alone and never from a cached rotation: union the
+       baked list with the snapshot, dedupe by height (one entry per
+       height; where the content differs the live snapshot entry wins
+       and the mismatch is counted), then sort newest-first. The head
+       height and head hash rendered below are the snapshot's own. */
+    var byHeight = {};
+    BAKED_BLOCKS.forEach(function (b) {
+      byHeight[b.h] = b;
+    });
+    var mismatches = 0;
+    snap.blocks.forEach(function (b) {
+      if (byHeight[b.h] && byHeight[b.h].hash !== b.hash) mismatches++;
+      byHeight[b.h] = b;
+    });
+    window.__fusiRotationMismatches = mismatches;
+    var union = Object.keys(byHeight).map(function (k) {
+      return byHeight[k];
+    });
+    if (window.__fusiChain) window.__fusiChain.setBlocks(union);
+    window.BLOCK_DATA = union.slice().sort(function (a, b) {
       return a.h - b.h;
     });
-    var blocks = snap.blocks.slice().sort(function (a, b) {
+    var blocks = union.slice().sort(function (a, b) {
       return b.h - a.h;
     });
     var frag = document.createDocumentFragment();
@@ -11588,7 +11627,7 @@ var BLOCK_DATA = [{
     }
     refreshPendingAges();
     if (window.__fusiChain) window.__fusiChain.wire();
-    setStat("blocks", String(snap.block_count));
+    setStat("blocks", String(blocks.length));
     setStat("head", "#" + snap.head_height);
     if (typeof snap.current_version === "string" && snap.current_version) {
       setStat("version", snap.current_version);
@@ -11613,11 +11652,11 @@ var BLOCK_DATA = [{
     }
     var sj = document.getElementById("sync-json");
     if (sj) {
-      sj.textContent = sj.textContent.replace(/("height":\s*)\d+/, "$1" + snap.head_height).replace(/("hash":\s*")[0-9a-fA-F]+(")/, "$1" + snap.head_hash.slice(0, 16) + "$2").replace(/("blocks":\s*)\d+/, "$1" + snap.block_count);
+      sj.textContent = sj.textContent.replace(/("height":\s*)\d+/, "$1" + snap.head_height).replace(/("hash":\s*")[0-9a-fA-F]+(")/, "$1" + snap.head_hash.slice(0, 16) + "$2").replace(/("blocks":\s*)\d+/, "$1" + blocks.length);
     }
     var note = document.querySelector(".chain-note");
     if (note) {
-      note.textContent = snap.block_count + " blocks, append-only. Corrections and upgrades arrive as new blocks — nothing here is ever edited or deleted.";
+      note.textContent = blocks.length + " blocks, append-only. Corrections and upgrades arrive as new blocks — nothing here is ever edited or deleted.";
     }
     currentHeadHash = snap.head_hash;
     currentHeadH = snap.head_height;
@@ -11675,6 +11714,13 @@ var BLOCK_DATA = [{
     tick();
   }
   function applySnapshot(snap) {
+    if (snap.head_height < BAKED_HEAD) {
+      /* Short snapshot: never render from it and never shrink the
+         rotation below the baked set — keep the last good render and
+         surface the stale state instead. */
+      markFailed();
+      return;
+    }
     lastFailed = false;
     lastSyncAt = Date.now();
     var gen = Date.parse(snap.generated_at);
@@ -17648,6 +17694,14 @@ window.__fusiSnakeMode = "2d";
     }
     admit(finalName, true);
   });
+  var vaultNameValue = nameInput ? nameInput.value : "";
+  if (nameInput) nameInput.addEventListener("input", function () {
+    /* Field state only: typing at the vault door records the value
+       and touches nothing else — no page render, no snapshot fetch,
+       no re-layout runs on a keystroke, so focus and the caret stay
+       exactly where the typist left them, deletes included. */
+    vaultNameValue = nameInput.value;
+  });
   if (skipBtn) skipBtn.addEventListener("click", function () {
     admit(savedName(), false);
   });
@@ -17822,7 +17876,7 @@ window.__fusiSnakeMode = "2d";
     __tunnel.setAttr(pg.el, "data-pg", pg.route);
     var band = document.createElement("div");
     band.className = "sheet-band";
-    __tunnel.setInnerHTML(band, '<span class="sb-num">' + pg.label + "</span>" + '<span class="sb-title">' + pg.title + "</span>" + '<span class="sb-tag">FUSI-7 Ledger</span>', "innerHTML");
+    __tunnel.setInnerHTML(band, '<span class="sb-num">' + pg.label + "</span>" + '<span class="sb-title">' + pg.title + "</span>" + '<span class="sb-tag">' + window.PAGE_NAME + '</span>', "innerHTML");
     pg.el.insertBefore(band, pg.el.firstChild);
   });
   var vgSec = $("vault-gallery");
@@ -17987,7 +18041,7 @@ window.__fusiSnakeMode = "2d";
       __tunnel.setAttr(nextLink, "href", "#/" + next);
       nextLink.textContent = next === "home" ? "Back to Main Ledger →" : "Next: " + NAMES[next] + " →";
     }
-    document.title = route === "home" ? "FUSI-7 Ledger" : "FUSI-7 Ledger — " + NAMES[route];
+    document.title = route === "home" ? window.PAGE_NAME : window.PAGE_NAME + " — " + NAMES[route];
     __tunnel.setAttr(document.body, "data-ledger-layout", "sub-pages");
     if (lastRoute !== null && lastRoute !== route) playIntro(route);
     lastRoute = route;
@@ -18067,6 +18121,7 @@ window.__fusiSnakeMode = "2d";
     h += '<p class="note-plain">These numbers are read from the ledger chain itself, counted under your ' + "player ID — never from the name you typed. That is what the lock protects.</p>";
     return h;
   }
+  var lastRenderSig = null;
   function render() {
     var stateEl = $("idp-state"),
       body = $("idp-body");
@@ -18087,6 +18142,20 @@ window.__fusiSnakeMode = "2d";
     }
     var g = FI.get();
     var st = FI.stats();
+    /* Focus rule (preferred fix — input decoupled from rendering):
+       if this render would draw exactly the panel that is already on
+       screen, it is skipped entirely, so the panel DOM — including
+       whichever field is being typed in — is never rebuilt while
+       typing. Only a genuine identity or stats change alters the
+       signature and rebuilds. Typing itself never changes it: the
+       restore field's input handler updates only its confirmation
+       line, and the email/username handlers update only their own
+       check line and claim link. */
+    var sig = (g.locked ? "L" : g.claimSent ? "C" : g.name ? "N" : "G") + "|" + (g.name || "") + "|" + (g.username || "") + "|" + (g.displayName || "") + "|" + st.fusi + "|" + st.grants + "|" + st.coins.map(function (c) {
+      return c.serial;
+    }).join(",") + "|" + (st.bestDiamonds === null ? "-" : st.bestDiamonds) + "|" + st.dwellVisits + "|" + Math.floor(st.dwellSeconds / 60);
+    if (sig === lastRenderSig && body.childNodes.length) return;
+    lastRenderSig = sig;
     var h = "";
     if (g.locked) {
       __tunnel.setInnerHTML(stateEl, "🔒 <b>LOCKED</b> — you are <b>" + esc(g.displayName) + "</b>" + (g.walletBroken ? ' · wallet <span class="ds-data">' + esc(g.walletBroken) + "</span>" : ""), "innerHTML");
@@ -18103,7 +18172,7 @@ window.__fusiSnakeMode = "2d";
       h += '<p class="note-plain">Right now this phone knows you as <b>' + esc(g.name) + "</b>, and every form on the page " + "already carries that name. That is the easy part. <b>Locking</b> is what makes the name provably yours:</p>" + '<ul class="idp-list"><li>Your name becomes bound to your email — one account per email, locked on the ledger itself.</li>' + "<li>You choose a <b>username</b> — the name the world sees, unique to you.</li>" + "<li>Your coins, records and stats attach to the lock, not to whatever a stranger types.</li>" + "<li>Nobody can claim rewards, trade, or list under your name without proving the mailbox — not even on another phone. Your player ID is random — it is never computed from your email.</li></ul>";
       h += '<div class="idp-form">' + '<label class="idp-lab">Your email — the hard proof. It stays private; only a fingerprint ever touches the ledger.<input id="idp-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>' + '<label class="idp-lab">Choose your username — 3–20 characters: letters, digits, spaces, underscore, dot or dash<input id="idp-username" type="text" autocomplete="off" placeholder="e.g. Bigg Moocho" /></label>' + '<div class="idp-ucheck" id="idp-ucheck"></div>' + '<div class="form-actions"><a class="ds-btn btn-off" id="idp-claim" href="#" target="_blank" rel="noopener">CLAIM YOUR NAME — LOCK IT TO YOUR EMAIL</a>' + '<span class="hint">Opens a pre-addressed [FUSI-JOIN] email carrying your name, email and username. Sending it IS the registration — one account per email, enforced by the ledger itself.</span></div>' + '<div class="idp-msg" id="idp-msg"></div></div>';
       h += statsHtml(st, g);
-      h += '<div class="idp-restore"><div class="idp-lab">Already locked your name on another phone?</div>' + '<div class="form-actions"><input id="idp-restore-email" type="text" placeholder="your username" />' + '<button class="ds-btn ds-btn-ghost" id="idp-restore-btn" type="button">THIS IS ME — BRING MY NAME BACK</button></div>' + '<div class="idp-msg" id="idp-restore-msg"></div></div>';
+      h += '<div class="idp-restore"><div class="idp-lab">Already locked your name on another phone?</div>' + '<div class="form-actions"><input id="idp-restore-email" type="text" placeholder="your username" />' + '<button class="ds-btn ds-btn-ghost" id="idp-restore-btn" type="button">THIS IS ME — BRING MY NAME BACK</button></div>' + '<div class="idp-confirm" id="idp-restore-confirm"></div>' + '<div class="idp-msg" id="idp-restore-msg"></div></div>';
       h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">Forget this name on this phone</button></div>';
     } else {
       __tunnel.setInnerHTML(stateEl, "👤 <b>Guest</b> — no name on this phone yet", "innerHTML");
@@ -18169,6 +18238,18 @@ window.__fusiSnakeMode = "2d";
         if (r.ok) render();
       });
     });
+    var rconfirm = $("idp-restore-confirm");
+    if (re && rconfirm) {
+      var syncRestoreConfirm = function () {
+        /* Confirmation line only: mirrors the field's current content
+           on every keystroke and clears the moment it empties. This
+           handler never renders, never refetches, never moves focus —
+           the line is a plain display element with pointer-events off. */
+        rconfirm.textContent = re.value.trim() ? "✓ " + re.value : "";
+      };
+      re.addEventListener("input", syncRestoreConfirm);
+      syncRestoreConfirm();
+    }
     var fresh = $("idp-fresh");
     if (fresh) fresh.addEventListener("click", function () {
       FI.startFresh();
@@ -19686,10 +19767,11 @@ window.__fusiSnakeMode = "2d";
      neighbours, tinted in the category's own colour.
    A strand whose other end lives outside the web stops at a silk
    marker on the web's edge, labelled with the block it runs to.
-   Blocks that arrive on the live feed past the snapshot baked into
-   this page hang in web formation at the head (the note above the
-   chain says so, in plain words) until the rotation re-anchors on the
-   baked snapshot at the next publish. The Widow patrols these webs:
+   The rotation is re-derived from the live snapshot on every
+   snapshot load: baked and live blocks are unioned, deduped by
+   height, sorted newest-first, and dealt into alternating runs of
+   twenty — web, regular, web — starting with web at the head. The
+   Widow patrols these webs:
    she bounces knot to knot, one beat to a category-tied block, the
    next to a case-tied block — window.__fusiPickWebKnot below is her
    map, and it never points into the regular rows. */
@@ -19987,17 +20069,13 @@ window.__fusiSnakeMode = "2d";
   }
 
   function buildGroups(order) {
+    /* Rotation re-derived from the full ordered list on every render:
+       alternating runs of 20 starting with web at the head — positions
+       0-19 web, 20-39 regular, 40-59 web, alternating to the end. A
+       block is in web formation if and only if its position falls in
+       a web run; no block is pinned to a formation by its origin. */
     var groups = [], i;
-    if (order[0] > bakedHead) {
-      /* live arrivals past the baked snapshot: web formation at the
-         head until the next publish re-anchors the rotation */
-      var over = order.filter(function (h) { return h > bakedHead; });
-      var rest = order.filter(function (h) { return h <= bakedHead; });
-      for (i = 0; i < over.length; i += GROUP) groups.push({ web: true, hs: over.slice(i, i + GROUP) });
-      for (i = 0; i < rest.length; i += GROUP) groups.push({ web: (i / GROUP) % 2 === 0, hs: rest.slice(i, i + GROUP) });
-    } else {
-      for (i = 0; i < order.length; i += GROUP) groups.push({ web: (i / GROUP) % 2 === 0, hs: order.slice(i, i + GROUP) });
-    }
+    for (i = 0; i < order.length; i += GROUP) groups.push({ web: (i / GROUP) % 2 === 0, hs: order.slice(i, i + GROUP) });
     return groups;
   }
 

@@ -2469,7 +2469,7 @@
 
         <div class="game-card" id="panel-snake">
           <h3>FUSI-SNAKE <span class="ex">— Example 003</span></h3>
-          <p class="game-desc">A snake game specified entirely as a FUSIÓN-7 contract and built from it — v6: play it fullscreen (the ⛶ FULL button, or the game offers it when a run starts). Every 7th diamond is a GROWTH EVENT — impact, a dizzy beat, then the snake turns enormous and the arena widens (+4 × +2 cells per event, up to 61 × 41) while it keeps getting thicker. Every run is timed with a split for each diamond, and first place is ranked by diamonds, then by speed. Contract: block #62. Usage: block #63.</p>
+          <p class="game-desc">A snake game specified entirely as a FUSIÓN-7 contract and built from it — now ONE merged game (rules fusi-snake/v8): the 2D and 3D views are the same serpent, driven by a single core. Play it fullscreen (the ⛶ FULL button, or the game offers it when a run starts). Every 7th diamond is a GROWTH EVENT — impact, a dizzy beat, then the snake turns enormous and the arena widens (+4 × +2 cells per event, up to 61 × 41) while it keeps getting thicker. <strong>STREAK &amp; BONUS ROUND:</strong> every diamond opens a 60-tick window — eat the next diamond inside it and the streak grows; chain 10 on-pace diamonds and the board freezes and drops you into the BONUS CORRIDOR for 1,000 ticks: steer ◀ ▶ between three lanes and cover each flying diamond's lane to catch it (SLOW / STANDARD / FAST speeds). A miss burns 75 ticks off the clock; steering into the wall ends the round at once. Every run is timed with a split for each diamond, and first place is ranked by diamonds, then by speed. Contract: block #62. Usage: block #63.</p>
           <div class="learn-box">
             <button class="ds-btn learn-btn" type="button" data-video="tutorials/snake-how-to-play.mp4">▶ PRESS HERE TO LEARN HOW TO PLAY</button>
             <div class="learn-slot" hidden></div>
@@ -11883,6 +11883,50 @@ var BLOCK_DATA = [{
     var wrap = document.createElement("div");
     __tunnel.setStyle(wrap, "cssText", "position:relative;");
     stage.appendChild(wrap);
+    /* Streak strip (merged v8 law): pips toward the bonus trigger and
+       the live 60-tick window bar. Lives under the board, board mode. */
+    var strip = document.createElement("div");
+    __tunnel.setStyle(strip, "cssText", "margin-top:8px;color:" + GOLD + ";font-family:Georgia,serif;font-size:13px;letter-spacing:1px;");
+    var stripRow = document.createElement("div");
+    __tunnel.setStyle(stripRow, "cssText", "display:flex;justify-content:space-between;align-items:center;gap:10px;");
+    var streakEl = document.createElement("span");
+    streakEl.textContent = "STREAK 0 / 10";
+    var windowEl = document.createElement("span");
+    windowEl.textContent = "WINDOW 60t";
+    stripRow.appendChild(streakEl);
+    stripRow.appendChild(windowEl);
+    strip.appendChild(stripRow);
+    var pipsEl = document.createElement("div");
+    __tunnel.setStyle(pipsEl, "cssText", "letter-spacing:3px;font-size:12px;margin-top:2px;color:" + GOLD + ";");
+    strip.appendChild(pipsEl);
+    var winBarOuter = document.createElement("div");
+    __tunnel.setStyle(winBarOuter, "cssText", "height:4px;background:#241f14;border-radius:2px;margin-top:4px;overflow:hidden;");
+    var winBarFill = document.createElement("div");
+    __tunnel.setStyle(winBarFill, "cssText", "height:100%;width:100%;background:" + GOLD + ";");
+    winBarOuter.appendChild(winBarFill);
+    strip.appendChild(winBarOuter);
+    stage.appendChild(strip);
+    var stripCache = "";
+    function syncStrip() {
+      if (!run) return;
+      var key = run.mode + "|" + run.streak + "|" + run.board_tick + "|" + run.last_pickup_board_tick + "|" + (inBonus ? run.bonus ? run.bonus.bonus_tick : 0 : 0);
+      if (key === stripCache) return;
+      stripCache = key;
+      if (run.mode === "bonus" && run.bonus) {
+        streakEl.textContent = "BONUS CORRIDOR — ROUND " + run.bonus.round;
+        windowEl.textContent = "CAUGHT " + run.bonus.diamonds + " · COMBO ×" + run.bonus.combo;
+        pipsEl.textContent = "";
+        __tunnel.setStyle(winBarFill, "width", Math.max(0, Math.min(100, (run.bonus.deadline - run.bonus.bonus_tick) / run.bonus.deadline * 100)) + "%");
+        return;
+      }
+      streakEl.textContent = "STREAK " + run.streak + " / 10" + (run.bonus_diamonds ? " · BONUS +" + run.bonus_diamonds : "");
+      var pips = "";
+      for (var pi2 = 0; pi2 < 10; pi2++) pips += pi2 < run.streak ? "◆" : "◇";
+      pipsEl.textContent = pips;
+      var left = run.last_pickup_board_tick > 0 ? Math.max(0, 60 - (run.board_tick - run.last_pickup_board_tick)) : 60;
+      windowEl.textContent = run.streak > 0 ? "WINDOW " + left + "t" : "WINDOW 60t";
+      __tunnel.setStyle(winBarFill, "width", (left / 60 * 100) + "%");
+    }
     var canvas = document.createElement("canvas");
     canvas.width = W * CELL;
     canvas.height = H * CELL;
@@ -11925,6 +11969,25 @@ var BLOCK_DATA = [{
       return m + ":" + (s < 10 ? "0" : "") + s + "." + d;
     }
     var state = newGame(W, H);
+    /* The merged v8 core run — the single source of truth for play.
+       `state` above/below is only the board mirror the renderer draws;
+       syncState() re-points it at the core's board after every tick. */
+    var run = null;
+    var evIdx = 0;
+    var pendingLetter = null;
+    var inBonus = false;
+    var lastCatchFx = 0;
+    function syncState() {
+      if (!run) return;
+      state = run.board;
+      state.streak = run.streak;
+    }
+    var LETTER_OF = {
+      "0,-1": "U",
+      "0,1": "D",
+      "-1,0": "L",
+      "1,0": "R"
+    };
     var started = false,
       tickMs = 140,
       timer = null,
@@ -12050,7 +12113,153 @@ var BLOCK_DATA = [{
     function easeOut(k) {
       return 1 - Math.pow(1 - k, 3);
     }
+    /* The BONUS CORRIDOR (merged v8): the frozen board's serpent,
+       enormous head first, strides down a three-lane corridor while
+       diamonds fly at it at three speeds. Catch plane near the foot;
+       cover a diamond's lane when it crosses. */
+    function drawCorridor() {
+      var SW = state.w * CELL,
+        SH = state.h * CELL;
+      if (canvas.width !== SW || canvas.height !== SH) {
+        canvas.width = SW;
+        canvas.height = SH;
+      }
+      var b = run.bonus;
+      var now = typeof performance !== "undefined" ? performance.now() : 0;
+      function cx(x) {
+        return (x + 6) / 12 * SW;
+      }
+      var planeY = SH * 0.84;
+      ctx.fillStyle = "#070503";
+      ctx.fillRect(0, 0, SW, SH);
+      /* streaming lane beams */
+      ctx.save();
+      [-3, 0, 3].forEach(function (lane) {
+        ctx.strokeStyle = "rgba(212,175,55,0.28)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx(lane), 0);
+        ctx.lineTo(cx(lane), SH);
+        ctx.stroke();
+      });
+      ctx.strokeStyle = "rgba(212,175,55,0.10)";
+      ctx.lineWidth = 1;
+      var off = (b.bonus_tick * 9) % 36;
+      for (var sy = -36 + off; sy < SH; sy += 36) {
+        ctx.beginPath();
+        ctx.moveTo(0, sy);
+        ctx.lineTo(SW, sy);
+        ctx.stroke();
+      }
+      /* walls at |x| = 6 — the canvas edges */
+      var atWall = Math.abs(b.head_x) >= 3;
+      ctx.fillStyle = atWall ? "rgba(192,57,43,0.85)" : GOLD_DIM;
+      ctx.fillRect(0, 0, 3, SH);
+      ctx.fillRect(SW - 3, 0, 3, SH);
+      ctx.restore();
+      /* catch plane */
+      ctx.save();
+      ctx.strokeStyle = "rgba(242,237,225,0.5)";
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(0, planeY);
+      ctx.lineTo(SW, planeY);
+      ctx.stroke();
+      ctx.restore();
+      /* flying diamonds */
+      var CLASS_COLOR = {
+        SLOW: "#8a6d1f",
+        STANDARD: GOLD,
+        FAST: "#fff3c4"
+      };
+      b.inflight.forEach(function (d) {
+        var p = 1 - (d.cross_tick - b.bonus_tick) / d.travel_ticks;
+        if (p < 0) p = 0;
+        if (p > 1) p = 1;
+        var y = p * planeY;
+        var r = 4 + p * (CELL * 0.62);
+        var X = cx(d.lane);
+        ctx.save();
+        ctx.shadowColor = CLASS_COLOR[d.speed_class] || GOLD;
+        ctx.shadowBlur = 12 + p * 10;
+        ctx.fillStyle = CLASS_COLOR[d.speed_class] || GOLD;
+        ctx.beginPath();
+        ctx.moveTo(X, y - r);
+        ctx.lineTo(X + r, y);
+        ctx.lineTo(X, y + r);
+        ctx.lineTo(X - r, y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = "rgba(242,237,225,0.75)";
+        ctx.font = "9px Georgia,serif";
+        ctx.textAlign = "center";
+        ctx.fillText(d.speed_class, X, y - r - 4);
+      });
+      /* the serpent: body trailing behind the enormous head */
+      var hx = cx(b.head_x);
+      var bodyN = Math.min(state.snake.length, 11);
+      for (var bi = bodyN; bi >= 1; bi--) {
+        var by = planeY - bi * CELL * 0.92;
+        var br = CELL * 0.40 * (1 - bi / (bodyN + 4));
+        ctx.save();
+        ctx.globalAlpha = 0.85 - bi * 0.05;
+        ctx.shadowColor = GOLD;
+        ctx.shadowBlur = 8;
+        var bgx = ctx.createRadialGradient(hx - br * 0.3, by - br * 0.3, br * 0.15, hx, by, br);
+        bgx.addColorStop(0, GOLD);
+        bgx.addColorStop(1, GOLD_DIM);
+        ctx.fillStyle = bgx;
+        ctx.beginPath();
+        ctx.arc(hx, by, br, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+      var hr = CELL * 1.02;
+      var catchPulse = now - lastCatchFx < 220 ? 1.12 : 1;
+      ctx.save();
+      ctx.shadowColor = GOLD;
+      ctx.shadowBlur = b.combo >= 3 ? 30 : 18;
+      var hg = ctx.createRadialGradient(hx - hr * 0.3, planeY - hr * 0.3, hr * 0.2, hx, planeY, hr * catchPulse);
+      hg.addColorStop(0, "#f7f3e6");
+      hg.addColorStop(0.55, GOLD);
+      hg.addColorStop(1, GOLD_DIM);
+      ctx.fillStyle = hg;
+      ctx.beginPath();
+      ctx.arc(hx, planeY, hr * catchPulse, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      [-1, 1].forEach(function (sgn) {
+        ctx.fillStyle = "#fff8e6";
+        ctx.beginPath();
+        ctx.arc(hx + sgn * hr * 0.42, planeY - hr * 0.34, hr * 0.20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#0a0908";
+        ctx.beginPath();
+        ctx.arc(hx + sgn * hr * 0.42, planeY - hr * 0.30, hr * 0.10, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      /* corridor HUD */
+      ctx.textAlign = "center";
+      ctx.fillStyle = GOLD;
+      ctx.font = "17px Georgia,serif";
+      var left = Math.max(0, b.deadline - b.bonus_tick);
+      ctx.fillText("BONUS CORRIDOR — " + left + " TICKS LEFT", SW / 2, 24);
+      ctx.fillStyle = "#f2ede1";
+      ctx.font = "13px Georgia,serif";
+      ctx.fillText("CAUGHT " + b.diamonds + " · COMBO ×" + b.combo + (b.misses ? " · MISSES " + b.misses + " (−75t each)" : "") + " · ◀ ▶ STEER", SW / 2, 44);
+      var elapsed = started ? (runEnd || now) - runStart : 0;
+      scoreEl.textContent = "SCORE " + state.score + " +" + run.bonus_diamonds;
+      timeEl.textContent = "TIME " + fmtClock(elapsed);
+      bestEl.textContent = bestRun && typeof bestRun.score === "number" ? "BEST " + bestRun.score + " · " + fmtClock(bestRun.total_ms) : "BEST " + best;
+    }
     function draw() {
+      if (run && run.mode === "bonus" && run.bonus) {
+        drawCorridor();
+        syncStrip();
+        return;
+      }
+      syncStrip();
       var SW = state.w * CELL,
         SH = state.h * CELL;
       if (canvas.width !== SW || canvas.height !== SH) {
@@ -12374,6 +12583,7 @@ var BLOCK_DATA = [{
     }
     function tick() {
       if (window.__fusiSnakeMode === "3d") return;
+      if (!run) return;
       var lf = state.food ? {
         x: state.food.x,
         y: state.food.y
@@ -12381,19 +12591,68 @@ var BLOCK_DATA = [{
       var before = state.score;
       var prevW = state.w,
         prevH = state.h;
-      step(state, runRand);
-      if (state.score > before && lf) {
+      if (pendingLetter) {
+        try {
+          window.FusiSnakeCore.applyInput(run, run.tick + 1, pendingLetter);
+        } catch (e) {}
+        pendingLetter = null;
+      }
+      window.FusiSnakeCore.stepRun(run);
+      syncState();
+      var ate = false;
+      while (evIdx < run.events.length) {
+        var ev = run.events[evIdx++];
+        if (ev.type === "diamond") {
+          ate = true;
+          emit("diamond", {
+            score: state.score,
+            streak: run.streak,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        } else if (ev.type === "bonus_trigger") {
+          showBanner("★ STREAK 10 ★", "THE BONUS CORRIDOR OPENS");
+          emit("bonus_trigger", {
+            streak: ev.streak,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        } else if (ev.type === "bonus_enter") {
+          inBonus = true;
+          showBanner("BONUS CORRIDOR", "◀ ▶ STEER — COVER THE DIAMOND'S LANE");
+          emit("bonus_enter", {
+            round: ev.round,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        } else if (ev.type === "bonus_diamond") {
+          lastCatchFx = performance.now();
+          emit("bonus_diamond", {
+            bonus_diamonds: ev.bonus_diamonds,
+            combo: ev.combo,
+            speed_class: ev.speed_class,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        } else if (ev.type === "bonus_miss") {
+          showBanner("MISS — −75 TICKS", "THE PERFECT STREAK ENDS — KEEP GOING");
+          emit("bonus_miss", {
+            misses: ev.misses,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        } else if (ev.type === "bonus_exit") {
+          inBonus = false;
+          showBanner("BACK TO THE BOARD", ev.reason === "edge" ? "THE WALL ENDS THE ROUND" : "STREAK SPENT — CHAIN 10 MORE TO RETURN");
+          emit("bonus_exit", {
+            reason: ev.reason,
+            bonus_diamonds: ev.bonus_diamonds,
+            t_ms: Math.round(performance.now() - runStart)
+          });
+        }
+      }
+      if (ate && lf) {
         eatAnim = {
           t0: performance.now(),
           fx: lf.x,
           fy: lf.y
         };
         spawnSparkles(lf.x * CELL + CELL / 2, lf.y * CELL + CELL / 2, 10, 70);
-        emit("diamond", {
-          score: state.score,
-          streak: state.streak,
-          t_ms: Math.round(performance.now() - runStart)
-        });
         if (state.w !== prevW || state.h !== prevH) {
           growthT0 = performance.now();
           growthFrom = {
@@ -12443,11 +12702,13 @@ var BLOCK_DATA = [{
           score: state.score,
           total_ms: totalMs,
           growth: grows,
-          inputs: state.inputs,
-          ticks: state.ticks
+          inputs: run.inputs,
+          ticks: run.tick,
+          bonus_diamonds: run.bonus_diamonds,
+          bonus_rounds: run.bonus_rounds
         });
       } else {
-        var want = Math.max(70, 140 - state.score * 2);
+        var want = inBonus ? 40 : Math.max(70, 140 - state.score * 2);
         if (want !== tickMs) {
           tickMs = want;
           clearInterval(timer);
@@ -12462,7 +12723,12 @@ var BLOCK_DATA = [{
       if (!started || !state.alive) {
         runSeed = Math.floor(Math.random() * 4294967296) >>> 0;
         runRand = mulberry32(runSeed);
-        state = newGame(W, H, runRand);
+        run = window.FusiSnakeCore.createRun(runSeed);
+        evIdx = 0;
+        pendingLetter = null;
+        inBonus = false;
+        stripCache = "";
+        syncState();
         started = true;
         tickMs = 140;
         runStart = performance.now();
@@ -12479,7 +12745,7 @@ var BLOCK_DATA = [{
         __tunnel.setStyle(stage, "maxWidth", W * CELL + "px");
         emit("game_start", {
           seed: runSeed,
-          rules: LOG_RULES
+          rules: window.FusiSnakeCore.RULES
         });
         if (!fsOffered) {
           fsOffered = true;
@@ -12530,7 +12796,7 @@ var BLOCK_DATA = [{
       if (d) {
         e.preventDefault();
         start();
-        queueDir(state, d);
+        pendingLetter = LETTER_OF[d.x + "," + d.y] || pendingLetter;
       } else if (!started || !state.alive) start();
     });
     var tx = 0,
@@ -12552,14 +12818,22 @@ var BLOCK_DATA = [{
       var t = e.changedTouches[0];
       var dx = t.clientX - tx,
         dy = t.clientY - ty;
-      if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
-      queueDir(state, Math.abs(dx) > Math.abs(dy) ? {
+      if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
+        /* In the corridor a plain tap steers: left half ◀, right half ▶. */
+        if (inBonus) {
+          var rect = canvas.getBoundingClientRect();
+          pendingLetter = t.clientX < rect.left + rect.width / 2 ? "L" : "R";
+        }
+        return;
+      }
+      var d2 = Math.abs(dx) > Math.abs(dy) ? {
         x: dx > 0 ? 1 : -1,
         y: 0
       } : {
         x: 0,
         y: dy > 0 ? 1 : -1
-      });
+      };
+      pendingLetter = LETTER_OF[d2.x + "," + d2.y] || pendingLetter;
     });
     canvas.addEventListener("mousedown", start);
     draw();
@@ -14092,6 +14366,496 @@ if (window.mountSnakeEarn) mountSnakeEarn("snake-earn-mount", {
   anchor: "8d55ac1d6ffbee4a5880ce8c93d9763732489ac86e34635a01b4061cf740ac63"
 });
 if (window.mountSnakeEconomy) mountSnakeEconomy("fusi-economy-mount");
+/* =====================================================================
+   FUSI-SNAKE — THE ONE MERGED CORE (rules fusi-snake/v8).
+   There is only one snake game on this page now: this single engine
+   drives BOTH the 2D view and the 3D view. It is the classic board
+   (v6 mechanics: growth events, widening arena) PLUS everything the
+   standalone v8 build added — the 60-tick streak window and the
+   BONUS CORRIDOR. Ported from snake-v8's core law (h=356 as amended
+   h=380): chain 10 on-pace diamonds and the board freezes, snapshots,
+   and drops the serpent into the corridor for 1,000 ticks; three
+   lanes (-3 / 0 / +3, walls at |x| = 6); diamonds fly at SLOW (150t),
+   STANDARD (120t) or FAST (90t); a catch needs |head_x - lane| < 3 at
+   the crossing tick; a miss burns 75 ticks off the clock and ends the
+   perfect streak; an outward steer at the wall lane ends the round at
+   once; when the round ends the board is restored exactly and the
+   streak is spent (reset to 0). Bonus catches never feed the streak.
+   ===================================================================== */
+(function () {
+  "use strict";
+  var RULES = "fusi-snake/v8";
+  var PROFILE = {
+    window_ticks: 60,
+    streak_k: 10,
+    bonus_ticks: 1000
+  };
+  var C = {
+    BOARD_W: 21,
+    BOARD_H: 21,
+    GROWTH_EVERY: 7,
+    GROWTH_DW: 4,
+    GROWTH_DH: 2,
+    MAX_W: 61,
+    MAX_H: 41,
+    MAX_TICKS_PER_RUN: 200000,
+    LANE_CENTERS: [-3, 0, 3],
+    WALL_X: 6,
+    HEAD_HALF_WIDTH: 2,
+    DIAMOND_HALF_WIDTH: 1,
+    CATCH_DISTANCE: 3,
+    LANE_CHANGE_TICKS: 4,
+    FIRST_SPAWN_TICK: 30,
+    SPAWN_INTERVAL_MIN: 36,
+    SPAWN_INTERVAL_SPAN: 37,
+    SPAWN_DISTANCE: 240,
+    SPEED_CLASSES: [{
+      name: "SLOW",
+      travel_ticks: 150
+    }, {
+      name: "STANDARD",
+      travel_ticks: 120
+    }, {
+      name: "FAST",
+      travel_ticks: 90
+    }],
+    SEPARATION_TICKS: 12,
+    MISS_PENALTY_TICKS: 75
+  };
+  var DIRS = {
+    U: { x: 0, y: -1 },
+    D: { x: 0, y: 1 },
+    L: { x: -1, y: 0 },
+    R: { x: 1, y: 0 }
+  };
+  function mulberry32(a) {
+    return function () {
+      a |= 0;
+      a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function isReverse(a, b) {
+    return a.x === -b.x && a.y === -b.y;
+  }
+  function placeFood(w, h, snake, rand) {
+    var free = [];
+    for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) if (!snake.some(function (s) {
+      return s.x === x && s.y === y;
+    })) free.push({ x: x, y: y });
+    if (!free.length) return null;
+    return free[Math.floor(rand() * free.length)];
+  }
+  function growthEvents(score) {
+    return Math.floor(score / C.GROWTH_EVERY);
+  }
+  function arenaFrom(baseW, baseH, score) {
+    var n = growthEvents(score);
+    return {
+      w: Math.min(C.MAX_W, baseW + C.GROWTH_DW * n),
+      h: Math.min(C.MAX_H, baseH + C.GROWTH_DH * n)
+    };
+  }
+  function expandArena(board) {
+    var d = arenaFrom(board.baseW, board.baseH, board.score);
+    if (d.w === board.w && d.h === board.h) return false;
+    board.w = d.w;
+    board.h = d.h;
+    return true;
+  }
+  function newBoard(rand) {
+    var w = C.BOARD_W,
+      h = C.BOARD_H;
+    var cx = Math.floor(w / 2),
+      cy = Math.floor(h / 2);
+    var snake = [{ x: cx, y: cy }, { x: cx - 1, y: cy }, { x: cx - 2, y: cy }];
+    return {
+      w: w, h: h, baseW: w, baseH: h,
+      snake: snake,
+      dir: { x: 1, y: 0 },
+      queued: null,
+      food: placeFood(w, h, snake, rand),
+      score: 0,
+      alive: true,
+      won: false
+    };
+  }
+  function boardQueueDir(board, d) {
+    if (!d || (d.x === 0 && d.y === 0)) return;
+    if (isReverse(d, board.dir)) return;
+    board.queued = { x: d.x, y: d.y };
+  }
+  function snapshotBoard(state) {
+    var b = state.board;
+    return {
+      snake: b.snake.map(function (s) { return { x: s.x, y: s.y }; }),
+      dir: { x: b.dir.x, y: b.dir.y },
+      queued: b.queued ? { x: b.queued.x, y: b.queued.y } : null,
+      food: b.food ? { x: b.food.x, y: b.food.y } : null,
+      w: b.w, h: b.h, baseW: b.baseW, baseH: b.baseH,
+      score: b.score,
+      alive: b.alive, won: b.won,
+      board_tick: state.board_tick,
+      streak: state.streak,
+      last_pickup_board_tick: state.last_pickup_board_tick
+    };
+  }
+  function restoreSnapshot(state, snap) {
+    state.board = {
+      snake: snap.snake.map(function (s) { return { x: s.x, y: s.y }; }),
+      dir: { x: snap.dir.x, y: snap.dir.y },
+      queued: snap.queued ? { x: snap.queued.x, y: snap.queued.y } : null,
+      food: snap.food ? { x: snap.food.x, y: snap.food.y } : null,
+      w: snap.w, h: snap.h, baseW: snap.baseW, baseH: snap.baseH,
+      score: snap.score, alive: snap.alive, won: snap.won
+    };
+    state.board_tick = snap.board_tick;
+    state.last_pickup_board_tick = snap.last_pickup_board_tick;
+    /* h=356: triggering consumed the streak; it resets to zero when
+       the bonus ends — the one field NOT restored from the snapshot. */
+    state.streak = 0;
+  }
+  function createRun(seed) {
+    seed = seed >>> 0;
+    var rand = mulberry32(seed);
+    return {
+      rules: RULES,
+      seed: seed,
+      _rand: rand,
+      tick: 0,
+      board_tick: 0,
+      mode: "board",
+      board: newBoard(rand),
+      streak: 0,
+      last_pickup_board_tick: 0,
+      board_diamonds: 0,
+      bonus_diamonds: 0,
+      bonus_rounds: 0,
+      pending_bonus: false,
+      snapshot: null,
+      bonus: null,
+      inputs: [],
+      _inputsByTick: {},
+      events: [{ type: "game_start", tick: 0, seed: seed, rules: RULES }]
+    };
+  }
+  /* Queue one input for a run tick. Recorded in the log whether or
+     not the mode makes it effective (U/D are inert in the corridor). */
+  function applyInput(state, tick, dir) {
+    if (!DIRS[dir]) return state;
+    if (typeof tick !== "number" || Math.floor(tick) !== tick || tick < 1) return state;
+    if (Object.prototype.hasOwnProperty.call(state._inputsByTick, tick)) return state;
+    state._inputsByTick[tick] = dir;
+    state.inputs.push([tick, dir]);
+    if (state.mode === "board" && !state.pending_bonus) {
+      boardQueueDir(state.board, DIRS[dir]);
+    }
+    return state;
+  }
+  function finishRun(state) {
+    state.mode = "over";
+    state.events.push({
+      type: "game_over", tick: state.tick, board_tick: state.board_tick,
+      score: state.board.score, won: !!state.board.won,
+      board_diamonds: state.board_diamonds,
+      bonus_diamonds: state.bonus_diamonds,
+      bonus_rounds: state.bonus_rounds
+    });
+    return state;
+  }
+  function stepBoard(state) {
+    var board = state.board;
+    state.board_tick += 1;
+    var dir = board.queued && !isReverse(board.queued, board.dir) ? board.queued : board.dir;
+    board.queued = null;
+    board.dir = { x: dir.x, y: dir.y };
+    var head = { x: board.snake[0].x + dir.x, y: board.snake[0].y + dir.y };
+    if (head.x < 0 || head.y < 0 || head.x >= board.w || head.y >= board.h) {
+      board.alive = false;
+      return finishRun(state);
+    }
+    var body = board.snake.slice(0, board.snake.length - 1);
+    if (body.some(function (s) { return s.x === head.x && s.y === head.y; })) {
+      board.alive = false;
+      return finishRun(state);
+    }
+    board.snake.unshift(head);
+    if (board.food && head.x === board.food.x && head.y === board.food.y) {
+      board.score += 1;
+      state.board_diamonds += 1;
+      expandArena(board);
+      board.food = placeFood(board.w, board.h, board.snake, state._rand);
+      /* h=356 streak law, on the pickup tick (= this board_tick). */
+      var gap = state.board_tick - state.last_pickup_board_tick;
+      state.last_pickup_board_tick = state.board_tick;
+      var onPace = gap <= PROFILE.window_ticks;
+      state.streak = onPace ? state.streak + 1 : 0;
+      state.events.push({
+        type: "diamond", tick: state.tick, board_tick: state.board_tick,
+        score: board.score, gap: gap, streak: state.streak,
+        arena: [board.w, board.h]
+      });
+      if (!board.food) {
+        board.won = true;
+        board.alive = false;
+        return finishRun(state);
+      }
+      if (state.streak >= PROFILE.streak_k) {
+        state.pending_bonus = true;
+        state.events.push({
+          type: "bonus_trigger", tick: state.tick,
+          board_tick: state.board_tick, streak: state.streak
+        });
+      }
+    } else {
+      board.snake.pop();
+    }
+    return state;
+  }
+  function drawSpeedClass(rand) {
+    var r = Math.floor(rand() * 4);
+    if (r === 0) return C.SPEED_CLASSES[0];
+    if (r === 3) return C.SPEED_CLASSES[2];
+    return C.SPEED_CLASSES[1];
+  }
+  function genFirstDiamond(state) {
+    /* RNG ORDER (pinned): lane first, then speed class. Spawn tick is
+       fixed at FIRST_SPAWN_TICK by law; nothing in flight at entry. */
+    var laneIdx = Math.floor(state._rand() * 3);
+    var cls = drawSpeedClass(state._rand);
+    return {
+      spawn_tick: C.FIRST_SPAWN_TICK,
+      cross_tick: C.FIRST_SPAWN_TICK + cls.travel_ticks,
+      lane: C.LANE_CENTERS[laneIdx],
+      speed_class: cls.name,
+      travel_ticks: cls.travel_ticks,
+      spawned: false
+    };
+  }
+  function genNextDiamond(state, prevSpawnTick, inflight) {
+    /* RNG ORDER (pinned): interval, then lane, then speed class. */
+    var interval = C.SPAWN_INTERVAL_MIN + Math.floor(state._rand() * C.SPAWN_INTERVAL_SPAN);
+    var laneIdx = Math.floor(state._rand() * 3);
+    var cls = drawSpeedClass(state._rand);
+    var lane = C.LANE_CENTERS[laneIdx];
+    /* SEPARATION INVARIANT: delay the spawn by the minimum whole
+       ticks that puts cross_tick >= SEPARATION_TICKS from every
+       in-flight cross_tick, or sharing the tick only with same-lane
+       diamonds. The delay consumes NO RNG draws. */
+    var delay = 0;
+    for (;;) {
+      var cross = prevSpawnTick + interval + delay + cls.travel_ticks;
+      var ok = true;
+      for (var i = 0; i < inflight.length; i++) {
+        var d = inflight[i];
+        if (cross === d.cross_tick) {
+          if (d.lane !== lane) { ok = false; break; }
+        } else if (Math.abs(cross - d.cross_tick) < C.SEPARATION_TICKS) {
+          ok = false; break;
+        }
+      }
+      if (ok) break;
+      delay += 1;
+    }
+    var spawn = prevSpawnTick + interval + delay;
+    return {
+      spawn_tick: spawn, cross_tick: spawn + cls.travel_ticks,
+      lane: lane, speed_class: cls.name,
+      travel_ticks: cls.travel_ticks, spawned: false
+    };
+  }
+  function enterBonus(state) {
+    state.snapshot = snapshotBoard(state);
+    state.pending_bonus = false;
+    state.mode = "bonus";
+    state.bonus_rounds += 1;
+    state.bonus = {
+      bonus_tick: 0,
+      round: state.bonus_rounds,
+      head_x: 0,
+      lane: 0,
+      trans: null,
+      settled_this_tick: false,
+      buffered: null,
+      combo: 0,
+      diamonds: 0,
+      misses: 0,
+      deadline: PROFILE.bonus_ticks,
+      unspawned: genFirstDiamond(state),
+      inflight: []
+    };
+    state.events.push({ type: "bonus_enter", tick: state.tick, round: state.bonus_rounds });
+  }
+  function endBonus(state, reason) {
+    var b = state.bonus;
+    state.events.push({
+      type: "bonus_exit", tick: state.tick, reason: reason,
+      bonus_diamonds: b.diamonds, round: b.round
+    });
+    restoreSnapshot(state, state.snapshot);
+    state.snapshot = null;
+    state.bonus = null;
+    state.mode = "board";
+  }
+  function startSteering(state, dirLetter, fromLane) {
+    var b = state.bonus;
+    var step = dirLetter === "L" ? -3 : 3;
+    var outward = (dirLetter === "L" && fromLane === C.LANE_CENTERS[0]) ||
+      (dirLetter === "R" && fromLane === C.LANE_CENTERS[2]);
+    if (outward) {
+      b.head_x += dirLetter === "L" ? -1 : 1;
+      state.events.push({
+        type: "bonus_edge", tick: state.tick, bonus_tick: b.bonus_tick,
+        head_x: b.head_x, round: b.round
+      });
+      endBonus(state, "edge");
+      return true;
+    }
+    b.trans = { target: fromLane + step, start_tick: b.bonus_tick };
+    return false;
+  }
+  function stepBonus(state, inputLetter) {
+    var b = state.bonus;
+    b.bonus_tick += 1;
+    b.settled_this_tick = false;
+    /* (1) spawn generation */
+    if (b.unspawned && b.bonus_tick === b.unspawned.spawn_tick) {
+      b.unspawned.spawned = true;
+      b.inflight.push(b.unspawned);
+      b.unspawned = genNextDiamond(state, b.unspawned.spawn_tick, b.inflight);
+    }
+    /* (2) transition step / settle */
+    if (b.trans) {
+      var elapsed = b.bonus_tick - b.trans.start_tick;
+      if (elapsed >= 1 && elapsed <= 3) {
+        b.head_x += Math.sign(b.trans.target - b.head_x);
+      }
+      if (elapsed === C.LANE_CHANGE_TICKS) {
+        b.lane = b.trans.target;
+        b.trans = null;
+        b.settled_this_tick = true;
+      }
+    }
+    /* (3) buffered start — the tick AFTER the settle tick */
+    var consumedArrival = false;
+    if (!b.trans && !b.settled_this_tick && b.buffered) {
+      var bufDir = b.buffered;
+      b.buffered = null;
+      if (startSteering(state, bufDir, b.lane)) return state;
+      consumedArrival = true;
+    }
+    /* (4) this tick's arriving input */
+    if (inputLetter === "U" || inputLetter === "D") {
+      /* recorded but inert in the corridor */
+    } else if (inputLetter === "L" || inputLetter === "R") {
+      if (b.trans) {
+        var target = b.trans.target;
+        var outward = (inputLetter === "L" && target === C.LANE_CENTERS[0]) ||
+          (inputLetter === "R" && target === C.LANE_CENTERS[2]);
+        if (outward) {
+          b.head_x += inputLetter === "L" ? -1 : 1;
+          state.events.push({
+            type: "bonus_edge", tick: state.tick, bonus_tick: b.bonus_tick,
+            head_x: b.head_x, round: b.round
+          });
+          endBonus(state, "edge");
+          return state;
+        }
+        if (!b.buffered) b.buffered = inputLetter;
+      } else if (b.settled_this_tick) {
+        if (!b.buffered) b.buffered = inputLetter;
+      } else if (!consumedArrival) {
+        if (startSteering(state, inputLetter, b.lane)) return state;
+      } else {
+        if (b.trans) {
+          var target2 = b.trans.target;
+          var outward2 = (inputLetter === "L" && target2 === C.LANE_CENTERS[0]) ||
+            (inputLetter === "R" && target2 === C.LANE_CENTERS[2]);
+          if (outward2) {
+            b.head_x += inputLetter === "L" ? -1 : 1;
+            state.events.push({
+              type: "bonus_edge", tick: state.tick, bonus_tick: b.bonus_tick,
+              head_x: b.head_x, round: b.round
+            });
+            endBonus(state, "edge");
+            return state;
+          }
+          if (!b.buffered) b.buffered = inputLetter;
+        } else if (!b.buffered) b.buffered = inputLetter;
+      }
+    }
+    /* (5) crossing resolution, in spawn order */
+    var due = [];
+    for (var i = b.inflight.length - 1; i >= 0; i--) {
+      if (b.inflight[i].cross_tick === b.bonus_tick) {
+        due.unshift(b.inflight[i]);
+        b.inflight.splice(i, 1);
+      }
+    }
+    for (var di = 0; di < due.length; di++) {
+      var d = due[di];
+      if (Math.abs(b.head_x - d.lane) < C.CATCH_DISTANCE) {
+        b.diamonds += 1;
+        state.bonus_diamonds += 1;
+        b.combo += 1;
+        state.events.push({
+          type: "bonus_diamond", tick: state.tick, bonus_tick: b.bonus_tick,
+          lane: d.lane, head_x: b.head_x, speed_class: d.speed_class,
+          bonus_diamonds: b.diamonds, combo: b.combo, round: b.round
+        });
+      } else {
+        var ticksRemainingBeforeMiss = b.deadline - b.bonus_tick;
+        b.misses += 1;
+        b.combo = 0;
+        b.deadline = PROFILE.bonus_ticks - C.MISS_PENALTY_TICKS * b.misses;
+        state.events.push({
+          type: "bonus_miss", tick: state.tick, bonus_tick: b.bonus_tick,
+          lane: d.lane, head_x: b.head_x, speed_class: d.speed_class,
+          misses: b.misses,
+          ticks_remaining_before_miss: ticksRemainingBeforeMiss,
+          deadline: b.deadline, round: b.round
+        });
+        if (ticksRemainingBeforeMiss <= C.MISS_PENALTY_TICKS) {
+          endBonus(state, "miss");
+          return state;
+        }
+      }
+    }
+    /* (6) time expiry */
+    if (b.bonus_tick >= b.deadline) {
+      endBonus(state, "time");
+      return state;
+    }
+    return state;
+  }
+  function stepRun(state) {
+    if (state.mode === "over") return state;
+    if (state.tick >= C.MAX_TICKS_PER_RUN) return finishRun(state);
+    state.tick += 1;
+    var inputLetter = Object.prototype.hasOwnProperty.call(state._inputsByTick, state.tick) ? state._inputsByTick[state.tick] : null;
+    if (state.pending_bonus) {
+      enterBonus(state);
+      return stepBonus(state, inputLetter);
+    }
+    if (state.mode === "bonus") {
+      return stepBonus(state, inputLetter);
+    }
+    return stepBoard(state);
+  }
+  if (typeof window !== "undefined") {
+    window.FusiSnakeCore = {
+      RULES: RULES,
+      PROFILE: PROFILE,
+      CONSTANTS: C,
+      DIRS: DIRS,
+      createRun: createRun,
+      applyInput: applyInput,
+      stepRun: stepRun
+    };
+  }
+})();
 window.__fusiSnakeMode = "2d";
 (function () {
   var btn2d = document.getElementById("snake-mode-2d");
@@ -14589,6 +15353,123 @@ window.__fusiSnakeMode = "2d";
       var bodyGeo = new THREE.SphereGeometry(0.42, 24, 18);
       var foodMesh = new THREE.Mesh(new THREE.OctahedronGeometry(0.5), foodMat);
       scene.add(foodMesh);
+      /* ---- THE BONUS CORRIDOR in 3D (merged v8): a three-lane
+         streaming shaft the serpent strides through, head first, while
+         diamonds fly at the catch plane at three speeds. ---- */
+      var CATCH_Z = 10;
+      var corridorGroup = new THREE.Group();
+      corridorGroup.visible = false;
+      scene.add(corridorGroup);
+      var corrFloor = new THREE.Mesh(new THREE.PlaneGeometry(12.6, 260), new THREE.MeshStandardMaterial({
+        color: 0x0c0a08,
+        roughness: 0.9,
+        metalness: 0.1
+      }));
+      corrFloor.rotation.x = -Math.PI / 2;
+      corrFloor.position.set(0, 0, CATCH_Z - 130 + 10);
+      corridorGroup.add(corrFloor);
+      var beamMat = new THREE.MeshBasicMaterial({ color: 0x8a6d1f });
+      [-3, 0, 3].forEach(function (lane) {
+        var beam = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.05, 260), beamMat);
+        beam.position.set(lane, 0.05, CATCH_Z - 130 + 10);
+        corridorGroup.add(beam);
+      });
+      var wallMat3 = new THREE.MeshStandardMaterial({
+        color: 0x3a2c10,
+        metalness: 0.7,
+        roughness: 0.4,
+        emissive: 0x1c1406
+      });
+      [-6.3, 6.3].forEach(function (wx) {
+        var wall = new THREE.Mesh(new THREE.BoxGeometry(0.4, 3.4, 260), wallMat3);
+        wall.position.set(wx, 1.7, CATCH_Z - 130 + 10);
+        corridorGroup.add(wall);
+      });
+      var corrStripes = [];
+      var stripeMat = new THREE.MeshBasicMaterial({ color: 0x2a2110 });
+      for (var stri = 0; stri < 20; stri++) {
+        var stripe = new THREE.Mesh(new THREE.BoxGeometry(12.4, 0.04, 0.5), stripeMat);
+        corridorGroup.add(stripe);
+        corrStripes.push(stripe);
+      }
+      var corrHead = new THREE.Mesh(new THREE.SphereGeometry(1.9, 28, 22), new THREE.MeshStandardMaterial({
+        color: GOLD,
+        metalness: 0.85,
+        roughness: 0.25,
+        emissive: 0x33270a
+      }));
+      corrHead.position.set(0, 1.7, CATCH_Z);
+      corridorGroup.add(corrHead);
+      var corrBody = [];
+      for (var cbi = 0; cbi < 8; cbi++) {
+        var cbm = new THREE.Mesh(new THREE.SphereGeometry(1.55 - cbi * 0.13, 22, 16), new THREE.MeshStandardMaterial({
+          color: GOLD,
+          metalness: 0.8,
+          roughness: 0.32,
+          emissive: 0x241a05
+        }));
+        cbm.position.set(0, 1.7, CATCH_Z + 2.3 * (cbi + 1));
+        corridorGroup.add(cbm);
+        corrBody.push(cbm);
+      }
+      var corrDiaMats = {
+        SLOW: new THREE.MeshStandardMaterial({ color: 0x8a6d1f, metalness: 0.6, roughness: 0.3, emissive: 0x1c1406 }),
+        STANDARD: new THREE.MeshStandardMaterial({ color: GOLD, metalness: 0.7, roughness: 0.25, emissive: 0x2a2008 }),
+        FAST: new THREE.MeshStandardMaterial({ color: 0xfff3c4, metalness: 0.4, roughness: 0.2, emissive: 0x554411 })
+      };
+      var corrDias = [];
+      for (var cdi = 0; cdi < 10; cdi++) {
+        var cdm = new THREE.Mesh(new THREE.OctahedronGeometry(1.15), corrDiaMats.STANDARD);
+        cdm.visible = false;
+        corridorGroup.add(cdm);
+        corrDias.push(cdm);
+      }
+      function setBonusVisible(on) {
+        corridorGroup.visible = on;
+        boardGroup.visible = !on;
+        headGroup.visible = !on;
+        dizzyGroup.visible = false;
+        ringMesh.visible = false;
+        if (on) foodMesh.visible = false;
+        for (var vi = 0; vi < bodyMeshes.length; vi++) bodyMeshes[vi].visible = !on;
+      }
+      function showBonusBanner(main, sub) {
+        __tunnel.setInnerHTML(growthOv, '<div style="font-size:30px;color:#d4af37;letter-spacing:4px;' + 'text-shadow:0 0 18px rgba(212,175,55,.75),0 2px 0 #000;">' + main + '</div>' + '<div style="font-size:14px;color:#f2ede1;letter-spacing:2px;margin-top:6px;' + 'text-shadow:0 1px 0 #000;">' + sub + "</div>", "innerHTML");
+        __tunnel.setStyle(growthOv, "display", "");
+        bannerUntil = performance.now() + 1700;
+      }
+      function updateCorridor3D(t) {
+        var b = run.bonus;
+        if (!b) return;
+        corrHead.position.x = b.head_x;
+        corrHead.rotation.y = Math.sin(t * 2.1) * 0.08;
+        for (var i = 0; i < corrBody.length; i++) {
+          corrBody[i].position.x = b.head_x * (1 - (i + 1) * 0.05);
+          corrBody[i].position.y = 1.7 + Math.sin(t * 3 + i * 0.7) * 0.08;
+        }
+        for (var si = 0; si < corrStripes.length; si++) {
+          var sz = CATCH_Z + 14 - ((si * 12 + b.bonus_tick * 2.4) % 250);
+          corrStripes[si].position.set(0, 0.04, sz);
+        }
+        for (var di = 0; di < corrDias.length; di++) {
+          var mesh = corrDias[di];
+          var d = b.inflight[di];
+          if (!d) {
+            mesh.visible = false;
+            continue;
+          }
+          mesh.visible = true;
+          mesh.material = corrDiaMats[d.speed_class] || corrDiaMats.STANDARD;
+          mesh.position.set(d.lane, 1.7, CATCH_Z - (d.cross_tick - b.bonus_tick) / d.travel_ticks * 240);
+          mesh.rotation.y = t * 2 + di;
+        }
+        camera.position.set(b.head_x * 0.55, 6.5, CATCH_Z + 11);
+        camera.lookAt(b.head_x * 0.8, 1.2, -30);
+        if (growthOv.style.display !== "none" && bannerUntil && performance.now() > bannerUntil) {
+          __tunnel.setStyle(growthOv, "display", "none");
+          bannerUntil = 0;
+        }
+      }
       var P_COUNT = 12,
         particles = null;
       function burst(p) {
@@ -14651,6 +15532,23 @@ window.__fusiSnakeMode = "2d";
         return bestRun && typeof bestRun.score === "number" ? "BEST " + bestRun.score + " · " + fmtClock(bestRun.total_ms) : "BEST " + best;
       }
       var state = newGame(W, H);
+      /* The merged v8 core run — same single engine as the 2D view.
+         `state` is only the board mirror syncMeshes/frame draw from. */
+      var run = null;
+      var evIdx = 0;
+      var pendingLetter = null;
+      var inBonus = false;
+      function syncState() {
+        if (!run) return;
+        state = run.board;
+        state.streak = run.streak;
+      }
+      var LETTER_OF = {
+        "0,-1": "U",
+        "0,1": "D",
+        "-1,0": "L",
+        "1,0": "R"
+      };
       var started = false,
         tickMs = 140,
         timer = null;
@@ -14737,18 +15635,69 @@ window.__fusiSnakeMode = "2d";
       }
       function tick() {
         if (window.__fusiSnakeMode !== "3d") return;
+        if (!run) return;
         var lf = state.food ? {
           x: state.food.x,
           y: state.food.y
         } : null;
         var before = state.score;
-        step(state, runRand);
-        if (state.score > before && lf) {
-          emitHook("diamond", {
-            score: state.score,
-            streak: state.streak,
-            t_ms: Math.round(performance.now() - runStart)
-          });
+        if (pendingLetter) {
+          try {
+            window.FusiSnakeCore.applyInput(run, run.tick + 1, pendingLetter);
+          } catch (e) {}
+          pendingLetter = null;
+        }
+        window.FusiSnakeCore.stepRun(run);
+        syncState();
+        var ate = false;
+        while (evIdx < run.events.length) {
+          var ev = run.events[evIdx++];
+          if (ev.type === "diamond") {
+            ate = true;
+            emitHook("diamond", {
+              score: state.score,
+              streak: run.streak,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          } else if (ev.type === "bonus_trigger") {
+            showBonusBanner("★ STREAK 10 ★", "THE BONUS CORRIDOR OPENS");
+            emitHook("bonus_trigger", {
+              streak: ev.streak,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          } else if (ev.type === "bonus_enter") {
+            inBonus = true;
+            setBonusVisible(true);
+            showBonusBanner("BONUS CORRIDOR", "◀ ▶ STEER — COVER THE DIAMOND'S LANE");
+            emitHook("bonus_enter", {
+              round: ev.round,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          } else if (ev.type === "bonus_diamond") {
+            emitHook("bonus_diamond", {
+              bonus_diamonds: ev.bonus_diamonds,
+              combo: ev.combo,
+              speed_class: ev.speed_class,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          } else if (ev.type === "bonus_miss") {
+            showBonusBanner("MISS — −75 TICKS", "THE PERFECT STREAK ENDS — KEEP GOING");
+            emitHook("bonus_miss", {
+              misses: ev.misses,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          } else if (ev.type === "bonus_exit") {
+            inBonus = false;
+            setBonusVisible(false);
+            showBonusBanner("BACK TO THE BOARD", ev.reason === "edge" ? "THE WALL ENDS THE ROUND" : "STREAK SPENT — CHAIN 10 MORE TO RETURN");
+            emitHook("bonus_exit", {
+              reason: ev.reason,
+              bonus_diamonds: ev.bonus_diamonds,
+              t_ms: Math.round(performance.now() - runStart)
+            });
+          }
+        }
+        if (ate && lf) {
           if (state.w !== W || state.h !== H) {
             W = state.w;
             H = state.h;
@@ -14788,8 +15737,10 @@ window.__fusiSnakeMode = "2d";
             score: state.score,
             total_ms: totalMs,
             growth: grows,
-            inputs: state.inputs,
-            ticks: state.ticks
+            inputs: run.inputs,
+            ticks: run.tick,
+            bonus_diamonds: run.bonus_diamonds,
+            bonus_rounds: run.bonus_rounds
           });
           if (state.score > best) {
             best = state.score;
@@ -14810,14 +15761,14 @@ window.__fusiSnakeMode = "2d";
           __tunnel.setInnerHTML(endOv, '<div style="font-size:28px;color:#d4af37;letter-spacing:3px;">' + (state.won ? "BOARD CLEARED" : "GAME OVER") + "</div>" + '<div style="font-size:16px;color:#f2ede1;margin-top:8px;">score ' + state.score + " · best " + best + "</div>" + '<div style="font-size:13px;color:#8a6d1f;margin-top:6px;">tap or press any key to run it back</div>', "innerHTML");
           __tunnel.setStyle(endOv, "display", "");
         } else {
-          var want = Math.max(70, 140 - state.score * 2);
+          var want = inBonus ? 40 : Math.max(70, 140 - state.score * 2);
           if (want !== tickMs) {
             tickMs = want;
             clearInterval(timer);
             timer = setInterval(tick, tickMs);
           }
         }
-        scoreEl.textContent = "SCORE " + state.score;
+        scoreEl.textContent = "SCORE " + state.score + (run && run.bonus_diamonds ? " +" + run.bonus_diamonds : "");
         bestEl.textContent = bestLabel();
       }
       function start() {
@@ -14825,7 +15776,12 @@ window.__fusiSnakeMode = "2d";
         if (!started || !state.alive) {
           runSeed = Math.floor(Math.random() * 4294967296) >>> 0;
           runRand = mulberry32(runSeed);
-          state = newGame(21, 21, runRand);
+          run = window.FusiSnakeCore.createRun(runSeed);
+          evIdx = 0;
+          pendingLetter = null;
+          inBonus = false;
+          setBonusVisible(false);
+          syncState();
           if (W !== 21 || H !== 21) {
             W = 21;
             H = 21;
@@ -14845,7 +15801,7 @@ window.__fusiSnakeMode = "2d";
           __tunnel.setStyle(startOv, "display", "none");
           emitHook("game_start", {
             seed: runSeed,
-            rules: LOG_RULES
+            rules: window.FusiSnakeCore.RULES
           });
           syncMeshes(true);
           if (!fsOffered) {
@@ -14895,7 +15851,7 @@ window.__fusiSnakeMode = "2d";
         if (d) {
           e.preventDefault();
           start();
-          queueDir(state, d);
+          pendingLetter = LETTER_OF[d.x + "," + d.y] || pendingLetter;
         } else if (!started || !state.alive) start();
       });
       var tx = 0,
@@ -14918,14 +15874,22 @@ window.__fusiSnakeMode = "2d";
         var t = e.changedTouches[0];
         var dx = t.clientX - tx,
           dy = t.clientY - ty;
-        if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
-        queueDir(state, Math.abs(dx) > Math.abs(dy) ? {
+        if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
+          /* In the corridor a plain tap steers: left half ◀, right half ▶. */
+          if (inBonus) {
+            var rect = cnv.getBoundingClientRect();
+            pendingLetter = t.clientX < rect.left + rect.width / 2 ? "L" : "R";
+          }
+          return;
+        }
+        var d2 = Math.abs(dx) > Math.abs(dy) ? {
           x: dx > 0 ? 1 : -1,
           y: 0
         } : {
           x: 0,
           y: dy > 0 ? 1 : -1
-        });
+        };
+        pendingLetter = LETTER_OF[d2.x + "," + d2.y] || pendingLetter;
       });
       cnv.addEventListener("mousedown", start);
       function resize() {
@@ -14952,6 +15916,12 @@ window.__fusiSnakeMode = "2d";
         var dt = Math.min(clock.getDelta(), 0.1);
         var now = performance.now();
         var t = now / 1000;
+        if (inBonus && run && run.bonus) {
+          timeEl.textContent = "BONUS " + Math.max(0, run.bonus.deadline - run.bonus.bonus_tick) + "t · COMBO ×" + run.bonus.combo + " · CAUGHT " + run.bonus.diamonds;
+          updateCorridor3D(t);
+          renderer.render(scene, camera);
+          return;
+        }
         var fatTarget = fatFactor(state.score);
         fatCur += (fatTarget - fatCur) * 0.12;
         if (Math.abs(fatTarget - fatCur) < 0.0005) fatCur = fatTarget;

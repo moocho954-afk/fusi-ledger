@@ -6584,7 +6584,7 @@ if (typeof globalThis !== "undefined") {
   var NAME_KEY = "fusi-player-name";
   var EARN_KEY = "fusi-snake-earn-v1";
   var INBOX = "jno101687@gmail.com";
-  var USERNAME_RE = /^[A-Za-z0-9_.\-]{3,20}$/;
+  var USERNAME_RE = /^[A-Za-z0-9_.\- ]{3,20}$/;
   var mem = {};
   function lsGet(k) {
     try {
@@ -6840,7 +6840,7 @@ if (typeof globalThis !== "undefined") {
     u = String(u || "").trim();
     if (!USERNAME_RE.test(u)) return {
       ok: false,
-      msg: "3–20 characters: letters, digits, underscore, dot or dash."
+      msg: "3–20 characters: letters, digits, spaces, underscore, dot or dash."
     };
     var regs = registrations();
     for (var i = 0; i < regs.length; i++) {
@@ -6899,13 +6899,6 @@ if (typeof globalThis !== "undefined") {
     for (i = 0; i < regs.length; i++) if (regs[i].username && String(regs[i].username).toLowerCase() === wantU) {
       found = regs[i];
       break;
-    }
-    if (!found && /\s/.test(wantU)) {
-      var wantU2 = wantU.replace(/\s+/g, "_");
-      for (i = 0; i < regs.length; i++) if (regs[i].username && String(regs[i].username).toLowerCase() === wantU2) {
-        found = regs[i];
-        break;
-      }
     }
     if (!found) {
       var hits = [];
@@ -16735,7 +16728,7 @@ window.__fusiSnakeMode = "2d";
     } else if (g.name) {
       __tunnel.setInnerHTML(stateEl, "👤 <b>" + esc(g.name) + "</b> — remembered on this phone (not locked yet)", "innerHTML");
       h += '<p class="note-plain">Right now this phone knows you as <b>' + esc(g.name) + "</b>, and every form on the page " + "already carries that name. That is the easy part. <b>Locking</b> is what makes the name provably yours:</p>" + '<ul class="idp-list"><li>Your name becomes bound to your email — one account per email, locked on the ledger itself.</li>' + "<li>You choose a <b>username</b> — the name the world sees, unique to you.</li>" + "<li>Your coins, records and stats attach to the lock, not to whatever a stranger types.</li>" + "<li>Nobody can claim rewards, trade, or list under your name without proving the mailbox — not even on another phone. Your player ID is random — it is never computed from your email.</li></ul>";
-      h += '<div class="idp-form">' + '<label class="idp-lab">Your email — the hard proof. It stays private; only a fingerprint ever touches the ledger.<input id="idp-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>' + '<label class="idp-lab">Choose your username — 3–20 characters: letters, digits, _ . - (spaces become _)<input id="idp-username" type="text" autocomplete="off" placeholder="e.g. Moocho954" /></label>' + '<div class="idp-ucheck" id="idp-ucheck"></div>' + '<div class="form-actions"><a class="ds-btn btn-off" id="idp-claim" href="#" target="_blank" rel="noopener">CLAIM YOUR NAME — LOCK IT TO YOUR EMAIL</a>' + '<span class="hint">Opens a pre-addressed [FUSI-JOIN] email carrying your name, email and username. Sending it IS the registration — one account per email, enforced by the ledger itself.</span></div>' + '<div class="idp-msg" id="idp-msg"></div></div>';
+      h += '<div class="idp-form">' + '<label class="idp-lab">Your email — the hard proof. It stays private; only a fingerprint ever touches the ledger.<input id="idp-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>' + '<label class="idp-lab">Choose your username — 3–20 characters: letters, digits, spaces, underscore, dot or dash<input id="idp-username" type="text" autocomplete="off" placeholder="e.g. Bigg Moocho" /></label>' + '<div class="idp-ucheck" id="idp-ucheck"></div>' + '<div class="form-actions"><a class="ds-btn btn-off" id="idp-claim" href="#" target="_blank" rel="noopener">CLAIM YOUR NAME — LOCK IT TO YOUR EMAIL</a>' + '<span class="hint">Opens a pre-addressed [FUSI-JOIN] email carrying your name, email and username. Sending it IS the registration — one account per email, enforced by the ledger itself.</span></div>' + '<div class="idp-msg" id="idp-msg"></div></div>';
       h += statsHtml(st, g);
       h += '<div class="idp-restore"><div class="idp-lab">Already locked your name on another phone?</div>' + '<div class="form-actions"><input id="idp-restore-email" type="text" placeholder="your username" />' + '<button class="ds-btn ds-btn-ghost" id="idp-restore-btn" type="button">THIS IS ME — BRING MY NAME BACK</button></div>' + '<div class="idp-msg" id="idp-restore-msg"></div></div>';
       h += '<div class="form-actions"><button class="ds-btn ds-btn-ghost" id="idp-fresh" type="button">Forget this name on this phone</button></div>';
@@ -16754,13 +16747,10 @@ window.__fusiSnakeMode = "2d";
       msg = $("idp-msg");
     function syncClaim() {
       if (!claim || !email || !uname) return;
-      var rawU = uname.value,
-        convU = rawU.replace(/\s+/g, "_");
-      if (convU !== rawU) uname.value = convU;
       var e = email.value.trim(),
         u = uname.value.trim();
       var us = FI.usernameStatus(u);
-      if (ucheck) ucheck.textContent = u ? (convU !== rawU ? "Spaces become _ — so your username reads \u201C" + u + "\u201D. " : "") + us.msg : "";
+      if (ucheck) ucheck.textContent = u ? us.msg : "";
       var emailOk = /.+@.+\..+/.test(e);
       if (emailOk && us.ok && u) {
         claim.classList.remove("btn-off");

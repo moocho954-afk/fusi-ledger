@@ -59,13 +59,15 @@ mark.hl{background:#d4af37;color:#171511;padding:0 2px;border-radius:3px;font-we
 #gs-quiet{background:#171511;color:#d4af37;border:1px solid #d4af37;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer;margin-bottom:8px}
 body.quiet #fusi-widow-canvas{display:none}
 body.quiet{background-image:none}
-#shark-overlay{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 118%,#0b2436 0%,#04121e 55%,#01080f 100%);z-index:20000;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;animation:shark-out .45s ease 3.6s forwards,shark-shake .32s linear 1.95s 2}
-#shark-overlay .shark{width:min(92vw,560px);animation:shark-approach 1.5s cubic-bezier(.2,.7,.3,1) forwards}
+#shark-overlay{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 118%,#0b2436 0%,#04121e 55%,#01080f 100%);z-index:20000;cursor:pointer;overflow:hidden;animation:shark-out .45s ease 3.6s forwards,shark-shake .32s linear 1.95s 2}
+#shark-overlay .shark-wrap{position:absolute;left:50%;top:50%;width:min(88vw,520px);transform:translate(-50%,-50%)}
+#shark-overlay .shark{width:100%;display:block;animation:shark-approach 1.5s cubic-bezier(.2,.7,.3,1) forwards}
 #shark-overlay .jaw{animation:jaw-bite 3.6s linear forwards}
 #shark-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;animation:shark-flash .3s linear 1.95s forwards}
 #shark-title{color:#d4af37;font-size:min(13vw,64px);font-weight:900;letter-spacing:.12em;text-align:center;opacity:0;animation:shark-slam .35s cubic-bezier(.2,1.4,.4,1) 2.15s forwards;text-shadow:0 0 24px rgba(212,175,55,.8)}
 #shark-sub{color:#9a958a;font-size:14px;margin-top:10px;opacity:0;animation:shark-fadein .4s ease 2.7s forwards}
-@keyframes shark-approach{0%{transform:scale(.2) translateY(70px);opacity:0}60%{opacity:1}100%{transform:scale(1.35) translateY(0);opacity:1}}
+#shark-caption{position:absolute;left:50%;bottom:8%;width:100%;transform:translateX(-50%);text-align:center}
+@keyframes shark-approach{0%{transform:scale(.2) translateY(70px);opacity:0}60%{opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}
 @keyframes jaw-bite{0%,42%{transform:translateY(0)}50%{transform:translateY(30px)}58%,100%{transform:translateY(0)}}
 @keyframes shark-shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-7px,4px)}50%{transform:translate(6px,-4px)}75%{transform:translate(-4px,-3px)}}
 @keyframes shark-flash{0%{opacity:0}20%{opacity:.9}100%{opacity:0}}
@@ -89,7 +91,7 @@ body.quiet{background-image:none}
 @keyframes hl-fly{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.6)}}
 @media (prefers-reduced-motion: reduce){#hyperloop-hole,.portal-vortex,.hyperloop-overlay .hl-vortex{animation:none}}
 </style></head><body>
-<div id="shark-overlay"><svg class="shark" viewBox="0 0 480 340" role="img" aria-label="GameShark">
+<div id="shark-overlay"><div class="shark-wrap"><svg class="shark" viewBox="0 0 480 340" role="img" aria-label="GameShark">
 <circle cx="70" cy="60" r="10" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="420" cy="90" r="7" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="400" cy="260" r="12" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".4"/>
 <path d="M240 18 L212 72 L268 72 Z" fill="#16303e"/>
 <ellipse cx="240" cy="180" rx="150" ry="120" fill="#1d3a4a"/>
@@ -105,7 +107,7 @@ body.quiet{background-image:none}
 <g class="jaw"><path d="M110 250 Q240 304 370 250 L350 226 L130 226 Z" fill="#16303e"/><path d="M150 226 l10-18 10 18 M200 226 l10-18 10 18 M250 226 l10-18 10 18 M300 226 l10-18 10 18" fill="#f2ede1"/></g>
 <path d="M96 258 Q38 300 60 318 Q112 300 130 266 Z" fill="#16303e"/>
 <path d="M384 258 Q442 300 420 318 Q368 300 350 266 Z" fill="#16303e"/>
-</svg><div id="shark-flash"></div><div id="shark-title">GAME SHARK</div><div id="shark-sub">tap to dive in</div></div>
+</svg></div><div id="shark-flash"></div><div id="shark-caption"><div id="shark-title">GAME SHARK</div><div id="shark-sub">tap to dive in</div></div></div>
 <h1>GameShark</h1>
 <div class="sub">Every build, placement, settlement and correction — newest first. Every leg shows its player, team, line and final, and every ticket shows its outcome. Search below filters tickets, players AND games at once. This page is regenerated and re-uploaded every time new information lands in the ledger.</div>
 <input id="q" placeholder="Search — player, surname, team, date, ticket…" oninput="runSearch()">

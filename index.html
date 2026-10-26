@@ -1251,6 +1251,52 @@
       #widow-report .wr-wide { font-size: 13.5px; color: var(--ink); line-height: 1.5; padding: 2px 0; overflow-wrap: anywhere; }
       #widow-report .wr-foot { font-size: 12px; color: var(--ink-faint); margin-top: 12px; line-height: 1.5; }
     </style>
+    <style>
+      /* ===== THE ROTATION — twenty blocks in web formation, twenty in
+         regular formation, alternating down the one chain stream. Web
+         panels and strand connectors live INSIDE the chain table, woven
+         by the rotation script at the end of the body; regular groups
+         are the ledger's own rows, untouched. ===== */
+      #chain table.chain tr.bw-row td { padding: 14px 10px 10px; background: rgba(14, 13, 10, 0.78); }
+      #chain table.chain tr.bw-row:hover td { background: rgba(14, 13, 10, 0.78); }
+      .bw-holder { overflow-x: auto; scrollbar-width: thin; }
+      .bw-svg { display: block; width: 100%; height: auto; }
+      .bw-svg .bw-node { cursor: pointer; }
+      .bw-svg .bw-node circle.bw-dot { stroke: #0c0b09; stroke-width: 1.4; }
+      .bw-svg .bw-node text { font-family: "Courier New", monospace; font-weight: 700; text-anchor: middle; dominant-baseline: central; fill: #12100c; pointer-events: none; }
+      .bw-svg .bw-node:hover circle.bw-dot, .bw-svg .bw-node:focus-visible circle.bw-dot { stroke: var(--gold); stroke-width: 2.4; }
+      .bw-svg .bw-node:focus { outline: none; }
+      .bw-svg .bw-head-halo { fill: none; stroke: var(--gold); stroke-width: 1.6; animation: bw-halo 1.8s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .bw-svg .bw-head-halo { animation: none; opacity: 0.7; } }
+      .bw-svg .bw-edge-label { font-family: "Courier New", monospace; fill: #d8c476; text-anchor: middle; pointer-events: none; }
+      .bw-detail-slot { margin-top: 8px; }
+      .bw-detail-slot:empty { display: none; }
+      .bw-detail-slot .block-detail { width: auto; min-width: 0; text-align: left; }
+      /* the gold strand crossing a formation boundary — a rule of gold
+         silk carrying the real boundary link in words */
+      #chain table.chain tr.strand-row td {
+        padding: 3px 12px; background: transparent !important;
+        border-top: none; border-bottom: none;
+      }
+      #chain table.chain tr.strand-row:hover td { background: transparent; }
+      .strand-link {
+        display: flex; align-items: center; gap: 12px;
+        color: var(--ink-faint); font-family: "Courier New", monospace;
+        font-size: 12px; line-height: 1.5; text-align: center;
+      }
+      .strand-link::before, .strand-link::after {
+        content: ""; flex: 1 1 24px; height: 2px; min-width: 18px;
+        background: linear-gradient(to right, rgba(212, 175, 55, 0.04), rgba(212, 175, 55, 0.8), rgba(212, 175, 55, 0.04));
+      }
+      .strand-link b { color: var(--gold); font-weight: normal; white-space: nowrap; }
+      .strand-link .sl-txt { overflow-wrap: anywhere; }
+      @media (max-width: 720px) {
+        #chain table.chain tr.bw-row { padding: 10px 8px; }
+        #chain table.chain tr.strand-row { border: none; background: transparent; padding: 2px 0; margin: 0; }
+        .bw-svg { min-width: 880px; }
+        .strand-link .sl-hash { display: none; }
+      }
+    </style>
     <style data-hatch-cvm-bundle></style>
 </head>
   <body>
@@ -3081,11 +3127,7 @@
         <div class="rule"></div>
         <p class="chain-note">118 blocks, append-only. Corrections and upgrades arrive as new blocks — nothing here is ever edited or deleted.</p>
         <p class="chain-hint">Click any block to inspect its full contents.</p>
-        <div class="block-web" id="block-web" hidden>
-          <div class="bw-head"><span class="bw-title">THE BLOCKS, IN THE WEB</span><span class="bw-note">genesis at the hub · the head at the rim</span></div>
-          <div id="block-web-holder"></div>
-          <p class="bw-caption">Every block hangs on the web — one knot per block, ring upon ring out from genesis, spoke upon spoke, and <b>one gold strand tying each block to the block before it</b>, so the whole chain holds together all at once. <b>Tap any knot</b> to inspect that block in the ledger below. And tap the Widow herself, wherever she is crawling, and she will tell you how the system is running.</p>
-        </div>
+        <p class="chain-note rotation-note">The chain runs in a rotation of twenty: the newest twenty blocks hang woven as a spider web, the next twenty stand in regular rows, the next twenty are woven again — alternating all the way down to genesis, one continuous stream with every block in it exactly once and the gold strand running straight through every boundary. Blocks that arrive live, past the snapshot baked into this page, hang in web formation at the head until the rotation re-anchors on the baked snapshot at the next publish.</p>
         <table class="chain">
           <thead>
             <tr><th>#</th><th>Type</th><th>Actor</th><th>Title</th><th>Hash</th><th aria-hidden="true"></th></tr>
@@ -18373,6 +18415,18 @@ window.__fusiSnakeMode = "2d";
   var MAX_ANCHORS = 26,
     ANCHOR_LIFE = 90000;
   function pickTarget() {
+    /* On the chain page, the Widow patrols the web itself: the rotation
+       script registers every knot in the web-formation groups and she
+       bounces knot to knot, alternating a block tied by category with a
+       block tied by case. She does not wander into the regular rows. */
+    var routeNow = document.body ? document.body.getAttribute('data-route') : null;
+    if ((!routeNow || routeNow === 'chain') && typeof window.__fusiPickWebKnot === 'function') {
+      var wk = window.__fusiPickWebKnot();
+      if (wk) {
+        S.portalTgt = false;
+        return wk;
+      }
+    }
     if (Math.random() < 0.25) {
       var portal = document.getElementById('gs-portal');
       if (portal) {
@@ -19611,6 +19665,427 @@ window.__fusiSnakeMode = "2d";
   }
   build();
   setInterval(build, 4000);
+})();
+</script>
+<script>
+/* ===== THE ROTATION — twenty in the web, twenty in regular rows =====
+   The chain is ONE continuous stream, newest first, genesis last, and
+   it runs in a rotation of twenty: the first twenty blocks hang woven
+   as a spider web, the next twenty stand in regular ledger rows, the
+   next twenty are woven again — alternating all the way down, with
+   genesis closing the stream inside the final group. Every block
+   appears exactly once, in its formation. The connections run through
+   everything at once:
+   — the gold hash strand: inside a web it is drawn knot to knot in
+     chain order; between groups a strand connector carries the real
+     boundary link (the upper group's lowest block names the lower
+     group's highest block as its prev-hash);
+   — case strands: a block that cites another block by h=N in its own
+     title or payload is tied to that exact block in gold;
+   — category strands: every knot is tied to its nearest same-type
+     neighbours, tinted in the category's own colour.
+   A strand whose other end lives outside the web stops at a silk
+   marker on the web's edge, labelled with the block it runs to.
+   Blocks that arrive on the live feed past the snapshot baked into
+   this page hang in web formation at the head (the note above the
+   chain says so, in plain words) until the rotation re-anchors on the
+   baked snapshot at the next publish. The Widow patrols these webs:
+   she bounces knot to knot, one beat to a category-tied block, the
+   next to a case-tied block — window.__fusiPickWebKnot below is her
+   map, and it never points into the regular rows. */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var GROUP = 20;
+  var COLORS = { genesis: "#d4af37", version: "#d4af37", lock: "#2e8b57", vote: "#2aa198", challenge: "#c0392b", audit: "#7a6ff0", gate: "#b8860b", note: "#8a8577" };
+  var FIRST_R = 120, RING_GAP = 118, ARC = 116, KNOT_R = 24;
+  var tbody = document.querySelector("table.chain tbody");
+  if (!tbody) return;
+  var bakedHead = -1;
+  (window.BLOCK_DATA || []).forEach(function (b) { if (typeof b.h === "number" && b.h > bakedHead) bakedHead = b.h; });
+
+  function byH() {
+    var m = {};
+    (window.BLOCK_DATA || []).forEach(function (b) { m[b.h] = b; });
+    return m;
+  }
+  function blockTitle(b) {
+    var p = b.payload || {};
+    if (typeof p === "string") return p;
+    return p.title || p.version || "";
+  }
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  /* case citations — heights a block names as h=N in its title/payload */
+  function caseTargets(b, map) {
+    var out = [], seen = {}, re = /h=(\d+)/g, m;
+    var txt = blockTitle(b) + "\n" + (typeof b.payload === "string" ? b.payload : JSON.stringify(b.payload || {}));
+    while ((m = re.exec(txt))) {
+      var t = parseInt(m[1], 10);
+      if (t !== b.h && map[t] && !seen[t]) { seen[t] = 1; out.push(t); }
+    }
+    return out;
+  }
+  function sameTypeNeighbor(b, map, dir) {
+    var h = b.h + dir;
+    while (map[h]) { if (map[h].type === b.type) return map[h]; h += dir; }
+    return null;
+  }
+
+  /* a knot's detail — the block's real contents, same fields the
+     ledger's own detail rows carry */
+  function buildDetail(b, map) {
+    var wrap = document.createElement("div");
+    wrap.className = "block-detail";
+    var imgUrl = b.image_url || (b.payload && b.payload.image_url);
+    if (imgUrl) {
+      var link = document.createElement("a");
+      link.className = "bd-img-link";
+      if (window.__tunnel && __tunnel.setUrlProp) __tunnel.setUrlProp(link, "href", imgUrl); else link.setAttribute("href", imgUrl);
+      link.target = "_blank";
+      link.rel = "noopener";
+      var img = document.createElement("img");
+      img.className = "bd-img";
+      if (window.__tunnel && __tunnel.setUrlProp) __tunnel.setUrlProp(img, "src", imgUrl); else img.setAttribute("src", imgUrl);
+      img.alt = (b.payload && b.payload.title) || "";
+      img.loading = "lazy";
+      link.appendChild(img);
+      wrap.appendChild(link);
+    }
+    var fullPrev = String(b.prev || "");
+    var prevBlock = map[b.h - 1];
+    if (fullPrev.length === 16 && prevBlock && prevBlock.hash.indexOf(fullPrev) === 0) fullPrev = prevBlock.hash;
+    var fields = [["block", "#" + b.h], ["type", b.type], ["actor", b.actor], ["recorded", b.ts], ["hash", b.hash], ["prev_hash", fullPrev]];
+    for (var j = 0; j < fields.length; j++) {
+      var row = document.createElement("div");
+      row.className = "bd-row";
+      var k = document.createElement("span");
+      k.className = "bd-k";
+      k.textContent = fields[j][0];
+      var v = document.createElement("span");
+      v.className = "bd-v";
+      v.textContent = fields[j][1];
+      row.appendChild(k);
+      row.appendChild(v);
+      wrap.appendChild(row);
+    }
+    var plabel = document.createElement("div");
+    plabel.className = "bd-plabel";
+    plabel.textContent = "payload";
+    wrap.appendChild(plabel);
+    var pre = document.createElement("pre");
+    pre.className = "bd-payload";
+    pre.textContent = JSON.stringify(b.payload, null, 2);
+    wrap.appendChild(pre);
+    return wrap;
+  }
+
+  /* ---------- one web formation: a group of blocks on rings ---------- */
+  function ringPlan(count) {
+    var rings = [], left = count - 1, k = 0;
+    while (left > 0) {
+      var R = FIRST_R + k * RING_GAP;
+      var cap = Math.max(6, Math.floor((2 * Math.PI * R) / ARC));
+      var n = Math.min(cap, left);
+      rings.push({ R: R, n: n });
+      left -= n;
+      k++;
+    }
+    return rings;
+  }
+  function ringAngle(ring, k, j) {
+    var off = (k % 2) * 0.5; /* alternate rings staggered half a step */
+    return -Math.PI / 2 + ((j + off) / ring.n) * Math.PI * 2;
+  }
+  function buildWebPanel(blocksAsc, map, headH, knotsOut) {
+    var wrapEl = document.createElement("div");
+    wrapEl.className = "bw-panel";
+    var holder = document.createElement("div");
+    holder.className = "bw-holder";
+    wrapEl.appendChild(holder);
+    var slot = document.createElement("div");
+    slot.className = "bw-detail-slot";
+    wrapEl.appendChild(slot);
+    var n = blocksAsc.length;
+    var rings = ringPlan(n);
+    var lastR = rings.length ? rings[rings.length - 1].R : 0;
+    var C = lastR + 92, SIZE = C * 2, RIM = lastR + 30;
+    var lo = blocksAsc[0].h, hi = blocksAsc[n - 1].h;
+    var svg = el("svg", { "class": "bw-svg", viewBox: "0 0 " + SIZE + " " + SIZE, role: "group", "aria-label": "Blocks " + lo + " to " + hi + " of the chain woven as a spider web — block " + lo + " at the hub, block " + hi + " at the rim, every block tied to the one before it" }, holder);
+    var i, j;
+    /* radial strands — hub to rim */
+    for (i = 0; i < 24; i++) {
+      var a = (i / 24) * Math.PI * 2;
+      el("line", { x1: C, y1: C, x2: (C + Math.cos(a) * RIM).toFixed(1), y2: (C + Math.sin(a) * RIM).toFixed(1), stroke: "rgba(228,220,196,0.30)", "stroke-width": 1.1 }, svg);
+    }
+    /* knot positions — oldest block at the hub, then ring upon ring */
+    var pts = [[C, C]];
+    for (i = 0; i < rings.length; i++) {
+      for (j = 0; j < rings[i].n; j++) {
+        var ra = ringAngle(rings[i], i, j);
+        pts.push([C + Math.cos(ra) * rings[i].R, C + Math.sin(ra) * rings[i].R]);
+      }
+    }
+    var posOf = {};
+    blocksAsc.forEach(function (b, idx) { posOf[b.h] = pts[idx]; });
+    var inGroup = {};
+    blocksAsc.forEach(function (b) { inGroup[b.h] = 1; });
+    /* capture rings — woven through the knots, sagging toward the hub */
+    for (i = 0; i < rings.length; i++) {
+      var ring = rings[i], d = "";
+      for (j = 0; j < ring.n; j++) {
+        var a1 = ringAngle(ring, i, j), a2 = ringAngle(ring, i, j + 1);
+        var x1 = C + Math.cos(a1) * ring.R, y1 = C + Math.sin(a1) * ring.R;
+        var x2 = C + Math.cos(a2) * ring.R, y2 = C + Math.sin(a2) * ring.R;
+        var mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+        var qx = C + (mx - C) * 0.94, qy = C + (my - C) * 0.94;
+        if (j === 0) d += "M" + x1.toFixed(1) + " " + y1.toFixed(1);
+        d += " Q" + qx.toFixed(1) + " " + qy.toFixed(1) + " " + x2.toFixed(1) + " " + y2.toFixed(1);
+      }
+      el("path", { d: d + " Z", fill: "none", stroke: "rgba(228,220,196,0.38)", "stroke-width": 1.1 }, svg);
+    }
+    /* strands that run off this web are collected per knot and drawn
+       fanned out, so a knot with two far ends never stacks its silk
+       markers on one spot */
+    var markers = {};
+    function addMarker(h, mk) {
+      if (!markers[h]) markers[h] = [];
+      markers[h].push(mk);
+    }
+    function edgeMarker(pt, mk, xOff) {
+      var dirY = mk.newer ? -1 : 1;
+      var ex = pt[0] + xOff, ey = pt[1] + dirY * 52;
+      if (ex < 44) ex = 44;
+      if (ex > SIZE - 44) ex = SIZE - 44;
+      if (ey < 30) ey = 30;
+      if (ey > SIZE - 30) ey = SIZE - 30;
+      el("line", { x1: pt[0], y1: pt[1], x2: ex, y2: ey, stroke: mk.color, "stroke-width": 1.3, "stroke-dasharray": "4 3" }, svg);
+      el("circle", { cx: ex, cy: ey, r: 7.5, fill: "none", stroke: mk.color, "stroke-width": 1.4 }, svg);
+      var ty = ey + dirY * 20;
+      if (ty < 14) ty = 14;
+      if (ty > SIZE - 6) ty = SIZE - 6;
+      var t = el("text", { "class": "bw-edge-label", x: ex, y: ty, "font-size": 13.5 }, svg);
+      t.textContent = mk.label;
+    }
+    function drawMarkers() {
+      Object.keys(markers).forEach(function (h) {
+        var list = markers[h], pt = posOf[h];
+        list.forEach(function (mk, idx) {
+          edgeMarker(pt, mk, (idx - (list.length - 1) / 2) * 62);
+        });
+      });
+    }
+    /* category strands — nearest same-type neighbours, category colour */
+    var catDone = {};
+    blocksAsc.forEach(function (b) {
+      var col = COLORS[b.type] || "#8a8577";
+      var linked = false;
+      [1, -1].forEach(function (dir) {
+        var nb = sameTypeNeighbor(b, map, dir);
+        if (nb && inGroup[nb.h]) {
+          var key = Math.min(b.h, nb.h) + ":" + Math.max(b.h, nb.h);
+          if (!catDone[key]) {
+            catDone[key] = 1;
+            var p1 = posOf[b.h], p2 = posOf[nb.h];
+            var mx2 = (p1[0] + p2[0]) / 2, my2 = (p1[1] + p2[1]) / 2;
+            var cx2 = C + (mx2 - C) * 0.88, cy2 = C + (my2 - C) * 0.88;
+            el("path", { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " Q" + cx2.toFixed(1) + " " + cy2.toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: col, "stroke-opacity": 0.55, "stroke-width": 1.6 }, svg);
+          }
+          linked = true;
+        }
+      });
+      b.__bwCat = linked;
+      if (!linked) {
+        var nb2 = sameTypeNeighbor(b, map, 1) || sameTypeNeighbor(b, map, -1);
+        if (nb2) addMarker(b.h, { newer: nb2.h > b.h, label: "category ▸ #" + nb2.h, color: col });
+      }
+    });
+    /* case strands — gold arcs to the exact blocks this block cites */
+    var caseDone = {};
+    blocksAsc.forEach(function (b) {
+      var targets = caseTargets(b, map);
+      b.__bwCase = targets.length > 0;
+      targets.forEach(function (t) {
+        if (inGroup[t]) {
+          var key = Math.min(b.h, t) + ":" + Math.max(b.h, t);
+          if (caseDone[key]) return;
+          caseDone[key] = 1;
+          var p1 = posOf[b.h], p2 = posOf[t];
+          var mx3 = (p1[0] + p2[0]) / 2, my3 = (p1[1] + p2[1]) / 2;
+          var cx3 = C + (mx3 - C) * 0.8, cy3 = C + (my3 - C) * 0.8;
+          el("path", { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " Q" + cx3.toFixed(1) + " " + cy3.toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: "rgba(212,175,55,0.8)", "stroke-width": 1.7, "stroke-dasharray": "6 3" }, svg);
+        } else {
+          addMarker(b.h, { newer: t > b.h, label: "case ▸ #" + t, color: "rgba(212,175,55,0.9)" });
+        }
+      });
+    });
+    drawMarkers();
+    /* the gold hash strand — knot to knot in chain order */
+    var cd = "";
+    for (i = 0; i < pts.length; i++) cd += (i === 0 ? "M" : "L") + pts[i][0].toFixed(1) + " " + pts[i][1].toFixed(1);
+    el("path", { d: cd, fill: "none", stroke: "rgba(212,175,55,0.6)", "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+    /* the knots themselves */
+    blocksAsc.forEach(function (b, idx) {
+      var pt = pts[idx];
+      var r = b.h === 0 ? 30 : KNOT_R;
+      var g = el("g", { "class": "bw-node", tabindex: "0", role: "button", "aria-label": "Block " + b.h + " — " + b.type + " — " + blockTitle(b) + ". Activate to inspect its full contents" }, svg);
+      el("title", {}, g).textContent = "#" + b.h + " · " + b.type + " · " + b.actor + " — " + blockTitle(b);
+      if (b.h === headH) el("circle", { "class": "bw-head-halo", cx: pt[0], cy: pt[1], r: r + 7 }, g);
+      el("circle", { "class": "bw-dot", cx: pt[0], cy: pt[1], r: r, fill: COLORS[b.type] || "#8a8577" }, g);
+      var t = el("text", { x: pt[0], y: (pt[1] + 0.5).toFixed(1), "font-size": (r * 0.72).toFixed(1) }, g);
+      t.textContent = b.h;
+      knotsOut.push({ h: b.h, el: g, type: b.type, hasCase: !!b.__bwCase, hasCat: !!b.__bwCat || !!sameTypeNeighbor(b, map, 1) || !!sameTypeNeighbor(b, map, -1) });
+      function open() {
+        while (slot.firstChild) slot.removeChild(slot.firstChild);
+        slot.appendChild(buildDetail(b, map));
+        slot.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+      g.addEventListener("click", open);
+      g.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") { e.preventDefault(); open(); }
+      });
+    });
+    return wrapEl;
+  }
+
+  /* the strand connector between two groups — carries the real
+     boundary link: block A's prev-hash IS block B's hash */
+  function strandRow(aH, bH, map) {
+    var tr = document.createElement("tr");
+    tr.className = "strand-row";
+    var td = document.createElement("td");
+    td.setAttribute("colspan", "6");
+    var div = document.createElement("div");
+    div.className = "strand-link";
+    var a = map[aH], b = map[bH];
+    var txt = document.createElement("span");
+    txt.className = "sl-txt";
+    txt.appendChild(document.createTextNode("the gold strand runs straight through — block "));
+    var ba = document.createElement("b");
+    ba.textContent = "#" + aH;
+    txt.appendChild(ba);
+    txt.appendChild(document.createTextNode(" hangs from block "));
+    var bb = document.createElement("b");
+    bb.textContent = "#" + bH;
+    txt.appendChild(bb);
+    if (a && b) {
+      var sh = document.createElement("span");
+      sh.className = "sl-hash";
+      sh.appendChild(document.createTextNode(" · its prev-hash is #" + bH + "'s hash "));
+      var bh = document.createElement("b");
+      bh.textContent = String(a.prev || "").slice(0, 16) + "…";
+      sh.appendChild(bh);
+      txt.appendChild(sh);
+    }
+    div.appendChild(txt);
+    td.appendChild(div);
+    tr.appendChild(td);
+    return tr;
+  }
+
+  function buildGroups(order) {
+    var groups = [], i;
+    if (order[0] > bakedHead) {
+      /* live arrivals past the baked snapshot: web formation at the
+         head until the next publish re-anchors the rotation */
+      var over = order.filter(function (h) { return h > bakedHead; });
+      var rest = order.filter(function (h) { return h <= bakedHead; });
+      for (i = 0; i < over.length; i += GROUP) groups.push({ web: true, hs: over.slice(i, i + GROUP) });
+      for (i = 0; i < rest.length; i += GROUP) groups.push({ web: (i / GROUP) % 2 === 0, hs: rest.slice(i, i + GROUP) });
+    } else {
+      for (i = 0; i < order.length; i += GROUP) groups.push({ web: (i / GROUP) % 2 === 0, hs: order.slice(i, i + GROUP) });
+    }
+    return groups;
+  }
+
+  var applying = false, appliedKey = "", stash = {};
+  function applyRotation() {
+    if (applying) return;
+    var map = byH();
+    var kids = [];
+    for (var c = 0; c < tbody.childNodes.length; c++) if (tbody.childNodes[c].nodeType === 1) kids.push(tbody.childNodes[c]);
+    var hasPanels = kids.some(function (tr) { return tr.classList.contains("bw-row") || tr.classList.contains("strand-row"); });
+    var unitsByH = {};
+    if (hasPanels) for (var sh in stash) unitsByH[sh] = stash[sh];
+    kids.forEach(function (tr) {
+      if (tr.hasAttribute("data-pending") || tr.classList.contains("bw-row") || tr.classList.contains("strand-row") || tr.classList.contains("detail-row")) return;
+      var num = tr.querySelector("td.num");
+      if (!num) return;
+      var h = parseInt(num.textContent, 10);
+      if (isNaN(h)) return;
+      var rows = [tr];
+      var nx = tr.nextElementSibling;
+      if (nx && nx.classList.contains("detail-row")) rows.push(nx);
+      unitsByH[h] = rows;
+    });
+    var order = Object.keys(unitsByH).map(Number).sort(function (x, y) { return y - x; });
+    if (!order.length) return;
+    var maxH = order[0];
+    var key = order.join(",") + "|" + (map[maxH] ? map[maxH].hash : "") + "|" + bakedHead;
+    if (key === appliedKey && hasPanels) return;
+    var pending = kids.filter(function (tr) { return tr.hasAttribute("data-pending"); });
+    var groups = buildGroups(order);
+    applying = true;
+    while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+    pending.forEach(function (tr) { tbody.appendChild(tr); });
+    stash = {};
+    window.__fusiWebKnots = [];
+    var prevLow = null;
+    groups.forEach(function (g) {
+      if (prevLow !== null) tbody.appendChild(strandRow(prevLow, g.hs[0], map));
+      var allKnown = g.hs.every(function (h) { return !!map[h]; });
+      if (g.web && allKnown) {
+        var tr = document.createElement("tr");
+        tr.className = "bw-row";
+        var td = document.createElement("td");
+        td.setAttribute("colspan", "6");
+        var asc = g.hs.slice().reverse().map(function (h) { return map[h]; });
+        td.appendChild(buildWebPanel(asc, map, maxH, window.__fusiWebKnots));
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        g.hs.forEach(function (h) { stash[h] = unitsByH[h]; });
+      } else {
+        g.hs.forEach(function (h) { (unitsByH[h] || []).forEach(function (r) { tbody.appendChild(r); }); });
+      }
+      prevLow = g.hs[g.hs.length - 1];
+    });
+    appliedKey = key;
+    applying = false;
+  }
+
+  /* the Widow's map: alternate a category-tied knot with a case-tied
+     knot, always inside the web formations, never the regular rows */
+  var widowFlip = false;
+  window.__fusiPickWebKnot = function () {
+    var ks = window.__fusiWebKnots || [];
+    if (!ks.length) return null;
+    widowFlip = !widowFlip;
+    var want = widowFlip ? "hasCat" : "hasCase";
+    var pool = ks.filter(function (k) { return k[want]; });
+    if (!pool.length) pool = ks;
+    for (var t = 0; t < 10; t++) {
+      var k = pool[Math.floor(Math.random() * pool.length)];
+      var r = k.el.getBoundingClientRect();
+      if (r && r.width > 8 && r.height > 8) {
+        return { x: r.left + window.scrollX + r.width / 2, y: r.top + window.scrollY + r.height / 2, el: true };
+      }
+    }
+    return null;
+  };
+
+  applyRotation();
+  var moTimer = 0;
+  if (window.MutationObserver) {
+    new MutationObserver(function () {
+      if (applying) return;
+      if (moTimer) clearTimeout(moTimer);
+      moTimer = setTimeout(applyRotation, 60);
+    }).observe(tbody, { childList: true });
+  }
+  setInterval(applyRotation, 5000);
 })();
 </script>
 </body>

@@ -1,11 +1,26 @@
 {
-  "tip_height": 1728,
-  "tip_hash": "473ef74d89208ab865ee1740a6e828ec8fa3f88a1339f1b710f3d20d2aba989d",
+  "tip_height": 1729,
+  "tip_hash": "8bbf378c7fa18381b8b27fa7be6b36bd472c47f699275fdece5e69d23e476070",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
   "fusion_tip_hash": "48148174149d8035e6cb94139a6159eb1e89e6347bc4f13260fe5519b6a13de5",
   "fusion_audit_height": 506,
+  "knots": {
+    "count": 128,
+    "tied": 128,
+    "untied": 0,
+    "entry_linked_blocks": 136,
+    "spine_gameshark": {
+      "at": "2026-10-26T18:14:43+00:00",
+      "event": "append",
+      "hash": "e9cd34fe1b0c522c04e2810149855a8e166395c62d81eff65eef38f678a129a6",
+      "height": 593,
+      "surface": "gameshark"
+    },
+    "bridge_block": 1622,
+    "fusion_tip_height": 506
+  },
   "finals": [
     {
       "date": "2026-10-25",
@@ -56,5 +71,5 @@
       "event_id": "401909867"
     }
   ],
-  "updated_at": "2026-10-26T06:53:12.477260+00:00"
+  "updated_at": "2026-10-26T20:44:03.279710+00:00"
 }

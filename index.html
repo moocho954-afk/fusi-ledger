@@ -1040,6 +1040,7 @@
 .hub .gs-hole::after { content: ""; position: absolute; inset: 34px; border-radius: 50%; background: radial-gradient(circle,#000 55%,#1a1508 78%,#d4af37 100%); box-shadow: inset 0 0 30px #000; }
 .hub .gs-bleed { font-family: var(--font-data); font-size: var(--t-12); color: var(--gold); padding: var(--s-2) var(--s-4) 0; letter-spacing: .04em; }
 .hub .gs-bleed .gs-chip { display: inline-block; border: 1px solid var(--gold-deep); border-radius: 6px; padding: 2px 8px; margin: 2px 3px; }
+.hub #web-tie-strip { grid-column: 1 / -1; text-align: center; font-family: var(--font-data); font-size: var(--t-12); color: var(--gold); letter-spacing: .04em; padding: var(--s-2) var(--s-4); }
 @keyframes gs-portal-spin { to { transform: rotate(360deg); } }
 @keyframes gs-portal-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 .gs-flight-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%,#000 30%,#0e0d0b 70%); z-index: 10000; overflow: hidden; }
@@ -1551,7 +1552,7 @@
           </div>
           <p class="beat-why">The main ledger carries advertising displays for the pages that carry the platform. Each display below stands in its own section on this front page — tap one and it takes you straight to the page it advertises.</p>
           <div class="beat-body ad-grid">
-<a class="ad-display gs-portal" id="gs-portal" href="gameshark.html">
+<a class="ad-display gs-portal web-tie-ledger" id="gs-portal" href="gameshark.html">
   <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">GameShark</span></span>
   <span class="gs-hole" aria-hidden="true"></span>
   <span class="ad-head ds-display gs-portal-title">GAMESHARK</span>
@@ -1559,6 +1560,7 @@
   <span class="gs-bleed" id="gs-bleed">The GameShark ledger, live — tap the hole to cross.</span>
   <span class="ad-cta">PRESS THE HOLE <i class="g g-connector"></i></span>
 </a>
+<div id="web-tie-strip" class="note" style="text-align:center" data-gs-build="2026-10-27T14:30:27.323091+00:00" data-ledger-build="2026-10-27T14:51:21+00:00">Web-linked to GameShark — both surfaces on the same web. Ledger build 2026-10-27T14:51:21+00:00 · GameShark build 2026-10-27T14:30:27.323091+00:00.</div>
             <a class="ad-display" href="#/play">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Play · The Forge</span></span>
               <img data-hatch-src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
@@ -20174,6 +20176,72 @@ window.__fusiSnakeMode = "2d";
     }).observe(tbody, { childList: true });
   }
   setInterval(applyRotation, 5000);
+})();
+</script>
+<script>
+/* ===== WEB-SYNC — ledger half of the ledger <-> GameShark spider-web tie.
+   Polls web-sync.json (same origin, repo root) every 60s: stamps every
+   GameShark crossing link with the manifest's GameShark build, keeps the
+   tie strip current (both builds + any in-transit update), and reloads
+   once when the manifest's ledger build advances past this page's baked
+   stamp, so a stale landing self-corrects. Fail-soft: a failed poll
+   keeps the last state and never blanks or removes anything. ===== */
+(function () {
+  function wsRun() {
+    var strip = document.getElementById('web-tie-strip');
+    var baked = strip ? strip.getAttribute('data-ledger-build') : null;
+    function apply(m) {
+      if (!m) { return; }
+      var led = m.ledger || {};
+      var gs = m.gameshark || {};
+      var links = document.querySelectorAll('a.web-tie-ledger');
+      var i = 0;
+      while (i < links.length) {
+        var base = links[i].getAttribute('href') || '';
+        var clean = base.split('?')[0];
+        if (gs.build) { links[i].setAttribute('href', clean + '?v=' + encodeURIComponent(gs.build)); }
+        i = i + 1;
+      }
+      if (strip !== null) {
+        var line = 'Web-linked to GameShark — both surfaces on the same web.';
+        line += ' Ledger build ' + (baked || 'unknown') + ' · GameShark build ' + (gs.build || 'unknown') + '.';
+        var it = m.in_transit;
+        if (it) {
+          var surf = it.surface === 'ledger' ? 'Ledger' : 'GameShark';
+          line += ' ' + surf + ' update on the way — ' + (it.status || 'pushing') + '.';
+        } else if (led.build && baked && led.build > baked) {
+          line += ' A newer ledger build is live.';
+        }
+        strip.textContent = line;
+      }
+      if (baked !== null && led.build && led.build > baked) {
+        var key = 'ws-moved-' + led.build;
+        try {
+          if (window.sessionStorage.getItem(key) !== '1') {
+            window.sessionStorage.setItem(key, '1');
+            var hash = window.location.hash || '';
+            var here = window.location.href.split('#')[0].split('?')[0];
+            window.location.href = here + '?v=' + encodeURIComponent(led.build) + hash;
+          }
+        } catch (e) {}
+      }
+    }
+    function poll() {
+      fetch('web-sync.json', {cache: 'no-store'}).then(function (res) {
+        if (!res.ok) { return null; }
+        return res.json();
+      }).then(apply).catch(function () {});
+    }
+    poll();
+    window.setInterval(poll, 60000);
+  }
+  if (document.getElementById('gs-portal')) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wsRun);
+    } else {
+      wsRun();
+    }
+  }
 })();
 </script>
 </body>

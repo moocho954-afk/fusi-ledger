@@ -1,17 +1,16 @@
 {
   "version": 1,
-  "updated_at": "2026-10-27T14:30:27.323091+00:00",
+  "updated_at": "2026-10-27T14:58:04.267247+00:00",
   "ledger": {
     "page": "index.html",
-    "build": "2026-10-26T21:07:00+00:00",
-    "updated_at": "2026-10-26T21:07:00+00:00",
-    "chain_height": null,
-    "seeded_from": "bridge push c533ff86 (last known index.html publish)"
+    "build": "2026-10-27T16:11:43Z",
+    "updated_at": "2026-10-27T16:11:43Z",
+    "chain_height": 605
   },
   "gameshark": {
     "page": "gameshark.html",
-    "build": "2026-10-27T14:30:27.323091+00:00",
-    "updated_at": "2026-10-27T14:30:27.323091+00:00",
+    "build": "2026-10-27T14:58:04.267247+00:00",
+    "updated_at": "2026-10-27T14:58:04.267247+00:00",
     "tip_height": 1740
   },
   "in_transit": null

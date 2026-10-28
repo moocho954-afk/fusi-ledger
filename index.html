@@ -1307,6 +1307,56 @@
         .strand-link .sl-hash { display: none; }
       }
     </style>
+    <style>
+      /* ===== REFERRALS + CREWS — hub-scoped panels fed by the production
+         referral-store.json / crews-store.json at the site root.
+         Rewards in these sections are XP points only. ===== */
+      .hub .rc-code {
+        font-family: var(--font-data); font-size: var(--t-31); font-weight: 700;
+        letter-spacing: .08em; color: var(--gold); overflow-wrap: anywhere; line-height: 1.15;
+      }
+      .hub .rc-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4) var(--s-6); margin-top: var(--s-4); }
+      @media (min-width: 640px) { .hub .rc-stats { grid-template-columns: repeat(4, 1fr); } }
+      .hub .rc-ladder { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: var(--s-2); }
+      @media (min-width: 640px) { .hub .rc-ladder { grid-template-columns: 1fr 1fr; } }
+      .hub .rc-rung {
+        display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+        border: 1px solid var(--edge); border-radius: var(--r-card);
+        padding: var(--s-3) var(--s-4); background: var(--panel);
+      }
+      .hub .rc-rung .rc-rung-name { font-family: var(--font-data); font-size: var(--t-14); color: var(--ink); }
+      .hub .rc-rung .rc-rung-xp { font-family: var(--font-data); font-size: var(--t-14); font-weight: 700; color: var(--gold); white-space: nowrap; }
+      .hub .rc-rung.hit { border-color: var(--gold-deep); }
+      .hub .rc-hit {
+        font-family: var(--font-data); font-size: var(--t-12); font-weight: 700;
+        letter-spacing: .1em; color: var(--void); background: var(--gold);
+        border-radius: var(--r-chip); padding: 2px 10px; white-space: nowrap;
+      }
+      .hub .rc-tree-card { margin-top: var(--s-3); }
+      .hub .rc-tree-card:first-child { margin-top: 0; }
+      .hub .rc-tree-head { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); align-items: baseline; font-size: var(--t-14); color: var(--slate); }
+      .hub .rc-tree-head b { color: var(--ink); font-weight: 600; overflow-wrap: anywhere; }
+      .hub .rc-tree-head code { font-family: var(--font-data); color: var(--gold); background: var(--void); padding: 2px 8px; border-radius: 4px; }
+      .hub .rc-kids { list-style: none; margin: var(--s-2) 0 0; padding: 0 0 0 var(--s-4); }
+      .hub .rc-kids li { font-family: var(--font-data); font-size: var(--t-14); color: var(--ink); padding: 2px 0; overflow-wrap: anywhere; }
+      .hub .rc-kids li .rc-ts { color: var(--slate); font-size: var(--t-12); margin-left: var(--s-2); }
+      .hub .rc-subhead {
+        margin-top: var(--s-8); margin-bottom: var(--s-3);
+        font-family: var(--font-data); font-size: var(--t-14); font-weight: 700;
+        letter-spacing: .14em; color: var(--gold); text-transform: uppercase;
+      }
+      .hub .rc-subhead:first-child { margin-top: 0; }
+      .hub .rc-tablewrap { overflow-x: auto; }
+      .hub .rc-quest-card { margin-top: var(--s-3); }
+      .hub .rc-quest-card:first-child { margin-top: 0; }
+      .hub .rc-quest-list { list-style: none; margin: var(--s-2) 0 0; padding: 0; }
+      .hub .rc-quest-list li {
+        display: flex; justify-content: space-between; gap: var(--s-3);
+        font-family: var(--font-data); font-size: var(--t-14); color: var(--ink);
+        padding: 3px 0; overflow-wrap: anywhere;
+      }
+      .hub .rc-quest-list li b { color: var(--gold); font-weight: 700; }
+    </style>
     <style data-hatch-cvm-bundle></style>
 </head>
   <body>
@@ -2455,6 +2505,97 @@
           </div>
           <div class="beat-next">
             <a class="ds-btn" href="#/play/panel-snake">START AT STEP 1 — PLAY SNAKE</a>
+          </div>
+        </section>
+
+        <!-- REFERRALS — invite codes derived from player_id (referral.py:
+             "F7-" + base32(SHA-256("fusi-referral-v1:" + player_id))[:8]).
+             Numbers render from referral-store.json at the site root;
+             rewards are XP points only. -->
+        <section class="beat" id="beat-referrals" aria-labelledby="h-referrals">
+          <div class="beat-head">
+            <span class="beat-num">REFERRALS <i class="g g-achieve"></i></span>
+            <h2 class="ds-display" id="h-referrals">Referrals — bring players in.</h2>
+          </div>
+          <p class="beat-why">Every player has one invite code, derived from their player_id — the same player_id always gives the same code, and the code carries no email, no username, no wallet address. Share it: when a new player joins with your code, your invitee count grows, and hitting a milestone earns <b>XP points</b>. XP points are counters only — nothing here moves, mints, or promises anything else.</p>
+          <div class="beat-body">
+            <div class="ds-panel">
+              <div class="latest-label">Your invite code</div>
+              <div class="rc-code" id="ref-my-code">—</div>
+              <p class="note-plain" id="ref-my-status">Reading your identity…</p>
+              <div class="rc-stats">
+                <div class="stat"><div class="stat-num ds-data" id="ref-my-invitees">—</div><div class="stat-label">Invitees</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="ref-my-xp">—</div><div class="stat-label">XP points</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="ref-my-ms">—</div><div class="stat-label">Milestones hit</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="ref-my-next">—</div><div class="stat-label">Next milestone</div></div>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="ds-btn ds-btn-ghost" id="ref-copy" style="padding:var(--s-2) var(--s-4);font-size:var(--t-14)">Copy invite code</button>
+                <span class="hint" id="ref-copy-note">Hand this code to a new player — when they join with it, they land in your tree below.</span>
+              </div>
+              <h3 class="rc-subhead">Milestones — XP points, awarded once each</h3>
+              <ul class="rc-ladder" id="ref-ladder"></ul>
+            </div>
+            <h3 class="rc-subhead">Referral tree</h3>
+            <div id="ref-tree"><p class="note-plain">No inviters yet — the referral store is empty. The first verified player to bring someone in opens the tree.</p></div>
+            <h3 class="rc-subhead">Referral leaderboard</h3>
+            <div class="rc-tablewrap"><div id="ref-board"><p class="note-plain">No inviters yet — the leaderboard fills as verified players bring people in.</p></div></div>
+          </div>
+        </section>
+
+        <!-- CREWS — one crew per player, founder leads, standing is
+             aggregate member XP points (crews.py). Numbers render from
+             crews-store.json at the site root. Create / join / leave ride
+             the ledger's email-draft intake, like the market forms. -->
+        <section class="beat" id="beat-crews" aria-labelledby="h-crews">
+          <div class="beat-head">
+            <span class="beat-num">CREWS <i class="g g-house"></i></span>
+            <h2 class="ds-display" id="h-crews">Crews — climb together.</h2>
+          </div>
+          <p class="beat-why">A crew is a team with one founder and any number of members. Each player belongs to <b>one crew at a time</b> — joining a second crew leaves the first, and if the founder leaves, leadership passes to the earliest-joined member who stays. A crew's standing is the <b>aggregate XP points</b> of its members — counters only.</p>
+          <div class="beat-body">
+            <div class="ds-panel">
+              <div class="latest-label">Your crew</div>
+              <p class="empty-note" id="crew-my-status">Reading your identity…</p>
+              <div class="form-grid">
+                <form id="crew-create-form" autocomplete="off">
+                  <label class="f"><span>Found a crew — crew name (max 32 characters)</span>
+                    <input id="crew-name" type="text" maxlength="32" placeholder="e.g. Snake Pit" />
+                  </label>
+                  <div class="form-actions">
+                    <a class="ds-btn btn-off" id="crew-create-send" href="#" target="_blank" rel="noopener">Draft create-crew email</a>
+                    <span class="hint" id="crew-create-hint">Name your crew to arm the draft.</span>
+                  </div>
+                </form>
+                <form id="crew-join-form" autocomplete="off">
+                  <label class="f"><span>Join a crew</span>
+                    <select id="crew-join-select"><option value="">Reading the crew store…</option></select>
+                  </label>
+                  <div class="form-actions">
+                    <a class="ds-btn ds-btn-ghost btn-off" id="crew-join-send" href="#" target="_blank" rel="noopener">Draft join email</a>
+                    <a class="ds-btn ds-btn-ghost btn-off" id="crew-leave-send" href="#" target="_blank" rel="noopener">Draft leave email</a>
+                  </div>
+                  <span class="hint" id="crew-join-hint">Pick a crew to arm the join draft. Leaving drafts from your current crew.</span>
+                </form>
+              </div>
+              <p class="note-plain">Sending a draft files the request with the ledger — your roster spot shows here once the crew store is updated. Joining a crew while you are in another one leaves the first.</p>
+            </div>
+            <h3 class="rc-subhead">Crew leaderboard — aggregate XP points</h3>
+            <div class="rc-tablewrap"><div id="crew-board"><p class="note-plain">No crews yet — the crew store is empty. Found the first one above.</p></div></div>
+            <h3 class="rc-subhead">Crew rosters — who is in, and their role</h3>
+            <div id="crew-rosters"><p class="note-plain">No crews yet — rosters appear here, founder first, as crews form.</p></div>
+            <h3 class="rc-subhead">Live counters</h3>
+            <div class="ds-panel">
+              <div class="rc-stats" style="margin-top:0">
+                <div class="stat"><div class="stat-num ds-data" id="rc-n-inviters">—</div><div class="stat-label">Inviters</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="rc-n-invitees">—</div><div class="stat-label">Invitees</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="rc-n-crews">—</div><div class="stat-label">Crews</div></div>
+                <div class="stat"><div class="stat-num ds-data" id="rc-n-crew-xp">—</div><div class="stat-label">Crew XP points</div></div>
+              </div>
+              <p class="note-plain" id="rc-counters-note">Milestones tracked: 1st, 5th, 10th, 25th, 50th, 100th invitee — XP points only.</p>
+            </div>
+            <h3 class="rc-subhead">Crew quest counters</h3>
+            <div id="crew-quests"><p class="note-plain">No crews yet — quest counters appear under each crew once crews exist.</p></div>
           </div>
         </section>
 
@@ -17847,6 +17988,16 @@ window.__fusiSnakeMode = "2d";
   }, {
     route: "home",
     label: "MAIN LEDGER",
+    title: "Referrals — your invite code",
+    el: $("beat-referrals")
+  }, {
+    route: "home",
+    label: "MAIN LEDGER",
+    title: "Crews — climb together",
+    el: $("beat-crews")
+  }, {
+    route: "home",
+    label: "MAIN LEDGER",
     title: "Your name — one name, locked to you",
     el: $("identity-panel")
   }, {
@@ -20242,6 +20393,441 @@ window.__fusiSnakeMode = "2d";
       wsRun();
     }
   }
+})();
+</script>
+<script>
+/* ===== REFERRALS + CREWS — renders the production stores published at
+   the site root (referral-store.json, crews-store.json, referral.py /
+   crews.py shapes). Missing or empty stores render honest empty states.
+   TEST-* fixture ids are filtered out and never shown. Rewards in these
+   sections are XP points only. Create / join / leave ride the ledger's
+   email-draft intake (same pattern as the market forms), gated by
+   FusiIdentity.canAct(). ===== */
+(function () {
+  "use strict";
+  var INBOX = "jno101687@gmail.com";
+  var MILESTONES = [1, 5, 10, 25, 50, 100];
+  var MILESTONE_XP = { 1: 10, 5: 50, 10: 120, 25: 300, 50: 700, 100: 1500 };
+  var REF_URL = "referral-store.json";
+  var CREW_URL = "crews-store.json";
+  var refStore = null, crewStore = null, loaded = false;
+
+  function $(id) { return document.getElementById(id); }
+  function isTestId(id) { return /^TEST-/i.test(String(id == null ? "" : id)); }
+  function pub(id) { var s = String(id == null ? "" : id); return isTestId(s) ? "" : s; }
+  function num(v) { return typeof v === "number" && isFinite(v) ? v : 0; }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function clear(node) { if (node) while (node.firstChild) node.removeChild(node.firstChild); }
+  function note(text) { return el("p", "note-plain", text); }
+
+  function identity() {
+    try {
+      if (window.FusiIdentity && window.FusiIdentity.get) return window.FusiIdentity.get();
+    } catch (e) {}
+    return null;
+  }
+  function myPid() {
+    var idn = identity();
+    if (idn && idn.pid) return String(idn.pid);
+    try {
+      if (window.__fusiPlayer && window.__fusiPlayer.id) return String(window.__fusiPlayer.id() || "");
+    } catch (e) {}
+    return "";
+  }
+
+  /* referral.derive_code — "F7-" + base32(SHA-256("fusi-referral-v1:" +
+     player_id))[:8], base32 without padding. */
+  var B32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  function b32(bytes) {
+    var out = "", i, buffer = 0, bits = 0;
+    for (i = 0; i < bytes.length; i++) {
+      buffer = (buffer << 8) | bytes[i]; bits += 8;
+      while (bits >= 5) { out += B32[(buffer >>> (bits - 5)) & 31]; bits -= 5; }
+    }
+    if (bits > 0) out += B32[(buffer << (5 - bits)) & 31];
+    return out;
+  }
+  function deriveCode(pid) {
+    if (!pid || !window.crypto || !window.crypto.subtle || !window.TextEncoder) return Promise.resolve("");
+    return window.crypto.subtle.digest("SHA-256", new TextEncoder().encode("fusi-referral-v1:" + pid))
+      .then(function (buf) { return "F7-" + b32(new Uint8Array(buf)).slice(0, 8); })
+      .catch(function () { return ""; });
+  }
+
+  /* crews._crew_id — "crew-" + lowercase-alphanumeric name, other chars
+     as dashes, trimmed; "crew-unnamed" when nothing remains. */
+  function crewIdFor(name) {
+    var slug = String(name || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    return slug ? "crew-" + slug : "crew-unnamed";
+  }
+
+  function inviterRows() {
+    var inv = (refStore && refStore.inviters) || {}, rows = [];
+    Object.keys(inv).forEach(function (pid) {
+      if (isTestId(pid)) return;
+      var r = inv[pid] || {};
+      var kids = [];
+      (Array.isArray(r.invitees) ? r.invitees : []).forEach(function (e) {
+        var kid = typeof e === "string" ? { player_id: e, ts: "" } : { player_id: e && e.player_id, ts: (e && e.ts) || "" };
+        if (kid.player_id && !isTestId(kid.player_id)) kids.push(kid);
+      });
+      rows.push({
+        player_id: pid,
+        invite_code: pub(r.invite_code) || "",
+        invitees: kids,
+        xp_points: num(r.xp_points),
+        milestones_hit: (Array.isArray(r.milestones_hit) ? r.milestones_hit : []).filter(function (m) { return MILESTONES.indexOf(m) > -1; })
+      });
+    });
+    rows.sort(function (a, b) {
+      return b.invitees.length - a.invitees.length || b.xp_points - a.xp_points || (a.player_id < b.player_id ? -1 : 1);
+    });
+    return rows;
+  }
+  function nextMilestone(count) {
+    for (var i = 0; i < MILESTONES.length; i++) if (MILESTONES[i] > count) return MILESTONES[i];
+    return null;
+  }
+
+  function crewRows() {
+    var crews = (crewStore && crewStore.crews) || {}, pxp = (crewStore && crewStore.player_xp) || {}, rows = [];
+    Object.keys(crews).forEach(function (cid) {
+      var c = crews[cid] || {}, members = [];
+      var raw = c.members;
+      if (Array.isArray(raw)) {
+        raw.forEach(function (m) {
+          if (typeof m === "string") members.push([m, "member"]);
+          else if (m && m.player_id) members.push([String(m.player_id), m.role === "founder" ? "founder" : "member"]);
+        });
+      } else if (raw && typeof raw === "object") {
+        Object.keys(raw).forEach(function (pid) { members.push([pid, raw[pid] === "founder" ? "founder" : "member"]); });
+      }
+      members = members.filter(function (m) { return !isTestId(m[0]); });
+      var founder = pub(c.founder) || "";
+      if (!founder) { for (var i = 0; i < members.length; i++) if (members[i][1] === "founder") { founder = members[i][0]; break; } }
+      var xp = 0;
+      members.forEach(function (m) { xp += num(pxp[m[0]]); });
+      var quests = {};
+      var qc = c.quest_counters || {};
+      Object.keys(qc).forEach(function (q) { quests[q] = num(qc[q]); });
+      rows.push({ crew_id: String(c.crew_id || cid), name: String(c.name || cid), founder: founder, members: members, aggregate_xp: xp, quest_counters: quests });
+    });
+    rows.sort(function (a, b) {
+      return b.aggregate_xp - a.aggregate_xp || b.members.length - a.members.length || (a.name < b.name ? -1 : 1);
+    });
+    return rows;
+  }
+  function myCrew(rows) {
+    var pid = myPid(); if (!pid) return null;
+    var pc = (crewStore && crewStore.player_crew) || {};
+    var cid = pc[pid];
+    for (var i = 0; i < rows.length; i++) {
+      if (cid && rows[i].crew_id === cid) return rows[i];
+      if (!cid) { for (var j = 0; j < rows[i].members.length; j++) if (rows[i].members[j][0] === pid) return rows[i]; }
+    }
+    return null;
+  }
+  function myRole(crew) {
+    var pid = myPid();
+    for (var i = 0; i < crew.members.length; i++) if (crew.members[i][0] === pid) return crew.members[i][1];
+    return "member";
+  }
+
+  function renderLadder(mine) {
+    var lad = $("ref-ladder"); if (!lad) return;
+    clear(lad);
+    var hit = mine ? mine.milestones_hit : [];
+    MILESTONES.forEach(function (m, i) {
+      var li = el("li", "rc-rung" + (hit.indexOf(m) > -1 ? " hit" : ""));
+      li.appendChild(el("span", "rc-rung-name", "Milestone " + (i + 1) + " — " + m + (m === 1 ? "st" : m === 5 ? "th" : m === 10 ? "th" : m === 25 ? "th" : m === 50 ? "th" : "th") + " invitee"));
+      li.appendChild(el("span", "rc-rung-xp", MILESTONE_XP[m] + " XP points"));
+      if (hit.indexOf(m) > -1) li.appendChild(el("span", "rc-hit", "HIT"));
+      lad.appendChild(li);
+    });
+  }
+
+  function renderMine(rows) {
+    var codeEl = $("ref-my-code"), status = $("ref-my-status");
+    var pid = myPid(), idn = identity();
+    var mine = null;
+    rows.forEach(function (r) { if (r.player_id === pid) mine = r; });
+    var count = mine ? mine.invitees.length : 0;
+    var xp = mine ? mine.xp_points : 0;
+    var msHit = mine ? mine.milestones_hit : [];
+    var nxt = nextMilestone(count);
+    if ($("ref-my-invitees")) $("ref-my-invitees").textContent = String(count);
+    if ($("ref-my-xp")) $("ref-my-xp").textContent = String(xp);
+    if ($("ref-my-ms")) $("ref-my-ms").textContent = msHit.length ? msHit.join(", ") : "none yet";
+    if ($("ref-my-next")) $("ref-my-next").textContent = nxt === null ? "all hit" : nxt + " invitees · " + MILESTONE_XP[nxt] + " XP points";
+    renderLadder(mine);
+    if (!pid) {
+      if (codeEl) codeEl.textContent = "—";
+      if (status) status.textContent = "Set your name in the YOUR NAME panel (or play a snake run) and this phone knows your player_id — your invite code appears here, derived from it on the spot.";
+      return;
+    }
+    if (mine && mine.invite_code) { if (codeEl) codeEl.textContent = mine.invite_code; }
+    else {
+      deriveCode(pid).then(function (code) {
+        if (codeEl) codeEl.textContent = code || "—";
+      });
+    }
+    if (status) {
+      var who = idn && idn.username ? "@" + idn.username : (idn && idn.name ? idn.name : "this player");
+      status.textContent = idn && idn.locked
+        ? "Signed in as " + who + " — email-verified, so this code is bound to your locked player_id."
+        : "This is the code for " + who + " on this phone. Lock your name to your email in the YOUR NAME panel and the code is bound to your verified player_id for good.";
+    }
+  }
+
+  function renderTree(rows) {
+    var host = $("ref-tree"); if (!host) return;
+    clear(host);
+    if (!rows.length) { host.appendChild(note("No inviters yet — the referral store is empty. The first verified player to bring someone in opens the tree.")); return; }
+    rows.forEach(function (r) {
+      var card = el("div", "ds-panel rc-tree-card");
+      var head = el("div", "rc-tree-head");
+      head.appendChild(el("b", null, r.player_id));
+      var code = el("code", null, r.invite_code || "—"); head.appendChild(code);
+      head.appendChild(el("span", null, r.invitees.length + " invitee(s) · " + r.xp_points + " XP points · milestones: " + (r.milestones_hit.join(", ") || "none")));
+      card.appendChild(head);
+      if (r.invitees.length) {
+        var ul = el("ul", "rc-kids");
+        r.invitees.forEach(function (k) {
+          var li = el("li", null, k.player_id);
+          if (k.ts) li.appendChild(el("span", "rc-ts", String(k.ts).slice(0, 10)));
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+      }
+      host.appendChild(card);
+    });
+  }
+
+  function makeTable(headCells) {
+    var t = el("table", "rtable"), thead = el("thead"), tr = el("tr");
+    headCells.forEach(function (h, i) { var th = el("th", i >= 2 ? "num" : null, h); tr.appendChild(th); });
+    thead.appendChild(tr); t.appendChild(thead);
+    var tb = el("tbody"); t.appendChild(tb);
+    return { table: t, body: tb };
+  }
+  function renderRefBoard(rows) {
+    var host = $("ref-board"); if (!host) return;
+    clear(host);
+    if (!rows.length) { host.appendChild(note("No inviters yet — the leaderboard fills as verified players bring people in.")); return; }
+    var built = makeTable(["Inviter", "Invite code", "Invitees", "XP points", "Milestones hit"]);
+    rows.forEach(function (r) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, r.player_id));
+      tr.appendChild(el("td", null, r.invite_code || "—"));
+      var c1 = el("td", "num", String(r.invitees.length)); tr.appendChild(c1);
+      var c2 = el("td", "num", String(r.xp_points)); tr.appendChild(c2);
+      tr.appendChild(el("td", null, r.milestones_hit.join(", ") || "none"));
+      built.body.appendChild(tr);
+    });
+    host.appendChild(built.table);
+  }
+
+  function renderCrewBoard(rows) {
+    var host = $("crew-board"); if (!host) return;
+    clear(host);
+    if (!rows.length) { host.appendChild(note("No crews yet — the crew store is empty. Found the first one above.")); return; }
+    var built = makeTable(["Crew", "Founder", "Members", "Aggregate XP points", "Roster (role)"]);
+    rows.forEach(function (c) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, c.name));
+      tr.appendChild(el("td", null, c.founder || "—"));
+      var c1 = el("td", "num", String(c.members.length)); tr.appendChild(c1);
+      var c2 = el("td", "num", String(c.aggregate_xp)); tr.appendChild(c2);
+      tr.appendChild(el("td", null, c.members.map(function (m) { return m[0] + " (" + m[1] + ")"; }).join(", ") || "—"));
+      built.body.appendChild(tr);
+    });
+    host.appendChild(built.table);
+  }
+
+  function renderRosters(rows) {
+    var host = $("crew-rosters"); if (!host) return;
+    clear(host);
+    if (!rows.length) { host.appendChild(note("No crews yet — rosters appear here, founder first, as crews form.")); return; }
+    rows.forEach(function (c) {
+      var card = el("div", "ds-panel rc-tree-card");
+      var head = el("div", "rc-tree-head");
+      head.appendChild(el("b", null, c.name));
+      head.appendChild(el("span", null, c.members.length + " member(s) · " + c.aggregate_xp + " aggregate XP points"));
+      card.appendChild(head);
+      var ul = el("ul", "rc-kids");
+      var sorted = c.members.slice().sort(function (a, b) { return (a[1] === "founder" ? 0 : 1) - (b[1] === "founder" ? 0 : 1); });
+      sorted.forEach(function (m) {
+        var li = el("li", null, m[0]);
+        li.appendChild(el("span", "rc-ts", m[1]));
+        ul.appendChild(li);
+      });
+      card.appendChild(ul);
+      host.appendChild(card);
+    });
+  }
+
+  function renderQuests(rows) {
+    var host = $("crew-quests"); if (!host) return;
+    clear(host);
+    if (!rows.length) { host.appendChild(note("No crews yet — quest counters appear under each crew once crews exist.")); return; }
+    rows.forEach(function (c) {
+      var card = el("div", "ds-panel rc-quest-card");
+      card.appendChild(el("b", null, c.name));
+      var ul = el("ul", "rc-quest-list");
+      var qs = Object.keys(c.quest_counters);
+      if (!qs.length) { ul.appendChild(el("li", null, "No quest counters yet.")); }
+      qs.sort().forEach(function (q) {
+        var li = el("li");
+        li.appendChild(el("span", null, q));
+        li.appendChild(el("b", null, String(c.quest_counters[q])));
+        ul.appendChild(li);
+      });
+      card.appendChild(ul);
+      host.appendChild(card);
+    });
+  }
+
+  function renderCounters(rRows, cRows) {
+    var ti = 0, tcxp = 0;
+    rRows.forEach(function (r) { ti += r.invitees.length; });
+    cRows.forEach(function (c) { tcxp += c.aggregate_xp; });
+    if ($("rc-n-inviters")) $("rc-n-inviters").textContent = String(rRows.length);
+    if ($("rc-n-invitees")) $("rc-n-invitees").textContent = String(ti);
+    if ($("rc-n-crews")) $("rc-n-crews").textContent = String(cRows.length);
+    if ($("rc-n-crew-xp")) $("rc-n-crew-xp").textContent = String(tcxp);
+  }
+
+  /* ---- crew action drafts (mailto intake, FusiIdentity-gated) ---- */
+  function canActNote() {
+    try {
+      if (window.FusiIdentity && !window.FusiIdentity.canAct()) return window.FusiIdentity.actRefusal();
+    } catch (e) {}
+    return "";
+  }
+  function arm(anchor, subject, body, hintEl, hintText) {
+    if (!anchor) return;
+    var refusal = canActNote();
+    if (refusal) {
+      anchor.classList.add("btn-off"); anchor.removeAttribute("href");
+      if (hintEl) hintEl.textContent = refusal;
+      return;
+    }
+    anchor.classList.remove("btn-off");
+    anchor.setAttribute("href", "mailto:" + INBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(JSON.stringify(body, null, 2)));
+    if (hintEl && hintText) hintEl.textContent = hintText;
+  }
+  function draftBase() {
+    var idn = identity(), body = {};
+    body.player_id = myPid();
+    if (idn && idn.username) body.username = idn.username;
+    else if (idn && idn.name) body.player_name = idn.name;
+    return body;
+  }
+  function wireActions(cRows) {
+    var pid = myPid();
+    var nameInput = $("crew-name"), createSend = $("crew-create-send"), createHint = $("crew-create-hint");
+    var sel = $("crew-join-select"), joinSend = $("crew-join-send"), leaveSend = $("crew-leave-send"), joinHint = $("crew-join-hint");
+    function wireCreate() {
+      var name = nameInput ? nameInput.value.trim() : "";
+      if (!pid) { if (createSend) { createSend.classList.add("btn-off"); createSend.removeAttribute("href"); } if (createHint) createHint.textContent = "Set your name first — a crew is founded under your player_id."; return; }
+      if (!name) { if (createSend) { createSend.classList.add("btn-off"); createSend.removeAttribute("href"); } if (createHint) createHint.textContent = "Name your crew to arm the draft."; return; }
+      var body = draftBase(); body.action = "create_crew"; body.crew_name = name.slice(0, 32); body.crew_id = crewIdFor(name);
+      body.rule = "founder is set at creation; one crew membership per player";
+      arm(createSend, "[FUSI-CREW] create " + body.crew_id, body, createHint, "Draft armed — crew_id " + body.crew_id + ". Sending the email files the founding request.");
+    }
+    if (nameInput && !nameInput.__rcWired) {
+      nameInput.__rcWired = true;
+      nameInput.addEventListener("input", wireCreate);
+      var cf = $("crew-create-form");
+      if (cf) cf.addEventListener("submit", function (ev) { ev.preventDefault(); wireCreate(); if (createSend && createSend.getAttribute("href")) createSend.click(); });
+    }
+    if (sel) {
+      var cur = sel.value;
+      clear(sel);
+      var ph = el("option", null, cRows.length ? "Pick a crew…" : "No crews yet");
+      ph.value = ""; sel.appendChild(ph);
+      var mine = myCrew(cRows);
+      cRows.forEach(function (c) {
+        var o = el("option", null, c.name + " — " + c.members.length + " member(s), " + c.aggregate_xp + " XP points");
+        o.value = c.crew_id; sel.appendChild(o);
+      });
+      if (cur) sel.value = cur;
+      function wireJoin() {
+        if (!pid) { if (joinHint) joinHint.textContent = "Set your name first — joining happens under your player_id."; return; }
+        var cid = sel.value;
+        if (cid) {
+          var body = draftBase(); body.action = "join_crew"; body.crew_id = cid;
+          body.rule = "joining a second crew leaves the first";
+          arm(joinSend, "[FUSI-CREW] join " + cid, body, null, null);
+        } else if (joinSend) { joinSend.classList.add("btn-off"); joinSend.removeAttribute("href"); }
+        if (mine) {
+          var lb = draftBase(); lb.action = "leave_crew"; lb.crew_id = mine.crew_id;
+          lb.rule = "founder leaving transfers leadership to the earliest-joined member";
+          arm(leaveSend, "[FUSI-CREW] leave " + mine.crew_id, lb, joinHint, "You are in " + mine.name + " (" + myRole(mine) + "). Joining another crew leaves this one.");
+        } else if (leaveSend) { leaveSend.classList.add("btn-off"); leaveSend.removeAttribute("href"); if (joinHint && !canActNote()) joinHint.textContent = "Pick a crew to arm the join draft. Leaving drafts from your current crew."; }
+      }
+      if (!sel.__rcWired) { sel.__rcWired = true; sel.addEventListener("change", wireJoin); }
+      wireJoin();
+    }
+    wireCreate();
+    var st = $("crew-my-status");
+    if (st) {
+      var mine2 = myCrew(cRows);
+      if (!pid) st.textContent = "Set your name in the YOUR NAME panel — crews are joined under your player_id.";
+      else if (mine2) st.textContent = "You are in " + mine2.name + " — " + myRole(mine2) + " · " + mine2.members.length + " member(s) · " + mine2.aggregate_xp + " aggregate XP points.";
+      else st.textContent = "You are not in a crew yet. Found one below, or join one from the list.";
+    }
+  }
+
+  function render() {
+    var rRows = inviterRows(), cRows = crewRows();
+    renderMine(rRows);
+    renderTree(rRows);
+    renderRefBoard(rRows);
+    renderCrewBoard(cRows);
+    renderRosters(cRows);
+    renderCounters(rRows, cRows);
+    renderQuests(cRows);
+    wireActions(cRows);
+  }
+  function fetchJson(url) {
+    return fetch(url, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    });
+  }
+  /* Primary: the production store at the site root (published with the
+     ledger, like web-sync.json). Fallback: the copy shipped in assets/. */
+  function fetchStore(rootUrl) {
+    return fetchJson(rootUrl).catch(function () { return fetchJson("assets/" + rootUrl); }).catch(function () { return null; });
+  }
+  function load() {
+    Promise.all([fetchStore(REF_URL), fetchStore(CREW_URL)]).then(function (res) {
+      if (res[0] && typeof res[0] === "object") refStore = res[0];
+      if (res[1] && typeof res[1] === "object") crewStore = res[1];
+      loaded = true;
+      render();
+    });
+  }
+  var copyBtn = $("ref-copy");
+  if (copyBtn) copyBtn.addEventListener("click", function () {
+    var code = $("ref-my-code") ? $("ref-my-code").textContent.trim() : "";
+    var noteEl = $("ref-copy-note");
+    if (!code || code === "—") { if (noteEl) noteEl.textContent = "No code yet — set your name first, then copy it here."; return; }
+    function done(ok) { if (noteEl) noteEl.textContent = ok ? "Copied — hand it to a new player and they land in your tree." : "Copy this code by hand: " + code; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(function () { done(true); }, function () { done(false); });
+    else done(false);
+  });
+  document.addEventListener("fusi-identity", function () { render(); });
+  render();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load);
+  else load();
+  window.setInterval(load, 60000);
 })();
 </script>
 </body>

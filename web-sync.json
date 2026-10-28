@@ -9,14 +9,9 @@
   },
   "gameshark": {
     "page": "gameshark.html",
-    "build": "2026-10-28T06:46:36.889876+00:00",
-    "updated_at": "2026-10-28T06:46:36.889876+00:00",
+    "build": "2026-10-28T07:13:09.501517+00:00",
+    "updated_at": "2026-10-28T07:13:09.501517+00:00",
     "tip_height": 1747
   },
-  "in_transit": {
-    "surface": "gameshark",
-    "build": "2026-10-28T07:13:09.501517+00:00",
-    "started_at": "2026-10-28T07:15:03Z",
-    "status": "pushing"
-  }
+  "in_transit": null
 }

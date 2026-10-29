@@ -1056,6 +1056,48 @@
       #tc-empty { color: var(--ink-soft); }
       #tc-storage-note { color: var(--ink-soft); font-style: italic; }
 
+      /* Story Loom — additive only */
+      #story-loom .sl-form { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin: 1em 0; }
+      #story-loom .sl-form label { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); }
+      #story-loom input, #story-loom select { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 15px; max-width: 100%; }
+      #story-loom #sl-title { width: 220px; }
+      #story-loom #sl-block-select { width: 300px; }
+      #story-loom #sl-height { width: 110px; }
+      #story-loom #sl-caption { width: 300px; }
+      #story-loom button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #story-loom button:hover { color: var(--gold); }
+      #sl-story-title { font-weight: bold; margin: .6em 0; }
+      #sl-list { list-style: none; padding-left: 0; }
+      #sl-list li { margin: .6em 0; }
+      #sl-list .sl-kind { font-size: .78em; color: var(--ink-faint); border: 1px solid var(--line); padding: 1px 7px; margin-left: 8px; white-space: nowrap; }
+      #sl-list button { padding: 3px 9px; margin-left: 10px; }
+      #sl-msg { color: #ff8a7a; min-height: 1.4em; margin: .4em 0; }
+      #sl-empty { color: var(--ink-soft); }
+      #sl-storage-note { color: var(--ink-soft); font-style: italic; }
+
+      /* Web Mapper — additive only */
+      #web-mapper .wm-banner { border: 1px solid var(--gold-dim); padding: 10px 14px; color: var(--gold); letter-spacing: 1px; margin: 1em 0; }
+      #web-mapper .wm-form, #web-mapper .wm-connect-row { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin: 1em 0; }
+      #web-mapper .wm-form label, #web-mapper .wm-connect-row label { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); }
+      #web-mapper input, #web-mapper select { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 15px; max-width: 100%; }
+      #web-mapper #wm-label { width: 220px; }
+      #web-mapper #wm-x, #web-mapper #wm-y { width: 110px; }
+      #web-mapper button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #web-mapper button:hover { color: var(--gold); }
+      #web-mapper .wm-hint { color: var(--ink-soft); font-size: .92em; }
+      #wm-canvas { position: relative; height: 340px; max-width: 100%; border: 1px solid var(--gold-dim); background: var(--bg-raise); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 10% 10%; cursor: crosshair; overflow: hidden; margin: 1em 0; touch-action: manipulation; }
+      #wm-canvas .wm-lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+      #wm-canvas .wm-node { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; pointer-events: none; }
+      #wm-canvas .wm-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--gold); border: 1px solid #0a0908; flex: none; }
+      #wm-canvas .wm-node-label { font-size: 12px; color: var(--ink); background: #0a0908; border: 1px solid var(--line); padding: 1px 7px; white-space: nowrap; }
+      #wm-msg { color: #ff8a7a; min-height: 1.4em; margin: .4em 0; }
+      #wm-storage-note { color: var(--ink-soft); font-style: italic; }
+      #wm-count { color: var(--ink-soft); }
+      #wm-empty, #wm-edges-empty { color: var(--ink-soft); }
+      #wm-nodes, #wm-edges { list-style: none; padding-left: 0; }
+      #wm-nodes li, #wm-edges li { margin: .5em 0; }
+      #wm-nodes button { padding: 3px 9px; margin-left: 10px; }
+
       /* page navigation — built by the router, sits above the hub */
       .page-nav {
         display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
@@ -4337,26 +4379,34 @@
     }
   }
 
-  /* Read-only scan of the pre-existing chain table: each rendered row
-     carries a category label (its type badge — the same category the
-     page's web ties knots by). This section's own DOM is never scanned:
-     the scan is scoped to #chain, which this section is not inside. */
+  /* Read-only scan of the pre-existing chain area: every block rendered
+     there carries a category label — a plain row's type badge, or a web
+     knot's label in the web formations (the knots the page ties by
+     category). Merging both forms and ordering by height, newest first
+     as the table presents them, gives the same item list whether or not
+     the page's web formation has been drawn yet. This section's own DOM
+     is never scanned: the scan is scoped to #chain, which this section
+     is not inside, and nothing it reads is modified. */
   function scanItems() {
-    var items = [];
-    var seen = {};
-    var rows = document.querySelectorAll('#chain table.chain tbody tr');
-    rows.forEach(function (tr) {
+    var byHeight = {};
+    function add(h, cat) {
+      if (isNaN(h) || !cat || byHeight[h]) return;
+      byHeight[h] = { h: h, category: cat };
+    }
+    document.querySelectorAll('#chain table.chain tbody tr').forEach(function (tr) {
       var num = tr.querySelector('td.num');
       var badge = tr.querySelector('span.type');
       if (!num || !badge) return;
-      var h = parseInt(num.textContent, 10);
-      if (isNaN(h) || seen[h]) return;
-      var cat = badge.textContent.trim();
-      if (!cat) return;
-      seen[h] = true;
-      items.push({ h: h, category: cat });
+      add(parseInt(num.textContent, 10), badge.textContent.trim());
     });
-    return items;
+    document.querySelectorAll('#chain g.bw-node').forEach(function (g) {
+      var label = g.getAttribute('aria-label') || '';
+      var m = /^Block (\d+) \u2014 ([^\u2014]+) \u2014 /.exec(label);
+      if (!m) return;
+      add(parseInt(m[1], 10), m[2].trim());
+    });
+    return Object.keys(byHeight).map(function (k) { return byHeight[k]; })
+      .sort(function (a, b) { return b.h - a.h; });
   }
 
   function buildQuestions() {
@@ -4367,7 +4417,8 @@
     for (var i = 0; i + 1 < items.length && questions.length < MAX_QUESTIONS; i += 2) {
       var a = items[i], b = items[i + 1];
       var q = {
-        id: 'q' + (questions.length + 1),
+        id: 'q' + a.h + '-' + b.h,
+        n: questions.length + 1,
         a: a, b: b,
         shares: a.category === b.category,
         category: a.category === b.category ? a.category : null
@@ -4382,7 +4433,7 @@
   }
 
   function showReveal(q) {
-    var el = $('tc-result-' + q.id.slice(1));
+    var el = $('tc-result-' + q.n);
     if (el) el.textContent = verdictText(q);
   }
 
@@ -4457,6 +4508,596 @@
   function init() {
     load();
     buildQuestions();
+    if (!storageOK) showStorageNote();
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="story-loom" aria-label="Story Loom" data-pg="chain">
+<h2>Story Loom — caption three blocks.</h2>
+<p>Pick up to three blocks and write one caption for each, in your own words, to build a short story strip. Your strip is saved on this device only; it is not a chain record, an official story, or a platform statement, and nothing here writes to the chain.</p>
+<div class="sl-form">
+<label>Story title <input type="text" id="sl-title" value="My story"></label>
+<label id="sl-select-label" hidden>Pick a block from this page <select id="sl-block-select"><option value="">— choose a block —</option></select></label>
+<label>Block height <input type="number" id="sl-height" min="0" step="1" inputmode="numeric"></label>
+<label>Caption <input type="text" id="sl-caption"></label>
+<button type="button" id="sl-add">Add</button>
+</div>
+<p id="sl-msg" role="status"></p>
+<p id="sl-storage-note" hidden>Saved for this visit only — storage is unavailable on this device.</p>
+<div id="sl-strip" aria-live="polite">
+<p id="sl-story-title">STORY: My story</p>
+<p id="sl-empty">No story blocks yet. Pick a block and write its caption.</p>
+<ol id="sl-list"></ol>
+</div>
+<p><a id="sl-draft" href="#" target="_blank" rel="noopener">Draft as email</a> — opens a draft in your own mail app containing your strip. This page never sends anything; you address and send the draft yourself, or close it.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-story-loom-v1';
+  var MAX_BLOCKS = 3;
+  var MAX_TITLE = 40;
+  var MAX_CAPTION = 80;
+  var state = { title: 'My story', blocks: [] };
+  var storageOK = true;
+  var pendingKind = 'manual';
+  var sessionKinds = {};
+  var pageHeights = {};
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('sl-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function cleanCaption(raw) {
+    return String(raw).trim().replace(/\n/g, ' ');
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (data && typeof data.title === 'string') {
+        var t = data.title.trim();
+        if (t && t.length <= MAX_TITLE) state.title = t;
+      }
+      if (data && Array.isArray(data.blocks)) {
+        data.blocks.slice(0, MAX_BLOCKS).forEach(function (b) {
+          if (!b) return;
+          var cap = typeof b.caption === 'string' ? cleanCaption(b.caption) : '';
+          if (Number.isInteger(b.height) && b.height >= 0 && cap && cap.length <= MAX_CAPTION &&
+              !state.blocks.some(function (x) { return x.height === b.height; })) {
+            state.blocks.push({ height: b.height, caption: cap });
+          }
+        });
+      }
+    } catch (e) { /* unreadable saved strip: start fresh, in memory */ }
+  }
+
+  function msg(text) { $('sl-msg').textContent = text || ''; }
+
+  function kindFor(height) {
+    if (Object.prototype.hasOwnProperty.call(sessionKinds, height)) return sessionKinds[height];
+    return pageHeights[height] ? 'page' : 'manual';
+  }
+
+  function render() {
+    $('sl-story-title').textContent = 'STORY: ' + state.title;
+    var list = $('sl-list');
+    while (list.firstChild) list.removeChild(list.firstChild);
+    state.blocks.forEach(function (b, i) {
+      var li = document.createElement('li');
+      var line = document.createElement('span');
+      line.textContent = (i + 1) + '. h=' + b.height + ' — ' + b.caption;
+      li.appendChild(line);
+      var kind = document.createElement('span');
+      kind.className = 'sl-kind';
+      kind.textContent = kindFor(b.height) === 'page' ? 'From this page' : 'Your entry';
+      li.appendChild(kind);
+      var rm = document.createElement('button');
+      rm.type = 'button';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', function () { removeHeight(b.height); });
+      li.appendChild(rm);
+      list.appendChild(li);
+    });
+    $('sl-empty').hidden = state.blocks.length > 0;
+  }
+
+  /* Mirrors prototypes/story_loom.py add(): height a non-negative
+     integer, caption 1-80 characters after trimming with newlines
+     flattened to spaces, duplicate height refused, at most 3 blocks. */
+  function add() {
+    msg('');
+    var hRaw = $('sl-height').value.trim();
+    var h = Number(hRaw);
+    if (hRaw === '' || !Number.isInteger(h) || h < 0) {
+      msg('Enter a block height: a whole number, 0 or more.');
+      return;
+    }
+    var caption = cleanCaption($('sl-caption').value);
+    if (!caption || caption.length > MAX_CAPTION) {
+      msg('Write a caption: 1 to 80 characters.');
+      return;
+    }
+    if (state.blocks.some(function (b) { return b.height === h; })) {
+      msg('That block is already in your story.');
+      return;
+    }
+    if (state.blocks.length >= MAX_BLOCKS) {
+      msg('Your story is full: 3 of 3 blocks. Remove a block to add another.');
+      return;
+    }
+    state.blocks.push({ height: h, caption: caption });
+    sessionKinds[h] = pendingKind === 'page' ? 'page' : 'manual';
+    pendingKind = 'manual';
+    $('sl-block-select').value = '';
+    $('sl-height').value = '';
+    $('sl-caption').value = '';
+    save();
+    render();
+  }
+
+  /* Mirrors prototypes/story_loom.py remove(): removing a block that
+     is not in the story is refused. */
+  function removeHeight(h) {
+    msg('');
+    var before = state.blocks.length;
+    state.blocks = state.blocks.filter(function (b) { return b.height !== h; });
+    if (state.blocks.length === before) {
+      msg('That block is not in your story.');
+      return;
+    }
+    delete sessionKinds[h];
+    save();
+    render();
+  }
+
+  function previewText() {
+    var lines = ['STORY: ' + state.title];
+    state.blocks.forEach(function (b, i) {
+      lines.push((i + 1) + '. h=' + b.height + ' — ' + b.caption);
+    });
+    return lines.join('\n');
+  }
+
+  function init() {
+    load();
+    $('sl-title').value = state.title;
+
+    /* Page block data: the blocks already rendered on this page — the
+       chain table rows first, then the page's own block data for any
+       rows the page's web formation lifts out of the table. Rows whose
+       titles carry an amount are left out of the picker. The picker
+       re-reads a few times after load and whenever it is opened. */
+    var sel = $('sl-block-select');
+    var optionSig = '';
+    function populate() {
+      var seen = {};
+      var options = [];
+      function addOpt(h, t) {
+        if (!Number.isInteger(h) || h < 0 || !t || seen[h]) return;
+        if (/\d[\d,]*\s*FUSI/i.test(t)) return;
+        seen[h] = true;
+        options.push({ height: h, title: t });
+      }
+      document.querySelectorAll('#chain table.chain tbody tr').forEach(function (tr) {
+        var num = tr.querySelector('td.num');
+        var ttl = tr.querySelector('td.title');
+        if (!num || !ttl) return;
+        addOpt(parseInt(num.textContent, 10), ttl.textContent.trim());
+      });
+      if (Array.isArray(window.BLOCK_DATA)) {
+        window.BLOCK_DATA.forEach(function (b) {
+          if (b && b.payload && typeof b.payload.title === 'string') {
+            addOpt(b.h, b.payload.title.trim());
+          }
+        });
+      }
+      pageHeights = seen;
+      options.sort(function (a, b) { return b.height - a.height; });
+      var sig = options.map(function (o) { return o.height; }).join(',');
+      if (!options.length || sig === optionSig) { render(); return; }
+      optionSig = sig;
+      var current = sel.value;
+      while (sel.options.length > 1) sel.remove(1);
+      options.forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = String(o.height);
+        opt.textContent = 'Block ' + o.height + ' — ' + o.title;
+        sel.appendChild(opt);
+      });
+      if (current && seen[current]) sel.value = current;
+      $('sl-select-label').hidden = false;
+      render();
+    }
+    populate();
+    [600, 1600, 3200].forEach(function (ms) { setTimeout(populate, ms); });
+    sel.addEventListener('focus', populate);
+    sel.addEventListener('mousedown', populate);
+    sel.addEventListener('change', function () {
+      if (!sel.value) { pendingKind = 'manual'; return; }
+      $('sl-height').value = sel.value;
+      pendingKind = 'page';
+      msg('');
+    });
+
+    $('sl-height').addEventListener('input', function () {
+      if (sel.value) sel.value = '';
+      pendingKind = 'manual';
+    });
+
+    $('sl-title').addEventListener('change', function () {
+      var v = $('sl-title').value.trim().replace(/\n/g, ' ');
+      if (v && v.length > MAX_TITLE) {
+        msg('Story title must be 1 to 40 characters.');
+        $('sl-title').value = state.title;
+        return;
+      }
+      msg('');
+      state.title = v || 'My story';
+      $('sl-title').value = state.title;
+      save();
+      render();
+    });
+
+    $('sl-add').addEventListener('click', add);
+
+    $('sl-draft').addEventListener('click', function () {
+      var body = previewText() + '\n\n' +
+        'Shared from the FUSI Ledger story tool (visitor captions, not a chain record).';
+      this.href = 'mailto:?subject=' + encodeURIComponent('My FUSI Ledger story') +
+        '&body=' + encodeURIComponent(body);
+    });
+
+    if (!storageOK) showStorageNote();
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="web-mapper" aria-label="Web Mapper" data-pg="chain">
+<h2>Web Mapper — draw your own web.</h2>
+<p class="wm-banner"><strong>Your personal map. This is not the platform spider web and it changes nothing on it.</strong></p>
+<p>Draw a small web of your own: type a label for a node, place it on the map, then connect nodes together. Place up to 12 nodes and 30 connections. Your map is saved on this device only; it is not a chain record and nothing here writes to the chain.</p>
+<div class="wm-form">
+<label>Node label <input type="text" id="wm-label" maxlength="24"></label>
+<label>X (0–100) <input type="number" id="wm-x" min="0" max="100" step="1" inputmode="numeric"></label>
+<label>Y (0–100) <input type="number" id="wm-y" min="0" max="100" step="1" inputmode="numeric"></label>
+<button type="button" id="wm-place">Place</button>
+</div>
+<p class="wm-hint">Two ways to place a node: tap or click the map at the spot you want, or type X and Y above and press Place. Both ways do the same thing.</p>
+<div id="wm-canvas" role="img" aria-label="Your web map area. The nodes and connections you place appear here; the Nodes and Connections lists below show the same map as text."></div>
+<p id="wm-msg" role="status"></p>
+<p id="wm-storage-note" hidden>Saved for this visit only — storage is unavailable on this device.</p>
+<p id="wm-count" aria-live="polite">0 of 12 nodes · 0 of 30 connections</p>
+<div class="wm-connect-row">
+<label>Connect <select id="wm-node-a"><option value="">— choose a node —</option></select></label>
+<label>to <select id="wm-node-b"><option value="">— choose a node —</option></select></label>
+<button type="button" id="wm-connect">Connect</button>
+</div>
+<h3>Nodes</h3>
+<p id="wm-empty">No nodes yet. Place your first node on the map.</p>
+<ul id="wm-nodes"></ul>
+<h3>Connections</h3>
+<p id="wm-edges-empty">No connections yet. Pick two nodes above and press Connect.</p>
+<ul id="wm-edges"></ul>
+<p><a id="wm-draft" href="#" target="_blank" rel="noopener">Draft as email</a> — opens a draft in your own mail app containing your map as text. This page never sends anything; you address and send the draft yourself, or close it.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-web-mapper-v1';
+  var MAX_NODES = 12;
+  var MAX_EDGES = 30;
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var state = { nodes: {}, edges: [] };
+  var nextId = 1;
+  var storageOK = true;
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('wm-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (data && data.nodes && typeof data.nodes === 'object') {
+        Object.keys(data.nodes).forEach(function (id) {
+          if (Object.keys(state.nodes).length >= MAX_NODES) return;
+          var n = data.nodes[id];
+          if (!n || typeof n.label !== 'string') return;
+          var label = n.label.trim();
+          var x = Number(n.x), y = Number(n.y);
+          if (!label || label.length > 24) return;
+          if (!isFinite(x) || !isFinite(y) || x < 0 || x > 100 || y < 0 || y > 100) return;
+          state.nodes[id] = { label: label, x: x, y: y };
+          var m = /^n(\d+)$/.exec(id);
+          if (m) nextId = Math.max(nextId, parseInt(m[1], 10) + 1);
+        });
+      }
+      if (data && Array.isArray(data.edges)) {
+        data.edges.forEach(function (e) {
+          if (!Array.isArray(e) || e.length !== 2) return;
+          var a = e[0], b = e[1];
+          if (!state.nodes[a] || !state.nodes[b] || a === b) return;
+          if (state.edges.length >= MAX_EDGES) return;
+          if (hasEdge(a, b)) return;
+          state.edges.push([a, b]);
+        });
+      }
+    } catch (e) { /* unreadable saved map: start fresh, in memory */ }
+  }
+
+  function msg(text) { $('wm-msg').textContent = text || ''; }
+
+  function fmt(v) {
+    return Number.isInteger(v) ? String(v) : String(Math.round(v * 10) / 10);
+  }
+
+  function hasEdge(a, b) {
+    return state.edges.some(function (e) {
+      return (e[0] === a && e[1] === b) || (e[0] === b && e[1] === a);
+    });
+  }
+
+  function nodeIds() { return Object.keys(state.nodes); }
+
+  /* Mirrors prototypes/web_mapper.py add_node(): label 1-24
+     characters after trimming, X and Y 0-100 each, at most 12 nodes. */
+  function addNode(x, y) {
+    msg('');
+    var label = $('wm-label').value.trim();
+    if (!label || label.length > 24) {
+      msg('Type a node label: 1 to 24 characters.');
+      return false;
+    }
+    if (!isFinite(x) || !isFinite(y) || x < 0 || x > 100 || y < 0 || y > 100) {
+      msg('X and Y must each be a number from 0 to 100.');
+      return false;
+    }
+    if (nodeIds().length >= MAX_NODES) {
+      msg('Your map is full: 12 of 12 nodes. Remove a node to place another.');
+      return false;
+    }
+    var id = 'n' + nextId;
+    nextId += 1;
+    state.nodes[id] = { label: label, x: x, y: y };
+    $('wm-label').value = '';
+    save();
+    render();
+    return true;
+  }
+
+  function placeFromInputs() {
+    var xRaw = $('wm-x').value.trim();
+    var yRaw = $('wm-y').value.trim();
+    if (xRaw === '' || yRaw === '') {
+      msg('Type both X and Y (0 to 100 each), or click the map where the node should go.');
+      return;
+    }
+    if (addNode(Number(xRaw), Number(yRaw))) {
+      $('wm-x').value = '';
+      $('wm-y').value = '';
+    }
+  }
+
+  /* Mirrors prototypes/web_mapper.py add_edge(): endpoints must be
+     nodes on this map, a self-edge is refused, a duplicate edge in
+     either direction is refused, at most 30 edges. */
+  function connect() {
+    msg('');
+    var a = $('wm-node-a').value;
+    var b = $('wm-node-b').value;
+    if (!a || !b || !state.nodes[a] || !state.nodes[b]) {
+      msg('Pick two nodes from the lists to connect.');
+      return;
+    }
+    if (a === b) {
+      msg('A node cannot connect to itself. Pick two different nodes.');
+      return;
+    }
+    if (hasEdge(a, b)) {
+      msg('Those two nodes are already connected.');
+      return;
+    }
+    if (state.edges.length >= MAX_EDGES) {
+      msg('Your map is full: 30 of 30 connections.');
+      return;
+    }
+    state.edges.push([a, b]);
+    save();
+    render();
+  }
+
+  /* Mirrors prototypes/web_mapper.py remove_node(): removing a node
+     removes its edges with it. */
+  function removeNode(id) {
+    msg('');
+    if (!state.nodes[id]) {
+      msg('That node is not on your map.');
+      return;
+    }
+    delete state.nodes[id];
+    state.edges = state.edges.filter(function (e) { return e[0] !== id && e[1] !== id; });
+    save();
+    render();
+  }
+
+  /* Mirrors prototypes/web_mapper.py export_text(). */
+  function exportText() {
+    var lines = ['MY WEB MAP'];
+    nodeIds().forEach(function (id) {
+      var n = state.nodes[id];
+      lines.push(id + ': ' + n.label + ' (' + fmt(n.x) + ',' + fmt(n.y) + ')');
+    });
+    state.edges.forEach(function (e) {
+      lines.push(state.nodes[e[0]].label + ' — ' + state.nodes[e[1]].label);
+    });
+    return lines.join('\n');
+  }
+
+  function render() {
+    var canvas = $('wm-canvas');
+    while (canvas.firstChild) canvas.removeChild(canvas.firstChild);
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'wm-lines');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+    state.edges.forEach(function (e) {
+      var a = state.nodes[e[0]], b = state.nodes[e[1]];
+      if (!a || !b) return;
+      var line = document.createElementNS(SVGNS, 'line');
+      line.setAttribute('x1', a.x); line.setAttribute('y1', 100 - a.y);
+      line.setAttribute('x2', b.x); line.setAttribute('y2', 100 - b.y);
+      line.setAttribute('stroke', '#9a8334');
+      line.setAttribute('stroke-width', '0.6');
+      svg.appendChild(line);
+    });
+    canvas.appendChild(svg);
+    nodeIds().forEach(function (id) {
+      var n = state.nodes[id];
+      var wrap = document.createElement('div');
+      wrap.className = 'wm-node';
+      wrap.style.left = n.x + '%';
+      wrap.style.top = (100 - n.y) + '%';
+      var dot = document.createElement('span');
+      dot.className = 'wm-dot';
+      var lab = document.createElement('span');
+      lab.className = 'wm-node-label';
+      lab.textContent = n.label;
+      wrap.appendChild(dot);
+      wrap.appendChild(lab);
+      canvas.appendChild(wrap);
+    });
+
+    ['wm-node-a', 'wm-node-b'].forEach(function (selId) {
+      var sel = $(selId);
+      var current = sel.value;
+      while (sel.options.length > 1) sel.remove(1);
+      nodeIds().forEach(function (id) {
+        var opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = state.nodes[id].label;
+        sel.appendChild(opt);
+      });
+      if (current && state.nodes[current]) sel.value = current;
+    });
+
+    var nodesList = $('wm-nodes');
+    while (nodesList.firstChild) nodesList.removeChild(nodesList.firstChild);
+    nodeIds().forEach(function (id) {
+      var n = state.nodes[id];
+      var li = document.createElement('li');
+      var line = document.createElement('span');
+      line.textContent = n.label + ' (' + fmt(n.x) + ', ' + fmt(n.y) + ')';
+      li.appendChild(line);
+      var rm = document.createElement('button');
+      rm.type = 'button';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', function () { removeNode(id); });
+      li.appendChild(rm);
+      nodesList.appendChild(li);
+    });
+
+    var edgesList = $('wm-edges');
+    while (edgesList.firstChild) edgesList.removeChild(edgesList.firstChild);
+    state.edges.forEach(function (e) {
+      if (!state.nodes[e[0]] || !state.nodes[e[1]]) return;
+      var li = document.createElement('li');
+      li.textContent = state.nodes[e[0]].label + ' — ' + state.nodes[e[1]].label;
+      edgesList.appendChild(li);
+    });
+
+    $('wm-empty').hidden = nodeIds().length > 0;
+    $('wm-edges-empty').hidden = state.edges.length > 0;
+    $('wm-count').textContent = nodeIds().length + ' of ' + MAX_NODES + ' nodes · ' +
+      state.edges.length + ' of ' + MAX_EDGES + ' connections';
+  }
+
+  function init() {
+    load();
+
+    $('wm-canvas').addEventListener('click', function (ev) {
+      var rect = this.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var x = Math.round((ev.clientX - rect.left) / rect.width * 100);
+      var y = Math.round((1 - (ev.clientY - rect.top) / rect.height) * 100);
+      x = Math.min(100, Math.max(0, x));
+      y = Math.min(100, Math.max(0, y));
+      $('wm-x').value = x;
+      $('wm-y').value = y;
+      if (addNode(x, y)) {
+        $('wm-x').value = '';
+        $('wm-y').value = '';
+      }
+    });
+
+    $('wm-place').addEventListener('click', placeFromInputs);
+    $('wm-connect').addEventListener('click', connect);
+
+    $('wm-draft').addEventListener('click', function () {
+      this.href = 'mailto:?subject=' + encodeURIComponent('My web map') +
+        '&body=' + encodeURIComponent(exportText());
+    });
+
     if (!storageOK) showStorageNote();
     render();
   }

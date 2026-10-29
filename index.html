@@ -1653,6 +1653,92 @@
         .lw-svg { transition: none; }
       }
     </style>
+    <style>
+      /* ===== THE WEB LIVES WHERE THE BLOCKS ARE — chain webs reach the
+         whole ledger, and a pressed strand is ridden, not just jumped.
+         The reach fan lives INSIDE each chain web panel (below the
+         block web, inside the chain table): strands fan from this
+         web's hub out to numbered destination knots, one per ledger
+         section this web is tied to, each in its tie's colour. The
+         words stay off the silk — reasons live in the panel under the
+         fan. Riding a strand animates along its path, then the page
+         itself carries you to the destination, which flashes gold on
+         arrival; a return chip rides you back along the strand. ===== */
+      .bw-reach { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 10px; text-align: left; }
+      .bw-reach-head { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; justify-content: space-between; }
+      .bw-reach-title { font-size: 11px; letter-spacing: 2px; color: var(--gold); }
+      .bw-reach-note { font-size: 11px; letter-spacing: 1.2px; color: var(--ink-faint); text-transform: uppercase; }
+      .bw-reach-caption { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin: 6px 2px 8px; }
+      .bw-reach-caption b { color: var(--ink); font-weight: normal; }
+      .bw-reach-holder { text-align: center; }
+      .bw-reach-svg { display: block; width: 100%; max-width: 760px; height: auto; margin: 0 auto; }
+      .bw-reach-svg .bw-node { cursor: pointer; }
+      .bw-reach-svg .bw-node circle.bw-dot { stroke: #0c0b09; stroke-width: 1.4; }
+      .bw-reach-svg .bw-node text { font-family: "Courier New", monospace; font-weight: 700; text-anchor: middle; dominant-baseline: central; fill: #12100c; pointer-events: none; }
+      .bw-reach-svg .bw-node:hover circle.bw-dot, .bw-reach-svg .bw-node:focus-visible circle.bw-dot { stroke: var(--gold); stroke-width: 2.4; }
+      .bw-reach-svg .bw-node:focus { outline: none; }
+      .bw-reach-svg .bw-strand-hit { fill: none; stroke: rgba(0,0,0,0); stroke-width: 16; pointer-events: stroke; cursor: pointer; }
+      .bw-reach-svg .bw-strand-hit:focus { outline: none; }
+      .bw-reach-svg .bw-live { pointer-events: none; }
+      .bw-all-btn, .bw-travel-btn {
+        font-family: Georgia, serif; display: inline-block; margin-top: 8px;
+        font-size: 13px; letter-spacing: 1.5px; color: var(--gold);
+        background: none; border: 1px solid var(--gold-dim); padding: 6px 14px; cursor: pointer;
+      }
+      .bw-all-btn:hover, .bw-travel-btn:hover { background: var(--gold-faint); }
+      .bw-all-btn:focus-visible, .bw-travel-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .bw-travel-btn { margin: 2px 0 2px 10px; padding: 3px 10px; font-size: 12px; white-space: nowrap; }
+      .bw-explain .bw-explain-close {
+        float: right; margin: 0 0 6px 10px; padding: 2px 10px;
+        font-family: Georgia, serif; font-size: 12px; letter-spacing: 1px;
+        background: none; border: 1px solid var(--gold-dim); color: var(--gold); cursor: pointer;
+      }
+      .bw-explain .bw-explain-close:hover { background: var(--gold-faint); }
+      /* arrival — the destination of a ridden strand is marked in gold */
+      .strand-arrived { animation: strand-arrive 2.4s ease; }
+      section.strand-arrived, div.strand-arrived, a.strand-arrived { outline: 3px solid var(--gold); outline-offset: 3px; }
+      @keyframes strand-arrive {
+        0%, 55% { box-shadow: 0 0 0 3px var(--gold), 0 0 34px rgba(212, 175, 55, 0.45); background-color: rgba(212, 175, 55, 0.14); }
+        100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+      }
+      /* the return chip — riding back along the strand */
+      #strand-return {
+        position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%); z-index: 99990;
+        width: min(520px, calc(100vw - 24px));
+        background: rgba(13, 12, 9, 0.97); border: 1px solid var(--gold-dim);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+        padding: 10px 14px; color: var(--ink); font-size: 13.5px; line-height: 1.5;
+        display: none;
+      }
+      #strand-return.open { display: block; }
+      #strand-return .sr-where { color: var(--gold); letter-spacing: 1.2px; font-size: 11.5px; display: block; margin-bottom: 4px; }
+      #strand-return .sr-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      #strand-return button {
+        font-family: Georgia, serif; font-size: 12.5px; letter-spacing: 1px;
+        background: none; border: 1px solid var(--gold-dim); color: var(--gold);
+        padding: 5px 12px; cursor: pointer;
+      }
+      #strand-return button:hover { background: var(--gold-faint); }
+      /* ===== 9:16 PHONE FIT FOR THE CHAIN WEBS — each formation is
+         sized by the viewport's height as well as its width, so the
+         whole web fits one phone screen with no sideways room asked
+         for; when an explanation opens, the web shrinks instead of
+         being pushed off-screen, and closing restores it. ===== */
+      @media (max-width: 720px) {
+        .bw-holder { text-align: center; }
+        .bw-panel .bw-svg { width: min(100%, 62vh); width: min(100%, 62dvh); margin: 0 auto; transition: width 0.3s ease; }
+        .bw-panel.has-explain .bw-svg { width: min(100%, 34vh); width: min(100%, 34dvh); }
+        .bw-panel .bw-explain, .bw-reach .bw-explain { max-height: 38vh; max-height: 38dvh; overflow-y: auto; }
+        .bw-reach-svg { width: min(100%, 62vh); width: min(100%, 62dvh); transition: width 0.3s ease; }
+        .bw-reach.has-explain .bw-reach-svg { width: min(100%, 34vh); width: min(100%, 34dvh); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bw-panel .bw-svg, .bw-reach-svg { transition: none; }
+        .bw-reach-svg .bw-live { display: none; }
+        .strand-arrived { animation: none; outline: 3px solid var(--gold); outline-offset: 3px; }
+      }
+    </style>
 </head>
   <body>
     <!-- ================= VAULT ENTRY GATE — ledger block h=131 =================
@@ -1731,49 +1817,6 @@
            The platform's front door, transplanted from artifact `fusion-hub`:
            live strip, START HERE spine, hero, and the six beats. The spine
            routes within this one page. -->
-      <!-- ================= THE LEDGER WEB — the spider web, extended =================
-           The same web that weaves the chain blocks, reaching every part
-           of the ledger: the chain at the hub, every section a numbered
-           knot on the rings, every strand coloured by why it is tied.
-           No words on the web itself — the key, the legend and the
-           "This is connected because of …" panel all live off the
-           canvas, exactly as they do under the block webs. Woven by the
-           ledger-web script at the end of the body; the numbered key
-           below is live even without it. -->
-      <section class="lw-panel" id="ledger-web" aria-label="The ledger web — every section of the ledger tied into one web">
-        <div class="lw-head">
-          <span class="lw-title">THE LEDGER, IN ONE WEB</span>
-          <span class="lw-note">Every section · one web · colours only</span>
-        </div>
-        <div class="lw-holder" id="lw-holder"></div>
-        <p class="lw-caption"><b>Tap any knot</b> and every tie it carries is spelled out at once, under the web — each tie in its own colour, each one a jump straight to that section. Every section below carries the same ties back, all at once, so the whole ledger reads as one web. The web stays alive: strands keep forming and re-weaving along ties that really exist.</p>
-        <nav class="lw-key" aria-label="Ledger web knot key — every knot, numbered">
-          <a href="#/chain"><span class="lw-kn">0</span>The Chain — the hub</a>
-          <a href="#/home"><span class="lw-kn">1</span>Front — Main Ledger</a>
-          <a href="#/play/the-forge"><span class="lw-kn">2</span>Forge — Play</a>
-          <a href="#/earn/beat-earn"><span class="lw-kn">3</span>Earn</a>
-          <a href="#/coin/beat-coin"><span class="lw-kn">4</span>The Coin</a>
-          <a href="#/wallet/beat-wallet"><span class="lw-kn">5</span>Wallet</a>
-          <a href="#/market/beat-market"><span class="lw-kn">6</span>Market</a>
-          <a href="#/explore/hub-pools"><span class="lw-kn">7</span>Pools</a>
-          <a href="#/workshop/creator-workshop"><span class="lw-kn">8</span>Creator Workshop</a>
-          <a href="#/explore/beat-explore"><span class="lw-kn">9</span>Explore</a>
-          <a href="#/ais/for-ais"><span class="lw-kn">10</span>For AIs</a>
-          <a href="#/humans/for-humans"><span class="lw-kn">11</span>For Humans</a>
-          <a href="fusion-studios.html"><span class="lw-kn">12</span>Fusion Studios</a>
-          <a href="#/home/beat-referrals"><span class="lw-kn">13</span>Referrals</a>
-          <a href="#/home/beat-crews"><span class="lw-kn">14</span>Crews</a>
-          <a href="#/chain/dispute-inbox"><span class="lw-kn">15</span>Dispute Inbox</a>
-          <a href="#/chain/trail-weaver"><span class="lw-kn">16</span>Trail Weaver</a>
-          <a href="#/chain/coin-sketchbook"><span class="lw-kn">17</span>Coin Sketchbook</a>
-          <a href="#/chain/cipher-vault"><span class="lw-kn">18</span>Cipher Vault</a>
-          <a href="#/chain/paper-trade-table"><span class="lw-kn">19</span>Paper Trade Table</a>
-          <a href="#/chain/tie-checker"><span class="lw-kn">20</span>Tie Checker</a>
-          <a href="#/chain/story-loom"><span class="lw-kn">21</span>Story Loom</a>
-          <a href="#/chain/web-mapper"><span class="lw-kn">22</span>Web Mapper</a>
-          <a href="gameshark.html"><span class="lw-kn">23</span>GameShark</a>
-        </nav>
-      </section>
 
       <div class="hub" id="hub-top">
 
@@ -22049,6 +22092,47 @@ window.__fusiSnakeMode = "2d";
   var REASON_ORDER = ["chain", "case", "category"];
   var livePanels = [];
   var reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  /* the strand return chip — after riding a strand to its destination,
+     this chip is the way back: it scrolls to the strand's origin and
+     says where you came from, so travel is a round trip along the
+     strand, never a one-way jump into nowhere. Shared with the ledger
+     reach script below. */
+  window.__fusiStrandReturn = function (originEl, whereText) {
+    var chip = document.getElementById("strand-return");
+    if (!chip) {
+      chip = document.createElement("div");
+      chip.id = "strand-return";
+      chip.setAttribute("role", "status");
+      document.body.appendChild(chip);
+    }
+    while (chip.firstChild) chip.removeChild(chip.firstChild);
+    var where = document.createElement("span");
+    where.className = "sr-where";
+    where.textContent = "YOU RODE THE STRAND TO";
+    chip.appendChild(where);
+    var what = document.createElement("span");
+    what.textContent = whereText;
+    chip.appendChild(what);
+    var btns = document.createElement("div");
+    btns.className = "sr-btns";
+    var back = document.createElement("button");
+    back.type = "button";
+    back.textContent = "← RIDE BACK ALONG THE STRAND";
+    back.addEventListener("click", function () {
+      chip.classList.remove("open");
+      if (originEl && originEl.isConnected) originEl.scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
+    });
+    btns.appendChild(back);
+    var stay = document.createElement("button");
+    stay.type = "button";
+    stay.textContent = "STAY HERE ×";
+    stay.addEventListener("click", function () { chip.classList.remove("open"); });
+    btns.appendChild(stay);
+    chip.appendChild(btns);
+    chip.classList.add("open");
+    clearTimeout(chip.__srTimer);
+    chip.__srTimer = setTimeout(function () { chip.classList.remove("open"); }, 20000);
+  };
   function buildLegendEl() {
     var d = document.createElement("div");
     d.className = "bw-legend";
@@ -22226,6 +22310,7 @@ window.__fusiSnakeMode = "2d";
        and strands can explain themselves under the web, and the live
        weave only ever travels along ties that really exist */
     var conns = [];
+    var knotEls = {};
     function connText(c, fromH) {
       var other = c.a === fromH ? c.b : c.a;
       var s;
@@ -22244,12 +22329,22 @@ window.__fusiSnakeMode = "2d";
       if (c.offweb) s += " That block sits in another formation, so this strand runs to the edge of this web.";
       return s;
     }
+    function closeExplain() {
+      explain.hidden = true;
+      wrapEl.classList.remove("has-explain");
+    }
     function showExplain(heading, list) {
       while (explain.firstChild) explain.removeChild(explain.firstChild);
       var head = document.createElement("div");
       head.className = "bw-explain-head";
       head.textContent = heading;
       explain.appendChild(head);
+      var closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "bw-explain-close";
+      closeBtn.textContent = "CLOSE ×";
+      closeBtn.addEventListener("click", closeExplain);
+      explain.appendChild(closeBtn);
       var ul = document.createElement("ul");
       list.forEach(function (c) {
         var li = document.createElement("li");
@@ -22260,14 +22355,101 @@ window.__fusiSnakeMode = "2d";
         var tx = document.createElement("span");
         tx.textContent = c.text;
         li.appendChild(tx);
+        if (typeof c.travel === "function") {
+          var tb = document.createElement("button");
+          tb.type = "button";
+          tb.className = "bw-travel-btn";
+          tb.textContent = "RIDE THIS STRAND →";
+          tb.addEventListener("click", c.travel);
+          li.appendChild(tb);
+        }
         ul.appendChild(li);
       });
       explain.appendChild(ul);
       explain.hidden = false;
+      wrapEl.classList.add("has-explain");
     }
     function explainConn(c, fromH) {
-      showExplain("BLOCK #" + fromH + " — WHY THIS TIE IS HERE", [{ reason: c.reason, text: connText(c, fromH) }]);
+      showExplain("BLOCK #" + fromH + " — WHY THIS TIE IS HERE", [{ reason: c.reason, text: connText(c, fromH), travel: function () { travelAlong(c, fromH); } }]);
       explain.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      /* pressing a strand rides it: the traveller runs down the silk
+         to the exact knot it is tied to, which is then marked */
+      travelAlong(c, fromH);
+    }
+    /* mark a knot on arrival — a gold halo that holds, then fades */
+    function flashKnot(h) {
+      var g = knotEls[h];
+      if (!g) return;
+      var dot = g.querySelector("circle.bw-dot");
+      var pt = posOf[h];
+      if (!dot || !pt) return;
+      var halo = el("circle", { cx: pt[0], cy: pt[1], r: (parseFloat(dot.getAttribute("r")) || 24) + 13, fill: "none", stroke: "#d4af37", "stroke-width": 3.4, "stroke-opacity": 0.95 }, g);
+      halo.setAttribute("class", "bw-arrive-halo");
+      setTimeout(function () { if (halo.parentNode) halo.parentNode.removeChild(halo); }, 2300);
+    }
+    /* ride one strand inside this web: a traveller dot runs the
+       strand's own path, from the pressed end to the far knot */
+    function travelAlong(c, fromH) {
+      var other = c.a === fromH ? c.b : c.a;
+      if (!c.path) { travelToBlock(other); return; }
+      if (reducedMotion || !window.requestAnimationFrame) { flashKnot(other); return; }
+      var len = 0;
+      try { len = c.path.getTotalLength(); } catch (e) { flashKnot(other); return; }
+      if (!len || !liveLayer) { flashKnot(other); return; }
+      var dot = el("circle", { r: 6, fill: REASON_COLORS[c.reason], stroke: "#0c0b09", "stroke-width": 1.6, opacity: 0.98 }, liveLayer);
+      var rev = fromH === c.b;
+      var t0 = null, DUR = 820;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var f = Math.min(1, (ts - t0) / DUR);
+        var d = rev ? len * (1 - f) : len * f;
+        try {
+          var pt = c.path.getPointAtLength(d);
+          dot.setAttribute("cx", pt.x.toFixed(1));
+          dot.setAttribute("cy", pt.y.toFixed(1));
+        } catch (e) {}
+        if (f < 1 && dot.isConnected) requestAnimationFrame(step);
+        else {
+          if (dot.parentNode) dot.parentNode.removeChild(dot);
+          flashKnot(other);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    /* ride a strand whose far end lives in another formation or in
+       the regular rows: the page carries you to that exact block,
+       marks it, and offers the ride back along the strand */
+    function travelToBlock(h) {
+      var done = false;
+      var ks = window.__fusiWebKnots || [];
+      for (var i = 0; i < ks.length; i++) {
+        if (ks[i].h !== h || !ks[i].el || !ks[i].el.isConnected) continue;
+        var panel = ks[i].el.closest ? ks[i].el.closest(".bw-panel") : null;
+        (panel || ks[i].el).scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
+        if (panel) {
+          panel.classList.add("strand-arrived");
+          setTimeout(function () { panel.classList.remove("strand-arrived"); }, 2400);
+        }
+        done = true;
+        break;
+      }
+      if (!done && tbody) {
+        var rows = tbody.querySelectorAll("tr");
+        for (var j = 0; j < rows.length; j++) {
+          var num = rows[j].querySelector("td.num");
+          if (!num || parseInt(num.textContent, 10) !== h) continue;
+          rows[j].scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
+          rows[j].classList.add("bw-flash");
+          (function (r) { setTimeout(function () { r.classList.remove("bw-flash"); }, 1900); })(rows[j]);
+          done = true;
+          break;
+        }
+      }
+      if (!done) {
+        var chainSec = document.getElementById("chain");
+        if (chainSec) chainSec.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
+      }
+      if (window.__fusiStrandReturn) window.__fusiStrandReturn(wrapEl, "Block #" + h + " — the far end of the strand you pressed, in the chain below.");
     }
     /* capture rings — woven through the knots, sagging toward the hub */
     for (i = 0; i < rings.length; i++) {
@@ -22417,12 +22599,15 @@ window.__fusiSnakeMode = "2d";
       el("circle", { "class": "bw-dot", cx: pt[0], cy: pt[1], r: r, fill: COLORS[b.type] || "#8a8577" }, g);
       var t = el("text", { x: pt[0], y: (pt[1] + 0.5).toFixed(1), "font-size": (r * 0.72).toFixed(1) }, g);
       t.textContent = b.h;
+      knotEls[b.h] = g;
       knotsOut.push({ h: b.h, el: g, type: b.type, hasCase: !!b.__bwCase, hasCat: !!b.__bwCat || !!sameTypeNeighbor(b, map, 1) || !!sameTypeNeighbor(b, map, -1) });
       function open() {
-        var lines = myConns.map(function (c) { return { reason: c.reason, text: connText(c, b.h) }; });
+        var lines = myConns.map(function (c) {
+          return { reason: c.reason, text: connText(c, b.h), travel: function () { travelAlong(c, b.h); } };
+        });
         if (blocksAsc.length > 1 && !myConns.some(function (c) { return c.reason === "chain"; })) {
           var nbH = b.h === blocksAsc[0].h ? b.h - 1 : b.h + 1;
-          lines.unshift({ reason: "chain", text: "This is connected because of the hash chain — the strand connector between formations carries this block's link to block #" + nbH + "." });
+          lines.unshift({ reason: "chain", text: "This is connected because of the hash chain — the strand connector between formations carries this block's link to block #" + nbH + ".", travel: function () { travelToBlock(nbH); } });
         }
         if (lines.length) showExplain("BLOCK #" + b.h + " — WHY IT IS TIED INTO THE WEB", lines);
         while (slot.firstChild) slot.removeChild(slot.firstChild);
@@ -22441,6 +22626,33 @@ window.__fusiSnakeMode = "2d";
       svg: svg, layer: liveLayer,
       conns: conns.filter(function (c) { return !!c.path; }).map(function (c) { return { path: c.path, reason: c.reason }; }),
       pulses: [], weaves: [], nextWeave: 0, visible: false
+    });
+    /* press the web itself — every tie this web carries, listed all
+       at once under the web: each block-to-block strand once, in its
+       colour, each one rideable. The ledger-wide strands that fan out
+       of this same web are listed by the reach fan below it. */
+    function showAllWeb() {
+      var seen = {}, lines = [];
+      conns.forEach(function (c) {
+        var key = Math.min(c.a, c.b) + ":" + Math.max(c.a, c.b) + ":" + c.reason;
+        if (seen[key]) return;
+        seen[key] = 1;
+        lines.push({ reason: c.reason, text: connText(c, c.a), travel: function () { travelAlong(c, c.a); } });
+      });
+      showExplain("BLOCKS #" + lo + "–#" + hi + " — EVERY TIE OF THIS WEB, ALL AT ONCE (" + lines.length + ")", lines);
+      explain.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    wrapEl.__bwShowAll = showAllWeb;
+    wrapEl.setAttribute("data-bw-lo", lo);
+    wrapEl.setAttribute("data-bw-hi", hi);
+    var allBtn = document.createElement("button");
+    allBtn.type = "button";
+    allBtn.className = "bw-all-btn";
+    allBtn.textContent = "PRESS THIS WEB — SEE EVERY TIE AT ONCE";
+    allBtn.addEventListener("click", showAllWeb);
+    wrapEl.appendChild(allBtn);
+    svg.addEventListener("click", function (e) {
+      if (e.target === svg) showAllWeb();
     });
     return wrapEl;
   }
@@ -22675,39 +22887,36 @@ window.__fusiSnakeMode = "2d";
 })();
 </script>
 <script>
-/* ===== THE LEDGER WEB — the block web, extended to the entire ledger =====
-   The rotation webs above weave chain blocks; this web is the SAME web
-   reaching the rest of the ledger. The chain sits at the hub, every
-   section of the page is a numbered knot on the rings, and every strand
-   is coloured by exactly why it is tied — the same four colours as the
-   block webs: gold for the hash chain, orange for a citation on this
-   page, blue for a shared category, pale silk for the frame. No words
-   are drawn on the web: knots carry numbers only, and the words live
-   off the canvas — the legend under the web, the numbered key, and the
-   explanation panel a tap opens, listing ALL of a knot's ties at once.
-   Every tie below is derived from content already on this page: the
-   Front preview cards and billboards, the Explore index cards, the
-   START HERE rail order, the on-chain declarations each section names,
-   and the records each section reads. Nothing is invented.
-   The web stays alive like the block webs: pulses and re-woven strands
-   travel only along ties that really exist, simultaneously, pausing
-   while the tab is hidden and standing down under reduced motion.
+/* ===== THE CHAIN WEBS REACH THE WHOLE LEDGER =====
+   The spider web lives where the blocks are: the rotation above deals
+   the chain into blocks, web, blocks, web — and from each of those
+   chain webs, strands now fan out across the whole ledger, to every
+   section that web is tied to. There is no separate ledger web panel:
+   the fan lives inside each chain web panel, under its block web.
+   Every destination below is derived from content already on this
+   page — the Front preview cards and billboards, the Explore index
+   cards, the START HERE rail order, the on-chain declarations each
+   section names, and the records each section reads. A destination
+   counts only while its element is actually on the page: strands
+   whose far end cannot be found are dropped, so no strand ever ends
+   in empty air — the data can never be lost, and never be not
+   received at any position of the ledger.
+   Press a web (or its SEE EVERYTHING button) and every destination
+   is listed at once, under the web, each with its colour and its
+   "This is connected because of …" reason. Press a strand and you
+   ride it: a traveller runs down the silk, then the page carries you
+   to the exact destination, marks it in gold, and offers the ride
+   back along the same strand. The fans stay alive like the block
+   webs — pulses travel only along ties that really exist, pausing
+   while the tab is hidden, standing down under reduced motion.
    The Widow's map is untouched — she still patrols the block webs. */
 (function () {
-  var panel = document.getElementById("ledger-web");
-  var holder = document.getElementById("lw-holder");
-  if (!panel || !holder) return;
   var NS = "http://www.w3.org/2000/svg";
   var REASON_COLORS = { chain: "#d4af37", "case": "#ff7a45", category: "#41a6f7", silk: "#e4dcc4" };
-  var REASON_ORDER = ["chain", "case", "category"];
   var REASON_PHRASE = { chain: "the hash chain", "case": "a citation on this page", category: "sharing a category on this page" };
   var REASON_LABEL = { chain: "hash chain", "case": "citation", category: "same category" };
   var reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-  /* knots — ring 0 is the hub, ring 1 the main path, ring 2 the rest.
-     target = the element that carries this section's tie strip;
-     href = where a tie jump lands (the section's own route + anchor,
-     or the exact external file its display on this page opens). */
   var NODES = [
     { k: "chain", n: 0, name: "The Chain", href: "#/chain", target: "chain", ring: 0 },
     { k: "front", n: 1, name: "Front — Main Ledger", href: "#/home", target: "previews", ring: 1 },
@@ -22734,11 +22943,10 @@ window.__fusiSnakeMode = "2d";
     { k: "mapper", n: 22, name: "Web Mapper", href: "#/chain/web-mapper", target: "web-mapper", ring: 2 },
     { k: "gameshark", n: 23, name: "GameShark", href: "gameshark.html", target: null, ring: 2 }
   ];
+
   var byKey = {};
   NODES.forEach(function (nd) { byKey[nd.k] = nd; });
 
-  /* strands — [from, to, reason, why]. Every "why" states the content
-     on this page the tie is read from. */
   var EDGES = [
     /* gold — the hash chain: the section holds, reads or is declared
        by chain records */
@@ -22779,6 +22987,8 @@ window.__fusiSnakeMode = "2d";
     ["front", "tie", "case", "A Front billboard advertises Tie Checker — “Quick — call the tie” — and jumps straight to it."],
     ["front", "story", "case", "A Front billboard advertises Story Loom — “Caption three blocks. Roll the story.” — and jumps straight to it."],
     ["front", "mapper", "case", "A Front billboard advertises Web Mapper — “Draw your own map of it” — and jumps straight to it."],
+    ["front", "referrals", "case", "Referrals is a beat of the Front page itself — the section lives on the Main Ledger sheet, at its own route #/home/beat-referrals, under the Front's START HERE spine."],
+    ["front", "crews", "case", "Crews is a beat of the Front page itself — the section lives on the Main Ledger sheet, at its own route #/home/beat-crews, under the Front's START HERE spine."],
     ["explore", "chain", "case", "Explore's index carries the card “THE LEDGER” — the chain itself, every block."],
     ["explore", "earn", "case", "Explore's index carries the card “VALUE BOARD” — every coin's book and rarity values and the full earn catalog."],
     ["explore", "wallet", "case", "Explore's index carries the card “WALLETS” — the coins inside, and how each was earned."],
@@ -22813,222 +23023,102 @@ window.__fusiSnakeMode = "2d";
     if (parent) parent.appendChild(e);
     return e;
   }
+  /* a strand's far end, resolved on this page right now. Internal
+     sections resolve to their own element; the two external pages
+     resolve to the display on this page that opens them — the
+     GameShark portal and the Fusion Studios display — so the strand
+     always lands somewhere real. */
+  function destEl(nd) {
+    if (nd.target) return document.getElementById(nd.target);
+    if (nd.k === "gameshark") return document.getElementById("gs-portal");
+    if (nd.k === "studios") return document.querySelector('a[href="fusion-studios.html"]');
+    return null;
+  }
+  /* verified endpoints only — a node or strand whose destination is
+     not on the page is dropped before anything is drawn */
+  var nodeOK = {};
+  NODES.forEach(function (nd) { nodeOK[nd.k] = !!destEl(nd); });
+  var LIVE_EDGES = EDGES.filter(function (e) { return nodeOK[e[0]] && nodeOK[e[1]]; });
   function tiesOf(key) {
     var out = [];
-    EDGES.forEach(function (e) {
+    LIVE_EDGES.forEach(function (e) {
       if (e[0] === key) out.push({ other: e[1], reason: e[2], why: e[3] });
       else if (e[1] === key) out.push({ other: e[0], reason: e[2], why: e[3] });
     });
     return out;
   }
+  /* every destination a chain web reaches, found by walking the real
+     ties outward from the chain: direct strands first, then the ones
+     that run by way of the Front and Explore indexes — each keeping
+     the colour and the reason of the tie that carries it */
+  var REACH = [];
+  (function computeReach() {
+    var seen = { chain: 1 }, frontier = [{ k: "chain", whyPath: "" }];
+    while (frontier.length) {
+      var next = [];
+      frontier.forEach(function (f) {
+        tiesOf(f.k).forEach(function (t) {
+          if (seen[t.other]) return;
+          seen[t.other] = 1;
+          var why = f.whyPath ? f.whyPath + " And from " + byKey[f.k].name + ": " + t.why : t.why;
+          REACH.push({ nd: byKey[t.other], reason: t.reason, why: why, via: f.k === "chain" ? null : byKey[f.k].name });
+          next.push({ k: t.other, whyPath: why });
+        });
+      });
+      frontier = next;
+    }
+    REACH.sort(function (a, b) { return a.nd.n - b.nd.n; });
+  })();
+  window.__fusiReachCount = REACH.length;
 
-  /* legend — off the web, same treatment as the block webs, with the
-     section reading of each colour spelled out */
-  var legend = document.createElement("div");
-  legend.className = "bw-legend";
-  var ltitle = document.createElement("div");
-  ltitle.className = "bw-legend-title";
-  ltitle.textContent = "WHY THE STRANDS ARE TIED — THE WEB READS BY COLOUR";
-  legend.appendChild(ltitle);
-  [
-    ["chain", "Hash chain — a section tied in gold holds, reads, or is declared by chain records: grants, registry blocks, the declared market and pools, and GameShark's hash-linked bridge."],
-    ["case", "Citation on this page — one section names, indexes or advertises the other in its own preview cards, index cards or billboards."],
-    ["category", "Same category — sections tied in blue share a group on this page: steps of the START HERE path, the XP-point sections, or the new-section band on the chain page."],
-    ["silk", "Web silk — the hub, spokes and capture rings every knot hangs from; the frame of the web, not a section-to-section tie."]
-  ].forEach(function (r) {
-    var row = document.createElement("div");
-    row.className = "bw-legend-row";
-    var sw = document.createElement("span");
-    sw.className = "bw-sw";
-    sw.style.background = REASON_COLORS[r[0]];
-    row.appendChild(sw);
-    var tx = document.createElement("span");
-    tx.textContent = r[1];
-    row.appendChild(tx);
-    legend.appendChild(row);
-  });
-  var lnote = document.createElement("div");
-  lnote.className = "bw-legend-note";
-  lnote.textContent = "Tap any knot or strand and every reason for its ties is spelled out at once, under the web. A ring around a knot blends the colours of every tie that knot carries — split into one arc per colour. The chain hangs at the hub, as genesis does in the block webs.";
-  legend.appendChild(lnote);
-  panel.appendChild(legend);
-
-  var explain = document.createElement("div");
-  explain.className = "bw-explain";
-  explain.hidden = true;
-  panel.appendChild(explain);
-
-  function closeExplain() {
-    explain.hidden = true;
-    panel.classList.remove("has-explain");
-  }
-  function showExplain(heading, lines, jumpNode) {
-    while (explain.firstChild) explain.removeChild(explain.firstChild);
-    var head = document.createElement("div");
-    head.className = "bw-explain-head";
-    head.textContent = heading;
-    explain.appendChild(head);
-    var closeBtn = document.createElement("button");
-    closeBtn.type = "button";
-    closeBtn.className = "lw-jump";
-    closeBtn.style.cssText = "float:right;margin:0 0 6px 10px;padding:2px 10px";
-    closeBtn.textContent = "CLOSE ×";
-    closeBtn.addEventListener("click", closeExplain);
-    explain.appendChild(closeBtn);
-    var ul = document.createElement("ul");
-    lines.forEach(function (c) {
-      var li = document.createElement("li");
-      var sw = document.createElement("span");
-      sw.className = "bw-sw";
-      sw.style.background = REASON_COLORS[c.reason];
-      li.appendChild(sw);
-      var tx = document.createElement("span");
-      tx.textContent = c.text + " ";
-      li.appendChild(tx);
-      if (c.jump) {
-        var a = document.createElement("a");
-        a.className = "lw-tie-jump";
-        a.setAttribute("href", c.jump.href);
-        a.textContent = "Jump to " + c.jump.name + " →";
-        li.appendChild(a);
+  function goToChainWebs() {
+    if (window.location.hash !== "#/chain") window.location.hash = "#/chain";
+    var tries = 0;
+    var iv = setInterval(function () {
+      tries++;
+      var p = document.querySelector("#chain .bw-panel");
+      if (p && p.getClientRects().length) {
+        p.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
+        clearInterval(iv);
+      } else if (tries > 14) {
+        var c = document.getElementById("chain");
+        if (c) c.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
+        clearInterval(iv);
       }
-      ul.appendChild(li);
-    });
-    explain.appendChild(ul);
-    if (jumpNode) {
-      var j = document.createElement("a");
-      j.className = "lw-jump";
-      j.setAttribute("href", jumpNode.href);
-      j.textContent = "GO TO " + jumpNode.name.toUpperCase() + " →";
-      explain.appendChild(j);
-    }
-    explain.hidden = false;
-    panel.classList.add("has-explain");
+    }, 120);
   }
-  function nodeLines(nd) {
-    return tiesOf(nd.k).map(function (t) {
-      return {
-        reason: t.reason,
-        text: "This is connected because of " + REASON_PHRASE[t.reason] + " — " + byKey[t.other].name + ": " + t.why,
-        jump: byKey[t.other]
-      };
-    });
+  /* carry the reader to a strand's destination: switch route if the
+     section lives on another page of the ledger, wait until it is
+     really rendered, scroll it to the centre, mark it in gold, and
+     offer the ride back along the strand */
+  function carryToNode(conn, originEl) {
+    var nd = conn.nd;
+    var target = destEl(nd);
+    if (!target) return;
+    var routeHref = nd.href.indexOf("#/") === 0 ? nd.href : "#/home";
+    if (window.location.hash !== routeHref) window.location.hash = routeHref;
+    var tries = 0;
+    var iv = setInterval(function () {
+      tries++;
+      var t = destEl(nd);
+      if (t && t.getClientRects().length) {
+        clearInterval(iv);
+        t.scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
+        t.classList.add("strand-arrived");
+        setTimeout(function () { t.classList.remove("strand-arrived"); }, 2400);
+        if (window.__fusiStrandReturn) {
+          window.__fusiStrandReturn(originEl, nd.name + " — the exact end of the strand you pressed, reached from the chain web and marked in gold.");
+        }
+      } else if (tries > 16) {
+        clearInterval(iv);
+      }
+    }, 120);
   }
-
-  /* ---------- the web itself ---------- */
-  var SIZE = 760, C = SIZE / 2, R1 = 148, R2 = 298, RIM = 332;
-  var svg = el("svg", { "class": "bw-svg lw-svg", viewBox: "0 0 " + SIZE + " " + SIZE, role: "group", "aria-label": "Every section of the ledger woven as a spider web — the chain at the hub, every section a numbered knot, each strand coloured by why it is tied" }, holder);
-  var pos = {};
-  NODES.forEach(function (nd) {
-    if (nd.ring === 0) { pos[nd.k] = [C, C]; return; }
-    var ringNodes = NODES.filter(function (x) { return x.ring === nd.ring; });
-    var idx = ringNodes.indexOf(nd);
-    var off = nd.ring === 2 ? 0.5 : 0;
-    var a = -Math.PI / 2 + ((idx + off) / ringNodes.length) * Math.PI * 2;
-    var R = nd.ring === 1 ? R1 : R2;
-    pos[nd.k] = [C + Math.cos(a) * R, C + Math.sin(a) * R];
-  });
-  /* silk frame — spokes hub to rim */
-  for (var i = 0; i < 24; i++) {
-    var sa = (i / 24) * Math.PI * 2;
-    el("line", { x1: C, y1: C, x2: (C + Math.cos(sa) * RIM).toFixed(1), y2: (C + Math.sin(sa) * RIM).toFixed(1), stroke: "rgba(228,220,196,0.30)", "stroke-width": 1.1 }, svg);
-  }
-  /* silk frame — capture rings through each ring's knots, sagging to the hub */
-  [[1, R1], [2, R2]].forEach(function (pair) {
-    var R = pair[1];
-    var ringNodes = NODES.filter(function (x) { return x.ring === pair[0]; });
-    var d = "";
-    for (var j = 0; j <= ringNodes.length; j++) {
-      var p1 = pos[ringNodes[j % ringNodes.length].k];
-      var p2 = pos[ringNodes[(j + 1) % ringNodes.length].k];
-      if (j === 0) d += "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1);
-      var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
-      d += " Q" + (C + (mx - C) * 0.94).toFixed(1) + " " + (C + (my - C) * 0.94).toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
-    }
-    el("path", { d: d + " Z", fill: "none", stroke: "rgba(228,220,196,0.38)", "stroke-width": 1.1 }, svg);
-  });
-  /* the strands — drawn in their tie's colour, recorded as drawn */
-  var conns = [];
-  EDGES.forEach(function (e) {
-    var p1 = pos[e[0]], p2 = pos[e[1]], path;
-    if (e[2] === "chain") {
-      path = el("path", { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + "L" + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: REASON_COLORS.chain, "stroke-opacity": 0.55, "stroke-width": 2 }, svg);
-    } else {
-      var mx2 = (p1[0] + p2[0]) / 2, my2 = (p1[1] + p2[1]) / 2;
-      var f = e[2] === "case" ? 0.8 : 0.88;
-      var attrs = { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " Q" + (C + (mx2 - C) * f).toFixed(1) + " " + (C + (my2 - C) * f).toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: REASON_COLORS[e[2]], "stroke-opacity": e[2] === "case" ? 0.8 : 0.55, "stroke-width": 1.6 };
-      if (e[2] === "case") attrs["stroke-dasharray"] = "6 3";
-      path = el("path", attrs, svg);
-    }
-    conns.push({ a: e[0], b: e[1], reason: e[2], why: e[3], path: path });
-  });
-  /* fat invisible hit paths — a tap on silk explains that one tie,
-     with jumps to both of its ends */
-  var hitLayer = el("g", { "class": "bw-hits" }, svg);
-  conns.forEach(function (c) {
-    var hp = el("path", { d: c.path.getAttribute("d"), "class": "bw-strand-hit", tabindex: "0", role: "button", "aria-label": "Strand between " + byKey[c.a].name + " and " + byKey[c.b].name + " — activate to see why they are connected" }, hitLayer);
-    function tap() {
-      showExplain(byKey[c.a].name.toUpperCase() + " ↔ " + byKey[c.b].name.toUpperCase() + " — WHY THIS TIE IS HERE", [{
-        reason: c.reason,
-        text: "This is connected because of " + REASON_PHRASE[c.reason] + " — " + c.why,
-        jump: null
-      }], null);
-      /* both ends are one tap away from the panel */
-      var row = document.createElement("div");
-      [c.a, c.b].forEach(function (k2) {
-        var a = document.createElement("a");
-        a.className = "lw-jump";
-        a.style.marginRight = "8px";
-        a.setAttribute("href", byKey[k2].href);
-        a.textContent = "GO TO " + byKey[k2].name.toUpperCase() + " →";
-        row.appendChild(a);
-      });
-      explain.appendChild(row);
-    }
-    hp.addEventListener("click", tap);
-    hp.addEventListener("keydown", function (ev) {
-      if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); tap(); }
-    });
-  });
-  /* the knots — numbered only, ringed in the blended colours of their
-     ties: one colour a plain ring, several colours split into arcs */
-  var liveConns = conns.map(function (c) { return { path: c.path, reason: c.reason }; });
-  NODES.forEach(function (nd) {
-    var pt = pos[nd.k];
-    var r = nd.ring === 0 ? 30 : nd.ring === 1 ? 23 : 20;
-    var g = el("g", { "class": "bw-node", tabindex: "0", role: "button", "aria-label": "Knot " + nd.n + " — " + nd.name + ". Activate to see all of its ties at once" }, svg);
-    el("title", {}, g).textContent = nd.name;
-    var myTies = tiesOf(nd.k);
-    var myReasons = REASON_ORDER.filter(function (rn) {
-      return myTies.some(function (t) { return t.reason === rn; });
-    });
-    if (myReasons.length === 1) {
-      el("circle", { "class": "bw-tie-ring", cx: pt[0], cy: pt[1], r: r + 5, fill: "none", stroke: REASON_COLORS[myReasons[0]], "stroke-width": 3, "stroke-opacity": 0.85 }, g);
-    } else if (myReasons.length > 1) {
-      var Rr = r + 5, slice = (Math.PI * 2) / myReasons.length, gap = 0.09;
-      myReasons.forEach(function (rn, k2) {
-        var a1 = -Math.PI / 2 + k2 * slice + gap, a2 = -Math.PI / 2 + (k2 + 1) * slice - gap;
-        el("path", { "class": "bw-tie-ring", d: "M" + (pt[0] + Math.cos(a1) * Rr).toFixed(1) + " " + (pt[1] + Math.sin(a1) * Rr).toFixed(1) + " A" + Rr + " " + Rr + " 0 0 1 " + (pt[0] + Math.cos(a2) * Rr).toFixed(1) + " " + (pt[1] + Math.sin(a2) * Rr).toFixed(1), fill: "none", stroke: REASON_COLORS[rn], "stroke-width": 3.2, "stroke-opacity": 0.9 }, g);
-      });
-    }
-    if (nd.ring === 0) el("circle", { "class": "bw-head-halo", cx: pt[0], cy: pt[1], r: r + 12 }, g);
-    el("circle", { "class": "bw-dot", cx: pt[0], cy: pt[1], r: r, fill: nd.ring === 0 ? "#d4af37" : "#8a8577" }, g);
-    var t = el("text", { x: pt[0], y: (pt[1] + 0.5).toFixed(1), "font-size": (r * 0.72).toFixed(1) }, g);
-    t.textContent = nd.n;
-    function open() {
-      showExplain("KNOT " + nd.n + " — " + nd.name.toUpperCase() + " — ALL OF ITS TIES, AT ONCE", nodeLines(nd), nd);
-    }
-    g.addEventListener("click", open);
-    g.addEventListener("keydown", function (ev) {
-      if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); open(); }
-    });
-  });
-  var liveLayer = el("g", { "class": "bw-live", "aria-hidden": "true" }, svg);
 
   /* ---------- the page thinks like the web: every section shows ALL
      of its ties back, at once, and every tie jumps ---------- */
   NODES.forEach(function (nd) {
-    if (!nd.target) return;
+    if (!nd.target || !nodeOK[nd.k]) return;
     var host = document.getElementById(nd.target);
     if (!host) return;
     var myTies = tiesOf(nd.k);
@@ -23043,10 +23133,8 @@ window.__fusiSnakeMode = "2d";
     head.appendChild(ht);
     var wb = document.createElement("button");
     wb.type = "button";
-    wb.textContent = "SEE THE WHOLE WEB ↑";
-    wb.addEventListener("click", function () {
-      panel.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
-    });
+    wb.textContent = "SEE THE WEBS IN THE CHAIN";
+    wb.addEventListener("click", goToChainWebs);
     head.appendChild(wb);
     strip.appendChild(head);
     var chips = document.createElement("div");
@@ -23074,68 +23162,295 @@ window.__fusiSnakeMode = "2d";
     else host.insertBefore(strip, host.firstChild);
   });
 
-  /* ---------- the web is alive — pulses and re-woven strands travel
-     this web's real ties, pausing while the tab is hidden ---------- */
-  (function liveLedgerWeb() {
+  /* ---------- the fans: one inside every chain web panel ---------- */
+  var fans = [];
+  function augmentPanel(panelEl) {
+    if (panelEl.getAttribute("data-reach-done")) return;
+    panelEl.setAttribute("data-reach-done", "1");
+    var lo = panelEl.getAttribute("data-bw-lo"), hi = panelEl.getAttribute("data-bw-hi");
+    var reach = document.createElement("div");
+    reach.className = "bw-reach";
+    var head = document.createElement("div");
+    head.className = "bw-reach-head";
+    var title = document.createElement("span");
+    title.className = "bw-reach-title";
+    title.textContent = "STRANDS FROM THIS WEB, REACHING ACROSS THE LEDGER";
+    head.appendChild(title);
+    var note = document.createElement("span");
+    note.className = "bw-reach-note";
+    note.textContent = "Blocks #" + lo + "–#" + hi + " · one web · colours only";
+    head.appendChild(note);
+    reach.appendChild(head);
+    var cap = document.createElement("p");
+    cap.className = "bw-reach-caption";
+    var capB = document.createElement("b");
+    capB.textContent = "This web is a block of the chain, and its strands do not stop at the chain.";
+    cap.appendChild(capB);
+    cap.appendChild(document.createTextNode(" Every numbered knot below is a part of the ledger this web is tied to. Press a strand and you ride it down the silk to that exact place; press the web and every destination is listed at once, under the web."));
+    reach.appendChild(cap);
+    var legend = document.createElement("div");
+    legend.className = "bw-legend";
+    var ltitle = document.createElement("div");
+    ltitle.className = "bw-legend-title";
+    ltitle.textContent = "WHY THE STRANDS ARE TIED — THE WEB READS BY COLOUR";
+    legend.appendChild(ltitle);
+    [
+      ["chain", "Hash chain — a section tied in gold holds, reads, or is declared by chain records: grants, registry blocks, the declared market and pools, and GameShark's hash-linked bridge."],
+      ["case", "Citation on this page — one section names, indexes or advertises the other in its own preview cards, index cards or billboards; a strand this colour reaches its section by way of the Front or Explore index that cites it."],
+      ["category", "Same category — sections tied in blue share a group on this page: steps of the START HERE path, the XP-point sections, or the new-section band on the chain page."],
+      ["silk", "Web silk — the hub, spokes and capture rings every knot hangs from; the frame of the web, not a section-to-section tie."]
+    ].forEach(function (r) {
+      var row = document.createElement("div");
+      row.className = "bw-legend-row";
+      var sw = document.createElement("span");
+      sw.className = "bw-sw";
+      sw.style.background = REASON_COLORS[r[0]];
+      row.appendChild(sw);
+      var tx = document.createElement("span");
+      tx.textContent = r[1];
+      row.appendChild(tx);
+      legend.appendChild(row);
+    });
+    reach.appendChild(legend);
+    var holder = document.createElement("div");
+    holder.className = "bw-reach-holder";
+    reach.appendChild(holder);
+    var explain = document.createElement("div");
+    explain.className = "bw-explain";
+    explain.hidden = true;
+    reach.appendChild(explain);
+    function closeExplain() {
+      explain.hidden = true;
+      reach.classList.remove("has-explain");
+    }
+    function showExplain(heading, lines) {
+      while (explain.firstChild) explain.removeChild(explain.firstChild);
+      var hd = document.createElement("div");
+      hd.className = "bw-explain-head";
+      hd.textContent = heading;
+      explain.appendChild(hd);
+      var closeBtn = document.createElement("button");
+      closeBtn.type = "button";
+      closeBtn.className = "bw-explain-close";
+      closeBtn.textContent = "CLOSE ×";
+      closeBtn.addEventListener("click", closeExplain);
+      explain.appendChild(closeBtn);
+      var ul = document.createElement("ul");
+      lines.forEach(function (c) {
+        var li = document.createElement("li");
+        var sw = document.createElement("span");
+        sw.className = "bw-sw";
+        sw.style.background = REASON_COLORS[c.reason];
+        li.appendChild(sw);
+        var tx = document.createElement("span");
+        tx.textContent = c.text;
+        li.appendChild(tx);
+        if (typeof c.travel === "function") {
+          var tb = document.createElement("button");
+          tb.type = "button";
+          tb.className = "bw-travel-btn";
+          tb.textContent = "RIDE THIS STRAND →";
+          tb.addEventListener("click", c.travel);
+          li.appendChild(tb);
+        }
+        if (c.openHref) {
+          var oa = document.createElement("a");
+          oa.className = "lw-tie-jump";
+          oa.style.marginLeft = "10px";
+          oa.setAttribute("href", c.openHref);
+          oa.textContent = "Open " + c.openName + " →";
+          li.appendChild(oa);
+        }
+        ul.appendChild(li);
+      });
+      explain.appendChild(ul);
+      explain.hidden = false;
+      reach.classList.add("has-explain");
+    }
+    function lineFor(conn) {
+      var line = {
+        reason: conn.reason,
+        text: "This is connected because of " + REASON_PHRASE[conn.reason] + " — " + conn.nd.name + ": " + conn.why,
+        travel: function () { rideReach(conn); }
+      };
+      if (conn.nd.href.indexOf("#/") !== 0) { line.openHref = conn.nd.href; line.openName = conn.nd.name; }
+      return line;
+    }
+    /* the fan itself — this web's hub at the left, one destination
+       knot per ledger section, strands drawn in their ties' colours */
+    var W = 760, COLS = 2, rowsN = Math.ceil(REACH.length / COLS);
+    var rowGap = 46, topY = 34, H = topY * 2 + (rowsN - 1) * rowGap;
+    var hub = [64, H / 2], colX = [452, 676];
+    var svg = el("svg", { "class": "bw-reach-svg", viewBox: "0 0 " + W + " " + H, role: "group", "aria-label": "Strands from this chain web reaching across the ledger — one numbered knot per section it is tied to, each strand coloured by why it is tied" }, holder);
+    /* silk spokes from the hub */
+    for (var si = 0; si < 12; si++) {
+      var sa = (si / 12) * Math.PI * 2;
+      el("line", { x1: hub[0], y1: hub[1], x2: (hub[0] + Math.cos(sa) * 44).toFixed(1), y2: (hub[1] + Math.sin(sa) * 44).toFixed(1), stroke: "rgba(228,220,196,0.30)", "stroke-width": 1.1 }, svg);
+    }
+    var conns = [];
+    REACH.forEach(function (rc, idx) {
+      var col = idx % COLS, row = Math.floor(idx / COLS);
+      var x = colX[col], y = topY + row * rowGap;
+      var cxp = hub[0] + (x - hub[0]) * 0.45;
+      var d = "M" + hub[0] + " " + hub[1].toFixed(1) + " Q" + cxp.toFixed(1) + " " + hub[1].toFixed(1) + " " + x + " " + y;
+      var attrs = { d: d, fill: "none", stroke: REASON_COLORS[rc.reason], "stroke-opacity": rc.reason === "chain" ? 0.6 : 0.75, "stroke-width": rc.reason === "chain" ? 2 : 1.6 };
+      if (rc.reason === "case") attrs["stroke-dasharray"] = "6 3";
+      var path = el("path", attrs, svg);
+      conns.push({ nd: rc.nd, reason: rc.reason, why: rc.why, via: rc.via, path: path, pt: [x, y] });
+    });
+    var hitLayer = el("g", { "class": "bw-hits" }, svg);
+    conns.forEach(function (c) {
+      var hp = el("path", { d: c.path.getAttribute("d"), "class": "bw-strand-hit", tabindex: "0", role: "button", "aria-label": "Strand from this web to " + c.nd.name + " — activate to ride it to that section" }, hitLayer);
+      function tap() {
+        showExplain("THIS WEB ↔ " + c.nd.name.toUpperCase() + " — WHY THIS TIE IS HERE", [lineFor(c)]);
+        rideReach(c);
+      }
+      hp.addEventListener("click", tap);
+      hp.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); tap(); }
+      });
+    });
+    /* the hub — this web itself */
+    var hubG = el("g", { "class": "bw-node", tabindex: "0", role: "button", "aria-label": "This web — blocks " + lo + " to " + hi + ". Activate to see everything it reaches, all at once" }, svg);
+    el("title", {}, hubG).textContent = "This web — blocks #" + lo + "–#" + hi;
+    el("circle", { "class": "bw-head-halo", cx: hub[0], cy: hub[1], r: 37, fill: "none", stroke: "#d4af37", "stroke-width": 1.6, "stroke-opacity": 0.8 }, hubG);
+    el("circle", { "class": "bw-dot", cx: hub[0], cy: hub[1], r: 30, fill: "#d4af37" }, hubG);
+    var hubT = el("text", { x: hub[0], y: (hub[1] + 0.5).toFixed(1), "font-size": 15 }, hubG);
+    hubT.textContent = "≡";
+    /* destination knots — numbered only, ringed in their tie colour */
+    conns.forEach(function (c) {
+      var g = el("g", { "class": "bw-node", tabindex: "0", role: "button", "aria-label": "Knot " + c.nd.n + " — " + c.nd.name + ". Activate to ride the strand to that section" }, svg);
+      el("title", {}, g).textContent = c.nd.name;
+      el("circle", { "class": "bw-tie-ring", cx: c.pt[0], cy: c.pt[1], r: 20, fill: "none", stroke: REASON_COLORS[c.reason], "stroke-width": 3, "stroke-opacity": 0.85 }, g);
+      el("circle", { "class": "bw-dot", cx: c.pt[0], cy: c.pt[1], r: 15, fill: "#8a8577" }, g);
+      var t = el("text", { x: c.pt[0], y: (c.pt[1] + 0.5).toFixed(1), "font-size": 11 }, g);
+      t.textContent = c.nd.n;
+      function open() {
+        showExplain("THIS WEB ↔ " + c.nd.name.toUpperCase() + " — WHY THIS TIE IS HERE", [lineFor(c)]);
+        rideReach(c);
+      }
+      g.addEventListener("click", open);
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); open(); }
+      });
+    });
+    var liveLayer = el("g", { "class": "bw-live", "aria-hidden": "true" }, svg);
+    /* ride one reach strand: the traveller runs the fan strand from
+       this web's hub to the destination knot, then the page itself
+       carries you the rest of the way, to the section itself */
+    function rideReach(c) {
+      function arrive() { carryToNode(c, panelEl); }
+      if (reducedMotion || !window.requestAnimationFrame) { arrive(); return; }
+      var len = 0;
+      try { len = c.path.getTotalLength(); } catch (e) { arrive(); return; }
+      if (!len) { arrive(); return; }
+      var dot = el("circle", { r: 6, fill: REASON_COLORS[c.reason], stroke: "#0c0b09", "stroke-width": 1.6, opacity: 0.98 }, liveLayer);
+      var t0 = null, DUR = 760;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var f = Math.min(1, (ts - t0) / DUR);
+        try {
+          var pt = c.path.getPointAtLength(len * f);
+          dot.setAttribute("cx", pt.x.toFixed(1));
+          dot.setAttribute("cy", pt.y.toFixed(1));
+        } catch (e) {}
+        if (f < 1 && dot.isConnected) requestAnimationFrame(step);
+        else {
+          if (dot.parentNode) dot.parentNode.removeChild(dot);
+          arrive();
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    /* press the web — every destination at once, plus the block ties
+       inside this web itself */
+    function showAllReach() {
+      var lines = conns.map(lineFor);
+      lines.push({
+        reason: "silk",
+        text: "And inside this web itself, blocks #" + lo + "–#" + hi + " are tied knot to knot — hash chain, case citations and same-category strands — every one of those ties is listed by the button above this fan.",
+        travel: function () { if (typeof panelEl.__bwShowAll === "function") panelEl.__bwShowAll(); }
+      });
+      showExplain("BLOCKS #" + lo + "–#" + hi + " — EVERYTHING THIS WEB REACHES, ALL AT ONCE (" + conns.length + " DESTINATIONS)", lines);
+      explain.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    var allBtn = document.createElement("button");
+    allBtn.type = "button";
+    allBtn.className = "bw-all-btn";
+    allBtn.textContent = "PRESS THIS WEB — SEE EVERYTHING IT REACHES AT ONCE";
+    allBtn.addEventListener("click", showAllReach);
+    reach.appendChild(allBtn);
+    hubG.addEventListener("click", showAllReach);
+    hubG.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); showAllReach(); }
+    });
+    svg.addEventListener("click", function (e) {
+      if (e.target === svg) showAllReach();
+    });
+    fans.push({
+      svg: svg, layer: liveLayer, visible: false, pulses: [],
+      conns: conns.map(function (c) { return { path: c.path, reason: c.reason }; })
+    });
+    panelEl.appendChild(reach);
+  }
+  function augmentAll() {
+    var panels = document.querySelectorAll("#chain .bw-panel");
+    for (var i = 0; i < panels.length; i++) augmentPanel(panels[i]);
+  }
+  augmentAll();
+  setInterval(augmentAll, 1500);
+
+  /* ---------- the fans are alive — pulses travel their real strands,
+     simultaneously, visible fans only, paused while hidden ---------- */
+  (function liveFans() {
     if (reducedMotion || !window.requestAnimationFrame) return;
-    var visible = false, rafId = 0, lastTs = 0;
-    var pulses = [], weaves = [], nextWeave = 0;
+    var noIO = !window.IntersectionObserver;
+    var rafId = 0, lastTs = 0;
     if (window.IntersectionObserver) {
       try {
-        new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) { visible = en.isIntersecting; });
-        }, { rootMargin: "120px" }).observe(svg);
-      } catch (e) { visible = true; }
-    } else { visible = true; }
-    function pickConn() { return liveConns[Math.floor(Math.random() * liveConns.length)]; }
-    function spawnPulse() {
-      var c = pickConn();
-      if (!c) return;
-      var len = 0;
-      try { len = c.path.getTotalLength(); } catch (e) { return; }
-      if (!len) return;
-      var dot = el("circle", { "class": "bw-pulse", r: 3.2, fill: REASON_COLORS[c.reason], opacity: 0.95 }, liveLayer);
-      pulses.push({ conn: c, len: len, dist: Math.random() * len * 0.4, speed: 46 + Math.random() * 42, dot: dot });
-    }
-    function spawnWeave(now) {
-      var c = pickConn();
-      if (!c) return;
-      var len = 0;
-      try { len = c.path.getTotalLength(); } catch (e) { return; }
-      if (!len) return;
-      var w = el("path", { d: c.path.getAttribute("d"), fill: "none", stroke: REASON_COLORS[c.reason], "stroke-width": 2.4, "stroke-opacity": 0.9, "stroke-dasharray": len, "stroke-dashoffset": len }, liveLayer);
-      weaves.push({ el: w, len: len, born: now });
-      nextWeave = now + 650 + Math.random() * 900;
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            fans.forEach(function (f) { if (f.svg === en.target) f.visible = en.isIntersecting; });
+          });
+        }, { rootMargin: "120px" });
+        var seen = [];
+        setInterval(function () {
+          fans.forEach(function (f) {
+            if (seen.indexOf(f.svg) === -1 && f.svg.isConnected) { seen.push(f.svg); obs.observe(f.svg); }
+          });
+        }, 1500);
+      } catch (e) {}
     }
     function tick(ts) {
       rafId = requestAnimationFrame(tick);
-      if (!visible) { lastTs = ts; return; }
-      var dt = lastTs ? Math.min(64, ts - lastTs) : 16;
+      if (!lastTs) lastTs = ts;
+      var dt = Math.min(0.05, (ts - lastTs) / 1000);
       lastTs = ts;
-      if (pulses.length < 5 && Math.random() < 0.05) spawnPulse();
-      if (ts >= nextWeave && weaves.length < 2) spawnWeave(ts);
-      for (var i = pulses.length - 1; i >= 0; i--) {
-        var p = pulses[i];
-        p.dist += (p.speed * dt) / 1000;
-        if (p.dist >= p.len) {
-          if (p.dot.parentNode) p.dot.parentNode.removeChild(p.dot);
-          pulses.splice(i, 1);
-          continue;
+      for (var i = 0; i < fans.length; i++) {
+        var f = fans[i];
+        if ((!noIO && !f.visible) || !f.svg.isConnected || !f.conns.length) continue;
+        if (f.pulses.length < 2 && Math.random() < 0.03) {
+          var c = f.conns[Math.floor(Math.random() * f.conns.length)];
+          var len = 0;
+          try { len = c.path.getTotalLength(); } catch (e) { len = 0; }
+          if (len) {
+            var dot = el("circle", { "class": "bw-pulse", r: 3.2, fill: REASON_COLORS[c.reason], opacity: 0.95 }, f.layer);
+            f.pulses.push({ conn: c, len: len, dist: Math.random() * len * 0.4, speed: 46 + Math.random() * 42, dot: dot });
+          }
         }
-        try {
-          var pt = p.conn.path.getPointAtLength(p.dist);
-          p.dot.setAttribute("cx", pt.x.toFixed(1));
-          p.dot.setAttribute("cy", pt.y.toFixed(1));
-        } catch (e) {}
-      }
-      for (var k = weaves.length - 1; k >= 0; k--) {
-        var wv = weaves[k], age = ts - wv.born;
-        if (age < 650) wv.el.setAttribute("stroke-dashoffset", (wv.len * (1 - age / 650)).toFixed(1));
-        else if (age < 950) wv.el.setAttribute("stroke-dashoffset", 0);
-        else if (age < 1400) wv.el.setAttribute("stroke-opacity", (0.9 * (1 - (age - 950) / 450)).toFixed(2));
-        else {
-          if (wv.el.parentNode) wv.el.parentNode.removeChild(wv.el);
-          weaves.splice(k, 1);
+        for (var j = f.pulses.length - 1; j >= 0; j--) {
+          var pu = f.pulses[j];
+          pu.dist += pu.speed * dt;
+          if (pu.dist >= pu.len) {
+            if (pu.dot.parentNode) pu.dot.parentNode.removeChild(pu.dot);
+            f.pulses.splice(j, 1);
+            continue;
+          }
+          try {
+            var pt = pu.conn.path.getPointAtLength(pu.dist);
+            pu.dot.setAttribute("cx", pt.x.toFixed(1));
+            pu.dot.setAttribute("cy", pt.y.toFixed(1));
+          } catch (e) {}
         }
       }
     }
@@ -23148,6 +23463,7 @@ window.__fusiSnakeMode = "2d";
   })();
 })();
 </script>
+
 <script>
 /* ===== WEB-SYNC — ledger half of the ledger <-> GameShark spider-web tie.
    Polls web-sync.json (same origin, repo root) every 60s: stamps every

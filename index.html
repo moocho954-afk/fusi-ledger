@@ -969,6 +969,48 @@
       .di-src { font-size: .85em; color: var(--ink-soft); }
       .di-filters label { margin-right: 1em; }
 
+      /* Trail Weaver — additive only */
+      #trail-weaver .tw-form { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin: 1em 0; }
+      #trail-weaver .tw-form label { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); }
+      #trail-weaver input, #trail-weaver select { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 15px; max-width: 100%; }
+      #trail-weaver #tw-name { width: 200px; }
+      #trail-weaver #tw-block-select { width: 300px; }
+      #trail-weaver #tw-height { width: 110px; }
+      #trail-weaver #tw-title { width: 280px; }
+      #trail-weaver button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #trail-weaver button:hover { color: var(--gold); }
+      #trail-weaver button:disabled { opacity: .4; cursor: default; }
+      #trail-weaver button:disabled:hover { color: var(--ink); }
+      #tw-list { padding-left: 1.4em; }
+      #tw-list li { margin: .6em 0; }
+      #tw-list .tw-kind { font-size: .78em; color: var(--ink-faint); border: 1px solid var(--line); padding: 1px 7px; margin-left: 8px; white-space: nowrap; }
+      #tw-list .tw-actions { margin-left: 10px; white-space: nowrap; }
+      #tw-list .tw-actions button { padding: 3px 9px; margin-left: 4px; }
+      #tw-msg { color: #ff8a7a; min-height: 1.4em; margin: .4em 0; }
+      #tw-storage-note { color: var(--ink-soft); font-style: italic; }
+      #tw-count { color: var(--ink-soft); }
+
+      /* Coin Sketchbook — additive only */
+      #coin-sketchbook .cs-banner { border: 1px solid var(--gold-dim); padding: 10px 14px; color: var(--gold); letter-spacing: 1px; margin: 1em 0; }
+      #coin-sketchbook .cs-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: .7em 0; }
+      #coin-sketchbook .cs-group-label { width: 60px; color: var(--ink-soft); font-size: .88em; }
+      #coin-sketchbook button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 13px; cursor: pointer; font: inherit; font-size: 14px; }
+      #coin-sketchbook button:hover { color: var(--gold); }
+      #coin-sketchbook button.cs-on { border-color: var(--gold); color: var(--gold); }
+      #coin-sketchbook .cs-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--line); margin-right: 7px; vertical-align: -2px; }
+      #coin-sketchbook .cs-label-wrap { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); margin: .9em 0; }
+      #coin-sketchbook #cs-label { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 15px; width: 260px; max-width: 100%; }
+      #cs-preview { margin: 1em 0; }
+      #cs-preview svg { max-width: 100%; height: auto; }
+      #cs-msg { color: #ff8a7a; min-height: 1.4em; margin: .4em 0; }
+      #cs-storage-note { color: var(--ink-soft); font-style: italic; }
+      #cs-count { color: var(--ink-soft); }
+      #cs-gallery { list-style: none; padding-left: 0; }
+      #cs-gallery li { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border: 1px solid var(--line); padding: 10px 12px; margin: .6em 0; }
+      #cs-gallery .cs-meta { flex: 1; min-width: 160px; }
+      #cs-gallery button { padding: 4px 10px; }
+      #cs-gallery a { margin-left: 10px; white-space: nowrap; }
+
       /* page navigation — built by the router, sits above the hub */
       .page-nav {
         display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
@@ -3320,6 +3362,558 @@
   ['di-category', 'di-severity', 'di-age', 'di-revision'].forEach(function (id) {
     document.getElementById(id).addEventListener('change', apply);
   });
+})();
+</script>
+
+<section id="trail-weaver" aria-label="Trail Weaver" data-pg="chain">
+<h2>Trail Weaver — pin your own trail.</h2>
+<p>Pin up to five blocks into a personal trail — pick from the chain table on this page, or type in a height and title of your own. Your trail is saved on this device only; it is not a chain record and nothing here writes to the chain.</p>
+<div class="tw-form">
+<label>Trail name <input type="text" id="tw-name" maxlength="40" value="My trail"></label>
+<label id="tw-select-label" hidden>Pick a block from this page <select id="tw-block-select"><option value="">— choose a block —</option></select></label>
+<label>Block height <input type="number" id="tw-height" min="0" step="1" inputmode="numeric"></label>
+<label>Block title <input type="text" id="tw-title" maxlength="120"></label>
+<button type="button" id="tw-pin">Pin</button>
+</div>
+<p id="tw-msg" role="status"></p>
+<p id="tw-storage-note" hidden>Saved for this visit only — storage is unavailable on this device.</p>
+<p id="tw-count" aria-live="polite">0 of 5 pinned</p>
+<p id="tw-empty">No trail pinned yet. Pin a block to start your trail.</p>
+<ol id="tw-list"></ol>
+<p><a id="tw-draft" href="#" target="_blank" rel="noopener">Draft as email</a> — opens a draft in your own mail app listing your trail. This page never sends anything; you address and send the draft yourself, or close it.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-trail-weaver-v1';
+  var MAX = 5;
+  var state = { name: 'My trail', blocks: [] };
+  var storageOK = true;
+  var pendingKind = 'manual';
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('tw-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (data && typeof data.name === 'string' && data.name.trim()) {
+        state.name = data.name.trim().slice(0, 40);
+      }
+      if (data && Array.isArray(data.blocks)) {
+        data.blocks.slice(0, MAX).forEach(function (b) {
+          if (b && Number.isInteger(b.height) && b.height >= 0 &&
+              typeof b.title === 'string' && b.title.trim() &&
+              !state.blocks.some(function (x) { return x.height === b.height; })) {
+            state.blocks.push({
+              height: b.height,
+              title: b.title.trim().slice(0, 120),
+              kind: b.kind === 'page' ? 'page' : 'manual'
+            });
+          }
+        });
+      }
+    } catch (e) { /* unreadable saved trail: start fresh, in memory */ }
+  }
+
+  function msg(text) { $('tw-msg').textContent = text || ''; }
+
+  function render() {
+    var list = $('tw-list');
+    while (list.firstChild) list.removeChild(list.firstChild);
+    state.blocks.forEach(function (b, i) {
+      var li = document.createElement('li');
+      var label = document.createElement('span');
+      label.textContent = 'Block ' + b.height + ' — ' + b.title;
+      li.appendChild(label);
+      var kind = document.createElement('span');
+      kind.className = 'tw-kind';
+      kind.textContent = b.kind === 'page' ? 'From this page' : 'Your entry';
+      li.appendChild(kind);
+      var actions = document.createElement('span');
+      actions.className = 'tw-actions';
+      var up = document.createElement('button');
+      up.type = 'button'; up.textContent = 'Up'; up.disabled = i === 0;
+      up.addEventListener('click', function () { move(i, -1); });
+      var down = document.createElement('button');
+      down.type = 'button'; down.textContent = 'Down'; down.disabled = i === state.blocks.length - 1;
+      down.addEventListener('click', function () { move(i, 1); });
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.textContent = 'Remove';
+      rm.addEventListener('click', function () { removeAt(i); });
+      actions.appendChild(up); actions.appendChild(down); actions.appendChild(rm);
+      li.appendChild(actions);
+      list.appendChild(li);
+    });
+    $('tw-count').textContent = state.blocks.length + ' of ' + MAX + ' pinned';
+    $('tw-empty').hidden = state.blocks.length > 0;
+  }
+
+  function pin() {
+    msg('');
+    var hRaw = $('tw-height').value.trim();
+    var h = Number(hRaw);
+    if (hRaw === '' || !Number.isInteger(h) || h < 0) {
+      msg('Enter a block height: a whole number, 0 or more.');
+      return;
+    }
+    var title = $('tw-title').value.trim();
+    if (!title || title.length > 120) {
+      msg('Enter a title: 1 to 120 characters.');
+      return;
+    }
+    if (state.blocks.length >= MAX) {
+      msg('Your trail is full: ' + MAX + ' of ' + MAX + ' pinned. Remove a block to pin another.');
+      return;
+    }
+    if (state.blocks.some(function (b) { return b.height === h; })) {
+      msg('Already pinned.');
+      return;
+    }
+    state.blocks.push({ height: h, title: title, kind: pendingKind === 'page' ? 'page' : 'manual' });
+    pendingKind = 'manual';
+    $('tw-block-select').value = '';
+    save();
+    render();
+  }
+
+  function move(i, dir) {
+    msg('');
+    var j = i + dir;
+    if (i < 0 || i >= state.blocks.length || j < 0 || j >= state.blocks.length) {
+      msg('That move is out of range.');
+      return;
+    }
+    var tmp = state.blocks[i];
+    state.blocks[i] = state.blocks[j];
+    state.blocks[j] = tmp;
+    save();
+    render();
+  }
+
+  function removeAt(i) {
+    msg('');
+    if (i < 0 || i >= state.blocks.length) {
+      msg('That block is not on your trail.');
+      return;
+    }
+    state.blocks.splice(i, 1);
+    save();
+    render();
+  }
+
+  function exportText() {
+    var lines = [state.name || 'My trail'];
+    if (!state.blocks.length) {
+      lines.push('No blocks pinned yet.');
+    }
+    state.blocks.forEach(function (b, i) {
+      lines.push((i + 1) + '. Block ' + b.height + ' — ' + b.title +
+        (b.kind === 'manual' ? ' (your entry)' : ''));
+    });
+    lines.push('');
+    lines.push('Shared from the FUSI Ledger trail tool (device-local trail, not a chain record).');
+    return lines.join('\n');
+  }
+
+  function init() {
+    load();
+    $('tw-name').value = state.name;
+
+    /* Page block data: the chain table already rendered on this page.
+       Rows whose titles carry an amount are left out of the picker.
+       The page's own scripts reshuffle the newest rows shortly after
+       load, so the picker re-reads the table a few times and whenever
+       it is opened, merging in any rows that appear later. */
+    var sel = $('tw-block-select');
+    var optionSig = '';
+    function populate() {
+      var seen = {};
+      var options = [];
+      function add(h, t) {
+        if (!Number.isInteger(h) || h < 0 || !t || seen[h]) return;
+        if (/\d[\d,]*\s*FUSI/i.test(t)) return;
+        seen[h] = true;
+        options.push({ height: h, title: t });
+      }
+      /* First choice: the rows as displayed in the chain table. */
+      document.querySelectorAll('#chain table.chain tbody tr').forEach(function (tr) {
+        var num = tr.querySelector('td.num');
+        var ttl = tr.querySelector('td.title');
+        if (!num || !ttl) return;
+        add(parseInt(num.textContent, 10), ttl.textContent.trim());
+      });
+      /* The page's web formation lifts the newest rows out of the
+         table; the page's own block data (window.BLOCK_DATA) still
+         carries those blocks, so fill any gaps from it. */
+      if (Array.isArray(window.BLOCK_DATA)) {
+        window.BLOCK_DATA.forEach(function (b) {
+          if (b && b.payload && typeof b.payload.title === 'string') {
+            add(b.h, b.payload.title.trim());
+          }
+        });
+      }
+      options.sort(function (a, b) { return b.height - a.height; });
+      var sig = options.map(function (o) { return o.height; }).join(',');
+      if (!options.length || sig === optionSig) return;
+      optionSig = sig;
+      var current = sel.value;
+      while (sel.options.length > 1) sel.remove(1);
+      options.forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = String(o.height);
+        opt.textContent = 'Block ' + o.height + ' — ' + o.title;
+        opt.setAttribute('data-title', o.title);
+        sel.appendChild(opt);
+      });
+      if (current && seen[current]) sel.value = current;
+      $('tw-select-label').hidden = false;
+    }
+    populate();
+    [600, 1600, 3200].forEach(function (ms) { setTimeout(populate, ms); });
+    sel.addEventListener('focus', populate);
+    sel.addEventListener('mousedown', populate);
+    sel.addEventListener('change', function () {
+      var opt = sel.options[sel.selectedIndex];
+      if (!opt || !opt.value) { pendingKind = 'manual'; return; }
+      $('tw-height').value = opt.value;
+      $('tw-title').value = opt.getAttribute('data-title') || '';
+      pendingKind = 'page';
+      msg('');
+    });
+
+    ['tw-height', 'tw-title'].forEach(function (id) {
+      $(id).addEventListener('input', function () {
+        if ($('tw-block-select').value) $('tw-block-select').value = '';
+        pendingKind = 'manual';
+      });
+    });
+
+    $('tw-name').addEventListener('change', function () {
+      var v = $('tw-name').value.trim().slice(0, 40);
+      state.name = v || 'My trail';
+      $('tw-name').value = state.name;
+      save();
+    });
+
+    $('tw-pin').addEventListener('click', pin);
+
+    $('tw-draft').addEventListener('click', function () {
+      var subject = 'My FUSI Ledger trail';
+      this.href = 'mailto:?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(exportText());
+    });
+
+    if (!storageOK) showStorageNote();
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="coin-sketchbook" aria-label="Coin Sketchbook" data-pg="chain">
+<h2>Coin Sketchbook — paper designs only.</h2>
+<p class="cs-banner"><strong>PAPER ONLY — not a coin, not a mint, no value.</strong></p>
+<p>Sketch a coin face on paper: pick a house, a motif, a rim, and an accent, and watch the preview change as you choose. Save up to twelve sketches on this device only. A sketch is a drawing — it is never made into a coin, and it carries no value.</p>
+<div class="cs-group" role="group" aria-label="House">
+<span class="cs-group-label">House</span>
+<button type="button" id="cs-house-phantom" data-cs-house="PHANTOM" aria-pressed="true" class="cs-on">PHANTOM</button>
+<button type="button" id="cs-house-geometry" data-cs-house="GEOMETRY" aria-pressed="false">GEOMETRY</button>
+<button type="button" id="cs-house-ledger" data-cs-house="LEDGER" aria-pressed="false">LEDGER</button>
+<button type="button" id="cs-house-block" data-cs-house="BLOCK" aria-pressed="false">BLOCK</button>
+</div>
+<div class="cs-group" role="group" aria-label="Motif">
+<span class="cs-group-label">Motif</span>
+<button type="button" id="cs-motif-coil" data-cs-motif="coil" aria-pressed="true" class="cs-on">coil</button>
+<button type="button" id="cs-motif-web" data-cs-motif="web" aria-pressed="false">web</button>
+<button type="button" id="cs-motif-diamond" data-cs-motif="diamond" aria-pressed="false">diamond</button>
+<button type="button" id="cs-motif-ring" data-cs-motif="ring" aria-pressed="false">ring</button>
+<button type="button" id="cs-motif-wave" data-cs-motif="wave" aria-pressed="false">wave</button>
+</div>
+<div class="cs-group" role="group" aria-label="Rim">
+<span class="cs-group-label">Rim</span>
+<button type="button" id="cs-rim-plain" data-cs-rim="plain" aria-pressed="true" class="cs-on">plain</button>
+<button type="button" id="cs-rim-beaded" data-cs-rim="beaded" aria-pressed="false">beaded</button>
+<button type="button" id="cs-rim-rope" data-cs-rim="rope" aria-pressed="false">rope</button>
+</div>
+<div class="cs-group" role="group" aria-label="Accent">
+<span class="cs-group-label">Accent</span>
+<button type="button" id="cs-accent-gold" data-cs-accent="gold" aria-pressed="true" class="cs-on"><span class="cs-dot" style="background:#d4af37"></span>gold</button>
+<button type="button" id="cs-accent-white" data-cs-accent="white" aria-pressed="false"><span class="cs-dot" style="background:#ffffff"></span>white</button>
+<button type="button" id="cs-accent-ink" data-cs-accent="ink" aria-pressed="false"><span class="cs-dot" style="background:#3a352a"></span>ink</button>
+<button type="button" id="cs-accent-teal" data-cs-accent="teal" aria-pressed="false"><span class="cs-dot" style="background:#2aa198"></span>teal</button>
+</div>
+<label class="cs-label-wrap">Label (optional, up to 24 characters) <input type="text" id="cs-label" maxlength="24"></label>
+<div id="cs-preview" aria-label="Sketch preview"></div>
+<p><button type="button" id="cs-save">Save sketch</button></p>
+<p id="cs-msg" role="status"></p>
+<p id="cs-storage-note" hidden>Saved for this visit only — storage is unavailable on this device.</p>
+<p id="cs-count" aria-live="polite">0 of 12 sketches saved</p>
+<p id="cs-empty">No sketches saved yet. Design your first paper coin.</p>
+<ul id="cs-gallery"></ul>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-coin-sketchbook-v1';
+  var MAX = 12;
+  var HOUSES = ['PHANTOM', 'GEOMETRY', 'LEDGER', 'BLOCK'];
+  var MOTIFS = ['coil', 'web', 'diamond', 'ring', 'wave'];
+  var RIMS = ['plain', 'beaded', 'rope'];
+  var ACCENTS = { gold: '#d4af37', white: '#ffffff', ink: '#3a352a', teal: '#2aa198' };
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var current = { house: 'PHANTOM', motif: 'coil', rim: 'plain', accent: 'gold' };
+  var gallery = [];
+  var storageOK = true;
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('cs-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(gallery));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function same(a, b) {
+    return a.house === b.house && a.motif === b.motif && a.rim === b.rim &&
+           a.accent === b.accent && a.label === b.label;
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (!Array.isArray(data)) return;
+      data.slice(0, MAX).forEach(function (s) {
+        if (!s) return;
+        if (HOUSES.indexOf(s.house) < 0) return;
+        if (MOTIFS.indexOf(s.motif) < 0) return;
+        if (RIMS.indexOf(s.rim) < 0) return;
+        if (!Object.prototype.hasOwnProperty.call(ACCENTS, s.accent)) return;
+        var item = {
+          house: s.house, motif: s.motif, rim: s.rim, accent: s.accent,
+          label: typeof s.label === 'string' ? s.label.slice(0, 24) : ''
+        };
+        if (!gallery.some(function (g) { return same(g, item); })) gallery.push(item);
+      });
+    } catch (e) { /* unreadable saved sketches: start fresh, in memory */ }
+  }
+
+  function msg(text) { $('cs-msg').textContent = text || ''; }
+
+  function svgEl(name, attrs) {
+    var e = document.createElementNS(SVGNS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  function buildSVG(s, size) {
+    var hex = ACCENTS[s.accent] || ACCENTS.gold;
+    var svg = svgEl('svg', { viewBox: '0 0 200 200', width: size, height: size, role: 'img' });
+    svg.setAttribute('aria-label', s.house + ' ' + s.motif + ' paper sketch');
+    svg.appendChild(svgEl('rect', { x: 0, y: 0, width: 200, height: 200, fill: '#000000' }));
+    var rimAttrs = { cx: 100, cy: 90, r: 62, fill: 'none', stroke: hex, 'stroke-width': 4 };
+    if (s.rim === 'beaded') {
+      rimAttrs['stroke-width'] = 5;
+      rimAttrs['stroke-dasharray'] = '0.1 7';
+      rimAttrs['stroke-linecap'] = 'round';
+    } else if (s.rim === 'rope') {
+      rimAttrs['stroke-width'] = 7;
+      rimAttrs['stroke-dasharray'] = '6 3';
+    }
+    svg.appendChild(svgEl('circle', rimAttrs));
+    svg.appendChild(svgEl('circle', { cx: 100, cy: 90, r: 53, fill: 'none', stroke: hex, 'stroke-width': 1.5, opacity: 0.7 }));
+    if (s.motif === 'coil') {
+      [30, 20, 10].forEach(function (r) {
+        svg.appendChild(svgEl('circle', { cx: 100, cy: 90, r: r, fill: 'none', stroke: hex, 'stroke-width': 2.5 }));
+      });
+    } else if (s.motif === 'web') {
+      for (var i = 0; i < 8; i++) {
+        var a = i * Math.PI / 4;
+        svg.appendChild(svgEl('line', {
+          x1: 100, y1: 90,
+          x2: (100 + 36 * Math.cos(a)).toFixed(1), y2: (90 + 36 * Math.sin(a)).toFixed(1),
+          stroke: hex, 'stroke-width': 1.5
+        }));
+      }
+      svg.appendChild(svgEl('circle', { cx: 100, cy: 90, r: 18, fill: 'none', stroke: hex, 'stroke-width': 2 }));
+      svg.appendChild(svgEl('circle', { cx: 100, cy: 90, r: 36, fill: 'none', stroke: hex, 'stroke-width': 1.5 }));
+    } else if (s.motif === 'diamond') {
+      svg.appendChild(svgEl('polygon', { points: '100,54 136,90 100,126 64,90', fill: 'none', stroke: hex, 'stroke-width': 2.5 }));
+      svg.appendChild(svgEl('polygon', { points: '100,70 120,90 100,110 80,90', fill: 'none', stroke: hex, 'stroke-width': 1.5 }));
+    } else if (s.motif === 'ring') {
+      svg.appendChild(svgEl('circle', { cx: 100, cy: 90, r: 24, fill: 'none', stroke: hex, 'stroke-width': 6 }));
+    } else if (s.motif === 'wave') {
+      svg.appendChild(svgEl('path', { d: 'M62 90 Q 81 68, 100 90 T 138 90', fill: 'none', stroke: hex, 'stroke-width': 3 }));
+      svg.appendChild(svgEl('path', { d: 'M62 106 Q 81 84, 100 106 T 138 106', fill: 'none', stroke: hex, 'stroke-width': 2, opacity: 0.7 }));
+    }
+    var t1 = svgEl('text', { x: 100, y: 174, 'text-anchor': 'middle', fill: '#ffffff', 'font-size': 13, 'letter-spacing': 1 });
+    t1.textContent = s.house + ' · ' + s.motif;
+    svg.appendChild(t1);
+    if (s.label) {
+      var t2 = svgEl('text', { x: 100, y: 192, 'text-anchor': 'middle', fill: '#ffffff', 'font-size': 11 });
+      t2.textContent = s.label;
+      svg.appendChild(t2);
+    }
+    return svg;
+  }
+
+  function currentSketch() {
+    return {
+      house: current.house, motif: current.motif, rim: current.rim, accent: current.accent,
+      label: $('cs-label').value.trim().slice(0, 24)
+    };
+  }
+
+  function renderPreview() {
+    var host = $('cs-preview');
+    while (host.firstChild) host.removeChild(host.firstChild);
+    host.appendChild(buildSVG(currentSketch(), 220));
+  }
+
+  function draftBody(s) {
+    return [
+      'House: ' + s.house,
+      'Motif: ' + s.motif,
+      'Rim: ' + s.rim,
+      'Accent: ' + s.accent + ' (' + ACCENTS[s.accent] + ')',
+      'Label: ' + (s.label || '(none)'),
+      '',
+      'Paper sketch only, not a coin, not a mint.'
+    ].join('\n');
+  }
+
+  function renderGallery() {
+    var list = $('cs-gallery');
+    while (list.firstChild) list.removeChild(list.firstChild);
+    gallery.forEach(function (s, i) {
+      var li = document.createElement('li');
+      li.appendChild(buildSVG(s, 76));
+      var meta = document.createElement('span');
+      meta.className = 'cs-meta';
+      meta.textContent = s.house + ' · ' + s.motif + ' · ' + s.rim + ' rim · ' + s.accent + ' accent' +
+        (s.label ? ' · “' + s.label + '”' : '');
+      li.appendChild(meta);
+      var rm = document.createElement('button');
+      rm.type = 'button'; rm.textContent = 'Remove';
+      rm.addEventListener('click', function () { removeAt(i); });
+      li.appendChild(rm);
+      var draft = document.createElement('a');
+      draft.href = '#'; draft.target = '_blank'; draft.rel = 'noopener';
+      draft.textContent = 'Draft as email';
+      draft.addEventListener('click', function () {
+        draft.href = 'mailto:?subject=' + encodeURIComponent('Paper coin sketch') +
+          '&body=' + encodeURIComponent(draftBody(s));
+      });
+      li.appendChild(draft);
+      list.appendChild(li);
+    });
+    $('cs-count').textContent = gallery.length + ' of ' + MAX + ' sketches saved';
+    $('cs-empty').hidden = gallery.length > 0;
+  }
+
+  function saveSketch() {
+    msg('');
+    var s = currentSketch();
+    if (gallery.length >= MAX) {
+      msg('Gallery is full: ' + MAX + ' of ' + MAX + ' sketches saved. Remove a sketch to save another.');
+      return;
+    }
+    if (gallery.some(function (g) { return same(g, s); })) {
+      msg('Already saved.');
+      return;
+    }
+    gallery.push(s);
+    save();
+    renderGallery();
+  }
+
+  function removeAt(i) {
+    msg('');
+    if (i < 0 || i >= gallery.length) return;
+    gallery.splice(i, 1);
+    save();
+    renderGallery();
+  }
+
+  function bindGroup(attr, key) {
+    document.querySelectorAll('[data-' + attr + ']').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        current[key] = btn.getAttribute('data-' + attr);
+        document.querySelectorAll('[data-' + attr + ']').forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('cs-on', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        msg('');
+        renderPreview();
+      });
+    });
+  }
+
+  function init() {
+    load();
+    bindGroup('cs-house', 'house');
+    bindGroup('cs-motif', 'motif');
+    bindGroup('cs-rim', 'rim');
+    bindGroup('cs-accent', 'accent');
+    $('cs-label').addEventListener('input', renderPreview);
+    $('cs-save').addEventListener('click', saveSketch);
+    if (!storageOK) showStorageNote();
+    renderPreview();
+    renderGallery();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 

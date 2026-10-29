@@ -1,16 +1,16 @@
 {
-  "tip_height": 1762,
-  "tip_hash": "186910cb7d83787ffa90ef22ddb561bc652d9e936563fb79cf50c43f7bd5aae3",
+  "tip_height": 1789,
+  "tip_hash": "e2e9721f47f323bd144c6c4fe3d42b1fa11c51b2b539013e7f770b6c7a5712a2",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
   "fusion_tip_hash": "48148174149d8035e6cb94139a6159eb1e89e6347bc4f13260fe5519b6a13de5",
   "fusion_audit_height": 506,
   "knots": {
-    "count": 128,
-    "tied": 128,
+    "count": 140,
+    "tied": 140,
     "untied": 0,
-    "entry_linked_blocks": 136,
+    "entry_linked_blocks": 148,
     "spine_gameshark": {
       "at": "2026-10-26T18:14:43+00:00",
       "event": "append",
@@ -22,6 +22,22 @@
     "fusion_tip_height": 506
   },
   "finals": [
+    {
+      "date": "2026-10-28",
+      "away": "ORL",
+      "away_score": 99,
+      "home": "TOR",
+      "home_score": 129,
+      "event_id": "401909885"
+    },
+    {
+      "date": "2026-10-28",
+      "away": "NY",
+      "away_score": 133,
+      "home": "CHI",
+      "home_score": 127,
+      "event_id": "401909886"
+    },
     {
       "date": "2026-10-28",
       "away": "HOU",
@@ -53,23 +69,7 @@
       "home": "UTAH",
       "home_score": 111,
       "event_id": "401909890"
-    },
-    {
-      "date": "2026-10-28",
-      "away": "OKC",
-      "away_score": 96,
-      "home": "DAL",
-      "home_score": 120,
-      "event_id": "401909891"
-    },
-    {
-      "date": "2026-10-28",
-      "away": "LAL",
-      "away_score": 103,
-      "home": "LAC",
-      "home_score": 87,
-      "event_id": "401909892"
     }
   ],
-  "updated_at": "2026-10-29T12:19:54.281002+00:00"
+  "updated_at": "2026-10-29T14:15:33.395681+00:00"
 }

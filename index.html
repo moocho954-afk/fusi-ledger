@@ -1185,6 +1185,93 @@
 .gs-flight-ball { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe9a8, #d4af37 55%, #8a6d1f); box-shadow: 0 0 26px rgba(212,175,55,.6); opacity: 0; animation: gs-flight-fly 1.4s ease-in forwards; }
 @keyframes gs-flight-fly { 0% { opacity: 0; transform: translate(-50%,-50%) scale(.3); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.6); } }
 @media (prefers-reduced-motion: reduce) { .hub .ad-display.gs-portal, .hub .gs-hole, .gs-flight-overlay .gs-flight-vortex { animation: none; } }
+
+/* ===== NEW BAND BILLBOARDS — eight house displays, each advertised its own way.
+   Links only: each one anchors to its section on the chain page. No fetch,
+   no chain write, no amounts. Styles are per-billboard on purpose. ===== */
+.hub .bb-band-head { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; padding: var(--s-2) var(--s-1) 0; }
+.hub .bb-band-head .bb-band-kicker { font-family: var(--font-data); font-size: var(--t-12); font-weight: 700; letter-spacing: .22em; color: var(--void); background: var(--gold); padding: 3px 10px; }
+.hub .bb-band-head .bb-band-line { font-size: var(--t-14); color: var(--slate); }
+.hub .bb-band-head .bb-band-line b { color: var(--ink); font-weight: 600; }
+.hub .bb-visual { padding: var(--s-4) var(--s-4) 0; }
+.hub .bb-stamp { display: inline-block; font-family: var(--font-data); font-size: 11px; font-weight: 700; letter-spacing: .14em; padding: 4px 9px; border: 2px solid currentColor; border-radius: 4px; transform: rotate(-3deg); }
+
+/* 1 — Dispute Inbox: an open docket folder, red file tab + stamp */
+.hub .bb-dispute { background: #1d1210; border: 2px solid #c0392b; border-radius: 6px; }
+.hub .bb-dispute .ad-top { background: #c0392b; border-bottom: none; }
+.hub .bb-dispute .ad-tag { background: #0e0d0b; color: #f2ede1; }
+.hub .bb-dispute .ad-page { color: #f2ede1; }
+.hub .bb-dispute .bb-docket { font-family: var(--font-data); font-size: var(--t-12); letter-spacing: .08em; color: #e8a09a; border: 1px dashed rgba(192,57,43,.75); padding: var(--s-3); display: flex; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap; }
+.hub .bb-dispute .bb-stamp { color: #e0655f; margin: var(--s-4) var(--s-4) 0; align-self: flex-start; }
+.hub .bb-dispute .ad-cta { color: #e0655f; }
+
+/* 2 — Trail Weaver: a dotted route with pins */
+.hub .bb-trail { background: #0d1a17; border: 2px dashed #2aa198; border-radius: 22px; }
+.hub .bb-trail .ad-tag { background: #2aa198; color: #08130f; }
+.hub .bb-trail .bb-route { display: flex; align-items: center; gap: 0; font-family: var(--font-data); color: #2aa198; font-size: 20px; line-height: 1; }
+.hub .bb-trail .bb-route .bb-dash { flex: 1; border-top: 3px dotted #2aa198; margin: 0 6px; min-width: 18px; }
+.hub .bb-trail .bb-route .bb-pin { color: var(--gold); }
+.hub .bb-trail .ad-cta { color: #35c4b5; }
+
+/* 3 — Coin Sketchbook: a sheet of sketch paper, light on a dark page */
+.hub .bb-sketch { background: #ece5d0; border: 2px solid #b9ab7f; border-radius: 3px; color: #171511; transform: rotate(-.4deg); }
+.hub .bb-sketch:hover { transform: rotate(0deg); }
+.hub .bb-sketch .ad-top { border-bottom: 1px dashed #8a7d55; }
+.hub .bb-sketch .ad-tag { background: #171511; color: #ece5d0; }
+.hub .bb-sketch .ad-page { color: #5c543c; }
+.hub .bb-sketch .ad-head { color: #171511; font-style: italic; }
+.hub .bb-sketch .ad-copy { color: #4a4436; }
+.hub .bb-sketch .ad-cta { color: #7a5c10; }
+.hub .bb-sketch .bb-spiral { display: flex; gap: 14px; padding: 2px var(--s-4) 0; }
+.hub .bb-sketch .bb-spiral i { width: 9px; height: 9px; border-radius: 50%; background: #0e0d0b; opacity: .8; }
+.hub .bb-sketch .bb-drawing { margin: var(--s-3) var(--s-4) 0; border: 2px dashed #8a7d55; border-radius: 50%; width: 86px; height: 86px; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #7a5c10; background: rgba(255,255,255,.35); }
+.hub .bb-sketch .bb-stamp { color: #8a2f24; margin: var(--s-3) var(--s-4) 0; align-self: flex-start; }
+
+/* 4 — Cipher Vault: steel vault, scrambled letter tiles */
+.hub .bb-cipher { background: #10151d; border: 2px solid #5b6b7f; border-radius: 10px; }
+.hub .bb-cipher .ad-tag { background: #5b6b7f; color: #f2ede1; }
+.hub .bb-cipher .ad-head { font-family: var(--font-data); font-size: var(--t-20); letter-spacing: .02em; }
+.hub .bb-cipher .bb-tiles { display: flex; gap: 7px; flex-wrap: wrap; }
+.hub .bb-cipher .bb-tile { width: 38px; height: 44px; display: flex; align-items: center; justify-content: center; background: #1c2635; border: 1px solid #5b6b7f; border-bottom: 4px solid #5b6b7f; border-radius: 6px; font-family: var(--font-data); font-size: 20px; font-weight: 700; color: #dbe6f2; }
+.hub .bb-cipher .bb-tile-hint { color: var(--gold); border-color: var(--gold-deep); }
+.hub .bb-cipher .bb-hintline { margin-top: var(--s-2); font-family: var(--font-data); font-size: var(--t-12); color: #93a7bd; }
+.hub .bb-cipher .ad-cta { color: #a9c3de; }
+
+/* 5 — Paper Trade Table: a ruled paper grid with a warning stamp */
+.hub .bb-paper { background-color: #0e1a12; background-image: linear-gradient(rgba(46,139,87,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(46,139,87,.16) 1px, transparent 1px); background-size: 26px 26px; border: 2px solid #2e8b57; border-radius: 0; }
+.hub .bb-paper .ad-top { background: #0e1a12; }
+.hub .bb-paper .ad-tag { background: #2e8b57; color: #08130c; }
+.hub .bb-paper .bb-minitable { font-family: var(--font-data); font-size: var(--t-12); color: #9fd4b2; border: 1px solid rgba(46,139,87,.7); }
+.hub .bb-paper .bb-minitable span { display: flex; justify-content: space-between; gap: var(--s-3); padding: 6px 10px; border-bottom: 1px solid rgba(46,139,87,.35); }
+.hub .bb-paper .bb-minitable span:last-child { border-bottom: none; }
+.hub .bb-paper .bb-stamp { color: #e0655f; margin: var(--s-4) var(--s-4) 0; align-self: flex-start; background: rgba(14,13,11,.75); }
+.hub .bb-paper .ad-cta { color: #4fc07d; }
+
+/* 6 — Tie Checker: a quiz flashcard */
+.hub .bb-tie { background: #181426; border: 2px solid #7a6ff0; border-radius: 16px; }
+.hub .bb-tie .ad-tag { background: #7a6ff0; color: #f2ede1; }
+.hub .bb-tie .bb-q { display: flex; align-items: center; gap: var(--s-3); }
+.hub .bb-tie .bb-qmark { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; background: #7a6ff0; color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-data); font-size: 28px; font-weight: 700; }
+.hub .bb-tie .bb-qtext { font-family: var(--font-data); font-size: var(--t-14); color: #cfc9f5; }
+.hub .bb-tie .bb-answers { display: flex; gap: var(--s-2); margin-top: var(--s-3); flex-wrap: wrap; }
+.hub .bb-tie .bb-answer { font-family: var(--font-data); font-size: var(--t-12); font-weight: 700; letter-spacing: .08em; border: 1px solid #7a6ff0; border-radius: 999px; padding: 5px 12px; color: #cfc9f5; }
+.hub .bb-tie .ad-cta { color: #a79df5; }
+
+/* 7 — Story Loom: a film strip with captioned frames */
+.hub .bb-loom { background: #080707; border: 2px solid #3a352a; border-radius: 8px; }
+.hub .bb-loom .ad-tag { background: #f2ede1; color: #0e0d0b; }
+.hub .bb-loom .bb-strip { border-top: 10px dotted #2b281e; border-bottom: 10px dotted #2b281e; padding: var(--s-3) 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.hub .bb-loom .bb-frame { border: 1px solid #57503e; background: #171511; padding: 8px; min-height: 62px; }
+.hub .bb-loom .bb-frame b { display: block; font-family: var(--font-data); font-size: 11px; color: var(--gold); letter-spacing: .1em; }
+.hub .bb-loom .bb-frame span { display: block; margin-top: 4px; font-size: 12px; line-height: 1.4; color: var(--slate); font-style: italic; }
+.hub .bb-loom .ad-cta { color: var(--gold); }
+
+/* 8 — Web Mapper: a personal node map on blueprint grid */
+.hub .bb-mapper { background-color: #0d1420; background-image: linear-gradient(rgba(122,162,220,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(122,162,220,.13) 1px, transparent 1px); background-size: 22px 22px; border: 2px solid #4a6fa5; border-radius: 12px; }
+.hub .bb-mapper .ad-tag { background: #4a6fa5; color: #f2ede1; }
+.hub .bb-mapper .bb-notweb { display: inline-block; font-family: var(--font-data); font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #ffd97a; border: 1px solid var(--gold-deep); background: rgba(14,13,11,.8); padding: 4px 9px; border-radius: 999px; }
+.hub .bb-mapper .ad-cta { color: #8db1dd; }
+@media (prefers-reduced-motion: reduce) { .hub .bb-sketch, .hub .bb-sketch:hover { transform: none; } }
     </style>
     <style>
       /* ===== 2026-10-22 OVERHAUL — legibility floor, learn, identity, starlane fullscreen ===== */
@@ -1746,6 +1833,70 @@
   <span class="ad-cta">PRESS THE HOLE <i class="g g-connector"></i></span>
 </a>
 <div id="web-tie-strip" class="note" style="text-align:center" data-gs-build="2026-10-27T14:30:27.323091+00:00" data-ledger-build="2026-10-27T14:51:21+00:00">Web-linked to GameShark — both surfaces on the same web. Ledger build 2026-10-27T14:51:21+00:00 · GameShark build 2026-10-27T14:30:27.323091+00:00.</div>
+            <div class="bb-band-head">
+              <span class="bb-band-kicker">NEW ON THE LEDGER</span>
+              <span class="bb-band-line"><b>The new band, advertised here</b> — every new section below has its own billboard. Tap any one to jump straight to it.</span>
+            </div>
+            <a class="ad-display bb-dispute" href="#dispute-inbox">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Unresolved-Dispute Inbox</span></span>
+              <span class="bb-visual"><span class="bb-docket" aria-hidden="true"><span>OPEN DOCKET</span><span>FILED · UNRESOLVED</span><span>READ ALL →</span></span></span>
+              <span class="bb-stamp">DISPLAY ONLY — CANNOT CLOSE</span>
+              <span class="ad-head ds-display">Something still unresolved?</span>
+              <span class="ad-copy">Every open dispute, provisional and challenge sits in one inbox — readable by anyone, closable by no tap here. Only a later chain block can close one.</span>
+              <span class="ad-cta">READ THE OPEN INBOX <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-trail" href="#trail-weaver">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Trail Weaver</span></span>
+              <span class="bb-visual"><span class="bb-route" aria-hidden="true"><span class="bb-pin">●</span><span class="bb-dash"></span><span>●</span><span class="bb-dash"></span><span class="bb-pin">●</span><span class="bb-dash"></span><span>●</span></span></span>
+              <span class="ad-head ds-display">Pin a trail through the chain.</span>
+              <span class="ad-copy">Pick blocks from this page and pin up to five into a personal trail, in your order. Your trail is saved on this device only — it is not a chain record.</span>
+              <span class="ad-cta">START YOUR TRAIL <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-sketch" href="#coin-sketchbook">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Coin Sketchbook</span></span>
+              <span class="bb-spiral" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="bb-drawing" aria-hidden="true">◇</span>
+              <span class="bb-stamp">PAPER ONLY</span>
+              <span class="ad-head ds-display">Sketch a coin that will never be minted.</span>
+              <span class="ad-copy">Draw a coin face on paper — house, motif, rim and accent, with a live preview. A sketchbook page only: not a coin, not a mint, no value.</span>
+              <span class="ad-cta">OPEN THE SKETCHBOOK <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-cipher" href="#cipher-vault">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Cipher Vault</span></span>
+              <span class="bb-visual"><span class="bb-tiles" aria-hidden="true"><span class="bb-tile">?</span><span class="bb-tile">?</span><span class="bb-tile">?</span><span class="bb-tile">?</span><span class="bb-tile">?</span><span class="bb-tile">?</span></span><span class="bb-hintline">HINT REVEALS ONLY THE FIRST LETTER</span></span>
+              <span class="ad-head ds-display">Today's word, locked in scrambled.</span>
+              <span class="ad-copy">One word, scrambled by the calendar — everyone who opens the page today gets the same cipher. The hint gives you only the first letter. The rest is yours to crack.</span>
+              <span class="ad-cta">TRY TODAY'S CIPHER <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-paper" href="#paper-trade-table">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Paper Trade Table</span></span>
+              <span class="bb-visual"><span class="bb-minitable" aria-hidden="true"><span><span>HOUSE</span><span>PAPER UNITS</span></span><span><span>········</span><span>— — —</span></span><span><span>········</span><span>— — —</span></span></span></span>
+              <span class="bb-stamp">NOT FUSI · NO VALUE · NO PAYOUT</span>
+              <span class="ad-head ds-display">Trade the table that isn't real.</span>
+              <span class="ad-copy">Build a hypothetical paper table with paper units only. NOT FUSI, NO VALUE, NO PAYOUT — practice positions that move nothing and pay nothing.</span>
+              <span class="ad-cta">SIT AT THE PAPER TABLE <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-tie" href="#tie-checker">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Tie Checker</span></span>
+              <span class="bb-visual"><span class="bb-q"><span class="bb-qmark" aria-hidden="true">?</span><span class="bb-qtext">DO THESE TWO BLOCKS<br />SHARE A TIE?</span></span><span class="bb-answers" aria-hidden="true"><span class="bb-answer">A · SAME TIE</span><span class="bb-answer">B · NO TIE</span></span></span>
+              <span class="ad-head ds-display">Quick — call the tie.</span>
+              <span class="ad-copy">A short quiz built only from the tie labels already on this page. Name two blocks, say whether they share a tie, and see if the web agrees.</span>
+              <span class="ad-cta">TAKE THE TIE QUIZ <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-loom" href="#story-loom">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Story Loom</span></span>
+              <span class="bb-visual"><span class="bb-strip" aria-hidden="true"><span class="bb-frame"><b>FRAME 1</b><span>your caption…</span></span><span class="bb-frame"><b>FRAME 2</b><span>your caption…</span></span><span class="bb-frame"><b>FRAME 3</b><span>your caption…</span></span></span></span>
+              <span class="ad-head ds-display">Caption three blocks. Roll the story.</span>
+              <span class="ad-copy">Pick up to three blocks, write one caption for each, and loom them into a story strip in your own words — your captions, not a chain record.</span>
+              <span class="ad-cta">WEAVE A STORY STRIP <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-mapper" href="#web-mapper">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Web Mapper</span></span>
+              <span class="bb-visual"><svg width="100%" height="92" viewBox="0 0 320 92" role="presentation" aria-hidden="true" focusable="false"><line x1="42" y1="62" x2="128" y2="26" stroke="#4a6fa5" stroke-width="2" /><line x1="128" y1="26" x2="218" y2="58" stroke="#4a6fa5" stroke-width="2" /><line x1="218" y1="58" x2="282" y2="22" stroke="#4a6fa5" stroke-width="2" /><line x1="42" y1="62" x2="218" y2="58" stroke="#2b4a75" stroke-width="2" /><circle cx="42" cy="62" r="8" fill="#d4af37" /><circle cx="128" cy="26" r="7" fill="#8db1dd" /><circle cx="218" cy="58" r="8" fill="#d4af37" /><circle cx="282" cy="22" r="6" fill="#8db1dd" /></svg><span class="bb-notweb">NOT THE PLATFORM SPIDER WEB</span></span>
+              <span class="ad-head ds-display">Draw your own map of it.</span>
+              <span class="ad-copy">Place up to 12 nodes and connect them your way. It is your personal map only — not the platform spider web, and it changes nothing on it.</span>
+              <span class="ad-cta">DRAW YOUR MAP <i class="g g-connector"></i></span>
+            </a>
             <a class="ad-display" href="#/play">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Play · The Forge</span></span>
               <img data-hatch-src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />

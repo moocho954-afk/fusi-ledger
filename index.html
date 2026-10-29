@@ -22510,12 +22510,13 @@ window.__fusiSnakeMode = "2d";
     function pickConn(p) { return p.conns[Math.floor(Math.random() * p.conns.length)]; }
     function spawnPulse(p) {
       var c = pickConn(p);
-      if (!c) return;
+      if (!c) return false;
       var len = 0;
-      try { len = c.path.getTotalLength(); } catch (e) { return; }
-      if (!len) return;
+      try { len = c.path.getTotalLength(); } catch (e) { return false; }
+      if (!len) return false;
       var dot = el("circle", { "class": "bw-pulse", r: 3.2, fill: REASON_COLORS[c.reason], opacity: 0.95 }, p.layer);
       p.pulses.push({ conn: c, len: len, dist: Math.random() * len * 0.4, speed: 46 + Math.random() * 42, dot: dot });
+      return true;
     }
     function spawnWeave(p, now) {
       var c = pickConn(p);
@@ -22535,7 +22536,7 @@ window.__fusiSnakeMode = "2d";
       for (var i = 0; i < livePanels.length; i++) {
         var p = livePanels[i];
         if ((!noIO && !p.visible) || !p.svg.isConnected || !p.conns.length) continue;
-        while (p.pulses.length < 3) spawnPulse(p);
+        for (var att = 0; att < 3 && p.pulses.length < 3; att++) spawnPulse(p);
         for (var j = p.pulses.length - 1; j >= 0; j--) {
           var pu = p.pulses[j];
           pu.dist += pu.speed * dt;

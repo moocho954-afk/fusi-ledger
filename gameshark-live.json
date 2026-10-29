@@ -1,6 +1,6 @@
 {
-  "tip_height": 1757,
-  "tip_hash": "401af76376d2e86e13d4a8a3a8776813f8d5b7016862a751b34d514071fafe4b",
+  "tip_height": 1762,
+  "tip_hash": "186910cb7d83787ffa90ef22ddb561bc652d9e936563fb79cf50c43f7bd5aae3",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
@@ -22,22 +22,6 @@
     "fusion_tip_height": 506
   },
   "finals": [
-    {
-      "date": "2026-10-28",
-      "away": "ORL",
-      "away_score": 99,
-      "home": "TOR",
-      "home_score": 129,
-      "event_id": "401909885"
-    },
-    {
-      "date": "2026-10-28",
-      "away": "NY",
-      "away_score": 133,
-      "home": "CHI",
-      "home_score": 127,
-      "event_id": "401909886"
-    },
     {
       "date": "2026-10-28",
       "away": "HOU",
@@ -69,7 +53,23 @@
       "home": "UTAH",
       "home_score": 111,
       "event_id": "401909890"
+    },
+    {
+      "date": "2026-10-28",
+      "away": "OKC",
+      "away_score": 96,
+      "home": "DAL",
+      "home_score": 120,
+      "event_id": "401909891"
+    },
+    {
+      "date": "2026-10-28",
+      "away": "LAL",
+      "away_score": 103,
+      "home": "LAC",
+      "home_score": 87,
+      "event_id": "401909892"
     }
   ],
-  "updated_at": "2026-10-29T05:19:00.985614+00:00"
+  "updated_at": "2026-10-29T07:11:19.815597+00:00"
 }

@@ -1599,6 +1599,60 @@
       .hub .rc-quest-list li b { color: var(--gold); font-weight: 700; }
     </style>
     <style data-hatch-cvm-bundle></style>
+    <style>
+      /* ===== THE LEDGER WEB — the block web extended to the whole ledger.
+         Same silk, same four colours, same off-web legend + explanation
+         treatment as the rotation webs (.bw-legend / .bw-explain /
+         .bw-svg are reused). No words are drawn on this web either:
+         knots carry numbers only, and the key, legend and reasons all
+         live off the canvas. ===== */
+      .lw-panel { border: 1px solid var(--line); background: rgba(14, 13, 10, 0.72); padding: 14px 14px 10px; margin: 18px 0 6px; position: relative; }
+      .lw-head { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 8px; margin-bottom: 6px; }
+      .lw-title { font-size: 12px; letter-spacing: 2.5px; color: var(--gold); }
+      .lw-note { font-size: 12px; letter-spacing: 1.2px; color: var(--ink-faint); text-transform: uppercase; }
+      .lw-holder { text-align: center; }
+      .lw-svg { width: min(100%, 620px); height: auto; }
+      .lw-caption { font-size: 13.5px; color: var(--ink-soft); margin: 8px 2px 4px; line-height: 1.55; text-align: left; }
+      .lw-caption b { color: var(--ink); font-weight: normal; }
+      .lw-key { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 14px; margin-top: 10px; border-top: 1px dashed var(--line); padding-top: 8px; text-align: left; }
+      .lw-key a { display: flex; gap: 8px; align-items: baseline; font-size: 13px; color: var(--ink-soft); border-bottom: none; padding: 2px 0; }
+      .lw-key a:hover { color: var(--gold); }
+      .lw-key .lw-kn { font-family: "Courier New", monospace; color: var(--gold); font-size: 12px; min-width: 22px; }
+      .lw-jump { display: inline-block; margin-top: 8px; font-size: 13px; letter-spacing: 1.5px; color: var(--gold); border: 1px solid var(--gold-dim); padding: 6px 14px; }
+      .lw-jump:hover { background: var(--gold-faint); }
+      .bw-explain a.lw-tie-jump { white-space: nowrap; font-size: 12.5px; letter-spacing: 1px; }
+      /* section tie strips — every section shows ALL of its web ties at
+         once, each with its colour, and each tie jumps to its section */
+      .lw-ties { border: 1px dashed var(--line); background: rgba(14, 13, 10, 0.55); padding: 10px 12px; margin: 0 0 16px; }
+      .lw-ties .lw-ties-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; justify-content: space-between; font-size: 11px; letter-spacing: 2px; color: var(--gold); margin-bottom: 7px; }
+      .lw-ties .lw-ties-head button { font-family: Georgia, serif; background: none; border: 1px solid var(--gold-dim); color: var(--gold); font-size: 12px; letter-spacing: 1px; padding: 3px 10px; cursor: pointer; }
+      .lw-ties .lw-ties-head button:hover { background: var(--gold-faint); }
+      .lw-ties .lw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+      .lw-chip { display: inline-flex; gap: 7px; align-items: center; font-size: 12.5px; color: var(--ink); border: 1px solid var(--line); padding: 3px 10px 3px 6px; }
+      .lw-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+      .lw-chip .bw-sw { width: 11px; height: 11px; margin-top: 0; }
+      /* ===== 9:16 PHONE FIT — every web fits one phone screen: the block
+         webs stop demanding 880-900px of sideways room, and the ledger
+         web is sized by the viewport's height as well as its width, so
+         the whole web is visible without scrolling. When the
+         explanation panel opens on a phone, the web shrinks instead of
+         being pushed off-screen, and closing the panel restores it. ===== */
+      @media (max-width: 720px) {
+        .bw-svg { min-width: 0; width: 100%; }
+        #block-web-svg { min-width: 0; }
+        .bw-holder, #block-web-holder { overflow-x: visible; }
+        .lw-panel { padding: 10px 8px 8px; margin-top: 10px; }
+        .lw-svg { width: min(100%, 57vh); width: min(100%, 57dvh); transition: width 0.3s ease; }
+        .lw-panel.has-explain .lw-svg { width: min(100%, 33vh); width: min(100%, 33dvh); }
+        .lw-panel .bw-explain { max-height: 36vh; max-height: 36dvh; overflow-y: auto; }
+        .lw-panel .bw-legend-row { font-size: 12px; }
+        .lw-key { grid-template-columns: 1fr 1fr; }
+        .lw-key a { font-size: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .lw-svg { transition: none; }
+      }
+    </style>
 </head>
   <body>
     <!-- ================= VAULT ENTRY GATE — ledger block h=131 =================
@@ -1677,6 +1731,50 @@
            The platform's front door, transplanted from artifact `fusion-hub`:
            live strip, START HERE spine, hero, and the six beats. The spine
            routes within this one page. -->
+      <!-- ================= THE LEDGER WEB — the spider web, extended =================
+           The same web that weaves the chain blocks, reaching every part
+           of the ledger: the chain at the hub, every section a numbered
+           knot on the rings, every strand coloured by why it is tied.
+           No words on the web itself — the key, the legend and the
+           "This is connected because of …" panel all live off the
+           canvas, exactly as they do under the block webs. Woven by the
+           ledger-web script at the end of the body; the numbered key
+           below is live even without it. -->
+      <section class="lw-panel" id="ledger-web" aria-label="The ledger web — every section of the ledger tied into one web">
+        <div class="lw-head">
+          <span class="lw-title">THE LEDGER, IN ONE WEB</span>
+          <span class="lw-note">Every section · one web · colours only</span>
+        </div>
+        <div class="lw-holder" id="lw-holder"></div>
+        <p class="lw-caption"><b>Tap any knot</b> and every tie it carries is spelled out at once, under the web — each tie in its own colour, each one a jump straight to that section. Every section below carries the same ties back, all at once, so the whole ledger reads as one web. The web stays alive: strands keep forming and re-weaving along ties that really exist.</p>
+        <nav class="lw-key" aria-label="Ledger web knot key — every knot, numbered">
+          <a href="#/chain"><span class="lw-kn">0</span>The Chain — the hub</a>
+          <a href="#/home"><span class="lw-kn">1</span>Front — Main Ledger</a>
+          <a href="#/play/the-forge"><span class="lw-kn">2</span>Forge — Play</a>
+          <a href="#/earn/beat-earn"><span class="lw-kn">3</span>Earn</a>
+          <a href="#/coin/beat-coin"><span class="lw-kn">4</span>The Coin</a>
+          <a href="#/wallet/beat-wallet"><span class="lw-kn">5</span>Wallet</a>
+          <a href="#/market/beat-market"><span class="lw-kn">6</span>Market</a>
+          <a href="#/explore/hub-pools"><span class="lw-kn">7</span>Pools</a>
+          <a href="#/workshop/creator-workshop"><span class="lw-kn">8</span>Creator Workshop</a>
+          <a href="#/explore/beat-explore"><span class="lw-kn">9</span>Explore</a>
+          <a href="#/ais/for-ais"><span class="lw-kn">10</span>For AIs</a>
+          <a href="#/humans/for-humans"><span class="lw-kn">11</span>For Humans</a>
+          <a href="fusion-studios.html"><span class="lw-kn">12</span>Fusion Studios</a>
+          <a href="#/home/beat-referrals"><span class="lw-kn">13</span>Referrals</a>
+          <a href="#/home/beat-crews"><span class="lw-kn">14</span>Crews</a>
+          <a href="#/chain/dispute-inbox"><span class="lw-kn">15</span>Dispute Inbox</a>
+          <a href="#/chain/trail-weaver"><span class="lw-kn">16</span>Trail Weaver</a>
+          <a href="#/chain/coin-sketchbook"><span class="lw-kn">17</span>Coin Sketchbook</a>
+          <a href="#/chain/cipher-vault"><span class="lw-kn">18</span>Cipher Vault</a>
+          <a href="#/chain/paper-trade-table"><span class="lw-kn">19</span>Paper Trade Table</a>
+          <a href="#/chain/tie-checker"><span class="lw-kn">20</span>Tie Checker</a>
+          <a href="#/chain/story-loom"><span class="lw-kn">21</span>Story Loom</a>
+          <a href="#/chain/web-mapper"><span class="lw-kn">22</span>Web Mapper</a>
+          <a href="gameshark.html"><span class="lw-kn">23</span>GameShark</a>
+        </nav>
+      </section>
+
       <div class="hub" id="hub-top">
 
         <!-- Live status strip — rendered live from the public chain snapshot; fail closed. -->
@@ -22564,6 +22662,480 @@ window.__fusiSnakeMode = "2d";
             if (wv.el.parentNode) wv.el.parentNode.removeChild(wv.el);
             p.weaves.splice(k, 1);
           }
+        }
+      }
+    }
+    function start() { if (!rafId) { lastTs = 0; rafId = requestAnimationFrame(tick); } }
+    function stop() { if (rafId) cancelAnimationFrame(rafId); rafId = 0; }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop(); else start();
+    });
+    if (!document.hidden) start();
+  })();
+})();
+</script>
+<script>
+/* ===== THE LEDGER WEB — the block web, extended to the entire ledger =====
+   The rotation webs above weave chain blocks; this web is the SAME web
+   reaching the rest of the ledger. The chain sits at the hub, every
+   section of the page is a numbered knot on the rings, and every strand
+   is coloured by exactly why it is tied — the same four colours as the
+   block webs: gold for the hash chain, orange for a citation on this
+   page, blue for a shared category, pale silk for the frame. No words
+   are drawn on the web: knots carry numbers only, and the words live
+   off the canvas — the legend under the web, the numbered key, and the
+   explanation panel a tap opens, listing ALL of a knot's ties at once.
+   Every tie below is derived from content already on this page: the
+   Front preview cards and billboards, the Explore index cards, the
+   START HERE rail order, the on-chain declarations each section names,
+   and the records each section reads. Nothing is invented.
+   The web stays alive like the block webs: pulses and re-woven strands
+   travel only along ties that really exist, simultaneously, pausing
+   while the tab is hidden and standing down under reduced motion.
+   The Widow's map is untouched — she still patrols the block webs. */
+(function () {
+  var panel = document.getElementById("ledger-web");
+  var holder = document.getElementById("lw-holder");
+  if (!panel || !holder) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var REASON_COLORS = { chain: "#d4af37", "case": "#ff7a45", category: "#41a6f7", silk: "#e4dcc4" };
+  var REASON_ORDER = ["chain", "case", "category"];
+  var REASON_PHRASE = { chain: "the hash chain", "case": "a citation on this page", category: "sharing a category on this page" };
+  var REASON_LABEL = { chain: "hash chain", "case": "citation", category: "same category" };
+  var reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  /* knots — ring 0 is the hub, ring 1 the main path, ring 2 the rest.
+     target = the element that carries this section's tie strip;
+     href = where a tie jump lands (the section's own route + anchor,
+     or the exact external file its display on this page opens). */
+  var NODES = [
+    { k: "chain", n: 0, name: "The Chain", href: "#/chain", target: "chain", ring: 0 },
+    { k: "front", n: 1, name: "Front — Main Ledger", href: "#/home", target: "previews", ring: 1 },
+    { k: "forge", n: 2, name: "Forge — Play", href: "#/play/the-forge", target: "the-forge", ring: 1 },
+    { k: "earn", n: 3, name: "Earn", href: "#/earn/beat-earn", target: "beat-earn", ring: 1 },
+    { k: "coin", n: 4, name: "The Coin", href: "#/coin/beat-coin", target: "beat-coin", ring: 1 },
+    { k: "wallet", n: 5, name: "Wallet", href: "#/wallet/beat-wallet", target: "beat-wallet", ring: 1 },
+    { k: "market", n: 6, name: "Market", href: "#/market/beat-market", target: "beat-market", ring: 1 },
+    { k: "pools", n: 7, name: "Pools", href: "#/explore/hub-pools", target: "hub-pools", ring: 2 },
+    { k: "workshop", n: 8, name: "Creator Workshop", href: "#/workshop/creator-workshop", target: "creator-workshop", ring: 2 },
+    { k: "explore", n: 9, name: "Explore", href: "#/explore/beat-explore", target: "beat-explore", ring: 2 },
+    { k: "ais", n: 10, name: "For AIs", href: "#/ais/for-ais", target: "for-ais", ring: 2 },
+    { k: "humans", n: 11, name: "For Humans", href: "#/humans/for-humans", target: "for-humans", ring: 2 },
+    { k: "studios", n: 12, name: "Fusion Studios", href: "fusion-studios.html", target: null, ring: 2 },
+    { k: "referrals", n: 13, name: "Referrals", href: "#/home/beat-referrals", target: "beat-referrals", ring: 2 },
+    { k: "crews", n: 14, name: "Crews", href: "#/home/beat-crews", target: "beat-crews", ring: 2 },
+    { k: "dispute", n: 15, name: "Dispute Inbox", href: "#/chain/dispute-inbox", target: "dispute-inbox", ring: 2 },
+    { k: "trail", n: 16, name: "Trail Weaver", href: "#/chain/trail-weaver", target: "trail-weaver", ring: 2 },
+    { k: "sketch", n: 17, name: "Coin Sketchbook", href: "#/chain/coin-sketchbook", target: "coin-sketchbook", ring: 2 },
+    { k: "cipher", n: 18, name: "Cipher Vault", href: "#/chain/cipher-vault", target: "cipher-vault", ring: 2 },
+    { k: "paper", n: 19, name: "Paper Trade Table", href: "#/chain/paper-trade-table", target: "paper-trade-table", ring: 2 },
+    { k: "tie", n: 20, name: "Tie Checker", href: "#/chain/tie-checker", target: "tie-checker", ring: 2 },
+    { k: "story", n: 21, name: "Story Loom", href: "#/chain/story-loom", target: "story-loom", ring: 2 },
+    { k: "mapper", n: 22, name: "Web Mapper", href: "#/chain/web-mapper", target: "web-mapper", ring: 2 },
+    { k: "gameshark", n: 23, name: "GameShark", href: "gameshark.html", target: null, ring: 2 }
+  ];
+  var byKey = {};
+  NODES.forEach(function (nd) { byKey[nd.k] = nd; });
+
+  /* strands — [from, to, reason, why]. Every "why" states the content
+     on this page the tie is read from. */
+  var EDGES = [
+    /* gold — the hash chain: the section holds, reads or is declared
+       by chain records */
+    ["chain", "front", "chain", "The Front page reads the chain live — its status strip shows the chain height, the coins minted and the latest block."],
+    ["chain", "forge", "chain", "The Forge's builds carry chain records — its marquee cards cite them: FUSI-SNAKE contract #62 · usage #63, FUSI-GUESS #55 · #58, FUSI-FORGE #57 · #59."],
+    ["chain", "earn", "chain", "Earn pays only verified play, and the grants land as chain blocks — the EARN GRANT blocks for first_blood, diamond_5, diamond_15 and diamond_30 sit in the chain table."],
+    ["chain", "coin", "chain", "Coins are registered on the chain — the COIN REGISTRY blocks of the LEDGER, GEOMETRY, PHANTOM and BLOCK series sit in the chain table the Coin page reads."],
+    ["chain", "wallet", "chain", "The Wallet page is read from the ledger — every wallet's coins, and how each was earned, are chain records."],
+    ["chain", "market", "chain", "The Market is declared on-chain at block h=192, as its own page states, and every listing's BOOK, RARITY and ASK are kept as separate chain numbers."],
+    ["chain", "pools", "chain", "The four pools are declared on-chain — FEE POOL h=189, GAME POOL h=190, SEASONAL POOL #1 h=191 and FLOOR FUND h=193, as the Pools board lists."],
+    ["chain", "workshop", "chain", "The Workshop's walkthroughs carry chain records — BUILD RECEIPT and USAGE GUIDE blocks for the creator-workshop tutorial sit in the chain table."],
+    ["chain", "ais", "chain", "For AIs syncs to the chain — its starter prompt and sync block tell any AI to read the chain and sync to its head hash."],
+    ["chain", "dispute", "chain", "Every item in the dispute inbox names its source chain block, and the inbox itself states that only a later chain block can close one."],
+    ["chain", "trail", "chain", "Trail Weaver pins blocks from this page — you pick chain blocks and pin them into a personal trail, in your order."],
+    ["chain", "tie", "chain", "Tie Checker is built only from the tie labels already on this page — it asks whether two blocks share a tie and lets the web answer."],
+    ["chain", "story", "chain", "Story Loom captions blocks — you pick up to three blocks and write one caption for each."],
+    ["chain", "gameshark", "chain", "GameShark is hash-linked to this ledger — its display on the Front page says every leg, every ticket and every game is hash-linked and bridged to the FUSIÓN-7 ledger, and the web-sync strip under it keeps both surfaces on the same web."],
+    /* orange — a citation on this page: one section names, indexes or
+       advertises the other in its own cards and displays */
+    ["front", "forge", "case", "The Front preview index carries the card “PLAY — THE FORGE” and opens the Forge page."],
+    ["front", "earn", "case", "The Front preview index carries the card “EARN” — what verified play pays."],
+    ["front", "coin", "case", "The Front preview index carries the card “THE COIN” — the rarity census, the spotlight and the gallery."],
+    ["front", "wallet", "case", "The Front preview index carries the card “WALLETS” — every wallet on the ledger."],
+    ["front", "market", "case", "The Front preview index carries the card “MARKETPLACE”, declared on-chain at block h=192."],
+    ["front", "pools", "case", "The Front preview index carries the card “POOL BOARDS” — the four declared pools."],
+    ["front", "chain", "case", "The Front preview index carries the card “THE LEDGER” — the chain itself, block by block."],
+    ["front", "workshop", "case", "The Front preview index carries the card “CREATOR WORKSHOP” — the Contract Builder and its walkthroughs."],
+    ["front", "explore", "case", "The Front preview index carries the card “EXPLORE — THE RULES”, indexing every surface in one place."],
+    ["front", "ais", "case", "The Front preview index carries the card “FOR AIS” — the starter prompt and the sync block."],
+    ["front", "humans", "case", "The Front preview index carries the card “FOR HUMANS” — FUSIÓN-7 in plain language."],
+    ["front", "studios", "case", "The Front page's advertising displays carry a Fusion Studios display — “Make it in the studio” — that opens the studio."],
+    ["front", "gameshark", "case", "The Front page carries the GameShark advertising display itself — the portal at the top of its house displays."],
+    ["front", "dispute", "case", "A Front billboard advertises the dispute inbox — “Something still unresolved?” — and jumps straight to it."],
+    ["front", "trail", "case", "A Front billboard advertises Trail Weaver — “Pin a trail through the chain” — and jumps straight to it."],
+    ["front", "sketch", "case", "A Front billboard advertises the Coin Sketchbook — “Sketch a coin that will never be minted” — and jumps straight to it."],
+    ["front", "cipher", "case", "A Front billboard advertises the Cipher Vault — “Today's word, locked in scrambled” — and jumps straight to it."],
+    ["front", "paper", "case", "A Front billboard advertises the Paper Trade Table — “Trade the table that isn't real” — and jumps straight to it."],
+    ["front", "tie", "case", "A Front billboard advertises Tie Checker — “Quick — call the tie” — and jumps straight to it."],
+    ["front", "story", "case", "A Front billboard advertises Story Loom — “Caption three blocks. Roll the story.” — and jumps straight to it."],
+    ["front", "mapper", "case", "A Front billboard advertises Web Mapper — “Draw your own map of it” — and jumps straight to it."],
+    ["explore", "chain", "case", "Explore's index carries the card “THE LEDGER” — the chain itself, every block."],
+    ["explore", "earn", "case", "Explore's index carries the card “VALUE BOARD” — every coin's book and rarity values and the full earn catalog."],
+    ["explore", "wallet", "case", "Explore's index carries the card “WALLETS” — the coins inside, and how each was earned."],
+    ["explore", "market", "case", "Explore's index carries the card “MARKETPLACE”, declared on-chain at block h=192."],
+    ["explore", "pools", "case", "Explore's index carries the card “POOL BOARDS” — the four pools declared on-chain."],
+    ["explore", "forge", "case", "Explore's index carries the card “THE FORGE” — FUSI-SNAKE, FUSI-GUESS and the FUSI-FORGE tool."],
+    ["explore", "workshop", "case", "Explore's index carries the card “CREATOR WORKSHOP” and opens the Workshop page."],
+    ["explore", "ais", "case", "Explore's index carries the card “FOR AIS” — read the chain, sync to its head, join the conversation."],
+    ["explore", "humans", "case", "Explore's index carries the card “FOR HUMANS” — what all of this is, in plain words."],
+    ["humans", "ais", "case", "For Humans sends readers to the For AIs page in its own text — “copy the starter prompt on the For AIs page” and send it this page's link."],
+    /* blue — a shared category on this page */
+    ["forge", "earn", "category", "Steps 1 and 2 of the START HERE path, in the rail's own order — Play, then Earn."],
+    ["earn", "coin", "category", "Steps 2 and 3 of the START HERE path — Earn, then Coin."],
+    ["coin", "wallet", "category", "Steps 3 and 4 of the START HERE path — Coin, then Wallet."],
+    ["wallet", "market", "category", "Steps 4 and 5 of the START HERE path — Wallet, then Market."],
+    ["market", "explore", "category", "Steps 5 and 6 of the START HERE path — Market, then Explore."],
+    ["referrals", "crews", "category", "Both are the page's XP-point sections — Referrals earn XP points for invitees, and a Crew's standing is the aggregate XP points of its members; in both, the rewards are counters only."],
+    ["dispute", "trail", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["trail", "sketch", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["sketch", "cipher", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["cipher", "paper", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["paper", "tie", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["tie", "story", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["story", "mapper", "category", "Neighbours in the new-section band — both live on the chain page and each carries its own Front billboard."],
+    ["sketch", "coin", "category", "The Sketchbook sketches a coin face — house, motif, rim and accent are the Coin page's own parts of a coin."],
+    ["paper", "market", "category", "The Paper Trade Table is the Market's practice counterpart — paper units only, NOT FUSI, no value, no payout, as its own banner states."]
+  ];
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function tiesOf(key) {
+    var out = [];
+    EDGES.forEach(function (e) {
+      if (e[0] === key) out.push({ other: e[1], reason: e[2], why: e[3] });
+      else if (e[1] === key) out.push({ other: e[0], reason: e[2], why: e[3] });
+    });
+    return out;
+  }
+
+  /* legend — off the web, same treatment as the block webs, with the
+     section reading of each colour spelled out */
+  var legend = document.createElement("div");
+  legend.className = "bw-legend";
+  var ltitle = document.createElement("div");
+  ltitle.className = "bw-legend-title";
+  ltitle.textContent = "WHY THE STRANDS ARE TIED — THE WEB READS BY COLOUR";
+  legend.appendChild(ltitle);
+  [
+    ["chain", "Hash chain — a section tied in gold holds, reads, or is declared by chain records: grants, registry blocks, the declared market and pools, and GameShark's hash-linked bridge."],
+    ["case", "Citation on this page — one section names, indexes or advertises the other in its own preview cards, index cards or billboards."],
+    ["category", "Same category — sections tied in blue share a group on this page: steps of the START HERE path, the XP-point sections, or the new-section band on the chain page."],
+    ["silk", "Web silk — the hub, spokes and capture rings every knot hangs from; the frame of the web, not a section-to-section tie."]
+  ].forEach(function (r) {
+    var row = document.createElement("div");
+    row.className = "bw-legend-row";
+    var sw = document.createElement("span");
+    sw.className = "bw-sw";
+    sw.style.background = REASON_COLORS[r[0]];
+    row.appendChild(sw);
+    var tx = document.createElement("span");
+    tx.textContent = r[1];
+    row.appendChild(tx);
+    legend.appendChild(row);
+  });
+  var lnote = document.createElement("div");
+  lnote.className = "bw-legend-note";
+  lnote.textContent = "Tap any knot or strand and every reason for its ties is spelled out at once, under the web. A ring around a knot blends the colours of every tie that knot carries — split into one arc per colour. The chain hangs at the hub, as genesis does in the block webs.";
+  legend.appendChild(lnote);
+  panel.appendChild(legend);
+
+  var explain = document.createElement("div");
+  explain.className = "bw-explain";
+  explain.hidden = true;
+  panel.appendChild(explain);
+
+  function closeExplain() {
+    explain.hidden = true;
+    panel.classList.remove("has-explain");
+  }
+  function showExplain(heading, lines, jumpNode) {
+    while (explain.firstChild) explain.removeChild(explain.firstChild);
+    var head = document.createElement("div");
+    head.className = "bw-explain-head";
+    head.textContent = heading;
+    explain.appendChild(head);
+    var closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "lw-jump";
+    closeBtn.style.cssText = "float:right;margin:0 0 6px 10px;padding:2px 10px";
+    closeBtn.textContent = "CLOSE ×";
+    closeBtn.addEventListener("click", closeExplain);
+    explain.appendChild(closeBtn);
+    var ul = document.createElement("ul");
+    lines.forEach(function (c) {
+      var li = document.createElement("li");
+      var sw = document.createElement("span");
+      sw.className = "bw-sw";
+      sw.style.background = REASON_COLORS[c.reason];
+      li.appendChild(sw);
+      var tx = document.createElement("span");
+      tx.textContent = c.text + " ";
+      li.appendChild(tx);
+      if (c.jump) {
+        var a = document.createElement("a");
+        a.className = "lw-tie-jump";
+        a.setAttribute("href", c.jump.href);
+        a.textContent = "Jump to " + c.jump.name + " →";
+        li.appendChild(a);
+      }
+      ul.appendChild(li);
+    });
+    explain.appendChild(ul);
+    if (jumpNode) {
+      var j = document.createElement("a");
+      j.className = "lw-jump";
+      j.setAttribute("href", jumpNode.href);
+      j.textContent = "GO TO " + jumpNode.name.toUpperCase() + " →";
+      explain.appendChild(j);
+    }
+    explain.hidden = false;
+    panel.classList.add("has-explain");
+  }
+  function nodeLines(nd) {
+    return tiesOf(nd.k).map(function (t) {
+      return {
+        reason: t.reason,
+        text: "This is connected because of " + REASON_PHRASE[t.reason] + " — " + byKey[t.other].name + ": " + t.why,
+        jump: byKey[t.other]
+      };
+    });
+  }
+
+  /* ---------- the web itself ---------- */
+  var SIZE = 760, C = SIZE / 2, R1 = 148, R2 = 298, RIM = 332;
+  var svg = el("svg", { "class": "bw-svg lw-svg", viewBox: "0 0 " + SIZE + " " + SIZE, role: "group", "aria-label": "Every section of the ledger woven as a spider web — the chain at the hub, every section a numbered knot, each strand coloured by why it is tied" }, holder);
+  var pos = {};
+  NODES.forEach(function (nd) {
+    if (nd.ring === 0) { pos[nd.k] = [C, C]; return; }
+    var ringNodes = NODES.filter(function (x) { return x.ring === nd.ring; });
+    var idx = ringNodes.indexOf(nd);
+    var off = nd.ring === 2 ? 0.5 : 0;
+    var a = -Math.PI / 2 + ((idx + off) / ringNodes.length) * Math.PI * 2;
+    var R = nd.ring === 1 ? R1 : R2;
+    pos[nd.k] = [C + Math.cos(a) * R, C + Math.sin(a) * R];
+  });
+  /* silk frame — spokes hub to rim */
+  for (var i = 0; i < 24; i++) {
+    var sa = (i / 24) * Math.PI * 2;
+    el("line", { x1: C, y1: C, x2: (C + Math.cos(sa) * RIM).toFixed(1), y2: (C + Math.sin(sa) * RIM).toFixed(1), stroke: "rgba(228,220,196,0.30)", "stroke-width": 1.1 }, svg);
+  }
+  /* silk frame — capture rings through each ring's knots, sagging to the hub */
+  [[1, R1], [2, R2]].forEach(function (pair) {
+    var R = pair[1];
+    var ringNodes = NODES.filter(function (x) { return x.ring === pair[0]; });
+    var d = "";
+    for (var j = 0; j <= ringNodes.length; j++) {
+      var p1 = pos[ringNodes[j % ringNodes.length].k];
+      var p2 = pos[ringNodes[(j + 1) % ringNodes.length].k];
+      if (j === 0) d += "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1);
+      var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2;
+      d += " Q" + (C + (mx - C) * 0.94).toFixed(1) + " " + (C + (my - C) * 0.94).toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
+    }
+    el("path", { d: d + " Z", fill: "none", stroke: "rgba(228,220,196,0.38)", "stroke-width": 1.1 }, svg);
+  });
+  /* the strands — drawn in their tie's colour, recorded as drawn */
+  var conns = [];
+  EDGES.forEach(function (e) {
+    var p1 = pos[e[0]], p2 = pos[e[1]], path;
+    if (e[2] === "chain") {
+      path = el("path", { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + "L" + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: REASON_COLORS.chain, "stroke-opacity": 0.55, "stroke-width": 2 }, svg);
+    } else {
+      var mx2 = (p1[0] + p2[0]) / 2, my2 = (p1[1] + p2[1]) / 2;
+      var f = e[2] === "case" ? 0.8 : 0.88;
+      var attrs = { d: "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " Q" + (C + (mx2 - C) * f).toFixed(1) + " " + (C + (my2 - C) * f).toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1), fill: "none", stroke: REASON_COLORS[e[2]], "stroke-opacity": e[2] === "case" ? 0.8 : 0.55, "stroke-width": 1.6 };
+      if (e[2] === "case") attrs["stroke-dasharray"] = "6 3";
+      path = el("path", attrs, svg);
+    }
+    conns.push({ a: e[0], b: e[1], reason: e[2], why: e[3], path: path });
+  });
+  /* fat invisible hit paths — a tap on silk explains that one tie,
+     with jumps to both of its ends */
+  var hitLayer = el("g", { "class": "bw-hits" }, svg);
+  conns.forEach(function (c) {
+    var hp = el("path", { d: c.path.getAttribute("d"), "class": "bw-strand-hit", tabindex: "0", role: "button", "aria-label": "Strand between " + byKey[c.a].name + " and " + byKey[c.b].name + " — activate to see why they are connected" }, hitLayer);
+    function tap() {
+      showExplain(byKey[c.a].name.toUpperCase() + " ↔ " + byKey[c.b].name.toUpperCase() + " — WHY THIS TIE IS HERE", [{
+        reason: c.reason,
+        text: "This is connected because of " + REASON_PHRASE[c.reason] + " — " + c.why,
+        jump: null
+      }], null);
+      /* both ends are one tap away from the panel */
+      var row = document.createElement("div");
+      [c.a, c.b].forEach(function (k2) {
+        var a = document.createElement("a");
+        a.className = "lw-jump";
+        a.style.marginRight = "8px";
+        a.setAttribute("href", byKey[k2].href);
+        a.textContent = "GO TO " + byKey[k2].name.toUpperCase() + " →";
+        row.appendChild(a);
+      });
+      explain.appendChild(row);
+    }
+    hp.addEventListener("click", tap);
+    hp.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); tap(); }
+    });
+  });
+  /* the knots — numbered only, ringed in the blended colours of their
+     ties: one colour a plain ring, several colours split into arcs */
+  var liveConns = conns.map(function (c) { return { path: c.path, reason: c.reason }; });
+  NODES.forEach(function (nd) {
+    var pt = pos[nd.k];
+    var r = nd.ring === 0 ? 30 : nd.ring === 1 ? 23 : 20;
+    var g = el("g", { "class": "bw-node", tabindex: "0", role: "button", "aria-label": "Knot " + nd.n + " — " + nd.name + ". Activate to see all of its ties at once" }, svg);
+    el("title", {}, g).textContent = nd.name;
+    var myTies = tiesOf(nd.k);
+    var myReasons = REASON_ORDER.filter(function (rn) {
+      return myTies.some(function (t) { return t.reason === rn; });
+    });
+    if (myReasons.length === 1) {
+      el("circle", { "class": "bw-tie-ring", cx: pt[0], cy: pt[1], r: r + 5, fill: "none", stroke: REASON_COLORS[myReasons[0]], "stroke-width": 3, "stroke-opacity": 0.85 }, g);
+    } else if (myReasons.length > 1) {
+      var Rr = r + 5, slice = (Math.PI * 2) / myReasons.length, gap = 0.09;
+      myReasons.forEach(function (rn, k2) {
+        var a1 = -Math.PI / 2 + k2 * slice + gap, a2 = -Math.PI / 2 + (k2 + 1) * slice - gap;
+        el("path", { "class": "bw-tie-ring", d: "M" + (pt[0] + Math.cos(a1) * Rr).toFixed(1) + " " + (pt[1] + Math.sin(a1) * Rr).toFixed(1) + " A" + Rr + " " + Rr + " 0 0 1 " + (pt[0] + Math.cos(a2) * Rr).toFixed(1) + " " + (pt[1] + Math.sin(a2) * Rr).toFixed(1), fill: "none", stroke: REASON_COLORS[rn], "stroke-width": 3.2, "stroke-opacity": 0.9 }, g);
+      });
+    }
+    if (nd.ring === 0) el("circle", { "class": "bw-head-halo", cx: pt[0], cy: pt[1], r: r + 12 }, g);
+    el("circle", { "class": "bw-dot", cx: pt[0], cy: pt[1], r: r, fill: nd.ring === 0 ? "#d4af37" : "#8a8577" }, g);
+    var t = el("text", { x: pt[0], y: (pt[1] + 0.5).toFixed(1), "font-size": (r * 0.72).toFixed(1) }, g);
+    t.textContent = nd.n;
+    function open() {
+      showExplain("KNOT " + nd.n + " — " + nd.name.toUpperCase() + " — ALL OF ITS TIES, AT ONCE", nodeLines(nd), nd);
+    }
+    g.addEventListener("click", open);
+    g.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar") { ev.preventDefault(); open(); }
+    });
+  });
+  var liveLayer = el("g", { "class": "bw-live", "aria-hidden": "true" }, svg);
+
+  /* ---------- the page thinks like the web: every section shows ALL
+     of its ties back, at once, and every tie jumps ---------- */
+  NODES.forEach(function (nd) {
+    if (!nd.target) return;
+    var host = document.getElementById(nd.target);
+    if (!host) return;
+    var myTies = tiesOf(nd.k);
+    if (!myTies.length) return;
+    var strip = document.createElement("div");
+    strip.className = "lw-ties";
+    strip.setAttribute("data-lw-ties", nd.k);
+    var head = document.createElement("div");
+    head.className = "lw-ties-head";
+    var ht = document.createElement("span");
+    ht.textContent = "IN THE WEB — ALL OF THIS SECTION'S TIES, AT ONCE";
+    head.appendChild(ht);
+    var wb = document.createElement("button");
+    wb.type = "button";
+    wb.textContent = "SEE THE WHOLE WEB ↑";
+    wb.addEventListener("click", function () {
+      panel.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
+    });
+    head.appendChild(wb);
+    strip.appendChild(head);
+    var chips = document.createElement("div");
+    chips.className = "lw-chips";
+    myTies.forEach(function (t) {
+      var other = byKey[t.other];
+      var a = document.createElement("a");
+      a.className = "lw-chip";
+      a.setAttribute("href", other.href);
+      a.setAttribute("aria-label", "Jump to " + other.name + " — tied to this section because of " + REASON_PHRASE[t.reason] + ". " + t.why);
+      a.title = t.why;
+      var sw = document.createElement("span");
+      sw.className = "bw-sw";
+      sw.style.background = REASON_COLORS[t.reason];
+      a.appendChild(sw);
+      var tx = document.createElement("span");
+      tx.textContent = other.name + " · " + REASON_LABEL[t.reason];
+      a.appendChild(tx);
+      chips.appendChild(a);
+    });
+    strip.appendChild(chips);
+    var band = host.querySelector(":scope > .sheet-band");
+    if (band && band.nextSibling) host.insertBefore(strip, band.nextSibling);
+    else if (band) host.appendChild(strip);
+    else host.insertBefore(strip, host.firstChild);
+  });
+
+  /* ---------- the web is alive — pulses and re-woven strands travel
+     this web's real ties, pausing while the tab is hidden ---------- */
+  (function liveLedgerWeb() {
+    if (reducedMotion || !window.requestAnimationFrame) return;
+    var visible = false, rafId = 0, lastTs = 0;
+    var pulses = [], weaves = [], nextWeave = 0;
+    if (window.IntersectionObserver) {
+      try {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { visible = en.isIntersecting; });
+        }, { rootMargin: "120px" }).observe(svg);
+      } catch (e) { visible = true; }
+    } else { visible = true; }
+    function pickConn() { return liveConns[Math.floor(Math.random() * liveConns.length)]; }
+    function spawnPulse() {
+      var c = pickConn();
+      if (!c) return;
+      var len = 0;
+      try { len = c.path.getTotalLength(); } catch (e) { return; }
+      if (!len) return;
+      var dot = el("circle", { "class": "bw-pulse", r: 3.2, fill: REASON_COLORS[c.reason], opacity: 0.95 }, liveLayer);
+      pulses.push({ conn: c, len: len, dist: Math.random() * len * 0.4, speed: 46 + Math.random() * 42, dot: dot });
+    }
+    function spawnWeave(now) {
+      var c = pickConn();
+      if (!c) return;
+      var len = 0;
+      try { len = c.path.getTotalLength(); } catch (e) { return; }
+      if (!len) return;
+      var w = el("path", { d: c.path.getAttribute("d"), fill: "none", stroke: REASON_COLORS[c.reason], "stroke-width": 2.4, "stroke-opacity": 0.9, "stroke-dasharray": len, "stroke-dashoffset": len }, liveLayer);
+      weaves.push({ el: w, len: len, born: now });
+      nextWeave = now + 650 + Math.random() * 900;
+    }
+    function tick(ts) {
+      rafId = requestAnimationFrame(tick);
+      if (!visible) { lastTs = ts; return; }
+      var dt = lastTs ? Math.min(64, ts - lastTs) : 16;
+      lastTs = ts;
+      if (pulses.length < 5 && Math.random() < 0.05) spawnPulse();
+      if (ts >= nextWeave && weaves.length < 2) spawnWeave(ts);
+      for (var i = pulses.length - 1; i >= 0; i--) {
+        var p = pulses[i];
+        p.dist += (p.speed * dt) / 1000;
+        if (p.dist >= p.len) {
+          if (p.dot.parentNode) p.dot.parentNode.removeChild(p.dot);
+          pulses.splice(i, 1);
+          continue;
+        }
+        try {
+          var pt = p.conn.path.getPointAtLength(p.dist);
+          p.dot.setAttribute("cx", pt.x.toFixed(1));
+          p.dot.setAttribute("cy", pt.y.toFixed(1));
+        } catch (e) {}
+      }
+      for (var k = weaves.length - 1; k >= 0; k--) {
+        var wv = weaves[k], age = ts - wv.born;
+        if (age < 650) wv.el.setAttribute("stroke-dashoffset", (wv.len * (1 - age / 650)).toFixed(1));
+        else if (age < 950) wv.el.setAttribute("stroke-dashoffset", 0);
+        else if (age < 1400) wv.el.setAttribute("stroke-opacity", (0.9 * (1 - (age - 950) / 450)).toFixed(2));
+        else {
+          if (wv.el.parentNode) wv.el.parentNode.removeChild(wv.el);
+          weaves.splice(k, 1);
         }
       }
     }

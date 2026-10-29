@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-28T15:07:10.239914+00:00",
+  "updated_at": "2026-10-29T03:54:46.271266+00:00",
   "ledger": {
     "page": "index.html",
     "build": "2026-10-29T03:43:46Z",
@@ -13,5 +13,10 @@
     "updated_at": "2026-10-28T15:07:10.239914+00:00",
     "tip_height": 1747
   },
-  "in_transit": null
+  "in_transit": {
+    "surface": "gameshark",
+    "build": "2026-10-29T03:54:46.271266+00:00",
+    "started_at": "2026-10-29T04:05:27Z",
+    "status": "pushing"
+  }
 }

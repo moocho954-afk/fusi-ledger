@@ -1011,6 +1011,51 @@
       #cs-gallery button { padding: 4px 10px; }
       #cs-gallery a { margin-left: 10px; white-space: nowrap; }
 
+      /* Cipher Vault — additive only */
+      #cipher-vault #cv-cipher { font-family: "Courier New", monospace; font-size: clamp(26px, 5vw, 38px); letter-spacing: 8px; color: var(--gold); margin: .35em 0; }
+      #cipher-vault #cv-date { color: var(--ink-soft); margin: .4em 0 0; }
+      #cipher-vault #cv-length { color: var(--ink-soft); margin: 0 0 .8em; }
+      #cipher-vault button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #cipher-vault button:hover { color: var(--gold); }
+      #cipher-vault .cv-guess-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin: 1em 0 .4em; }
+      #cipher-vault .cv-guess-row label { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); }
+      #cipher-vault #cv-guess { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 16px; width: 260px; max-width: 100%; text-transform: uppercase; }
+      #cv-hint-text { color: var(--ink-soft); min-height: 1.4em; margin: .4em 0; }
+      #cv-result { min-height: 1.4em; margin: .6em 0; }
+      #cv-streak { color: var(--ink-soft); }
+      #cv-empty { color: var(--ink-soft); }
+      #cv-storage-note { color: var(--ink-soft); font-style: italic; }
+
+      /* Paper Trade Table — additive only */
+      #paper-trade-table .pt-banner { border: 1px solid var(--gold-dim); padding: 10px 14px; color: var(--gold); letter-spacing: 1px; margin: 1em 0; }
+      #paper-trade-table .pt-form { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; margin: 1em 0; }
+      #paper-trade-table .pt-form label { display: flex; flex-direction: column; gap: 4px; font-size: .88em; color: var(--ink-soft); }
+      #paper-trade-table select, #paper-trade-table input { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line); padding: 8px 10px; font: inherit; font-size: 15px; max-width: 100%; }
+      #paper-trade-table #pt-units { width: 160px; }
+      #paper-trade-table button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #paper-trade-table button:hover { color: var(--gold); }
+      #pt-list { list-style: none; padding-left: 0; }
+      #pt-list li { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 8px 12px; margin: .5em 0; }
+      #pt-list .pt-pos { flex: 1; min-width: 160px; }
+      #pt-list button { padding: 4px 10px; }
+      #pt-msg { color: #ff8a7a; min-height: 1.4em; margin: .4em 0; }
+      #pt-totals { border: 1px solid var(--gold-dim); padding: 10px 14px; margin: 1em 0; }
+      #pt-empty { color: var(--ink-soft); }
+      #pt-storage-note { color: var(--ink-soft); font-style: italic; }
+
+      /* Tie Checker — additive only */
+      #tie-checker button { background: var(--bg-raise); color: var(--ink); border: 1px solid var(--gold-dim); padding: 8px 14px; cursor: pointer; font: inherit; font-size: 14px; }
+      #tie-checker button:hover { color: var(--gold); }
+      #tc-list { list-style: none; padding-left: 0; }
+      #tc-list li { border: 1px solid var(--line); padding: 10px 12px; margin: .6em 0; }
+      #tc-list .tc-q { margin: 0; }
+      #tc-list .tc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: .6em; }
+      #tc-list .tc-actions button { padding: 5px 12px; }
+      .tc-result { color: var(--gold); min-height: 1.4em; margin: .6em 0 0; }
+      #tc-score { color: var(--ink-soft); }
+      #tc-empty { color: var(--ink-soft); }
+      #tc-storage-note { color: var(--ink-soft); font-style: italic; }
+
       /* page navigation — built by the router, sits above the hub */
       .page-nav {
         display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center;
@@ -3907,6 +3952,513 @@
     if (!storageOK) showStorageNote();
     renderPreview();
     renderGallery();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="cipher-vault" aria-label="Cipher Vault" data-pg="chain">
+<h2>Cipher Vault — today's word, scrambled.</h2>
+<p>One FUSIÓN word is scrambled by the calendar each day — the date alone picks the word and the shift, so everyone who opens this page today works on the same cipher. Type your guess and press Check. A wrong guess costs nothing, and solving only adds today to your solved-days streak on this device.</p>
+<p id="cv-date"></p>
+<p id="cv-cipher" aria-label="Today's cipher"></p>
+<p id="cv-length"></p>
+<p><button type="button" id="cv-hint">Hint</button></p>
+<p id="cv-hint-text" aria-live="polite"></p>
+<div class="cv-guess-row">
+<label for="cv-guess">Your guess <input type="text" id="cv-guess" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+<button type="button" id="cv-check">Check</button>
+</div>
+<p id="cv-result" role="status" aria-live="polite"></p>
+<p id="cv-streak"></p>
+<p id="cv-empty">No solves yet. Solve today's cipher to start a streak.</p>
+<p id="cv-storage-note" hidden>Kept for this visit only — storage is unavailable on this device.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-cipher-vault-v1';
+  var WORDS = ['WIDOW', 'STRAND', 'LEDGER', 'PHANTOM', 'GEOMETRY', 'BLOCK', 'FUSION', 'SPIDER', 'VAULT', 'KNOT'];
+  var DAY_MS = 86400000;
+  var solved = [];
+  var storageOK = true;
+
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth() + 1;
+  var day = now.getDate();
+  var todayMs = Date.UTC(year, month - 1, day);
+  var doy = Math.round((todayMs - Date.UTC(year, 0, 0)) / DAY_MS);
+  var word = WORDS[doy % WORDS.length];
+  var shift = (month + day) % 25 + 1;
+  var cipher = word.split('').map(function (ch) {
+    return String.fromCharCode((ch.charCodeAt(0) - 65 + shift) % 26 + 65);
+  }).join('');
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function fmt(ms) {
+    var d = new Date(ms);
+    return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate());
+  }
+
+  var todayStr = fmt(todayMs);
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('cv-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (!Array.isArray(data)) return;
+      data.forEach(function (s) {
+        if (typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && solved.indexOf(s) < 0) solved.push(s);
+      });
+      solved.sort();
+    } catch (e) { /* unreadable saved dates: start fresh, in memory */ }
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(solved));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function streak() {
+    var n = 0;
+    var ms = todayMs;
+    while (solved.indexOf(fmt(ms)) >= 0) {
+      n += 1;
+      ms -= DAY_MS;
+    }
+    return n;
+  }
+
+  function renderStreak() {
+    $('cv-streak').textContent = 'Solved days in a row: ' + streak();
+    $('cv-empty').hidden = solved.length > 0;
+  }
+
+  function solvedMessage() {
+    return 'Solved. Today\u2019s word was ' + word + ', shift ' + shift + '.';
+  }
+
+  function check() {
+    var ans = $('cv-guess').value.trim().toUpperCase();
+    if (ans === word) {
+      if (solved.indexOf(todayStr) < 0) {
+        solved.push(todayStr);
+        solved.sort();
+        save();
+      }
+      $('cv-result').textContent = solvedMessage();
+    } else {
+      $('cv-result').textContent = 'Not that word. Try again.';
+    }
+    renderStreak();
+  }
+
+  function init() {
+    load();
+    $('cv-date').textContent = 'Today: ' + todayStr;
+    $('cv-cipher').textContent = cipher;
+    $('cv-length').textContent = 'The word is ' + word.length + ' letters long.';
+    $('cv-hint').addEventListener('click', function () {
+      $('cv-hint-text').textContent = 'First letter: ' + word.charAt(0);
+    });
+    $('cv-check').addEventListener('click', check);
+    $('cv-guess').addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter') { ev.preventDefault(); check(); }
+    });
+    if (solved.indexOf(todayStr) >= 0) $('cv-result').textContent = solvedMessage();
+    if (!storageOK) showStorageNote();
+    renderStreak();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="paper-trade-table" aria-label="Paper Trade Table" data-pg="chain">
+<h2>Paper Trade Table — hypothetical only.</h2>
+<p class="pt-banner">PAPER ONLY — NOT FUSI, NO VALUE, NO PAYOUT</p>
+<p>Pick one of the four houses, enter a number of paper units, and press Add position to build a hypothetical paper table. It lives on this device only — add up to 20 positions, remove any of them, or reset the whole table.</p>
+<div class="pt-form">
+<label for="pt-house">House
+<select id="pt-house">
+<option value="PHANTOM">PHANTOM</option>
+<option value="GEOMETRY">GEOMETRY</option>
+<option value="LEDGER">LEDGER</option>
+<option value="BLOCK">BLOCK</option>
+</select>
+</label>
+<label for="pt-units">Paper units
+<input type="number" id="pt-units" min="1" max="1000000" step="1" inputmode="numeric">
+</label>
+<button type="button" id="pt-add">Add position</button>
+</div>
+<p id="pt-msg" role="alert"></p>
+<p id="pt-empty">No paper positions yet. Add a paper position to start. PAPER ONLY — not FUSI, no value, no payout.</p>
+<ul id="pt-list"></ul>
+<p id="pt-totals" aria-live="polite"></p>
+<p><button type="button" id="pt-reset">Reset</button></p>
+<p id="pt-storage-note" hidden>Kept for this visit only — storage is unavailable on this device.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-paper-trade-v1';
+  var HOUSES = ['PHANTOM', 'GEOMETRY', 'LEDGER', 'BLOCK'];
+  var MAX_POSITIONS = 20;
+  var MAX_UNITS = 1000000;
+  var LABEL = 'PAPER ONLY \u2014 NOT FUSI, NO VALUE, NO PAYOUT';
+  var positions = [];
+  var storageOK = true;
+  var resetArmed = false;
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('pt-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (!Array.isArray(data)) return;
+      data.forEach(function (p) {
+        if (positions.length >= MAX_POSITIONS) return;
+        if (!p || HOUSES.indexOf(p.house) < 0) return;
+        var u = p.paper_units;
+        if (typeof u !== 'number' || !isFinite(u) || Math.floor(u) !== u || u < 1 || u > MAX_UNITS) return;
+        positions.push({ house: p.house, paper_units: u });
+      });
+    } catch (e) { /* unreadable saved table: start fresh, in memory */ }
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(positions));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  function disarmReset() {
+    resetArmed = false;
+    $('pt-reset').textContent = 'Reset';
+  }
+
+  function render() {
+    var list = $('pt-list');
+    list.innerHTML = '';
+    positions.forEach(function (p, i) {
+      var li = document.createElement('li');
+      var span = document.createElement('span');
+      span.className = 'pt-pos';
+      span.textContent = p.house + ' \u2014 ' + p.paper_units + ' paper units';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = 'Remove';
+      btn.setAttribute('aria-label', 'Remove position ' + (i + 1) + ': ' + p.house + ', ' + p.paper_units + ' paper units');
+      btn.addEventListener('click', function () { removeAt(i); });
+      li.appendChild(span);
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+    $('pt-empty').hidden = positions.length > 0;
+    var total = 0;
+    var seen = {};
+    positions.forEach(function (p) { total += p.paper_units; seen[p.house] = true; });
+    var houses = Object.keys(seen).sort();
+    $('pt-totals').textContent = LABEL + ' / Positions: ' + positions.length +
+      ' | Paper units: ' + total +
+      ' | Houses: ' + (houses.length ? houses.join(', ') : 'none');
+  }
+
+  function add() {
+    var house = $('pt-house').value;
+    var raw = $('pt-units').value.trim();
+    var msg = $('pt-msg');
+    if (HOUSES.indexOf(house) < 0) {
+      msg.textContent = 'Choose one of the four houses.';
+      return;
+    }
+    if (!/^-?\d+$/.test(raw)) {
+      msg.textContent = 'Paper units must be a whole number from 1 to 1,000,000.';
+      return;
+    }
+    var units = parseInt(raw, 10);
+    if (units < 1 || units > MAX_UNITS) {
+      msg.textContent = 'Paper units must be a whole number from 1 to 1,000,000.';
+      return;
+    }
+    if (positions.length >= MAX_POSITIONS) {
+      msg.textContent = 'The table holds at most 20 positions. Remove one before adding another.';
+      return;
+    }
+    msg.textContent = '';
+    positions.push({ house: house, paper_units: units });
+    disarmReset();
+    save();
+    render();
+  }
+
+  function removeAt(i) {
+    if (i < 0 || i >= positions.length) return;
+    positions.splice(i, 1);
+    $('pt-msg').textContent = '';
+    disarmReset();
+    save();
+    render();
+  }
+
+  function reset() {
+    if (!resetArmed) {
+      resetArmed = true;
+      $('pt-reset').textContent = 'Reset? Press again to confirm.';
+      return;
+    }
+    positions = [];
+    $('pt-msg').textContent = '';
+    disarmReset();
+    save();
+    render();
+  }
+
+  function init() {
+    load();
+    $('pt-add').addEventListener('click', add);
+    $('pt-units').addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter') { ev.preventDefault(); add(); }
+    });
+    $('pt-reset').addEventListener('click', reset);
+    if (!storageOK) showStorageNote();
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<section id="tie-checker" aria-label="Tie Checker" data-pg="chain">
+<h2>Tie Checker — do these two share a tie?</h2>
+<p>The web on this page ties blocks by category: two blocks whose labels carry the same category share a tie. Each question below names two blocks from the chain — say whether they share a tie. The questions are built from the tie labels already rendered on this page. A question counts once: answering it again shows the same verdict and does not change your score.</p>
+<p id="tc-score" aria-live="polite">0 correct of 0 answered</p>
+<ul id="tc-list"></ul>
+<p id="tc-empty" hidden>No tie pairs found on this page yet. Come back when tie labels are rendered here.</p>
+<p id="tc-storage-note" hidden>Kept for this visit only — storage is unavailable on this device.</p>
+</section>
+
+<script>
+(function () {
+  var KEY = 'fusi-tie-checker-v1';
+  var MAX_QUESTIONS = 10;
+  var answered = {};
+  var storageOK = true;
+  var questions = [];
+  var byId = {};
+
+  function $(id) { return document.getElementById(id); }
+
+  function showStorageNote() {
+    var n = $('tc-storage-note');
+    if (n) n.hidden = false;
+  }
+
+  function load() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+      return;
+    }
+    if (!raw) return;
+    try {
+      var data = JSON.parse(raw);
+      if (!data || typeof data !== 'object' || !data.answered || typeof data.answered !== 'object') return;
+      Object.keys(data.answered).forEach(function (qid) {
+        if (typeof data.answered[qid] === 'boolean') answered[qid] = data.answered[qid];
+      });
+    } catch (e) { /* unreadable saved answers: start fresh, in memory */ }
+  }
+
+  function save() {
+    if (!storageOK) { showStorageNote(); return; }
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ answered: answered }));
+    } catch (e) {
+      storageOK = false;
+      showStorageNote();
+    }
+  }
+
+  /* Read-only scan of the pre-existing chain table: each rendered row
+     carries a category label (its type badge — the same category the
+     page's web ties knots by). This section's own DOM is never scanned:
+     the scan is scoped to #chain, which this section is not inside. */
+  function scanItems() {
+    var items = [];
+    var seen = {};
+    var rows = document.querySelectorAll('#chain table.chain tbody tr');
+    rows.forEach(function (tr) {
+      var num = tr.querySelector('td.num');
+      var badge = tr.querySelector('span.type');
+      if (!num || !badge) return;
+      var h = parseInt(num.textContent, 10);
+      if (isNaN(h) || seen[h]) return;
+      var cat = badge.textContent.trim();
+      if (!cat) return;
+      seen[h] = true;
+      items.push({ h: h, category: cat });
+    });
+    return items;
+  }
+
+  function buildQuestions() {
+    var items = scanItems();
+    questions = [];
+    byId = {};
+    if (items.length < 2) return;
+    for (var i = 0; i + 1 < items.length && questions.length < MAX_QUESTIONS; i += 2) {
+      var a = items[i], b = items[i + 1];
+      var q = {
+        id: 'q' + (questions.length + 1),
+        a: a, b: b,
+        shares: a.category === b.category,
+        category: a.category === b.category ? a.category : null
+      };
+      questions.push(q);
+      byId[q.id] = q;
+    }
+  }
+
+  function verdictText(q) {
+    return q.shares ? 'Share a tie: ' + q.category : 'No shared tie in the page labels.';
+  }
+
+  function showReveal(q) {
+    var el = $('tc-result-' + q.id.slice(1));
+    if (el) el.textContent = verdictText(q);
+  }
+
+  function renderScore() {
+    var correct = 0, count = 0;
+    questions.forEach(function (q) {
+      if (Object.prototype.hasOwnProperty.call(answered, q.id)) {
+        count += 1;
+        if (answered[q.id]) correct += 1;
+      }
+    });
+    $('tc-score').textContent = correct + ' correct of ' + count + ' answered';
+  }
+
+  /* Mirrors prototypes/tie_checker.py: a question answers at most once
+     for score; a repeat returns the stored verdict with counted=false;
+     unknown question ids are refused. */
+  function answer(qid, saidShare) {
+    var q = byId[qid];
+    if (!q) return null;
+    if (Object.prototype.hasOwnProperty.call(answered, qid)) {
+      showReveal(q);
+      return { counted: false, correct: answered[qid] };
+    }
+    var correct = saidShare === q.shares;
+    answered[qid] = correct;
+    save();
+    showReveal(q);
+    renderScore();
+    return { counted: true, correct: correct };
+  }
+
+  function render() {
+    var list = $('tc-list');
+    list.innerHTML = '';
+    questions.forEach(function (q, i) {
+      var n = i + 1;
+      var li = document.createElement('li');
+      var p = document.createElement('p');
+      p.className = 'tc-q';
+      p.textContent = 'Block ' + q.a.h + ' and Block ' + q.b.h + ' — do these two share a tie?';
+      li.appendChild(p);
+      var actions = document.createElement('div');
+      actions.className = 'tc-actions';
+      var yes = document.createElement('button');
+      yes.type = 'button';
+      yes.id = 'tc-yes-' + n;
+      yes.textContent = 'Share a tie';
+      yes.addEventListener('click', function () { answer(q.id, true); });
+      var no = document.createElement('button');
+      no.type = 'button';
+      no.id = 'tc-no-' + n;
+      no.textContent = 'No shared tie';
+      no.addEventListener('click', function () { answer(q.id, false); });
+      actions.appendChild(yes);
+      actions.appendChild(no);
+      li.appendChild(actions);
+      var result = document.createElement('p');
+      result.className = 'tc-result';
+      result.id = 'tc-result-' + n;
+      result.setAttribute('aria-live', 'polite');
+      li.appendChild(result);
+      list.appendChild(li);
+    });
+    $('tc-empty').hidden = questions.length > 0;
+    questions.forEach(function (q) {
+      if (Object.prototype.hasOwnProperty.call(answered, q.id)) showReveal(q);
+    });
+    renderScore();
+  }
+
+  function init() {
+    load();
+    buildQuestions();
+    if (!storageOK) showStorageNote();
+    render();
   }
 
   if (document.readyState === 'loading') {

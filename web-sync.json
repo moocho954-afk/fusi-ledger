@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-01T08:12:44.412232Z",
+  "updated_at": "2026-11-01T08:26:03.203470+00:00",
   "ledger": {
     "page": "index.html",
     "build": "2026-10-29T06:10:55Z",
@@ -9,14 +9,15 @@
   },
   "gameshark": {
     "page": "gameshark.html",
-    "build": "2026-11-01T07:46:51.479219+00:00",
-    "updated_at": "2026-11-01T07:46:51.479219+00:00",
-    "tip_height": 1816
+    "build": "2026-10-31T07:12:04.593318+00:00",
+    "updated_at": "2026-10-31T07:12:04.593318+00:00",
+    "tip_height": 1806
   },
   "in_transit": {
     "surface": "gameshark",
-    "build": "2026-11-01T08:11:37.990328+00:00",
-    "started_at": "2026-11-01T08:12:44.412232Z",
-    "status": "pushing"
+    "build": "2026-11-01T07:46:51.479219+00:00",
+    "started_at": "2026-11-01T07:49:01Z",
+    "status": "delayed",
+    "detail": "Final web-sync push failed: GitHub said the update is not a fast forward, so the served manifest still shows the previous GameShark build as in transit. The new viewer and data assets did push. No retry in this run."
   }
 }

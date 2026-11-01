@@ -1,6 +1,6 @@
 {
-  "tip_height": 1806,
-  "tip_hash": "bb65471e1862920213190f0f8d57c1dea307e78f1d72d911670024d4887b18d3",
+  "tip_height": 1816,
+  "tip_hash": "45aaba1213b778ad9689bfeba12f299c4c93dd110de78ab7ee26bda9678dc272",
   "bridge_height": 1622,
   "bridge_hash": "964bc91305cceaf931a66ed52d47065fc9cce19f96ad6cdd727f6232d635a587",
   "fusion_tip_height": 506,
@@ -23,53 +23,53 @@
   },
   "finals": [
     {
-      "date": "2026-10-30",
-      "away": "ORL",
-      "away_score": 121,
-      "home": "TOR",
-      "home_score": 114,
-      "event_id": "401909281"
+      "date": "2026-10-31",
+      "away": "PHI",
+      "away_score": 109,
+      "home": "CHA",
+      "home_score": 104,
+      "event_id": "401909897"
     },
     {
-      "date": "2026-10-30",
-      "away": "IND",
-      "away_score": 125,
-      "home": "MIA",
-      "home_score": 145,
-      "event_id": "401909282"
+      "date": "2026-10-31",
+      "away": "ATL",
+      "away_score": 99,
+      "home": "NO",
+      "home_score": 121,
+      "event_id": "401909898"
     },
     {
-      "date": "2026-10-30",
-      "away": "HOU",
+      "date": "2026-10-31",
+      "away": "SAC",
+      "away_score": 105,
+      "home": "MEM",
+      "home_score": 136,
+      "event_id": "401909899"
+    },
+    {
+      "date": "2026-10-31",
+      "away": "CLE",
+      "away_score": 136,
+      "home": "MIL",
+      "home_score": 111,
+      "event_id": "401909900"
+    },
+    {
+      "date": "2026-10-31",
+      "away": "MIN",
       "away_score": 111,
-      "home": "DAL",
-      "home_score": 116,
-      "event_id": "401909283"
+      "home": "SA",
+      "home_score": 121,
+      "event_id": "401909901"
     },
     {
-      "date": "2026-10-30",
-      "away": "LAC",
-      "away_score": 101,
-      "home": "MIN",
-      "home_score": 127,
-      "event_id": "401909284"
-    },
-    {
-      "date": "2026-10-30",
-      "away": "LAL",
-      "away_score": 95,
-      "home": "GS",
-      "home_score": 112,
-      "event_id": "401909285"
-    },
-    {
-      "date": "2026-10-30",
-      "away": "DEN",
-      "away_score": 127,
-      "home": "PHX",
-      "home_score": 120,
-      "event_id": "401909286"
+      "date": "2026-10-31",
+      "away": "OKC",
+      "away_score": 98,
+      "home": "HOU",
+      "home_score": 119,
+      "event_id": "401909902"
     }
   ],
-  "updated_at": "2026-10-31T07:12:07.635504+00:00"
+  "updated_at": "2026-11-01T07:46:54.388275+00:00"
 }

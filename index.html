@@ -1271,6 +1271,18 @@
 .hub .bb-mapper .ad-tag { background: #4a6fa5; color: #f2ede1; }
 .hub .bb-mapper .bb-notweb { display: inline-block; font-family: var(--font-data); font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #ffd97a; border: 1px solid var(--gold-deep); background: rgba(14,13,11,.8); padding: 4px 9px; border-radius: 999px; }
 .hub .bb-mapper .ad-cta { color: #8db1dd; }
+
+/* 9 — SK8: asphalt and spray paint — a tilted deck over a hazard-painted curb */
+.hub .bb-sk8 { background: #16130f; border: 2px solid #e07b39; border-radius: 6px 28px 6px 28px; }
+.hub .bb-sk8 .ad-tag { background: #e07b39; color: #1c1005; }
+.hub .bb-sk8 .bb-deck { position: relative; display: block; height: 58px; }
+.hub .bb-sk8 .bb-deck-board { position: absolute; left: 4%; right: 4%; top: 12px; height: 13px; border-radius: 999px; background: linear-gradient(180deg, #f2a65e, #c85f1d); transform: rotate(-4deg); box-shadow: 0 4px 0 rgba(0,0,0,.5); }
+.hub .bb-sk8 .bb-wheel { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #f2ede1; border: 3px solid #241c12; }
+.hub .bb-sk8 .bb-wheel-a { left: 20%; top: 29px; }
+.hub .bb-sk8 .bb-wheel-b { left: 67%; top: 15px; }
+.hub .bb-sk8 .bb-curb { display: block; margin-top: 8px; height: 10px; border-radius: 2px; background: repeating-linear-gradient(45deg, #e07b39 0 14px, #14100b 14px 28px); }
+.hub .bb-sk8 .bb-stamp { color: #f0a35e; margin: var(--s-4) var(--s-4) 0; align-self: flex-start; }
+.hub .bb-sk8 .ad-cta { color: #f0a35e; }
 @media (prefers-reduced-motion: reduce) { .hub .bb-sketch, .hub .bb-sketch:hover { transform: none; } }
     </style>
     <style>
@@ -2056,6 +2068,14 @@
               <span class="ad-head ds-display">Draw your own map of it.</span>
               <span class="ad-copy">Place up to 12 nodes and connect them your way. It is your personal map only — not the platform spider web, and it changes nothing on it.</span>
               <span class="ad-cta">DRAW YOUR MAP <i class="g g-connector"></i></span>
+            </a>
+            <a class="ad-display bb-sk8" href="sk8_gemini.html">
+              <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">SK8 · Skate Game</span></span>
+              <span class="bb-visual"><span class="bb-deck" aria-hidden="true"><span class="bb-deck-board"></span><span class="bb-wheel bb-wheel-a"></span><span class="bb-wheel bb-wheel-b"></span></span><span class="bb-curb" aria-hidden="true"></span></span>
+              <span class="bb-stamp">STAGED DEMO — NOTHING PAYS YET</span>
+              <span class="ad-head ds-display">Drop in. The street is yours.</span>
+              <span class="ad-copy">SK8 is the skate game: ride the run and chain ollies, flips and grinds — on the keyboard or the on-screen buttons. STAGED DEMO — GEMINI GRAPHICS — PROPOSED ECONOMICS ONLY, NOTHING PAYS YET.</span>
+              <span class="ad-cta">OPEN SK8 — RIDE IT <i class="g g-connector"></i></span>
             </a>
             <a class="ad-display" href="#/play">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Play · The Forge</span></span>
@@ -3144,6 +3164,12 @@
             <span class="marquee-desc">The tool that forges project scaffolds from contracts</span>
             <span class="marquee-refs">contract #57 · usage #59</span>
           </button>
+          <a class="marquee-card" href="sk8_gemini.html" aria-label="Play SK8 — the skate game (staged demo)">
+            <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20300'%3E%3Crect%20width='400'%20height='300'%20fill='%230e0d0b'/%3E%3Crect%20x='28'%20y='240'%20width='344'%20height='4'%20fill='%233a352a'/%3E%3Cg%20transform='rotate(-14%20200%20190)'%3E%3Crect%20x='92'%20y='180'%20width='216'%20height='13'%20rx='6.5'%20fill='%23d4af37'/%3E%3Crect%20x='138'%20y='196'%20width='11'%20height='9'%20fill='%239a8334'/%3E%3Crect%20x='251'%20y='196'%20width='11'%20height='9'%20fill='%239a8334'/%3E%3Ccircle%20cx='143'%20cy='214'%20r='10'%20fill='%23ece5d0'/%3E%3Ccircle%20cx='256'%20cy='214'%20r='10'%20fill='%23ece5d0'/%3E%3C/g%3E%3Cpolygon%20points='66,116%2079,135%2066,154%2053,135'%20fill='%23d4af37'/%3E%3Cpolygon%20points='332,84%20343,99%20332,114%20321,99'%20fill='%239a8334'/%3E%3Ccircle%20cx='316'%20cy='168'%20r='5'%20fill='%23ece5d0'/%3E%3Ccircle%20cx='88'%20cy='84'%20r='4'%20fill='%239a8334'/%3E%3C/svg%3E" alt="Gold skateboard mid-ollie above a street line on black" />
+            <span class="marquee-name">SK8</span>
+            <span class="marquee-desc">The skate game — ride the run, ollie, flip and grind. Keyboard or on-screen buttons.</span>
+            <span class="marquee-refs">STAGED DEMO — GEMINI GRAPHICS — PROPOSED ECONOMICS ONLY, NOTHING PAYS YET</span>
+          </a>
         </div>
 
         <div class="game-card" id="panel-guess">

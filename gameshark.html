@@ -326,6 +326,81 @@ body.gs-rail-collapsed .gs-main{margin-left:80px}
   .gs-main td,.gs-main th{padding:6px;font-size:13px}
   .gs-main h2{font-size:20px}
 }
+</style><style id="gs-lounge">
+/* ===== GameShark lounge-led theme (layout 10 leads; 3/4/6 ambiance) ===== */
+/* Warm cream page, burnt-orange chrome, house gold kept as accent.        */
+/* Inner dense cards keep readable dark-on-light pairs throughout; nothing  */
+/* below recolors a semantic win/loss color away.                           */
+html,body{background:#fdf3e3!important;color:#221407!important}
+body .gs-main{color:#221407}
+body .gs-main h1{color:#3a1c08;font-size:40px;line-height:1.1}
+body .gs-main h2,body .gs-main .big-h{color:#3a1c08}
+body .gs-main .sub{color:#5a3a22}
+body .gs-main .small,body .gs-main .note,body .gs-main .cards,body .gs-main .tracked,
+body .gs-main .entry .meta,body .gs-main .pext,body .gs-main .portal-wrap,body .gs-main .ptrend .tin,
+body .gs-main .gs-graph,body .gs-main .gs-graph figcaption{color:#3a2a1a}
+body .gs-main .card,body .gs-main .pcard,body .gs-main .bigsec .wtitle,
+body .gs-main .entry .top,body .gs-main .gs-whatsnew,body .gs-main #gs-a11y-note,
+body .gs-main .gs-feature{background:#fffdf6!important;border-color:#e8c9a8!important;color:#221407}
+body .gs-main .card b,body .gs-main .card span,body .gs-main .pcard b,
+body .gs-main .entry .top b,body .gs-main .entry .legs,body .gs-main .entry .legs li,
+body .gs-main .gs-news-body,body .gs-main .gs-feature-dek{color:#221407}
+body .gs-main .gs-feature-kicker{background:#fff3d6!important;border-color:#d4af37!important;color:#7a5a12}
+body .gs-main .gs-feature-title{color:#a34d0e}
+body .gs-main .gs-whatsnew-title{background:#fff3d6!important;color:#7a5a12}
+body .gs-main .gs-news summary{color:#3a1c08}
+body .gs-main table,body .gs-main th,body .gs-main td{border-color:#e0c4a0!important;color:#221407}
+body .gs-main th{background:#fbeed3!important}
+body .gs-main .neg{color:#7a5a12}
+body .gs-main .chip{color:#fff}
+body .gs-main .wg-score-card,body .gs-main .wg-tour-step,body .gs-main .wg-gloss,
+body .gs-main .wg-tank,body .gs-main .wg-lookup-card{background:#fffdf6!important;color:#221407!important}
+/* Chrome: orange header bar, warm rail, warm bottom bar, pill buttons. */
+body .gs-header{background:#a34d0e!important;border-radius:20px;padding:14px!important}
+body .gs-header input#q{background:#fff;color:#221407;border:0;border-radius:999px;padding:12px 16px}
+body .gs-header button#gs-quiet,body .gs-header button#gs-lang{background:#fff;color:#3a1c08;border:0;border-radius:999px;min-height:44px;padding:10px 18px;font-weight:700}
+body .gs-rail{background:#fbeed3!important;border-color:#e8c9a8!important}
+body .gs-rail-brand{color:#3a1c08}
+body .gs-rail button{color:#5a3a22;min-height:44px}
+body .gs-rail button[aria-selected="true"]{background:#a34d0e!important;color:#fff!important}
+body .gs-bottombar{background:#fdf3e3!important;border-top:2px solid #c2571b!important}
+body .gs-bottombar button{color:#5a3a22;min-height:64px}
+body .gs-bottombar button[aria-selected="true"],body .gs-bottombar button.gs-on{color:#a34d0e!important;font-weight:800}
+body .gs-btn{background:#a34d0e!important;color:#fff!important;border:0!important;border-radius:999px!important;min-height:44px;padding:12px 20px;font-weight:700}
+body .gs-btn.gs-btn-ghost{background:#fffdf6!important;color:#a34d0e!important;border:2px solid #c2571b!important}
+body .gs-main input,body .gs-main select{background:#fff;color:#221407;border:1px solid #e0c4a0;border-radius:12px}
+/* Snapshot note keeps light text: it sits on a dark bar and only shows when
+   the live fetch fails (preview artifact under file://, hidden when served). */
+body #gs-snap-note{color:#f2ede1!important}
+body .lv-hero .lv-num b{white-space:nowrap;font-size:22px}
+/* Front sections that sit on the cream page get warm cards. */
+body #singles-trend-graphs,body #upcoming-schedule{background:#fffdf6;border:1px solid #e8c9a8;border-radius:20px;padding:16px}
+/* ===== New lounge front blocks (lv-) ===== */
+.lv-wrap{margin:16px 0}
+.lv-hero{background:linear-gradient(135deg,#c2571b,#e07b2a);color:#fff;border-radius:24px;padding:22px}
+.lv-hero .lv-kicker{font-size:13px;font-weight:800;letter-spacing:2px;color:#ffe8cf}
+.lv-hero h2{color:#fff!important;font-size:34px;line-height:1.1;margin:6px 0 10px}
+.lv-hero .lv-nums{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.lv-hero .lv-num{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:14px;padding:10px 12px;flex:1 1 120px}
+.lv-hero .lv-num b{display:block;font-size:24px;line-height:1.1}
+.lv-hero .lv-num span{font-size:13px;color:#ffe8cf}
+.lv-hero .lv-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.lv-hero .lv-btns a{background:#fff;color:#a34d0e;border-radius:999px;padding:12px 18px;font-weight:800;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.lv-spot{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media (max-width:640px){.lv-spot{grid-template-columns:1fr}}
+.lv-card{background:#fffdf6;border:1px solid #e8c9a8;border-radius:20px;padding:14px;overflow:hidden}
+.lv-card img{width:100%;height:auto;display:block;border-radius:14px;background:#f3e2c8}
+.lv-card h3{color:#3a1c08;font-size:22px;margin:10px 0 4px}
+.lv-card .lv-big{font-size:34px;font-weight:800;color:#a34d0e}
+.lv-card p{color:#3a2a1a;line-height:1.5;margin:6px 0}
+.lv-card .lv-cap{font-size:12px;color:#7a5a12}
+.lv-mini{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media (max-width:640px){.lv-mini{grid-template-columns:1fr}}
+.lv-mag{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media (max-width:640px){.lv-mag{grid-template-columns:1fr}}
+.lv-mag .lv-card h3{font-size:26px;line-height:1.2}
+.lv-mag .lv-kicker{font-size:12px;font-weight:800;letter-spacing:2px;color:#a34d0e}
+.lv-mag a{color:#a34d0e;font-weight:800}
 </style></head><body>
 <div id="shark-overlay"><div class="shark-wrap"><svg class="shark" viewBox="0 0 480 340" role="img" aria-label="GameShark">
 <circle cx="70" cy="60" r="10" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="420" cy="90" r="7" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="400" cy="260" r="12" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".4"/>
@@ -352,7 +427,35 @@ body.gs-rail-collapsed .gs-main{margin-left:80px}
 <div id="gs-a11y-note" class="small"></div>
 <div id="profile"></div><div id="gs-search-hint" class="small"></div></header><div class="gs-tab gs-active" data-tab="overview"><h1>GameShark</h1>
 <div class="sub">Every build, placement, settlement and correction — newest first. Every leg shows its player, team, line and final, and every ticket shows its outcome. Search below filters tickets, players AND games at once. This page is regenerated and re-uploaded every time new information lands in the ledger.</div>
-<article class="gs-feature"><p class="gs-feature-kicker">FEATURED &middot; TODAY</p><h2 class="gs-feature-title">Luka leads the MVP race &mdash; and the ledger just got sharper</h2><p class="gs-feature-dek">Luka Dončić leads the league at 38.3 points per game and sits atop the MVP race — the headline number this page tracks. Latest from the ledger: NEW — NBA.com 2026-27 table re-pulled (2026-11-03). Counter unchanged at 448 rows, chained as MANIFEST block h=1851 (supersedes h=1848). 21 rows refined — 2 name punctuation fixes plus small steals/blocks tenths; no games were played between pulls, so these are table-read refinements, not performance moves. 2025-26 final table untouched. Next re-pull tomorrow ~5:36 AM ET.</p><div class="gs-feature-actions"><a class="gs-btn" href="#singles-trend-graphs">See the trends &darr;</a> <a class="gs-btn gs-btn-ghost" href="#upcoming-schedule">Upcoming games &darr;</a></div></article><div class="gs-whatsnew"><h2 class="gs-whatsnew-title">What&rsquo;s new</h2><details class="gs-news" open><summary>NEW — NBA.com 2026-27 table re-pulled (2026-11-03).</summary><div class="gs-news-body"> Counter unchanged at 448 rows, chained as MANIFEST block h=1851 (supersedes h=1848). 21 rows refined — 2 name punctuation fixes plus small steals/blocks tenths; no games were played between pulls, so these are table-read refinements, not performance moves. 2025-26 final table untouched. Next re-pull tomorrow ~5:36 AM ET.</div></details><details class="gs-news"><summary>NEW — Full 2026-27 season schedule logged (2026-11-03). <a href="#upcoming-schedule">see upcoming games &darr;</a></summary><div class="gs-news-body"> All 30 teams, 1,200 games re-downloaded from ESPN and chained as MANIFEST block h=1849 (correction h=1850: one Oct 29 CLE@ATL tip moved 7 to 8 PM ET). 107 finals, 1,093 games still to come, Nov 4 to Apr 11, 2027. The next-14-days planning window is on this page — <a style="color:#d4af37" href="#upcoming-schedule">see upcoming games ↓</a></div></details><details class="gs-news"><summary>NEW — NBA.com 2026-27 full-season table logged (2026-11-03).</summary><div class="gs-news-body"> All 448 player rows verified row-by-row against NBA.com and chained as MANIFEST block h=1848. Both seasons now complete: 1,030 rows total (2025-26: 582, h=1847; 2026-27: 448, h=1848). Per the owner's order, NBA.com numbers are now the primary foundation data — if a stat isn't NBA stats, it's incorrect.</div></details><details class="gs-news"><summary>NEW — NBA.com 2025-26 full-season table logged (2026-11-03).</summary><div class="gs-news-body"> All 582 player rows verified row-by-row against NBA.com and chained as MANIFEST blocks h=1846 (partial, rows 1–500) and h=1847 (complete). One flagged field, not guessed: Markelle Fultz PF unreadable, left blank. 2026-27 complete (h=1848).</div></details><details class="gs-news"><summary>NEW — Singles vs doubles trend graphs (2026-11-03). <a href="#singles-trend-graphs">See the graphs &darr;</a></summary><div class="gs-news-body"> Every delivered single and double, night by night, with cumulative hit-rate lines — plus the honest comparison: singles 17–18 delivered, doubles 3–10–1. <a style="color:#d4af37" href="#singles-trend-graphs">See the graphs ↓</a></div></details></div></div><div class="gs-tab gs-active" data-tab="overview"><h2 id="score-section">THE SCORE — counted record (COUNT EVERYTHING law)</h2>
+<article class="gs-feature"><p class="gs-feature-kicker">FEATURED &middot; TODAY</p><h2 class="gs-feature-title">Luka leads the MVP race &mdash; and the ledger just got sharper</h2><p class="gs-feature-dek">Luka Dončić leads the league at 38.3 points per game and sits atop the MVP race — the headline number this page tracks. Latest from the ledger: NEW — NBA.com 2026-27 table re-pulled (2026-11-03). Counter unchanged at 448 rows, chained as MANIFEST block h=1851 (supersedes h=1848). 21 rows refined — 2 name punctuation fixes plus small steals/blocks tenths; no games were played between pulls, so these are table-read refinements, not performance moves. 2025-26 final table untouched. Next re-pull tomorrow ~5:36 AM ET.</p><div class="gs-feature-actions"><a class="gs-btn" href="#singles-trend-graphs">See the trends &darr;</a> <a class="gs-btn gs-btn-ghost" href="#upcoming-schedule">Upcoming games &darr;</a></div></article>
+<section class="lv-wrap" aria-label="GameShark lounge front">
+<div class="lv-hero"><p class="lv-kicker">BETTING LEDGER &middot; LIVE</p><h2>GameShark at a glance</h2>
+<div class="lv-nums">
+<div class="lv-num"><b>149&ndash;118&ndash;10</b><span>counted legs, won&ndash;lost&ndash;void</span></div>
+<div class="lv-num"><b>17&ndash;18</b><span>delivered singles, won&ndash;lost</span></div>
+<div class="lv-num"><b>140</b><span>ledger entries</span></div>
+<div class="lv-num"><b>1,346</b><span>games chained &middot; tip h=1851</span></div>
+</div>
+<div class="lv-btns"><a href="#singles-trend-graphs">Singles trend &darr;</a><a href="#upcoming-schedule">Upcoming games &darr;</a><a href="#tickets">Full ledger &darr;</a></div>
+</div>
+<div class="lv-spot">
+<div class="lv-card"><img src="https://a.espncdn.com/i/headshots/nba/players/full/3945274.png" alt="Luka Dončić headshot" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27436%27%20viewBox=%270%200%20600%20436%27%3E%3Crect%20width=%27600%27%20height=%27436%27%20fill=%27%23f3e2c8%27/%3E%3Ccircle%20cx=%27300%27%20cy=%27150%27%20r=%2770%27%20fill=%27%23b9a58c%27/%3E%3Cellipse%20cx=%27300%27%20cy=%27360%27%20rx=%27130%27%20ry=%2790%27%20fill=%27%23b9a58c%27/%3E%3Ctext%20x=%27300%27%20y=%27410%27%20font-family=%27sans-serif%27%20font-size=%2722%27%20fill=%27%237a5a12%27%20text-anchor=%27middle%27%3EPhoto%20unavailable%3C/text%3E%3C/svg%3E'"><h3>Luka Dončić &middot; LAL</h3><div class="lv-big">38.3 PTS</div><p>8.0 REB &middot; 8.1 AST &middot; 7 GP &middot; leads the league in scoring.</p><p>Last game: 45 vs TOR &middot; Nov 1.</p><p class="lv-cap">Photo: ESPN headshot, verified live.</p></div><div class="lv-card"><img src="https://a.espncdn.com/i/headshots/nba/players/full/5104157.png" alt="Victor Wembanyama headshot" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27436%27%20viewBox=%270%200%20600%20436%27%3E%3Crect%20width=%27600%27%20height=%27436%27%20fill=%27%23f3e2c8%27/%3E%3Ccircle%20cx=%27300%27%20cy=%27150%27%20r=%2770%27%20fill=%27%23b9a58c%27/%3E%3Cellipse%20cx=%27300%27%20cy=%27360%27%20rx=%27130%27%20ry=%2790%27%20fill=%27%23b9a58c%27/%3E%3Ctext%20x=%27300%27%20y=%27410%27%20font-family=%27sans-serif%27%20font-size=%2722%27%20fill=%27%237a5a12%27%20text-anchor=%27middle%27%3EPhoto%20unavailable%3C/text%3E%3C/svg%3E'"><h3>Victor Wembanyama &middot; SAS</h3><div class="lv-big">25.7 PTS</div><p>10.7 REB &middot; 4.0 BLK &middot; 7 GP &middot; Player of the Week, West, Week 2.</p><p>Last game: 43 vs MIN &middot; Oct 31.</p><p class="lv-cap">Photo: ESPN headshot, verified live.</p></div>
+</div>
+<div class="lv-card"><p class="lv-kicker" style="font-size:12px;font-weight:800;letter-spacing:2px;color:#a34d0e">PLAYER STATS &middot; LIVE</p>
+<h3 style="color:#3a1c08;font-size:22px;margin:6px 0">More scoring leaders</h3>
+<div class="lv-mini">
+<div class="lv-card"><img src="https://a.espncdn.com/i/headshots/nba/players/full/4278073.png" alt="Shai Gilgeous-Alexander headshot" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27436%27%20viewBox=%270%200%20600%20436%27%3E%3Crect%20width=%27600%27%20height=%27436%27%20fill=%27%23f3e2c8%27/%3E%3Ccircle%20cx=%27300%27%20cy=%27150%27%20r=%2770%27%20fill=%27%23b9a58c%27/%3E%3Cellipse%20cx=%27300%27%20cy=%27360%27%20rx=%27130%27%20ry=%2790%27%20fill=%27%23b9a58c%27/%3E%3Ctext%20x=%27300%27%20y=%27410%27%20font-family=%27sans-serif%27%20font-size=%2722%27%20fill=%27%237a5a12%27%20text-anchor=%27middle%27%3EPhoto%20unavailable%3C/text%3E%3C/svg%3E'"><h3>Shai Gilgeous-Alexander &middot; OKC</h3><div class="lv-big">28.4 PTS</div><p>7 GP &middot; Last: 26 at HOU &middot; Oct 31.</p><p class="lv-cap">Photo: ESPN headshot, verified live.</p></div><div class="lv-card"><img src="https://a.espncdn.com/i/headshots/nba/players/full/3032977.png" alt="Giannis Antetokounmpo headshot" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27436%27%20viewBox=%270%200%20600%20436%27%3E%3Crect%20width=%27600%27%20height=%27436%27%20fill=%27%23f3e2c8%27/%3E%3Ccircle%20cx=%27300%27%20cy=%27150%27%20r=%2770%27%20fill=%27%23b9a58c%27/%3E%3Cellipse%20cx=%27300%27%20cy=%27360%27%20rx=%27130%27%20ry=%2790%27%20fill=%27%23b9a58c%27/%3E%3Ctext%20x=%27300%27%20y=%27410%27%20font-family=%27sans-serif%27%20font-size=%2722%27%20fill=%27%237a5a12%27%20text-anchor=%27middle%27%3EPhoto%20unavailable%3C/text%3E%3C/svg%3E'"><h3>Giannis Antetokounmpo &middot; MIA</h3><div class="lv-big">28.4 PTS</div><p>12.3 REB &middot; 5.7 AST &middot; 7 GP &middot; Last: 31 vs IND &middot; Oct 30.</p><p class="lv-cap">Photo: ESPN headshot, verified live.</p></div>
+</div></div>
+<div class="lv-mag">
+<div class="lv-card"><p class="lv-kicker">MAGAZINE &middot; LEDGER NEWS</p><h3>Table re-pulled, chain holds at h=1851</h3>
+<p>NBA.com 2026&ndash;27 table re-pulled Nov 3: counter unchanged at 448 rows, 21 rows refined, chained as MANIFEST block h=1851. No games were played between pulls &mdash; table-read refinements, not performance moves.</p>
+<p><a href="#chain-section">See the chain &darr;</a></p></div>
+<div class="lv-card"><p class="lv-kicker">MAGAZINE &middot; SCHEDULE</p><h3>103 games on deck, Nov 4&ndash;17</h3>
+<p>From the fresh full-season schedule download: 103 games over the next 14 days, every team, every venue. The map, not the picks.</p>
+<p><a href="#upcoming-schedule">See all 103 &darr;</a></p></div>
+</div>
+</section>
+<div class="gs-whatsnew"><h2 class="gs-whatsnew-title">What&rsquo;s new</h2><details class="gs-news" open><summary>NEW — NBA.com 2026-27 table re-pulled (2026-11-03).</summary><div class="gs-news-body"> Counter unchanged at 448 rows, chained as MANIFEST block h=1851 (supersedes h=1848). 21 rows refined — 2 name punctuation fixes plus small steals/blocks tenths; no games were played between pulls, so these are table-read refinements, not performance moves. 2025-26 final table untouched. Next re-pull tomorrow ~5:36 AM ET.</div></details><details class="gs-news"><summary>NEW — Full 2026-27 season schedule logged (2026-11-03). <a href="#upcoming-schedule">see upcoming games &darr;</a></summary><div class="gs-news-body"> All 30 teams, 1,200 games re-downloaded from ESPN and chained as MANIFEST block h=1849 (correction h=1850: one Oct 29 CLE@ATL tip moved 7 to 8 PM ET). 107 finals, 1,093 games still to come, Nov 4 to Apr 11, 2027. The next-14-days planning window is on this page — <a style="color:#d4af37" href="#upcoming-schedule">see upcoming games ↓</a></div></details><details class="gs-news"><summary>NEW — NBA.com 2026-27 full-season table logged (2026-11-03).</summary><div class="gs-news-body"> All 448 player rows verified row-by-row against NBA.com and chained as MANIFEST block h=1848. Both seasons now complete: 1,030 rows total (2025-26: 582, h=1847; 2026-27: 448, h=1848). Per the owner's order, NBA.com numbers are now the primary foundation data — if a stat isn't NBA stats, it's incorrect.</div></details><details class="gs-news"><summary>NEW — NBA.com 2025-26 full-season table logged (2026-11-03).</summary><div class="gs-news-body"> All 582 player rows verified row-by-row against NBA.com and chained as MANIFEST blocks h=1846 (partial, rows 1–500) and h=1847 (complete). One flagged field, not guessed: Markelle Fultz PF unreadable, left blank. 2026-27 complete (h=1848).</div></details><details class="gs-news"><summary>NEW — Singles vs doubles trend graphs (2026-11-03). <a href="#singles-trend-graphs">See the graphs &darr;</a></summary><div class="gs-news-body"> Every delivered single and double, night by night, with cumulative hit-rate lines — plus the honest comparison: singles 17–18 delivered, doubles 3–10–1. <a style="color:#d4af37" href="#singles-trend-graphs">See the graphs ↓</a></div></details></div></div><div class="gs-tab gs-active" data-tab="overview"><h2 id="score-section">THE SCORE — counted record (COUNT EVERYTHING law)</h2>
 <div class="sub">Leg score: +1 per counted leg won, −1 per lost. Ticket score: +1 per counted ticket won, −1 per lost. Target: TICKET SCORE +20. Counted record: legs 542–464 (leg score +78), tickets 35–156 (ticket score −121). Every ticket the system creates counts — played or watched, money or not (owner order 2026-10-25 23:55 EDT); played vs watched and dollars staked are tracked as separate figures, never blended. Staked dollars stand at $108.36 cash + $1 bonus; $18.57 back confirmed; the 2026-10-26 FLEX partial payout is TBD (settlement matter, owner's account). Hypothetical column, never mixed with cash: 2026-10-28 as-if $12 staked, +$5.28 net; 2026-10-29 as-if $12 staked, −$5.10 net; 2026-10-30 as-if $12 staked, −$1.40 net; 2026-10-31 v2 as-if $12 staked, +$11.93 net (super $1 lost). Every watched ticket is $0 staked. Owner flips (tracked-only, not system tickets) are tracked separately and are not system score.</div>
 <div class="cards">
 <div class="card"><b class="pos">+78</b><span>LEG SCORE (counted record)</span></div>

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated_at": "2026-11-03T12:01:40Z",
+ "updated_at": "2026-11-03T11:59:26.492600+00:00",
  "ledger": {
   "page": "index.html",
   "build": "2026-11-03T06:36:41Z",
@@ -9,14 +9,9 @@
  },
  "gameshark": {
   "page": "gameshark.html",
-  "build": "2026-11-02T08:11:14.621685+00:00",
-  "updated_at": "2026-11-02T08:11:14.621685+00:00",
-  "tip_height": 1824
- },
- "in_transit": {
-  "surface": "gameshark",
   "build": "2026-11-03T11:59:26.492600+00:00",
-  "started_at": "2026-11-03T12:01:40Z",
-  "status": "pushing"
- }
+  "updated_at": "2026-11-03T11:59:26.492600+00:00",
+  "tip_height": 1845
+ },
+ "in_transit": null
 }

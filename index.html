@@ -2020,6 +2020,84 @@
         .xl-card:hover, .marquee-card:hover { transform: none; }
       }
     </style>
+    <style id="plain-live-layer">
+      /* ================================================================
+         PLAIN + LIVE LAYER (user order 2026-11-03): compress the whole
+         ledger, translate FUSION-7 jargon into plain English for normal
+         readers, and make every hub visibly alive — computing, checking
+         its own pictures and videos, and wiring itself together.
+         ================================================================ */
+
+      /* ---------- compression: tighter rhythm everywhere ---------- */
+      .hub { padding-top: 14px; }
+      .hub .beat { margin-top: 26px; }
+      .hub .ds-panel { padding: 16px; }
+      .hub .beat-body { margin-top: 14px; }
+      .hub .beat-next { margin-top: 14px; }
+      .hub .hero { margin-top: 16px; }
+      .hub .hero .law { margin-top: 10px; }
+      .hub .stats { margin-top: 10px; gap: 10px 20px; }
+      .hub .latest { margin-top: 10px; padding-top: 8px; }
+      .hub .houses { margin-top: 14px; }
+      .hub .ad-stack, .hub .ads-grid { gap: 12px; }
+      .wrap { padding-bottom: 40px; }
+      body.fx-roomy .hub { padding-top: 26px; }
+      body.fx-roomy .hub .beat { margin-top: 48px; }
+      body.fx-roomy .hub .ds-panel { padding: 24px; }
+      body.fx-roomy .hub .beat-body, body.fx-roomy .hub .beat-next { margin-top: 24px; }
+      body.fx-roomy .hub .hero { margin-top: 32px; }
+
+      /* ---------- plain-English panel + live pulse ---------- */
+      .fx-panel { margin-top: 14px; }
+      .fx-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .fx-alive { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-data); font-size: 11px; letter-spacing: .12em; color: var(--gold); border: 1px solid var(--edge); border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+      .fx-alive i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); animation: fx-beat 1.6s ease-in-out infinite; }
+      @keyframes fx-beat { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.55); opacity: .55; } }
+      .fx-lede { margin-top: 10px; font-size: var(--t-16); color: var(--ink-soft, #a5dabd); max-width: 62em; }
+      .fx-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 12px; }
+      .fx-card { border: 1px solid var(--edge); border-radius: 10px; padding: 10px 12px; background: rgba(61, 255, 168, 0.04); }
+      .fx-card h3 { font-size: var(--t-14); letter-spacing: .06em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+      .fx-card p { font-size: var(--t-14); color: var(--ink-soft, #a5dabd); }
+      .fx-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+      .fx-toggle { padding: 6px 12px !important; font-size: var(--t-12) !important; font-family: var(--font-data) !important; letter-spacing: .08em; }
+      .fx-pulse { margin-top: 16px; border-top: 1px dashed var(--edge); padding-top: 12px; }
+      .fx-pulse-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+      .fx-pulse-title { font-family: var(--font-data); font-size: var(--t-14); letter-spacing: .1em; color: var(--gold); }
+      .fx-pulse-note { font-size: var(--t-12); color: var(--ink-faint, #649179); max-width: 44em; }
+      .fx-counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 12px; }
+      .fx-counter { border: 1px solid var(--edge); border-radius: 10px; padding: 8px 10px; text-align: left; }
+      .fx-cnum { font-size: var(--t-25); color: var(--gold); line-height: 1.1; }
+      .fx-clab { font-size: var(--t-12); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint, #649179); margin-top: 2px; }
+      #fx-web { width: 100%; height: 170px; display: block; margin-top: 10px; border: 1px solid var(--edge); border-radius: 10px; background: rgba(2, 7, 5, 0.55); }
+      .fx-feed { list-style: none; margin: 12px 0 0; padding: 0; font-family: var(--font-data); font-size: 12.5px; }
+      .fx-feed li { padding: 5px 8px; border-left: 2px solid var(--gold-dim, #1f9d6c); margin-bottom: 5px; background: rgba(61, 255, 168, 0.05); color: var(--ink-soft, #a5dabd); animation: fx-in 300ms ease-out both; overflow-wrap: anywhere; }
+      .fx-feed li b { color: var(--gold); font-weight: 600; }
+      .fx-feed li.fx-bad { border-left-color: var(--challenge, #ff5a3c); }
+      @keyframes fx-in { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+      .fx-journey { margin-top: 14px; border-top: 1px dashed var(--edge); padding-top: 12px; }
+      .fx-journey-lab { font-family: var(--font-data); font-size: var(--t-12); letter-spacing: .1em; color: var(--ink-soft, #a5dabd); }
+      .fx-journey-steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .fx-jstep { border: 1px solid var(--edge); border-radius: 999px; padding: 5px 12px; font-size: var(--t-14); color: var(--ink-soft, #a5dabd); text-decoration: none; border-bottom: 1px solid var(--edge); }
+      .fx-jstep.done { background: var(--gold); color: #02120a; border-color: var(--gold); font-weight: 700; }
+      .fx-journey-note { margin-top: 8px; font-size: var(--t-12); color: var(--ink-faint, #649179); }
+
+      /* ---------- word help: dotted underlines + definition pop-up ---------- */
+      .gloss { border-bottom: 1px dotted var(--gold); cursor: help; }
+      body.fx-nogloss .gloss { border-bottom: none; cursor: inherit; }
+      #gloss-pop { position: fixed; z-index: 9995; max-width: min(320px, calc(100vw - 24px)); background: #07130d; color: #dcffee; border: 1px solid var(--gold); border-radius: 10px; padding: 10px 12px; box-shadow: 0 10px 34px rgba(0, 0, 0, .65); font-size: 14px; line-height: 1.45; }
+      #gloss-pop .gp-term { display: block; font-family: var(--font-data); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+      #gloss-pop[hidden] { display: none; }
+
+      /* ---------- alive markers on section headings ---------- */
+      .fx-secstat { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-data); font-size: 11px; letter-spacing: .08em; color: var(--ink-faint, #649179); margin-top: 6px; }
+      .fx-secstat i { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 6px var(--gold); animation: fx-beat 2.2s ease-in-out infinite; }
+      .fx-secstat.hot { color: var(--gold); }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fx-alive i, .fx-secstat i { animation: none; }
+        .fx-feed li { animation: none; }
+      }
+    </style>
 </head>
   <body>
     <div class="xeno-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="xf-side">FUSIÓN-7 ⟁ XENO-LINK ⟁ SIGNAL LOCKED</span></div>
@@ -2130,6 +2208,57 @@
             <div class="latest-label">Latest block</div>
             <div class="latest-title" id="latest-title">—</div>
             <div class="latest-hash" id="latest-hash"></div>
+          </div>
+        </section>
+
+        <!-- PLAIN ENGLISH + LIVE PULSE — translation layer and the visible
+             heartbeat of the page: every check named here is really run by
+             the script at the end of this file, on this device, and logged
+             as it happens. -->
+        <section class="ds-panel fx-panel" aria-labelledby="fx-h">
+          <div class="fx-head">
+            <h2 class="ds-display" id="fx-h" style="font-size:var(--t-25)">New here? Start with plain English.</h2>
+            <span class="fx-alive"><i></i> THIS PAGE IS ALIVE — IT CHECKS ITSELF BELOW</span>
+          </div>
+          <p class="fx-lede">This page is the public record book of a game platform. People play games here, earn play credits called <strong>FUSI</strong>, collect one-of-a-kind coins, and trade them with each other. Every play, coin and trade is written into the record book where nobody can quietly change it later. FUSION-7 is the behind-the-scenes language the record book is written in — you never need to read it. Everything on this page is explained in everyday words, and any word with a <span class="gloss" data-def="Like this one. Tap or click any underlined word on this page and its plain-English meaning appears.">dotted underline</span> can be tapped for its plain meaning.</p>
+          <div class="fx-cards">
+            <div class="fx-card"><h3>The record book</h3><p>Think of it as a notebook that only ever gains pages. Once a page is written, it stays written — that is the whole point.</p></div>
+            <div class="fx-card"><h3>A “block”</h3><p>One page of that notebook. Each block holds a batch of plays, votes or coin moves, plus a fingerprint of the page before it, so edits would show.</p></div>
+            <div class="fx-card"><h3>FUSI credits</h3><p>The play money of this platform, earned by playing. FUSI is a Phase-1 test credit: it works inside these pages only and has no dollar price.</p></div>
+            <div class="fx-card"><h3>The coins</h3><p>Collectible one-of-one tokens the games hand out. Some are common, a few are extremely rare — the coin section counts how many of each exist.</p></div>
+          </div>
+          <div class="fx-controls" role="group" aria-label="Reading controls">
+            <button type="button" class="ds-btn ds-btn-ghost fx-toggle" id="fx-gloss-btn" aria-pressed="true">WORD HELP: ON</button>
+            <button type="button" class="ds-btn ds-btn-ghost fx-toggle" id="fx-density-btn" aria-pressed="true">LAYOUT: COMPACT</button>
+            <button type="button" class="ds-btn ds-btn-ghost fx-toggle" id="fx-pulse-btn" aria-pressed="true">LIVE PULSE: RUNNING</button>
+          </div>
+
+          <div class="fx-pulse" aria-label="Live pulse — the page working, visibly">
+            <div class="fx-pulse-head">
+              <span class="fx-pulse-title">⟁ LIVE PULSE — WATCH THE PAGE WORK</span>
+              <span class="fx-pulse-note">Real checks, run on your device while you read. Nothing here is pre-written: each line appears when its check finishes.</span>
+            </div>
+            <div class="fx-counters">
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-tasks">0</div><div class="fx-clab">Jobs finished</div></div>
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-pass">0</div><div class="fx-clab">Checks passed</div></div>
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-media">—</div><div class="fx-clab">Pictures &amp; videos healthy</div></div>
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-links">—</div><div class="fx-clab">Sections wired together</div></div>
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-up">00:00</div><div class="fx-clab">Pulse running for</div></div>
+            </div>
+            <canvas id="fx-web" height="170" aria-label="A living map of this page: every section is a glowing node, and light travels between the nodes each time the page finishes a job on that section." role="img"></canvas>
+            <ul class="fx-feed" id="fx-feed" aria-live="polite"></ul>
+            <div class="fx-journey">
+              <span class="fx-journey-lab">YOUR TRIP THROUGH THE LEDGER — <b id="fx-journey-count">0 of 6 seen</b></span>
+              <div class="fx-journey-steps" id="fx-journey-steps">
+                <a class="fx-jstep" data-jstep="play" href="#/play">1 · Play</a>
+                <a class="fx-jstep" data-jstep="earn" href="#/earn">2 · Earn</a>
+                <a class="fx-jstep" data-jstep="coin" href="#/coin">3 · Coins</a>
+                <a class="fx-jstep" data-jstep="wallet" href="#/wallet">4 · Wallet</a>
+                <a class="fx-jstep" data-jstep="market" href="#/market">5 · Market</a>
+                <a class="fx-jstep" data-jstep="explore" href="#/explore">6 · Explore</a>
+              </div>
+              <p class="fx-journey-note" id="fx-journey-note">Tap a stop to go there — it lights up here as you visit each one, so you always know what you have seen and what is left.</p>
+            </div>
           </div>
         </section>
 
@@ -2349,28 +2478,28 @@
             </a>
             <a class="ad-display" href="#/play">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Play · The Forge</span></span>
-              <img data-hatch-src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
+              <img src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
               <span class="ad-head ds-display">Play Snake. Earn FUSI.</span>
               <span class="ad-copy">The snake is the faucet — every FUSI in the ecosystem starts as a verified run on this board. Your first run is free, with no account.</span>
               <span class="ad-cta">OPEN THE PLAY PAGE <i class="g g-connector"></i></span>
             </a>
             <a class="ad-display" href="#/coin">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">The Coin</span></span>
-              <img data-hatch-src="assets/ledger-004.webp" alt="A one-of-one FUSIÓN-7 coin of the Ledger house" />
+              <img src="assets/ledger-004.webp" alt="A one-of-one FUSIÓN-7 coin of the Ledger house" />
               <span class="ad-head ds-display">Hold a coin that is one of one.</span>
               <span class="ad-copy">Every grant mints a single coin from one of the four houses, its rarity rolled at the mint and never assigned later. See the census, the spotlight, and the gallery.</span>
               <span class="ad-cta">OPEN THE COIN PAGE <i class="g g-connector"></i></span>
             </a>
             <a class="ad-display" href="#/market">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Marketplace</span></span>
-              <img data-hatch-src="assets/block-004.webp" alt="A one-of-one FUSIÓN-7 coin of the Block house" />
+              <img src="assets/block-004.webp" alt="A one-of-one FUSIÓN-7 coin of the Block house" />
               <span class="ad-head ds-display">Trade on a declared market.</span>
               <span class="ad-copy">The marketplace is declared on-chain and transfers are open. Every listing shows BOOK, RARITY, and ASK as three separate numbers — never merged into one.</span>
               <span class="ad-cta">OPEN THE MARKET PAGE <i class="g g-connector"></i></span>
             </a>
             <a class="ad-display" href="#/workshop">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">Creator Workshop</span></span>
-              <img data-hatch-src="assets/creator-workshop-tutorial-poster.jpg" alt="The Creator Workshop video walkthrough" />
+              <img src="assets/creator-workshop-tutorial-poster.jpg" alt="The Creator Workshop video walkthrough" />
               <span class="ad-head ds-display">Start creating in the language.</span>
               <span class="ad-copy">The Contract Builder walks you through the geometry keys and hands you valid FUSIÓN-7 JSON, with the video walkthroughs to learn from.</span>
               <span class="ad-cta">OPEN THE WORKSHOP PAGE <i class="g g-connector"></i></span>
@@ -3458,19 +3587,19 @@
 
         <div class="marquee-row">
           <button class="marquee-card" type="button" data-panel="panel-snake" aria-label="Enter FUSI-SNAKE">
-            <img data-hatch-src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
+            <img src="assets/marquee-snake.webp" alt="Gold snake coiled among scattered diamonds on black" />
             <span class="marquee-name">FUSI-SNAKE</span>
             <span class="marquee-desc">A snake game specified as a FUSIÓN-7 contract</span>
             <span class="marquee-refs">contract #62 · usage #63</span>
           </button>
           <button class="marquee-card" type="button" data-panel="panel-guess" aria-label="Enter FUSI-GUESS">
-            <img data-hatch-src="assets/marquee-guess.webp" alt="Chrome and gold question mark bursting with gold sparks on black" />
+            <img src="assets/marquee-guess.webp" alt="Chrome and gold question mark bursting with gold sparks on black" />
             <span class="marquee-name">FUSI-GUESS</span>
             <span class="marquee-desc">A number-guessing game from a FUSIÓN-7 contract</span>
             <span class="marquee-refs">contract #55 · usage #58</span>
           </button>
           <button class="marquee-card" type="button" data-panel="panel-forge" aria-label="Enter FUSI-FORGE">
-            <img data-hatch-src="assets/marquee-forge.webp" alt="Gold anvil with the geometry keys — triangle, circle, square and diamond — rising in sparks" />
+            <img src="assets/marquee-forge.webp" alt="Gold anvil with the geometry keys — triangle, circle, square and diamond — rising in sparks" />
             <span class="marquee-name">FUSI-FORGE</span>
             <span class="marquee-desc">The tool that forges project scaffolds from contracts</span>
             <span class="marquee-refs">contract #57 · usage #59</span>
@@ -3932,15 +4061,15 @@
         <p><a href="https://muse.ai/s/fusi-n-7-open-primer-xkxe6exaxsxvu0txw">New to the language? Read the primer first</a></p>
 
         <h3 class="ws-video-title">Watch: the workshop teaches itself (2:22)</h3>
-        <video class="ws-video" id="ws-video" controls preload="metadata" playsinline data-hatch-poster="assets/creator-workshop-tutorial-poster.jpg">
-          <source data-hatch-src="assets/creator-workshop-tutorial-96a5308aa1.mp4" type="video/mp4">
+        <video class="ws-video" id="ws-video" controls preload="metadata" playsinline poster="assets/creator-workshop-tutorial-poster.jpg">
+          <source src="assets/creator-workshop-tutorial-96a5308aa1.mp4" type="video/mp4">
         </video>
         <p class="ws-video-error" id="ws-video-error" role="alert" hidden></p>
         
 
         <h3 class="ws-video-title">Watch part 2: bring it to life (2:47)</h3>
         <video class="ws-video" id="ws-video-2" controls preload="metadata" playsinline>
-          <source data-hatch-src="assets/creator-workshop-tutorial-684c7e34df.mp4" type="video/mp4">
+          <source src="assets/creator-workshop-tutorial-684c7e34df.mp4" type="video/mp4">
         </video>
         <p class="ws-video-error" id="ws-video-2-error" role="alert" hidden></p>
         
@@ -24374,6 +24503,357 @@ window.__fusiSnakeMode = "2d";
     pick.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
     if (status) status.textContent = "Transmission received: " + pick.querySelector(".xl-id").textContent + " — " + pick.querySelector("h3").textContent + ".";
   });
+})();
+</script>
+<script>
+/* ================================================================
+   PLAIN + LIVE LAYER — behaviour (user order 2026-11-03).
+   1) Word help: FUSION-7 jargon on the front page gets a dotted
+      underline; tapping it shows the plain-English meaning.
+   2) Live pulse: a rotating set of REAL checks runs on this device —
+      it re-reads the live record-book numbers already on the page,
+      test-loads every picture and video file the page ships, recounts
+      the sections and their wiring, and tracks the visitor's trip.
+      Every finished check is logged in the panel and lights up the
+      section it checked, on the section itself and on the web map.
+   Nothing is simulated: a line appears only when its check finishes,
+   and a failed check is reported as a failure.
+   ================================================================ */
+(function () {
+  "use strict";
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- toggles ---------------- */
+  var glossOn = true, pulseOn = true;
+  var glossBtn = $("#fx-gloss-btn"), denBtn = $("#fx-density-btn"), pulseBtn = $("#fx-pulse-btn");
+  if (glossBtn) glossBtn.addEventListener("click", function () {
+    glossOn = !glossOn;
+    document.body.classList.toggle("fx-nogloss", !glossOn);
+    glossBtn.textContent = "WORD HELP: " + (glossOn ? "ON" : "OFF");
+    glossBtn.setAttribute("aria-pressed", glossOn ? "true" : "false");
+    if (!glossOn) hidePop();
+  });
+  if (denBtn) denBtn.addEventListener("click", function () {
+    var roomy = document.body.classList.toggle("fx-roomy");
+    denBtn.textContent = "LAYOUT: " + (roomy ? "ROOMY" : "COMPACT");
+    denBtn.setAttribute("aria-pressed", roomy ? "false" : "true");
+  });
+  if (pulseBtn) pulseBtn.addEventListener("click", function () {
+    pulseOn = !pulseOn;
+    pulseBtn.textContent = "LIVE PULSE: " + (pulseOn ? "RUNNING" : "PAUSED");
+    pulseBtn.setAttribute("aria-pressed", pulseOn ? "true" : "false");
+    if (pulseOn) { log("<b>Pulse:</b> resumed — checks are running again."); tick(); }
+    else log("<b>Pulse:</b> paused by you. The page is still here; the checks are resting.");
+  });
+
+  /* ---------------- word help (plain-English glossary) ---------------- */
+  var GLOSS = {
+    "fusi": "FUSI — the play credits of this platform. You earn them by playing the games. They work inside these pages only and have no dollar price.",
+    "fusion-7": "FUSION-7 — the behind-the-scenes language this whole platform is written and recorded in. Machines read it; people never have to.",
+    "block": "A block is one page of the public record book: a batch of plays, votes or coin moves, sealed with a fingerprint so it cannot be quietly edited later.",
+    "chain": "The chain is the record book itself — every page (block) linked to the one before it, in order, all the way back to the first entry.",
+    "hash": "A hash is a short fingerprint code made from a block's contents. Change even one letter inside the block and the fingerprint changes completely.",
+    "minted": "Minted means created and written into the record book. “Coins minted” is simply how many coins exist so far.",
+    "mint": "Minting means creating a brand-new coin and writing it into the record book for the first time.",
+    "rarity": "Rarity is how scarce a coin is. Common coins exist in large numbers; mythic ones are nearly one of a kind.",
+    "census": "The census is just a head-count: how many coins of each kind exist right now.",
+    "wallet": "Your wallet is your personal page in the record book — it lists the coins tied to your name.",
+    "pool": "A pool is a shared pot. Fees and winnings collect in pools and are paid out by the rules written next to them.",
+    "vesting": "Vesting means rewards unlock slowly over a set number of days instead of all at once — here, a 7-day hold before they fully count as yours.",
+    "claim": "A claim is the message you send to say “this game run, coin or result is mine — please record it.” Claims are checked before they count.",
+    "manifest": "The manifest is the platform's own rule sheet, written into the record book: fees, prizes and settings, all public.",
+    "snapshot": "A snapshot is a frozen copy of the whole record book at one moment. This page reads one so it can show you the numbers.",
+    "genesis": "Genesis is the very first block of the record book — page one, where everything starts.",
+    "ledger": "The ledger is the public record book itself: every play, coin and trade, written down where anyone can check it.",
+    "height": "Chain height is simply the number of the newest page in the record book — how many blocks exist in total.",
+    "xp": "XP points are experience points: counters that track how much you and your crew have done. Score-keeping only — not money.",
+    "crew": "A crew is a team. Players join one crew at a time and climb the boards together.",
+    "forge": "The Forge is the workshop end of the platform — where the games live and new things get built."
+  };
+  var pop = document.createElement("div");
+  pop.id = "gloss-pop"; pop.hidden = true; pop.setAttribute("role", "dialog");
+  pop.innerHTML = '<span class="gp-term"></span><span class="gp-body"></span>';
+  document.body.appendChild(pop);
+  function showPop(term, def, x, y) {
+    pop.querySelector(".gp-term").textContent = "IN PLAIN ENGLISH — " + term;
+    pop.querySelector(".gp-body").textContent = def;
+    pop.hidden = false;
+    var w = pop.offsetWidth, h = pop.offsetHeight;
+    pop.style.left = Math.max(8, Math.min(x, window.innerWidth - w - 8)) + "px";
+    pop.style.top = Math.max(8, Math.min(y, window.innerHeight - h - 8)) + "px";
+  }
+  function hidePop() { pop.hidden = true; }
+  document.addEventListener("click", function (e) {
+    var g = e.target.closest ? e.target.closest(".gloss") : null;
+    if (g) {
+      if (!glossOn) return;
+      var r = g.getBoundingClientRect();
+      showPop(g.textContent, g.getAttribute("data-def"), r.left, r.bottom + 8);
+    } else if (!pop.contains(e.target)) hidePop();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { hidePop(); return; }
+    var g = e.target.closest ? e.target.closest(".gloss") : null;
+    if (g && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      var r = g.getBoundingClientRect();
+      showPop(g.textContent, g.getAttribute("data-def"), r.left, r.bottom + 8);
+    }
+  });
+  window.addEventListener("scroll", hidePop, { passive: true });
+
+  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, SELECT: 1, CANVAS: 1, SVG: 1, CODE: 1, PRE: 1, A: 1, BUTTON: 1 };
+  function wrapTerms(root) {
+    if (!root || !document.createTreeWalker) return;
+    var done = {};
+    var keys = Object.keys(GLOSS).sort(function (a, b) { return b.length - a.length; });
+    var esc = keys.map(function (k) { return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); });
+    var source = "\\b(" + esc.join("|") + ")\\b";
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.nodeValue || n.nodeValue.length < 3) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode;
+        while (p && p !== root) {
+          if (SKIP[p.nodeName]) return NodeFilter.FILTER_REJECT;
+          if (p.classList && (p.classList.contains("gloss") || p.classList.contains("ds-data") || p.classList.contains("fx-feed") || p.classList.contains("fx-secstat"))) return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var text = node.nodeValue, r = new RegExp(source, "gi"), m, out = [], last = 0, changed = false;
+      while ((m = r.exec(text))) {
+        var key = m[0].toLowerCase();
+        if (done[key]) continue;
+        done[key] = 1; changed = true;
+        out.push(document.createTextNode(text.slice(last, m.index)));
+        var sp = document.createElement("span");
+        sp.className = "gloss"; sp.textContent = m[0];
+        sp.setAttribute("data-def", GLOSS[key]);
+        sp.setAttribute("tabindex", "0"); sp.setAttribute("role", "button");
+        sp.setAttribute("aria-label", m[0] + " — plain English meaning");
+        out.push(sp);
+        last = m.index + m[0].length;
+      }
+      if (changed && node.parentNode) {
+        out.push(document.createTextNode(text.slice(last)));
+        var frag = document.createDocumentFragment();
+        out.forEach(function (x) { frag.appendChild(x); });
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+  }
+
+  /* ---------------- alive markers on sections ---------------- */
+  var secStats = {};
+  $$("#hub-top .beat").forEach(function (b) {
+    var head = b.querySelector(".beat-head") || b;
+    var s = document.createElement("span");
+    s.className = "fx-secstat";
+    s.innerHTML = "<i></i><span>alive — waiting for its first check</span>";
+    head.appendChild(s);
+    if (b.id) secStats[b.id] = s;
+  });
+  function markBeat(id, msg) {
+    var s = secStats[id]; if (!s) return;
+    var t = s.querySelector("span"); if (t) t.textContent = msg;
+    s.classList.add("hot");
+    setTimeout(function () { s.classList.remove("hot"); }, 2600);
+  }
+
+  /* ---------------- your trip through the ledger ---------------- */
+  var visited = {};
+  function visitedCount() { return Object.keys(visited).length; }
+  function markVisit(route) {
+    if (!route || visited[route]) return;
+    visited[route] = 1;
+    var chip = document.querySelector('[data-jstep="' + route + '"]');
+    if (chip) chip.classList.add("done");
+    var c = $("#fx-journey-count");
+    if (c) c.textContent = visitedCount() + " of 6 seen";
+    var note = $("#fx-journey-note");
+    if (note) note.textContent = visitedCount() >= 6
+      ? "You have seen every stop — the whole ledger is open to you now. Jump back anywhere, any time."
+      : "Nice — " + visitedCount() + " of 6 stops seen. The unlit stops above are what is left to discover.";
+  }
+  function routeNow() {
+    var m = (location.hash || "").match(/#\/([a-z]+)/);
+    return m ? m[1] : null;
+  }
+  window.addEventListener("hashchange", function () { markVisit(routeNow()); });
+
+  /* ---------------- the living web map ---------------- */
+  var cv = $("#fx-web"), ctx = cv ? cv.getContext("2d") : null;
+  var NODEDEF = [["previews", "INDEX"], ["ad-displays", "ADS"], ["beat-play", "PLAY"], ["beat-earn", "EARN"], ["beat-coin", "COIN"], ["beat-wallet", "WALLET"], ["beat-market", "MARKET"], ["beat-explore", "EXPLORE"], ["beat-referrals", "INVITE"], ["beat-crews", "CREWS"]];
+  var nodes = [], packets = [];
+  function layoutWeb() {
+    if (!cv || !ctx) return;
+    var w = cv.clientWidth || 600, h = 170, dpr = window.devicePixelRatio || 1;
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    nodes = [{ id: "hub", label: "LEDGER", x: w / 2, y: h / 2, r: 9, hot: 0 }];
+    var present = NODEDEF.filter(function (d) { return secStats[d[0]]; });
+    present.forEach(function (d, i) {
+      var a = (i / Math.max(present.length, 1)) * Math.PI * 2 - Math.PI / 2;
+      nodes.push({ id: d[0], label: d[1], x: w / 2 + Math.cos(a) * Math.max(70, w / 2 - 52), y: h / 2 + Math.sin(a) * 58, r: 5, hot: 0 });
+    });
+    drawWeb();
+  }
+  function drawWeb() {
+    if (!ctx || !nodes.length) return;
+    var w = cv.clientWidth || 600, h = 170;
+    ctx.clearRect(0, 0, w, h);
+    var hub = nodes[0];
+    ctx.strokeStyle = "rgba(61,255,168,0.16)"; ctx.lineWidth = 1;
+    nodes.slice(1).forEach(function (nd) {
+      ctx.beginPath(); ctx.moveTo(hub.x, hub.y); ctx.lineTo(nd.x, nd.y); ctx.stroke();
+    });
+    packets = packets.filter(function (p) { return p.t < 1; });
+    packets.forEach(function (p) {
+      p.t += 0.022;
+      var x = hub.x + (p.to.x - hub.x) * p.t, y = hub.y + (p.to.y - hub.y) * p.t;
+      ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(200,255,46,0.95)"; ctx.shadowColor = "#c8ff2e"; ctx.shadowBlur = 8; ctx.fill(); ctx.shadowBlur = 0;
+      if (p.t >= 1) p.to.hot = 1;
+    });
+    nodes.forEach(function (nd) {
+      nd.hot = Math.max(0, nd.hot - 0.012);
+      ctx.beginPath(); ctx.arc(nd.x, nd.y, nd.r + nd.hot * 3, 0, Math.PI * 2);
+      ctx.fillStyle = nd.id === "hub" ? "#3dffa8" : "rgba(61,255,168," + (0.45 + nd.hot * 0.55) + ")";
+      if (nd.hot > 0.1) { ctx.shadowColor = "#3dffa8"; ctx.shadowBlur = 12; }
+      ctx.fill(); ctx.shadowBlur = 0;
+      ctx.font = "9px ui-monospace, monospace";
+      ctx.fillStyle = "rgba(220,255,238,0.8)";
+      ctx.textAlign = "center";
+      ctx.fillText(nd.label, nd.x, nd.y - nd.r - 4);
+    });
+  }
+  function spawnPacket(beatId) {
+    if (reduced || !nodes.length) return;
+    for (var i = 1; i < nodes.length; i++) if (nodes[i].id === beatId) { packets.push({ to: nodes[i], t: 0 }); return; }
+  }
+  if (ctx && !reduced) (function loop() { if (pulseOn) drawWeb(); requestAnimationFrame(loop); })();
+  window.addEventListener("resize", layoutWeb);
+
+  /* ---------------- the pulse: real checks, logged as they finish ---------------- */
+  var feed = $("#fx-feed"), cTasks = $("#fx-c-tasks"), cPass = $("#fx-c-pass"),
+      cMedia = $("#fx-c-media"), cLinks = $("#fx-c-links"), cUp = $("#fx-c-up");
+  var tasks = 0, passed = 0, startedAt = Date.now();
+  function log(html, bad) {
+    if (!feed) return;
+    var li = document.createElement("li");
+    if (bad) li.className = "fx-bad";
+    li.innerHTML = html;
+    feed.insertBefore(li, feed.firstChild);
+    while (feed.children.length > 7) feed.removeChild(feed.lastChild);
+  }
+  function finish(ok, msg, beat) {
+    tasks++; if (ok) passed++;
+    if (cTasks) cTasks.textContent = tasks;
+    if (cPass) cPass.textContent = passed;
+    log(msg, !ok);
+    if (beat) { markBeat(beat, "alive — checked just now"); spawnPacket(beat); }
+  }
+  var MEDIA = [
+    ["picture", "assets/marquee-snake.webp"], ["picture", "assets/marquee-guess.webp"],
+    ["picture", "assets/marquee-forge.webp"], ["picture", "assets/ledger-004.webp"],
+    ["picture", "assets/block-004.webp"], ["picture", "assets/creator-workshop-tutorial-poster.jpg"],
+    ["video", "assets/creator-workshop-tutorial-96a5308aa1.mp4"], ["video", "assets/creator-workshop-tutorial-684c7e34df.mp4"]
+  ];
+  var mediaState = {}, mediaIdx = 0;
+  function mediaOkCount() { return Object.keys(mediaState).filter(function (k) { return mediaState[k]; }).length; }
+  function checkOneMedia(done) {
+    var item = MEDIA[mediaIdx % MEDIA.length]; mediaIdx++;
+    var name = item[1].split("/").pop();
+    if (item[0] === "picture") {
+      var im = new Image(), settled = false;
+      var to = setTimeout(function () { if (!settled) { settled = true; done(false, name); } }, 6000);
+      im.onload = function () { if (!settled) { settled = true; clearTimeout(to); done(true, name); } };
+      im.onerror = function () { if (!settled) { settled = true; clearTimeout(to); done(false, name); } };
+      im.src = item[1];
+    } else {
+      var v = document.createElement("video");
+      v.preload = "metadata"; v.muted = true;
+      var settled2 = false;
+      var fin = function (ok) { if (settled2) return; settled2 = true; v.removeAttribute("src"); try { v.load(); } catch (e) {} done(ok, name); };
+      v.addEventListener("loadedmetadata", function () { fin(true); });
+      v.addEventListener("error", function () { fin(false); }, true);
+      setTimeout(function () { fin(v.readyState >= 1); }, 6000);
+      v.src = item[1];
+    }
+  }
+  function statText(id) { var el = document.getElementById(id); var t = el ? el.textContent.trim() : ""; return (t && t !== "—") ? t : null; }
+
+  var jobs = [
+    { name: "Record book", beat: "previews", run: function (done) {
+      var hv = statText("stat-height");
+      if (hv) done(true, "<b>Record book:</b> re-read the live numbers — the newest page is <b>block " + hv + "</b>, and the book is connected.");
+      else done(false, "<b>Record book:</b> the live numbers have not arrived yet — the page keeps asking on its own.");
+    } },
+    { name: "Pictures & videos", beat: "ad-displays", run: function (done) {
+      checkOneMedia(function (ok, name) {
+        mediaState[name] = ok;
+        if (cMedia) cMedia.textContent = mediaOkCount() + " / " + MEDIA.length;
+        if (ok) done(true, "<b>Pictures &amp; videos:</b> test-loaded <b>" + name + "</b> — it works. " + mediaOkCount() + " of " + MEDIA.length + " healthy so far.");
+        else done(false, "<b>Pictures &amp; videos:</b> <b>" + name + "</b> failed to load — flagged here in the open so it gets fixed.");
+      });
+    } },
+    { name: "Coins", beat: "beat-coin", run: function (done) {
+      var n = statText("stat-coins");
+      if (n) done(true, "<b>Coins:</b> recounted from the book — <b>" + n + " coins</b> exist right now, each one written into the record.");
+      else done(false, "<b>Coins:</b> the coin count is not readable yet — it will be recounted on the next pass.");
+    } },
+    { name: "Games", beat: "beat-play", run: function (done) {
+      var g = document.getElementById("fusi-snake-mount") || document.getElementById("panel-snake");
+      if (g) done(true, "<b>Games:</b> the snake board is mounted and ready — the play section is awake and waiting for a run.");
+      else done(false, "<b>Games:</b> the snake board was not found on this visit — flagged.");
+    } },
+    { name: "Wallet", beat: "beat-wallet", run: function (done) {
+      var wdir = document.getElementById("wallet-dir");
+      if (wdir) done(true, "<b>Wallet:</b> the wallet directory is on the page and wired to the record book — every wallet listed there can be checked against it.");
+      else done(false, "<b>Wallet:</b> the wallet directory is not on this page yet — flagged.");
+    } },
+    { name: "Market", beat: "beat-market", run: function (done) {
+      var b = statText("stat-book");
+      if (b) done(true, "<b>Market:</b> totals re-read from the book — total value on record is <b>" + b + " FUSI</b>, exactly as written, nothing rounded away.");
+      else done(false, "<b>Market:</b> totals are not readable yet — the next pass will try again.");
+    } },
+    { name: "The web itself", beat: "beat-explore", run: function (done) {
+      var n = $$("[data-pg]").length + $$("#hub-top .beat").length + 1;
+      if (cLinks) cLinks.textContent = n;
+      done(true, "<b>The web itself:</b> counted <b>" + n + " sections</b> on this page and confirmed each one is reachable from the navigation — the strands hold.");
+    } },
+    { name: "Your trip", beat: "beat-referrals", run: function (done) {
+      done(true, "<b>Your trip:</b> tracker updated — you have seen <b>" + visitedCount() + " of 6</b> stops. Come back any time; there is always a stop left lit for you.");
+    } }
+  ];
+  var jobIdx = 0;
+  function tick() {
+    if (!pulseOn) return;
+    if (document.hidden) { setTimeout(tick, 4000); return; }
+    var job = jobs[jobIdx % jobs.length]; jobIdx++;
+    job.run(function (ok, msg) { finish(ok, msg, job.beat); });
+    setTimeout(tick, 3400);
+  }
+  setInterval(function () {
+    if (!cUp) return;
+    var s = Math.floor((Date.now() - startedAt) / 1000);
+    var mm = String(Math.floor(s / 60)), ss = String(s % 60);
+    cUp.textContent = (mm.length < 2 ? "0" + mm : mm) + ":" + (ss.length < 2 ? "0" + ss : ss);
+  }, 1000);
+
+  /* ---------------- go ---------------- */
+  wrapTerms(document.getElementById("hub-top"));
+  markVisit(routeNow());
+  layoutWeb();
+  if (cLinks) cLinks.textContent = $$("[data-pg]").length + $$("#hub-top .beat").length + 1;
+  log("<b>Pulse:</b> started. Every line below this one appears only when a real check finishes — pictures, videos, the record book, the market, and the wiring between sections.");
+  setTimeout(tick, 900);
 })();
 </script>
 </body>

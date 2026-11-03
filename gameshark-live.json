@@ -1,11 +1,11 @@
 {
-  "tip_height": 1844,
-  "tip_hash": "dccf03e47b8ab5358205136dc174ed3ba928972d17901ea4b80cbce67229da89",
-  "bridge_height": 1825,
-  "bridge_hash": "025edba59933a449bdf18d6ebf06d781bd40ded6f1695640c5b99e0c30c8f967",
-  "fusion_tip_height": 694,
-  "fusion_tip_hash": "03db453bc9c10d5f597b287d2033a27ecff133ed5595fcca4d9d94330789ec70",
-  "fusion_audit_height": 694,
+  "tip_height": 1845,
+  "tip_hash": "54d7084fa7cda75ab802cd62e83159457c1b0015782a177eb109813e192bb5f8",
+  "bridge_height": 1845,
+  "bridge_hash": "54d7084fa7cda75ab802cd62e83159457c1b0015782a177eb109813e192bb5f8",
+  "fusion_tip_height": 702,
+  "fusion_tip_hash": "3fbcb3e5f323feca20f4b64931c43647dd4e765f9d13a378100a47f623279c29",
+  "fusion_audit_height": 702,
   "knots": {
     "count": 140,
     "tied": 140,
@@ -18,8 +18,8 @@
       "height": 593,
       "surface": "gameshark"
     },
-    "bridge_block": 1825,
-    "fusion_tip_height": 694
+    "bridge_block": 1845,
+    "fusion_tip_height": 702
   },
   "finals": [
     {
@@ -71,5 +71,5 @@
       "event_id": "401909921"
     }
   ],
-  "updated_at": "2026-11-03T08:11:51.633206+00:00"
+  "updated_at": "2026-11-03T11:59:32.434786+00:00"
 }

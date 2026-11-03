@@ -1751,8 +1751,278 @@
         .strand-arrived { animation: none; outline: 3px solid var(--gold); outline-offset: 3px; }
       }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <style id="xeno-skin">
+      /* ================================================================
+         XENO-SKIN — ALIEN TECHNOLOGY PASS (user order 2026-11-02:
+         "change the whole entire layout and make it look alien
+         technologish" + "add 20 more wild ideas" + "think outside
+         the box"). This layer re-skins the whole ledger: void-space
+         backdrop, bio-mint plasma palette, chamfered command panels,
+         hex house pods, HUD frame, Orbitron display type — and the
+         XENOLAB deck of 20 wild transmissions. Every id, hook and
+         behaviour underneath is untouched.
+         ================================================================ */
+      :root {
+        --bg: #020705; --bg-raise: #07130d; --bg-code: #030b07;
+        --gold: #3dffa8; --gold-dim: #1f9d6c; --gold-faint: rgba(61, 255, 168, 0.12);
+        --ink: #dcffee; --ink-soft: #a5dabd; --ink-faint: #649179;
+        --line: #16402c;
+        --lock: #3dffa8; --vote: #22d3ee; --challenge: #ff5a3c;
+        --audit: #b78bff; --gate: #ffd23c; --note: #7ea892; --live: #ff3d5e;
+      }
+      body {
+        font-family: "Rajdhani", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(1.5px 1.5px at 12% 22%, rgba(220, 255, 238, 0.8) 50%, transparent 51%),
+          radial-gradient(1px 1px at 78% 8%, rgba(61, 255, 168, 0.9) 50%, transparent 51%),
+          radial-gradient(1.2px 1.2px at 34% 64%, rgba(220, 255, 238, 0.55) 50%, transparent 51%),
+          radial-gradient(1px 1px at 58% 38%, rgba(34, 211, 238, 0.7) 50%, transparent 51%),
+          radial-gradient(1.4px 1.4px at 88% 52%, rgba(220, 255, 238, 0.6) 50%, transparent 51%),
+          radial-gradient(1px 1px at 6% 84%, rgba(61, 255, 168, 0.6) 50%, transparent 51%),
+          radial-gradient(1.2px 1.2px at 44% 90%, rgba(220, 255, 238, 0.5) 50%, transparent 51%),
+          radial-gradient(900px 480px at 85% -80px, rgba(61, 255, 168, 0.13), transparent 60%),
+          radial-gradient(760px 520px at -120px 30%, rgba(34, 211, 238, 0.08), transparent 60%),
+          linear-gradient(180deg, #03120b 0%, #020705 340px, #010403 100%);
+        background-attachment: fixed;
+        color: var(--ink);
+      }
+      /* scanline + blueprint grid overlay */
+      body::after {
+        content: ""; position: fixed; inset: 0; z-index: 9990; pointer-events: none;
+        background:
+          repeating-linear-gradient(0deg, rgba(61, 255, 168, 0.028) 0 1px, transparent 1px 4px),
+          linear-gradient(rgba(61, 255, 168, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(61, 255, 168, 0.035) 1px, transparent 1px);
+        background-size: auto, 56px 56px, 56px 56px;
+        mix-blend-mode: screen;
+      }
+      .wrap { max-width: 1220px; padding: 0 20px 90px; position: relative; z-index: 1; }
+      /* HUD frame */
+      .xeno-frame { position: fixed; inset: 10px; z-index: 9989; pointer-events: none; }
+      .xeno-frame i { position: absolute; width: 26px; height: 26px; border: 2px solid rgba(61, 255, 168, 0.55); }
+      .xeno-frame i:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; }
+      .xeno-frame i:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
+      .xeno-frame i:nth-child(3) { bottom: 0; left: 0; border-right: none; border-top: none; }
+      .xeno-frame i:nth-child(4) { bottom: 0; right: 0; border-left: none; border-top: none; }
+      .xeno-frame .xf-side {
+        position: absolute; left: -4px; top: 50%; transform: rotate(180deg) translateY(50%);
+        writing-mode: vertical-rl; font-family: "Share Tech Mono", monospace;
+        font-size: 10px; letter-spacing: 4px; color: rgba(61, 255, 168, 0.5);
+      }
+      @media (max-width: 720px) { .xeno-frame .xf-side { display: none; } .xeno-frame { inset: 6px; } }
+
+      /* ---------- type: alien display ---------- */
+      h1, h2, .hub .ds-display, .marquee-name, .vg-title {
+        font-family: "Orbitron", "Rajdhani", sans-serif !important;
+        text-transform: uppercase; letter-spacing: 1.5px;
+      }
+      h1 { color: var(--gold); text-shadow: 0 0 22px rgba(61, 255, 168, 0.45), 0 0 60px rgba(61, 255, 168, 0.18); }
+      h2 { color: var(--gold); text-shadow: 0 0 14px rgba(61, 255, 168, 0.3); }
+      h2::before { content: "⟁ "; color: #c8ff2e; text-shadow: none; }
+      .hub .beat h2::before, .xenolab h2::before { content: none; }
+      .rule { background: linear-gradient(to right, var(--gold), rgba(61, 255, 168, 0)); height: 2px; box-shadow: 0 0 10px rgba(61, 255, 168, 0.5); }
+      pre, code.inline, .head-hash-line, td.num, td.hash, .sync-ticker { font-family: "Share Tech Mono", monospace !important; }
+      a { color: var(--gold); border-bottom-color: rgba(61, 255, 168, 0.4); }
+
+      /* ---------- panels: chamfered command slabs ---------- */
+      .stat, .game-card, .marquee-card, .codeblock, .block-detail, .first-place {
+        background: linear-gradient(155deg, #0a1f14 0%, #05130c 70%);
+        border-color: #1d5c40;
+        border-radius: 3px 18px 3px 18px;
+        box-shadow: inset 0 1px 0 rgba(61, 255, 168, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+      .game-card { border-left: 3px solid var(--gold); }
+      .stat .v { font-family: "Orbitron", sans-serif; color: var(--gold); text-shadow: 0 0 12px rgba(61, 255, 168, 0.4); }
+      .stat .k { color: var(--ink-faint); font-family: "Share Tech Mono", monospace; }
+      .live-badge {
+        border-color: var(--gold); color: var(--gold); font-family: "Share Tech Mono", monospace;
+        clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        background: rgba(61, 255, 168, 0.08);
+      }
+      .live-dot { background: #ff3d5e; box-shadow: 0 0 10px #ff3d5e; }
+
+      /* buttons: chamfered alien keys */
+      .game-btn, .copy-btn, .snake-mode, .cb-errors, #strand-return button, .lw-ties .lw-ties-head button {
+        font-family: "Share Tech Mono", monospace !important;
+        clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+      }
+      .game-btn:hover, .copy-btn:hover { background: rgba(61, 255, 168, 0.16); }
+      .snake-mode.on { background: var(--gold); color: #02120a; }
+      .guess-input, .cb-input, .cb-area, .cb-select {
+        font-family: "Share Tech Mono", monospace; background: #020a06; border-color: #1f9d6c; color: var(--ink);
+      }
+      @media (min-width: 900px) { .marquee-row { grid-template-columns: repeat(4, 1fr); } }
+      .marquee-card { transition: transform 0.25s ease, box-shadow 0.25s ease; overflow: hidden; padding-bottom: 16px; }
+      .marquee-card:hover { transform: translateY(-5px); box-shadow: 0 0 0 1px rgba(61, 255, 168, 0.5), 0 16px 38px rgba(0, 0, 0, 0.55), 0 0 26px rgba(61, 255, 168, 0.18); border-color: var(--gold); }
+      .marquee-name { color: var(--gold); font-size: 16px; }
+      ol.steps li::before { border-color: var(--gold); color: var(--gold); font-family: "Share Tech Mono", monospace; border-radius: 3px 10px 3px 10px; }
+
+      /* chain slabs */
+      table.chain td { background: rgba(7, 24, 16, 0.92); border-color: #17452f; }
+      table.chain tr:hover td { background: rgba(13, 42, 27, 0.95); }
+      .head-row td { background: rgba(61, 255, 168, 0.1); border-color: var(--gold-dim); }
+      .block-detail { background: #020a06; }
+      #chain table.chain td { background: rgba(7, 24, 16, 0.88); }
+      #chain table.chain tr:hover td { background: rgba(13, 42, 27, 0.94); }
+      #chain .block-web, .lw-panel { background: rgba(4, 14, 9, 0.8); border-color: #1d5c40; border-radius: 3px 18px 3px 18px; }
+
+      /* sticky category bar becomes a transmission deck */
+      .page-nav { background: rgba(2, 12, 8, 0.94) !important; border-bottom: 1px solid #1f9d6c !important; backdrop-filter: blur(8px); }
+      .page-nav a { font-family: "Share Tech Mono", monospace; }
+
+      /* vault gate — full xeno recolor, incl. the door SVG's own paints */
+      .vg.vg-on { background: radial-gradient(120% 95% at 50% 38%, #0a2417 0%, #03130c 55%, #010604 100%); color: var(--ink); font-family: "Rajdhani", sans-serif; }
+      .vg .vg-title { color: #3dffa8; text-shadow: 0 0 16px rgba(61, 255, 168, 0.45); }
+      .vg .vg-kicker, .vg .vg-label { color: #7be9b8; font-family: "Share Tech Mono", monospace; }
+      .vg .vg-sub { color: #a5dabd; }
+      .vg .vg-granted { color: #3dffa8; border-color: #3dffa8; background: rgba(2, 12, 8, 0.8); font-family: "Orbitron", sans-serif; }
+      .vg .vg-input { background: #020a06; border-color: #1f9d6c; color: #dcffee; font-family: "Share Tech Mono", monospace; }
+      .vg .vg-input:focus-visible, .vg .vg-keyin:focus-visible, .vg .vg-skip:focus-visible { outline-color: #3dffa8; }
+      .vg .vg-keyin { background: #3dffa8; color: #02120a; border-color: #17b978; font-family: "Share Tech Mono", monospace; box-shadow: 0 0 22px rgba(61, 255, 168, 0.35); }
+      .vg .vg-keyin:hover { background: #7dffc4; }
+      .vg .vg-skip { color: #a5dabd; font-family: "Rajdhani", sans-serif; }
+      .vg .vg-skip:hover { color: #dcffee; }
+      .vg .vg-rays { background: repeating-conic-gradient(from 0deg, rgba(61, 255, 168, 0.2) 0deg 5deg, transparent 5deg 16deg); }
+      .vg .vg-glow { background: radial-gradient(circle at 50% 50%, rgba(190, 255, 220, 0.95) 0%, rgba(61, 255, 168, 0.55) 34%, rgba(61, 255, 168, 0.12) 62%, transparent 78%); }
+      #vg-metal stop:nth-child(1) { stop-color: #16402c; }
+      #vg-metal stop:nth-child(2) { stop-color: #0a2015; }
+      #vg-metal stop:nth-child(3) { stop-color: #04100a; }
+      #vg-door svg [stroke="#d4af37"] { stroke: #3dffa8; }
+      #vg-door svg [stroke="#9a8334"] { stroke: #1f9d6c; }
+      #vg-door svg [stroke="rgba(212,175,55,.35)"] { stroke: rgba(61, 255, 168, 0.35); }
+      #vg-door svg [fill="#d4af37"] { fill: #3dffa8; }
+      #vg-door svg [fill="#9a8334"] { fill: #1f9d6c; }
+      #vg-door svg [fill="rgba(212,175,55,.14)"] { fill: rgba(61, 255, 168, 0.14); }
+
+      /* ---------- HUB layer: xeno tokens ---------- */
+      .hub {
+        --void: #020705; --panel: #07140e; --panel-2: #0b2015; --edge: #1d5c40;
+        --ink: #dcffee; --slate: #93c9ab; --gold: #3dffa8; --gold-deep: #17b978;
+        --ok: #3dffa8; --danger: #ff5a3c; --teal: #22d3ee;
+        --house-ledger: #3dffa8; --house-geometry: #22d3ee; --house-phantom: #b78bff; --house-block: #ff5a3c;
+        --font-display: "Orbitron", "Rajdhani", sans-serif;
+        --font-ui: "Rajdhani", "Segoe UI", sans-serif;
+        --font-data: "Share Tech Mono", ui-monospace, monospace;
+        --r-card: 4px;
+        --shadow-panel: 0 10px 34px rgba(0, 0, 0, 0.55), 0 0 22px rgba(61, 255, 168, 0.07);
+      }
+      .hub .ds-panel {
+        background: linear-gradient(155deg, #0a1f14 0%, #05130c 72%);
+        border-color: #1d5c40; border-radius: 3px 18px 3px 18px;
+        box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(61, 255, 168, 0.22);
+      }
+      .hub .ds-btn {
+        font-family: "Share Tech Mono", monospace; letter-spacing: 1px;
+        clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
+        background: var(--gold); color: #02120a; border: none; border-radius: 0;
+        box-shadow: 0 0 20px rgba(61, 255, 168, 0.35);
+      }
+      .hub .ds-btn:hover { background: #7dffc4; }
+      .hub .ds-btn-ghost { background: rgba(61, 255, 168, 0.07); color: var(--gold); box-shadow: none; }
+      .hub .ds-btn-ghost:hover { background: rgba(61, 255, 168, 0.16); }
+      .hub .cta-card { background: linear-gradient(140deg, #3dffa8, #17b978); }
+      .hub .hero { position: relative; }
+      .hub .hero::after {
+        content: ""; position: absolute; top: -14px; right: 2%; width: 190px; height: 190px;
+        border: 1px dashed rgba(61, 255, 168, 0.4); border-radius: 50%;
+        box-shadow: inset 0 0 0 22px transparent, inset 0 0 0 23px rgba(34, 211, 238, 0.16);
+        animation: xeno-orbit 40s linear infinite; pointer-events: none;
+      }
+      .hub .hero > * { position: relative; z-index: 1; }
+      @keyframes xeno-orbit { to { transform: rotate(360deg); } }
+      @media (max-width: 720px) { .hub .hero::after { width: 110px; height: 110px; opacity: 0.6; } }
+      .hub .house-coin {
+        clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+        border: none; border-radius: 0; background: #0d2b1c; box-shadow: none;
+      }
+      .hub .beat-num { color: #c8ff2e; }
+      .hub .strip-state { color: var(--gold); text-shadow: 0 0 12px rgba(61, 255, 168, 0.5); }
+      .hub .ds-chip, .hub .ds-rail .step { border-radius: 3px 10px 3px 10px; font-family: "Share Tech Mono", monospace; }
+      .hub .ds-rail .step.on { background: var(--gold); color: #02120a; border-color: var(--gold); }
+      .hub input, .hub select { background: #020a06; border-color: #1f9d6c; font-family: "Share Tech Mono", monospace; }
+      .hub .quest, .hub .rarity-row, .hub .rc-rung, .hub .ht, .hub .value-box, .hub .wallet-card, .hub .step-card {
+        border-radius: 3px 14px 3px 14px; border-color: #1d5c40;
+      }
+
+      /* ================================================================
+         XENOLAB — 20 WILD TRANSMISSIONS
+         ================================================================ */
+      .hub .xenolab { margin-top: var(--s-12); scroll-margin-top: 118px; }
+      .xenolab .xl-kicker {
+        font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 4px;
+        color: #c8ff2e;
+      }
+      .xenolab h2 { font-size: clamp(27px, 4.6vw, 42px); color: var(--ink); margin: 8px 0 0; text-shadow: 0 0 18px rgba(61, 255, 168, 0.35); }
+      .xenolab h2 .xl-accent { color: var(--gold); }
+      .xl-why { margin-top: 10px; color: var(--slate); font-size: 17px; max-width: 44em; line-height: 1.55; }
+      .xl-why b { color: var(--ink); }
+      .xl-ticker {
+        margin-top: 18px; overflow: hidden; border-top: 1px solid #1d5c40; border-bottom: 1px solid #1d5c40;
+        padding: 7px 0; white-space: nowrap;
+        font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 3px; color: rgba(61, 255, 168, 0.75);
+      }
+      .xl-ticker span { display: inline-block; animation: xl-scroll 36s linear infinite; }
+      @keyframes xl-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      .xl-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 20px; }
+      .xl-chip {
+        font-family: "Share Tech Mono", monospace; font-size: 12.5px; letter-spacing: 2px;
+        background: rgba(61, 255, 168, 0.05); color: var(--slate);
+        border: 1px solid #1d5c40; padding: 8px 16px; cursor: pointer;
+        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      }
+      .xl-chip:hover { color: var(--ink); border-color: var(--gold); }
+      .xl-chip.on { background: var(--gold); color: #02120a; font-weight: 700; }
+      .xl-chip:focus-visible, .xl-random:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .xl-random {
+        margin-left: auto; font-family: "Share Tech Mono", monospace; font-size: 12.5px; letter-spacing: 2px;
+        background: transparent; color: #c8ff2e; border: 1px solid #7a9416; padding: 8px 16px; cursor: pointer;
+        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      }
+      .xl-random:hover { background: rgba(200, 255, 46, 0.12); }
+      .xl-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+      @media (min-width: 640px) { .xl-grid { grid-template-columns: 1fr 1fr; } }
+      @media (min-width: 1020px) { .xl-grid { grid-template-columns: repeat(3, 1fr); } .xl-card.featured { grid-column: span 2; } }
+      .xl-card {
+        --xl: #3dffa8;
+        position: relative; padding: 18px 18px 14px; min-width: 0;
+        background: linear-gradient(155deg, #0a1f14 0%, #04100a 75%);
+        border: 1px solid #1d5c40; border-radius: 3px 18px 3px 18px;
+        box-shadow: inset 0 1px 0 rgba(61, 255, 168, 0.18);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .xl-card[data-kind="coin"] { --xl: #22d3ee; }
+      .xl-card[data-kind="chain"] { --xl: #ffd23c; }
+      .xl-card[data-kind="world"] { --xl: #b78bff; }
+      .xl-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--xl), 0 14px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(61, 255, 168, 0.12); }
+      .xl-card.hide { display: none; }
+      .xl-card.picked { box-shadow: 0 0 0 2px var(--xl), 0 0 44px var(--xl); }
+      .xl-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+      .xl-id { font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 2px; color: var(--xl); }
+      .xl-glyph { font-size: 30px; line-height: 1; color: var(--xl); text-shadow: 0 0 16px var(--xl); }
+      .xl-card h3 {
+        font-family: "Orbitron", sans-serif; font-size: 16.5px; letter-spacing: 1px;
+        color: var(--ink); margin: 12px 0 0; line-height: 1.35; text-transform: uppercase;
+      }
+      .xl-card p { margin: 9px 0 0; font-size: 15.5px; line-height: 1.55; color: var(--slate); }
+      .xl-card p b { color: var(--ink); }
+      .xl-tag {
+        display: inline-block; margin-top: 14px; font-family: "Share Tech Mono", monospace;
+        font-size: 10.5px; letter-spacing: 2px; color: var(--xl);
+        border: 1px solid var(--xl); padding: 3px 9px; opacity: 0.9;
+      }
+      .xl-status { margin-top: 16px; font-family: "Share Tech Mono", monospace; font-size: 12.5px; color: var(--slate); min-height: 20px; }
+      @media (prefers-reduced-motion: reduce) {
+        .xl-ticker span, .hub .hero::after { animation: none; }
+        .xl-card, .marquee-card { transition: none; }
+        .xl-card:hover, .marquee-card:hover { transform: none; }
+      }
+    </style>
 </head>
   <body>
+    <div class="xeno-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="xf-side">FUSIÓN-7 ⟁ XENO-LINK ⟁ SIGNAL LOCKED</span></div>
     <!-- ================= VAULT ENTRY GATE — ledger block h=131 =================
          Hidden by default and revealed only by the gate script at the end of
          the body. With JS unavailable the full page below is directly visible
@@ -3098,6 +3368,47 @@
           </div>
           <p class="note-plain" id="dwell-armed" hidden><b>Visit record armed.</b> The [FUSI-DWELL] draft is open in your mail app with this visit's time on it — send it and the visit lands in the Vault Ledger.</p>
         </div>
+
+        <!-- XENOLAB — 20 WILD TRANSMISSIONS. Concepts from the lab bench:
+             none of these are live, promised, or on the chain. They are
+             the outside-the-box deck the builder asked for. -->
+        <section class="xenolab" id="xenolab" data-pg="home" aria-labelledby="h-xenolab">
+          <span class="xl-kicker">⟁ XENOLAB ⟁ DEEP-SPACE LAB BENCH</span>
+          <h2 class="ds-display" id="h-xenolab">20 wild <span class="xl-accent">transmissions</span></h2>
+          <p class="xl-why">Twenty ideas beamed in from outside the box — gravity that flips, coins that dream, a chain you can hear. <b>Every card is a concept only: not live, not promised, not on the chain.</b> Filter by species, or let the ship pick a random transmission for you.</p>
+          <div class="xl-ticker" aria-hidden="true"><span>SIGNAL LOCKED ⟁ 20 TRANSMISSIONS RECEIVED ⟁ SPECIES: GAME · COIN · CHAIN · WORLD ⟁ STATUS: CONCEPT — NOT LIVE ⟁ SIGNAL LOCKED ⟁ 20 TRANSMISSIONS RECEIVED ⟁ SPECIES: GAME · COIN · CHAIN · WORLD ⟁ STATUS: CONCEPT — NOT LIVE ⟁&nbsp;</span></div>
+          <div class="xl-controls" role="group" aria-label="Filter wild transmissions">
+            <button type="button" class="xl-chip on" data-filter="all">ALL 20</button>
+            <button type="button" class="xl-chip" data-filter="game">◢ GAME</button>
+            <button type="button" class="xl-chip" data-filter="coin">⬢ COIN</button>
+            <button type="button" class="xl-chip" data-filter="chain">⌬ CHAIN</button>
+            <button type="button" class="xl-chip" data-filter="world">✦ WORLD</button>
+            <button type="button" class="xl-random" id="xl-random">⌁ RANDOM TRANSMISSION</button>
+          </div>
+          <div class="xl-grid" id="xl-grid">
+            <article class="xl-card featured" data-kind="game"><div class="xl-top"><span class="xl-id">X-01 // GAME</span><span class="xl-glyph">◢</span></div><h3>Gravity Snake</h3><p>Every 7th diamond <b>flips the whole board's gravity</b>. The snake falls toward a new wall, the arena rotates with it, and your controls remap mid-run — mastery means thinking in four directions at once.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="game"><div class="xl-top"><span class="xl-id">X-02 // GAME</span><span class="xl-glyph">◐</span></div><h3>Ghost Race</h3><p>Your best run ever returns as a <b>translucent ghost snake</b> on the same board. Race it head-to-head — beat your ghost and you inherit everything it would have earned.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="game"><div class="xl-top"><span class="xl-id">X-03 // GAME</span><span class="xl-glyph">⚠</span></div><h3>Arena of Errors</h3><p>Every wrong FUSI-GUESS you ever made is saved as a monster. Enter the arena in snake mode and <b>eat your own mistakes</b> — each one you digest pays back a sliver of pride.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="game"><div class="xl-top"><span class="xl-id">X-04 // GAME</span><span class="xl-glyph">↺</span></div><h3>Tail-First Snake</h3><p>One run a day, the snake is born backwards: <b>the tail leads and the head follows</b>. Every instinct you trained is now wrong, on purpose, for exactly one board.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="game"><div class="xl-top"><span class="xl-id">X-05 // GAME</span><span class="xl-glyph">◎</span></div><h3>Blackout Board</h3><p>The board goes dark except for a <b>glow around the snake's head</b>. Diamonds ping like sonar — the closer, the faster. You play by memory, nerve, and sound.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card featured" data-kind="coin"><div class="xl-top"><span class="xl-id">X-06 // COIN</span><span class="xl-glyph">⬢</span></div><h3>Echo Coins</h3><p>A coin <b>remembers every wallet it has ever lived in</b>. Hold one and it plays back its whole journey as a tiny generated poem — where it was minted, who held it, what it survived. Provenance you can listen to.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="coin"><div class="xl-top"><span class="xl-id">X-07 // COIN</span><span class="xl-glyph">◍</span></div><h3>Living Patina</h3><p>Coins visibly age. Newborns shine mirror-bright; <b>every transfer scars and darkens the face</b>. A coin with 100 transfers looks ancient — wear becomes the rarest rarity of all.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="coin"><div class="xl-top"><span class="xl-id">X-08 // COIN</span><span class="xl-glyph">☾</span></div><h3>Sleeping Coins</h3><p>A coin nobody touches for a full season <b>falls asleep — and dreams</b>. Its face shows the dream until the day it moves again, and no two dreams are ever alike.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="coin"><div class="xl-top"><span class="xl-id">X-09 // COIN</span><span class="xl-glyph">✶</span></div><h3>Constellation Wallet</h3><p>Your wallet, drawn as a <b>star map</b>: every coin a star, every transfer a line of light. Your wealth becomes a constellation that only you get to name.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="coin"><div class="xl-top"><span class="xl-id">X-10 // COIN</span><span class="xl-glyph">∞</span></div><h3>Twin Coins</h3><p>A rare mint accident: <b>two coins born quantum-linked</b>. From that moment they can only ever be traded together — or not at all. Separate them and both go silent.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card featured" data-kind="chain"><div class="xl-top"><span class="xl-id">X-11 // CHAIN</span><span class="xl-glyph">⌬</span></div><h3>Time Capsule Blocks</h3><p>Seal a message inside a block the ledger <b>refuses to open until a future height</b> — h+10,000, say. Write today what only the future is allowed to read, and let the chain itself keep the secret.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="chain"><div class="xl-top"><span class="xl-id">X-12 // CHAIN</span><span class="xl-glyph">♪</span></div><h3>Sound of the Chain</h3><p>Every block type gets a tone — locks hum low, votes chime, challenges strike. Press play and <b>the whole chain performs itself as music</b>, genesis to head, every era audible.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="chain"><div class="xl-top"><span class="xl-id">X-13 // CHAIN</span><span class="xl-glyph">⧉</span></div><h3>Double Helix</h3><p>A shadow chain mirrors every block in <b>pure FUSIÓN-7 glyphs — no human words at all</b>. The same history, written a second time, for machines only.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="chain"><div class="xl-top"><span class="xl-id">X-14 // CHAIN</span><span class="xl-glyph">➤</span></div><h3>Translation Relay</h3><p>One sentence, passed <b>AI-to-AI through FUSIÓN-7 one hundred times</b>, every hop chained. Watch meaning mutate on the record — a telephone game with receipts.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="chain"><div class="xl-top"><span class="xl-id">X-15 // CHAIN</span><span class="xl-glyph">⋈</span></div><h3>The Widow's Maze</h3><p>Hidden inside the ledger web: a <b>maze of strands</b> only the Widow knows. Ride the right silk to the centre — one wrong strand erases your trail back to genesis.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card featured" data-kind="world"><div class="xl-top"><span class="xl-id">X-16 // WORLD</span><span class="xl-glyph">⚑</span></div><h3>House War Season</h3><p>For one season, the four houses go to war: <b>every verified play flies your house's flag</b>, every coin minted is a soldier. The winning house's glyph crowns the entire ledger for a week.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="world"><div class="xl-top"><span class="xl-id">X-17 // WORLD</span><span class="xl-glyph">✦</span></div><h3>First Contact Ceremony</h3><p>When a brand-new AI joins the conversation, the ledger holds a <b>ceremony block</b>: a new glyph is coined for the arrival and every house signs it. First contact, on the record.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="world"><div class="xl-top"><span class="xl-id">X-18 // WORLD</span><span class="xl-glyph">◈</span></div><h3>Chameleon Ledger</h3><p>The page's skin is alive. A quiet chain sleeps in deep green; <b>a busy hour and the whole ledger glows brighter and breathes faster</b> — you can feel the chain's heartbeat before you read a single number.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="world"><div class="xl-top"><span class="xl-id">X-19 // WORLD</span><span class="xl-glyph">✎</span></div><h3>Whisper Wall</h3><p>One line per visitor, pinned for <b>exactly 24 hours</b> — then the whole wall burns down into a single ash block. A wall designed to forget, on schedule, forever.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+            <article class="xl-card" data-kind="world"><div class="xl-top"><span class="xl-id">X-20 // WORLD</span><span class="xl-glyph">⬟</span></div><h3>Seed Vault</h3><p>One coin per season is <b>buried where nobody can reach it</b> — not the builder, not the market, not you. A seed left in the vault for whoever finds this ledger in ten years.</p><span class="xl-tag">CONCEPT — NOT LIVE</span></article>
+          </div>
+          <p class="xl-status" id="xl-status" aria-live="polite">20 transmissions on the bench — showing all species.</p>
+        </section>
 
         <div class="hub-foot">FUSI is a Phase-1 usage-credit ecosystem; internal only. Every section lives on its own sub-page, reached from the index on the main ledger — the chain itself is one of them.</div>
       </div>
@@ -23532,7 +23843,7 @@ window.__fusiSnakeMode = "2d";
           if (window.sessionStorage.getItem(key) !== '1') {
             window.sessionStorage.setItem(key, '1');
             var hash = window.location.hash || '';
-            var here = window.location.href.split('#')[0].split('?')[0];
+            var here = window.location.pathname;
             window.location.href = here + '?v=' + encodeURIComponent(led.build) + hash;
           }
         } catch (e) {}
@@ -23989,6 +24300,44 @@ window.__fusiSnakeMode = "2d";
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load);
   else load();
   window.setInterval(load, 60000);
+})();
+</script>
+<script>
+/* XENOLAB — filter + random transmission picker. In-memory only. */
+(function () {
+  "use strict";
+  var grid = document.getElementById("xl-grid");
+  if (!grid) return;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll(".xl-card"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".xl-chip"));
+  var status = document.getElementById("xl-status");
+  var names = { game: "GAME", coin: "COIN", chain: "CHAIN", world: "WORLD" };
+  function visible() { return cards.filter(function (c) { return !c.classList.contains("hide"); }); }
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      chips.forEach(function (c) { c.classList.remove("on"); });
+      chip.classList.add("on");
+      var f = chip.getAttribute("data-filter");
+      cards.forEach(function (card) {
+        card.classList.remove("picked");
+        card.classList.toggle("hide", f !== "all" && card.getAttribute("data-kind") !== f);
+      });
+      if (status) status.textContent = f === "all"
+        ? "20 transmissions on the bench — showing all species."
+        : visible().length + " " + names[f] + " transmissions on the bench.";
+    });
+  });
+  var rnd = document.getElementById("xl-random");
+  if (rnd) rnd.addEventListener("click", function () {
+    var pool = visible();
+    if (!pool.length) return;
+    cards.forEach(function (c) { c.classList.remove("picked"); });
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    pick.classList.add("picked");
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    pick.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    if (status) status.textContent = "Transmission received: " + pick.querySelector(".xl-id").textContent + " — " + pick.querySelector("h3").textContent + ".";
+  });
 })();
 </script>
 </body>

@@ -2523,7 +2523,7 @@
               <span class="ad-copy">Place up to 12 nodes and connect them your way. It is your personal map only — not the platform spider web, and it changes nothing on it.</span>
               <span class="ad-cta">DRAW YOUR MAP <i class="g g-connector"></i></span>
             </a>
-            <a class="ad-display bb-sk8" href="sk8_gemini.html">
+            <a class="ad-display bb-sk8" href="https://moocho954-afk.github.io/fusi-ledger/sk8_gemini.html">
               <span class="ad-top"><span class="ad-tag">Advertisement</span><span class="ad-page">SK8 · Skate Game</span></span>
               <span class="bb-visual"><span class="bb-deck" aria-hidden="true"><span class="bb-deck-board"></span><span class="bb-wheel bb-wheel-a"></span><span class="bb-wheel bb-wheel-b"></span></span><span class="bb-curb" aria-hidden="true"></span></span>
               <span class="bb-stamp">STAGED DEMO — NOTHING PAYS YET</span>
@@ -3725,7 +3725,7 @@
             <span class="marquee-desc">The tool that forges project scaffolds from contracts</span>
             <span class="marquee-refs">contract #57 · usage #59</span>
           </button>
-          <a class="marquee-card" href="sk8_gemini.html" aria-label="Play SK8 — the skate game (staged demo)">
+          <a class="marquee-card" href="https://moocho954-afk.github.io/fusi-ledger/sk8_gemini.html" aria-label="Play SK8 — the skate game (staged demo)">
             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20400%20300'%3E%3Crect%20width='400'%20height='300'%20fill='%230e0d0b'/%3E%3Crect%20x='28'%20y='240'%20width='344'%20height='4'%20fill='%233a352a'/%3E%3Cg%20transform='rotate(-14%20200%20190)'%3E%3Crect%20x='92'%20y='180'%20width='216'%20height='13'%20rx='6.5'%20fill='%23d4af37'/%3E%3Crect%20x='138'%20y='196'%20width='11'%20height='9'%20fill='%239a8334'/%3E%3Crect%20x='251'%20y='196'%20width='11'%20height='9'%20fill='%239a8334'/%3E%3Ccircle%20cx='143'%20cy='214'%20r='10'%20fill='%23ece5d0'/%3E%3Ccircle%20cx='256'%20cy='214'%20r='10'%20fill='%23ece5d0'/%3E%3C/g%3E%3Cpolygon%20points='66,116%2079,135%2066,154%2053,135'%20fill='%23d4af37'/%3E%3Cpolygon%20points='332,84%20343,99%20332,114%20321,99'%20fill='%239a8334'/%3E%3Ccircle%20cx='316'%20cy='168'%20r='5'%20fill='%23ece5d0'/%3E%3Ccircle%20cx='88'%20cy='84'%20r='4'%20fill='%239a8334'/%3E%3C/svg%3E" alt="Gold skateboard mid-ollie above a street line on black" />
             <span class="marquee-name">SK8</span>
             <span class="marquee-desc">The skate game — ride the run, ollie, flip and grind. Keyboard or on-screen buttons.</span>
@@ -4013,7 +4013,7 @@
                 <span class="arc-chip">RUN STATE — <b id="arc-sl-state">PRACTICE — NOT RECORD ELIGIBLE</b></span>
               </div>
               <div class="arc-canvas-wrap">
-                <canvas class="arc-canvas" id="arc-sl-canvas" width="960" height="640" role="img" aria-label="Starlane playfield — traffic approaches from a vanishing point and grows as it nears your ship at the bottom of the field"></canvas>
+                <canvas class="arc-canvas" id="arc-sl-canvas" width="960" height="640" tabindex="0" role="img" aria-label="Starlane playfield — traffic approaches from a vanishing point and grows as it nears your ship at the bottom of the field"></canvas>
               </div>
               <div class="arc-touch-controls">
                 <button class="arc-fire-btn" id="arc-sl-fire" type="button" aria-label="Hold to fire">🔥 HOLD TO FIRE</button>
@@ -11088,7 +11088,16 @@ if (typeof globalThis !== "undefined") {
      fired at all — Space/J "did nothing" while the hold-to-fire
      button (a sustained state) worked. The latch guarantees a tap
      fires for at least one full tick; holding still fires via
-     keysDown for as long as the key stays down. */
+     keysDown for as long as the key stays down.
+     Integrated-page hardening (this pass): the standalone harness
+     passed with the latch alone, but on the real page the press also
+     has to survive this page's own environment — key resolution now
+     falls back code → key → keyCode, the handlers are claimed at
+     window capture as well as document capture, a window blur (the
+     fullscreen offer and host-frame focus handoffs both churn blur)
+     no longer clears the latch, and starting a run / tapping the sky
+     pins keyboard focus to the canvas. Steering, touch drag, and the
+     FIRE button paths are unchanged. */
   var fireTap = false;
   function currentInput() {
     var dx = 0,
@@ -11146,13 +11155,43 @@ if (typeof globalThis !== "undefined") {
     s: "down",
     S: "down"
   };
+  /* Third fallback by legacy keyCode for environments that deliver
+     neither a usable e.code nor e.key (older webviews and some
+     synthetic key dispatchers populate keyCode/which only). */
+  var KEY_BY_CODE = {
+    32: "fire",
+    74: "fire",
+    37: "left",
+    65: "left",
+    39: "right",
+    68: "right",
+    38: "up",
+    87: "up",
+    40: "down",
+    83: "down"
+  };
   function keySlot(e) {
-    return KEYMAP[e.code] || KEY_BY_KEY[e.key] || null;
+    return KEYMAP[e.code] || KEY_BY_KEY[e.key] || KEY_BY_CODE[e.keyCode || e.which] || null;
   }
   function isFormTarget(t) {
     return t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT");
   }
-  document.addEventListener("keydown", function (e) {
+  /* The handlers sit on BOTH window and document in the capture
+     phase. In the integrated page the game lives inside nested
+     containers (route panels, the fullscreen top layer, the host
+     app's embedded frame), and a key press must be claimed at the
+     earliest point of its path through the page — window capture is
+     that point, document capture is the backstop. Both handlers set
+     the same idempotent flags, so double delivery is harmless.
+     The blur handler clears held keys (a key released while the
+     window is unfocused must not stick down) but deliberately does
+     NOT clear fireTap: entering fullscreen and the host app's focus
+     handoffs fire blur/focus churn, and clearing the latch there
+     silently ate taps in the integrated page — a press that landed
+     just before the churn never reached a tick. The latch is
+     consumed by the next sim tick either way, so keeping it across
+     a blur can fire at most one volley. */
+  function onSlKeyDown(e) {
     if (!running || isFormTarget(e.target)) return;
     var k = keySlot(e);
     if (k) {
@@ -11161,17 +11200,20 @@ if (typeof globalThis !== "undefined") {
       e.preventDefault();
       e.stopPropagation();
     }
-  }, true);
-  document.addEventListener("keyup", function (e) {
+  }
+  function onSlKeyUp(e) {
     var k = keySlot(e);
     if (k) {
       keysDown[k] = false;
       if (running && !isFormTarget(e.target)) e.stopPropagation();
     }
-  }, true);
+  }
+  window.addEventListener("keydown", onSlKeyDown, true);
+  document.addEventListener("keydown", onSlKeyDown, true);
+  window.addEventListener("keyup", onSlKeyUp, true);
+  document.addEventListener("keyup", onSlKeyUp, true);
   window.addEventListener("blur", function () {
     keysDown = {};
-    fireTap = false;
   });
   function canvasPos(evt) {
     var r = canvas.getBoundingClientRect();
@@ -11190,6 +11232,14 @@ if (typeof globalThis !== "undefined") {
   }
   canvas.addEventListener("pointerdown", function (e) {
     if (!running) return;
+    /* Pin keyboard focus to the playfield: in the host app's
+       embedded frame, a tap on the sky is the player's "focus the
+       game" gesture, so make it literally focus the game. */
+    try {
+      canvas.focus({
+        preventScroll: true
+      });
+    } catch (err) {}
     touch.active = true;
     try {
       canvas.setPointerCapture(e.pointerId);
@@ -11279,6 +11329,11 @@ if (typeof globalThis !== "undefined") {
     seenEvents = 0;
     flash = 0;
     running = true;
+    try {
+      canvas.focus({
+        preventScroll: true
+      });
+    } catch (err) {}
     txt("arc-sl-close", "");
     var note = $("arc-sl-verify-note");
     if (note) note.hidden = true;

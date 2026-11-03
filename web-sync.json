@@ -8,11 +8,10 @@
     "chain_height": 703
   },
   "gameshark": {
-    "build": "2026-11-03T19:57:17.649783+00:00",
-    "tip_height": 1850
-  },
-  "in_transit": {
+    "page": "gameshark.html",
     "build": "2026-11-03T20:33:00.192186+00:00",
+    "updated_at": "2026-11-03T20:33:00.192186+00:00",
     "tip_height": 1851
-  }
+  },
+  "in_transit": null
 }

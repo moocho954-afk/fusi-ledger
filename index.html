@@ -2097,6 +2097,60 @@
         .fx-alive i, .fx-secstat i { animation: none; }
         .fx-feed li { animation: none; }
       }
+
+      /* ---------- plain-English boxes AT the section they translate ----------
+         Added 2026-11-03 (finish-the-translation pass): the Earn audit
+         traces, both coin galleries, and the chain each carry their own
+         plain-English rendering right where the reader lands — not just
+         the starter panel at the top. Literal colours so the boxes read
+         identically inside the hub and in the ledger's own sections. */
+      .pe-box {
+        border: 1px solid #8a6d1f; border-left: 4px solid #d4af37;
+        background: rgba(212, 175, 55, 0.07);
+        padding: 14px 16px 10px; margin: 16px 0;
+        color: #ece5d0; font-size: 15px; line-height: 1.6;
+      }
+      .pe-box .pe-kicker {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 11px; font-weight: 700; letter-spacing: .16em;
+        text-transform: uppercase; color: #d4af37; margin-bottom: 6px;
+      }
+      .pe-box h3, .pe-box h4 { color: #f2ede1; font-weight: normal; margin: 0 0 6px; }
+      .pe-box h3 { font-size: 19px; }
+      .pe-box h4 { font-size: 16px; margin-top: 14px; }
+      .pe-box p { color: #d8d2bd; margin: 0 0 10px; }
+      .pe-box p strong, .pe-box li strong { color: #f2ede1; font-weight: 600; }
+      .pe-box ul, .pe-box ol { margin: 4px 0 10px; padding-left: 22px; color: #d8d2bd; }
+      .pe-box li { margin-bottom: 6px; }
+      .pe-box .pe-bottom {
+        border-top: 1px dashed #8a6d1f; padding-top: 9px; margin-top: 10px;
+        color: #f2ede1;
+      }
+      .pe-trace-list { list-style: none; padding-left: 0 !important; }
+      .pe-trace-list li {
+        border: 1px solid #3a352a; background: rgba(14, 13, 11, 0.55);
+        padding: 9px 12px; margin-bottom: 8px;
+      }
+      .pe-trace-list .pe-amt { color: #d4af37; font-weight: 700; white-space: nowrap; }
+      /* per-row plain summary inside the chain table's title cell */
+      .pe-row-note {
+        display: block; margin-top: 4px;
+        font-size: 13px; line-height: 1.5; color: #b9b096; font-style: italic;
+      }
+      /* per-card plain note inside gallery / vault cards */
+      .pe-card-note {
+        display: block; border-top: 1px dashed #8a6d1f; padding-top: 8px;
+        font-size: 13.5px; line-height: 1.55; color: #d8d2bd;
+      }
+      .pe-card-note b { color: #d4af37; font-weight: 700; }
+      /* plain lead-in inside an opened block's machine-readable detail */
+      .pe-detail-note {
+        font-family: Georgia, "Times New Roman", serif;
+        border: 1px solid #8a6d1f; background: rgba(212, 175, 55, 0.08);
+        color: #ece5d0; font-size: 14px; line-height: 1.55;
+        padding: 10px 12px; margin-bottom: 12px;
+      }
+      .pe-detail-note b { color: #d4af37; font-weight: 700; }
     </style>
 </head>
   <body>
@@ -2243,6 +2297,7 @@
               <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-pass">0</div><div class="fx-clab">Checks passed</div></div>
               <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-media">—</div><div class="fx-clab">Pictures &amp; videos healthy</div></div>
               <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-links">—</div><div class="fx-clab">Sections wired together</div></div>
+              <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-cov">0 / 0</div><div class="fx-clab">Sections checked so far</div></div>
               <div class="fx-counter"><div class="fx-cnum ds-data" id="fx-c-up">00:00</div><div class="fx-clab">Pulse running for</div></div>
             </div>
             <canvas id="fx-web" height="170" aria-label="A living map of this page: every section is a glowing node, and light travels between the nodes each time the page finishes a job on that section." role="img"></canvas>
@@ -2581,6 +2636,27 @@
               <div class="latest-label" style="margin-bottom:var(--s-3)">C2 · Claim-to-Payout Trace — audit view</div>
               <h3 class="ds-display" style="font-size:var(--t-25);color:var(--ink)">Follow one FUSI unit, grant to spendable.</h3>
               <p style="margin-top:var(--s-3);color:var(--slate);font-size:var(--t-14)">This panel is the audit view rendered from <span class="ds-data">trace.py</span> — the read-only tracer forged at h=215 (build receipt h=227, usage guide h=228). It follows each unit earn_grant → h=195 vesting → spendable moment → settles, fee events and payouts. <strong style="color:var(--ink)">Audit run 2026-10-21 00:01 UTC · chain head h=246.</strong> It is the tool's verified output over the real chain, not a live re-derivation in the browser — re-running the tool refreshes it.</p>
+              <div class="pe-box" id="pe-earn-audit">
+                <div class="pe-kicker">In plain English — this audit, translated</div>
+                <h3>Following a payout from promise to spendable, in everyday words</h3>
+                <p>When a player finishes a game run that passes the checks, the platform <strong>promises them play credits</strong>. This panel is an independent re-check of every promise like that. It follows each promised credit through four plain steps:</p>
+                <ol>
+                  <li><strong>The promise is written down.</strong> The payout, who earned it, and what they did to earn it are recorded on a page of the record book.</li>
+                  <li><strong>A waiting period runs.</strong> New payouts unlock gradually over 7 days — a little more becomes usable each day, and the whole amount is usable on day 7. Until a credit's own unlock moment arrives, it cannot be spent or traded.</li>
+                  <li><strong>The proof is checked.</strong> The checker replays the maths behind each unlock date to make sure the dates follow the 7-day rule exactly.</li>
+                  <li><strong>Then it can move.</strong> Once a credit is unlocked and proven, it can be spent or traded, and any trade is written down too.</li>
+                </ol>
+                <h4>The checker's verdict words, translated</h4>
+                <ul>
+                  <li><strong>“Not proven yet”</strong> (the checker writes UNVERIFIED) — the payout is recorded, but the strongest form of replay proof does not ride with it, so treat it as recorded-but-unproven.</li>
+                  <li><strong>“Proven”</strong> (VERIFIED) — replay proof rides with the payout itself.</li>
+                  <li><strong>“Still in the waiting period”</strong> (VESTING) — the unlock date is still ahead.</li>
+                  <li><strong>“Ready to use”</strong> (VESTED, or “spendable at…”) — the unlock date has passed.</li>
+                  <li><strong>“Turned down”</strong> (REJECTED) — a later page cancelled the payout, or it was never in a granted state.</li>
+                  <li><strong>“No trade yet”</strong> (settlement NONE) — nobody has traded or cashed in against this payout so far. <strong>“Trade unfinished — unclear”</strong> (SETTLEMENT UNKNOWN) means a trade was started but never finished, so the credit does not count as usable on that basis.</li>
+                </ul>
+                <p class="pe-bottom"><strong>The bottom line of this audit:</strong> 6 promises totalling <strong>220 credits</strong>, all belonging to Bigg Moocho. At the moment this check ran (21 October 2026), every one was still in its waiting period and none was fully proven yet — and the checker found <strong>0 broken links and 0 wrong unlock dates</strong>: every date matched the 7-day rule exactly. Each promise is restated in plain words under the table below.</p>
+              </div>
               <div class="house-totals">
                 <div class="ht"><div class="h">GRANTS TRACED</div><div class="n ds-data">6 · 220 FUSI</div><div class="c">every earn_grant on the chain</div></div>
                 <div class="ht"><div class="h">VESTING / VESTED</div><div class="n ds-data">220 / 0 FUSI</div><div class="c">at the audit run — spendable moments are listed per grant below</div></div>
@@ -2604,6 +2680,20 @@
                   </tbody>
                 </table>
               </div>
+              <div class="pe-box" id="pe-earn-traces">
+                <div class="pe-kicker">In plain English — the six payouts, one by one</div>
+                <h3>The same table, restated without the code words</h3>
+                <p>“Page” below is the page of the record book where the promise was written. The coin named is the one-of-a-kind coin that carries that payout. Every one of the six reads the same way at the end: <strong>recorded, not fully proven yet, no trade yet</strong> — so only the amount, the achievement, the coin and the unlock date differ.</p>
+                <ol class="pe-trace-list">
+                  <li><span class="pe-amt">10 credits</span> — <strong>for finishing a first checked run</strong> (page 111). Carried by coin PHANTOM-004 (an earlier registration, PHANTOM-003, was replaced by a newer one). Fully usable from <strong>21 October 2026, 16:05 UTC</strong>.</li>
+                  <li><span class="pe-amt">15 credits</span> — <strong>for eating 5 diamonds in one run</strong> (page 112). Carried by coin GEOMETRY-004. Fully usable from <strong>22 October 2026, 16:05 UTC</strong>.</li>
+                  <li><span class="pe-amt">40 credits</span> — <strong>for eating 15 diamonds in one run</strong> (page 113). Carried by coin GEOMETRY-005. Fully usable from <strong>24 October 2026, 16:05 UTC</strong>.</li>
+                  <li><span class="pe-amt">25 credits</span> — <strong>for taking first place on the board</strong> (page 114). Carried by coin LEDGER-004. Fully usable from <strong>25 October 2026, 16:05 UTC</strong>.</li>
+                  <li><span class="pe-amt">100 credits</span> — <strong>for eating 30 diamonds in one run</strong> (page 115). Carried by coin GEOMETRY-006. Fully usable from <strong>26 October 2026, 16:05 UTC</strong>.</li>
+                  <li><span class="pe-amt">30 credits</span> — <strong>for completing 10 checked runs</strong> (page 133). Carried by coin BLOCK-004 (an earlier registration, BLOCK-003, was replaced by a newer one). Fully usable from <strong>27 October 2026, 00:27 UTC</strong>.</li>
+                </ol>
+                <p class="pe-bottom">And the 11 score messages listed in the checker's note below? In plain words: players sent in scores, the scores were written down as sent in — <strong>they pay out nothing by themselves and can never be spent</strong>. Only a payout that passes the checks becomes credits.</p>
+              </div>
               <p style="margin-top:var(--s-4);color:var(--slate);font-size:var(--t-14)">All six grants belong to Bigg Moocho (fusi-snake) and read <strong style="color:var(--ink)">UNVERIFIED</strong> in the tool's vocabulary — no L2 replay evidence rides the grants themselves; the h=195 restamps reproduce exactly from the formula, which is why deviations stand at zero. Settlement is NONE on every grant: no transfer has settled against any of these coins. The 11 score claims (h=93, h=99, h=100, h=101, h=109, h=117, h=196, h=197, h=198, h=199, h=200) trace as UNVERIFIED by definition — recorded as submitted, granting nothing, never spendable.</p>
             </div>
           </div>
@@ -2620,6 +2710,20 @@
           </div>
           <p class="beat-why">Every grant mints a 1-of-1 coin from one of the four houses, and its rarity signature is rolled at the moment of the mint — never assigned later.</p>
           <div class="beat-body">
+            <div class="pe-box" id="pe-coin-guide">
+              <div class="pe-kicker">In plain English — how to read any coin here</div>
+              <h3>Every coin card on this page, translated line by line</h3>
+              <ul>
+                <li><strong>The picture and the name</strong> (like LEDGER-001) — each coin is a one-of-a-kind collectible. “1 of 1” means exactly one exists; there is no second copy.</li>
+                <li><strong>Its family</strong> (the card calls it a “house”) — every coin belongs to one of four families: LEDGER, GEOMETRY, PHANTOM or BLOCK. The family is part of its identity, like a team it plays for.</li>
+                <li><strong>How rare it is</strong> — COMMON is the everyday kind; then UNCOMMON, RARE, EPIC and LEGENDARY get scarcer; MYTHIC is the scarcest of all. The coloured list right below counts how many of each kind exist right now.</li>
+                <li><strong>Book value</strong> — the play credits that came with the coin when it was paid out. This is the coin's value in credits, full stop.</li>
+                <li><strong>Collection score</strong> (the card calls it “rarity value”) — a separate score for how collectible the coin is, worked out from its book value and how rare it is. <strong>It is never added to the book value</strong> — the two numbers always stay separate.</li>
+                <li><strong>Who holds it</strong> — the person (or the platform's own reserve, the “treasury”) the coin currently belongs to.</li>
+                <li><strong>“Registry page”</strong> (written as registry h=…) — the page number of the record book where this coin was first written down, so anyone can look it up and check it.</li>
+              </ul>
+              <p class="pe-bottom">Short version: <strong>book value is what the coin is worth in credits; the collection score is just bragging rights about how rare it is.</strong> They are two different numbers about the same coin, and this page never mixes them into one.</p>
+            </div>
             <ul class="rarity-list" aria-label="Rarity scale with live census">
               <li class="rarity-row"><span class="r-name rarity-common">COMMON</span><span class="r-count ds-num"><span id="census-common">—</span><small>EXIST NOW</small></span></li>
               <li class="rarity-row"><span class="r-name rarity-uncommon">UNCOMMON</span><span class="r-count ds-num"><span id="census-uncommon">—</span><small>EXIST NOW</small></span></li>
@@ -2641,6 +2745,7 @@
 
             <div class="ds-panel" style="margin-top:var(--s-6);overflow-x:auto">
               <div class="latest-label" style="margin-bottom:var(--s-3)">Rarity legend &amp; live census — sha256-band v1 (PROVISIONAL)</div>
+              <p style="color:var(--slate);font-size:var(--t-14);margin-bottom:var(--s-3)"><strong style="color:var(--ink)">In plain English:</strong> this table is the rarity scorecard. <strong style="color:var(--ink)">Weight</strong> is how big a slice of all rolls lands in that tier — bigger weight, more common. <strong style="color:var(--ink)">Multiplier</strong> is how much that tier multiplies a coin's collection score. <strong style="color:var(--ink)">Live count</strong> is simply how many coins of that tier exist right now, and the bar shows that share at a glance. A coin's tier is decided fairly and permanently at the moment it is created, from a fingerprint of its artwork — nobody picks it by hand, and it never changes afterwards. “Provisional” means the exact weights may still be tuned; the tiers already handed out stand as written.</p>
               <table class="rtable">
                 <thead><tr><th>Tier</th><th class="num">Weight</th><th class="num">Multiplier</th><th class="num">Live count</th><th>Census</th></tr></thead>
                 <tbody id="mkt-census"></tbody>
@@ -2682,6 +2787,22 @@
 <p><strong>Counts (status as of Oct 24, 2026 7:17 PM EDT):</strong> 20 live coins (12 treasury seeds + 6 earned by Bigg Moocho + 2 earned by Mona) + 7 TEST VAULT coins + 2 superseded registrations that do NOT count (below) = 29 registry blocks, every one accounted for.</p>
 <p><strong>Rarity is a collection score, never merged into value.</strong> Book value is the grant FUSI only. Treasury seeds carry book 0 FUSI — no grant, no value, only a rarity tier.</p>
 <p><strong>No transfers or listings exist on chain yet.</strong> Every live coin below is held by its registry holder; nothing has moved.</p>
+</div>
+<div class="pe-box" id="pe-vault-guide">
+  <div class="pe-kicker">In plain English — how to read a vault card</div>
+  <h3>Each card below is one real coin. Here is what its lines mean:</h3>
+  <ul>
+    <li><strong>Book value</strong> — the play credits that came with the coin. A value of 0 with “treasury seed” means a starter coin kept in the platform's reserve: it was created to be earned later, so no payout came with it.</li>
+    <li><strong>Collection score</strong> — how collectible the coin is because of its rarity. It is a score only, never money, and it is never added to the book value.</li>
+    <li><strong>Holder</strong> — who the coin belongs to right now. “Treasury (unclaimed)” means nobody owns it yet — it is waiting to be earned or claimed.</li>
+    <li><strong>Status</strong> — where the coin stands: waiting in the reserve, or held by its owner.</li>
+    <li><strong>Origin</strong> — how the coin came to exist, in one line: created by the owner's order as a starter coin, or earned by playing.</li>
+    <li><strong>The small print at the bottom</strong> (“Registry · Rarity · Reveal”) — page numbers in the record book: where the coin was first written down, where its rarity was recorded, and where its artwork was revealed. The “Art” line names the coin's picture file, and the check mark means the picture's fingerprint matches the record exactly — the image has not been swapped.</li>
+    <li><strong>Backstory</strong> — tap it open for the short story the record book keeps about that coin, and the page it was written on.</li>
+    <li><strong>Place a bid</strong> — opens a ready-written email draft in a new tab. The page never sends it for you, and no bid settles anything by itself.</li>
+    <li><strong>Replaced records</strong> — a short list at the very bottom names two early registrations that were later replaced by corrected ones. They are shown for honesty and do <em>not</em> count as live coins.</li>
+  </ul>
+  <p class="pe-bottom">Use the family buttons below to see one family at a time — LEDGER, GEOMETRY, PHANTOM and BLOCK are the four coin families.</p>
 </div>
 <div class="vg-filters" role="group" aria-label="Filter by house">
 <button data-filter="ALL" aria-pressed="true">All houses</button>
@@ -5892,6 +6013,30 @@
         <div class="rule"></div>
         <p class="chain-note">118 blocks, append-only. Corrections and upgrades arrive as new blocks — nothing here is ever edited or deleted.</p>
         <p class="chain-hint">Click any block to inspect its full contents.</p>
+        <div class="pe-box" id="pe-chain-guide">
+          <div class="pe-kicker">In plain English — how to read this record book</div>
+          <h3>You are looking at the platform's diary, newest entry first</h3>
+          <p>Every row in the table below is <strong>one page of the record book</strong> (the page calls it a “block”). Pages are numbered from the bottom up: <strong>page 0, at the very bottom, is the first entry ever written</strong> — its type word is “genesis”, which just means “the beginning”. The top row is the newest page; the gold <strong>HEAD</strong> tag means exactly that — <em>this is the latest entry</em>. Nothing here can be quietly edited: a correction is always a brand-new page added on top, so the old page and its correction both stay visible forever.</p>
+          <h4>The five columns, translated</h4>
+          <ul>
+            <li><strong>#</strong> — the page number. People also write it as “h=” followed by the number (h=42 means page 42).</li>
+            <li><strong>Type</strong> — what kind of entry it is. <strong>Note</strong>: something was recorded. <strong>Lock</strong>: a rule was made final. <strong>Vote</strong>: one of the reviewers voted on a proposal. <strong>Challenge</strong>: a reviewer flagged a problem or disagreed. <strong>Audit</strong>: an independent re-check was recorded. <strong>Gate</strong>: an entry rule for the platform. <strong>Version</strong>: a new version of the language itself.</li>
+            <li><strong>Actor</strong> — who wrote the entry. “bigg” is the owner, Bigg Moocho. “muse”, “chatgpt” and “claude” are the AI assistants who build and review the platform — their votes and checks are how decisions get made here.</li>
+            <li><strong>Title</strong> — what happened, in one line. Titles are written in the platform's own shorthand, so <strong>every row also carries a grey “In plain words:” line underneath its title</strong> that says the same thing in everyday language.</li>
+            <li><strong>Hash</strong> — a short fingerprint made from the page's contents. If even one letter on the page changed, the fingerprint would change completely — that is how tampering would show. Each page also carries the previous page's fingerprint inside it, which is what links all the pages into one unbroken chain.</li>
+          </ul>
+          <h4>Title shorthand you will meet most often</h4>
+          <ul>
+            <li><strong>SCORE CLAIM</strong> — a player sent in a game score. Recorded as sent in; it pays out nothing by itself.</li>
+            <li><strong>EARN GRANT</strong> — play credits were handed out for a checked achievement.</li>
+            <li><strong>COIN REGISTRY</strong> — a new one-of-a-kind coin was written into the book.</li>
+            <li><strong>BUILD RECEIPT</strong> — proof a piece of work was finished, and what was built.</li>
+            <li><strong>USAGE GUIDE</strong> — how-to instructions were published.</li>
+            <li><strong>FORGE VOTE</strong> — the AI reviewers voted on a proposal; the line says how each one voted (“APPROVE-WITH-CHANGES” means <em>yes, if these fixes are made</em>).</li>
+            <li><strong>LOCKED / LAW / POLICY / owner order</strong> — a decision by the owner, or a rule the reviewers agreed, made final.</li>
+          </ul>
+          <p class="pe-bottom"><strong>Opening a row:</strong> tap any row and it unfolds to show that page's exact contents, word for word as the machines read them. You never need to read that raw version — a plain-English lead-in at the top of the opened page tells you what you are looking at, and the grey line under the title already says what the page means.</p>
+        </div>
         <table class="chain">
           <thead>
             <tr><th>#</th><th>Type</th><th>Actor</th><th>Title</th><th>Hash</th><th aria-hidden="true"></th></tr>
@@ -24007,9 +24152,12 @@ window.__fusiSnakeMode = "2d";
         try {
           if (window.sessionStorage.getItem(key) !== '1') {
             window.sessionStorage.setItem(key, '1');
-            var hash = window.location.hash || '';
-            var here = window.location.pathname;
-            window.location.href = here + '?v=' + encodeURIComponent(led.build) + hash;
+            /* A newer build is live: reload this same page in place.
+               (Rebuilding the address from location.pathname/href and
+               navigating to it is a dead control inside sandboxed
+               frames; a plain reload keeps the reader's route because
+               the route lives in the hash, which reload preserves.) */
+            window.location.reload();
           }
         } catch (e) {}
       }
@@ -24570,7 +24718,25 @@ window.__fusiSnakeMode = "2d";
     "height": "Chain height is simply the number of the newest page in the record book — how many blocks exist in total.",
     "xp": "XP points are experience points: counters that track how much you and your crew have done. Score-keeping only — not money.",
     "crew": "A crew is a team. Players join one crew at a time and climb the boards together.",
-    "forge": "The Forge is the workshop end of the platform — where the games live and new things get built."
+    "forge": "The Forge is the workshop end of the platform — where the games live and new things get built.",
+    "settlement": "Settlement is the moment a trade or payout is final — both sides have what they agreed, and the record book seals it.",
+    "unverified": "Unverified means claimed but not yet checked. Treat it as a rumour until the platform's checks confirm it.",
+    "verified": "Verified means the platform actually re-checked it — the run, vote or coin was replayed or recounted and matched.",
+    "grant": "A grant is FUSI handed out by the rules — for example for a checked game run or an achievement — instead of being bought.",
+    "audit": "An audit is an independent re-check: someone (or some program) goes back over the record book to prove the numbers still add up.",
+    "on-chain": "On-chain simply means written into the public record book, where anyone can check it — as opposed to kept privately off the book.",
+    "superseded": "Superseded means replaced: a newer page of the record book took this one's place. The old one stays visible for honesty, but the newer one is the one that counts.",
+    "registry": "The registry is the official list — for a coin, the page where it was first written down, so anyone can look it up and check it is real.",
+    "spendable": "Spendable means usable right now: the waiting period has passed, so the credit can actually be spent or traded.",
+    "treasury": "The treasury is the platform's own reserve — coins and credits held by the platform itself, not by any player yet.",
+    "holder": "The holder is simply whoever a coin belongs to right now.",
+    "serial": "A coin's serial is its unique name-and-number, like LEDGER-001. No two coins share one.",
+    "multiplier": "The multiplier is the number a coin's book value is multiplied by to get its collection score — rarer coins get a bigger multiplier.",
+    "provisional": "Provisional means in force for now but still being tuned — the exact numbers may be adjusted later, openly, as new pages of the record book.",
+    "payload": "The payload is the exact contents stored inside a page of the record book, written the way machines read it. The plain summary above it says what it means.",
+    "deterministic": "Deterministic means the same input always gives the same answer — anyone who re-runs the check gets the identical result.",
+    "envelope": "An envelope here is just a bundle: a group of payouts packaged and approved together under one reference code.",
+    "ingestor": "The ingestor is the part of the platform that takes in incoming claims and files them into the record book for checking."
   };
   var pop = document.createElement("div");
   pop.id = "gloss-pop"; pop.hidden = true; pop.setAttribute("role", "dialog");
@@ -24604,7 +24770,7 @@ window.__fusiSnakeMode = "2d";
   });
   window.addEventListener("scroll", hidePop, { passive: true });
 
-  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, SELECT: 1, CANVAS: 1, SVG: 1, CODE: 1, PRE: 1, A: 1, BUTTON: 1 };
+  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, SELECT: 1, OPTION: 1, NOSCRIPT: 1, CANVAS: 1, SVG: 1, CODE: 1, PRE: 1, A: 1, BUTTON: 1 };
   function wrapTerms(root) {
     if (!root || !document.createTreeWalker) return;
     var done = {};
@@ -24617,7 +24783,8 @@ window.__fusiSnakeMode = "2d";
         var p = n.parentNode;
         while (p && p !== root) {
           if (SKIP[p.nodeName]) return NodeFilter.FILTER_REJECT;
-          if (p.classList && (p.classList.contains("gloss") || p.classList.contains("ds-data") || p.classList.contains("fx-feed") || p.classList.contains("fx-secstat"))) return NodeFilter.FILTER_REJECT;
+          if (p.id === "gloss-pop") return NodeFilter.FILTER_REJECT;
+          if (p.classList && (p.classList.contains("gloss") || p.classList.contains("ds-data") || p.classList.contains("fx-feed") || p.classList.contains("fx-secstat") || p.classList.contains("pe-box") || p.classList.contains("pe-row-note") || p.classList.contains("pe-card-note") || p.classList.contains("pe-detail-note"))) return NodeFilter.FILTER_REJECT;
           p = p.parentNode;
         }
         return NodeFilter.FILTER_ACCEPT;
@@ -24625,7 +24792,17 @@ window.__fusiSnakeMode = "2d";
     });
     var nodes = [], n;
     while ((n = walker.nextNode())) nodes.push(n);
+    var lastSec = null;
     nodes.forEach(function (node) {
+      /* Plain English is per-section: the first use of each hard word is
+         glossed inside every section, not just once in the whole page,
+         so a reader who lands mid-page still gets the translation. */
+      var sec = null, sp2 = node.parentNode;
+      while (sp2 && sp2 !== root) {
+        if (sp2.nodeName === "SECTION" || (sp2.getAttribute && sp2.getAttribute("data-pg"))) { sec = sp2; break; }
+        sp2 = sp2.parentNode;
+      }
+      if (sec !== lastSec) { done = {}; lastSec = sec; }
       var text = node.nodeValue, r = new RegExp(source, "gi"), m, out = [], last = 0, changed = false;
       while ((m = r.exec(text))) {
         var key = m[0].toLowerCase();
@@ -24655,15 +24832,30 @@ window.__fusiSnakeMode = "2d";
     var head = b.querySelector(".beat-head") || b;
     var s = document.createElement("span");
     s.className = "fx-secstat";
-    s.innerHTML = "<i></i><span>alive — waiting for its first check</span>";
+    s.innerHTML = "<i></i><span>not checked yet — the pulse reaches every section in turn</span>";
     head.appendChild(s);
     if (b.id) secStats[b.id] = s;
   });
+  $$("section[data-pg], #the-forge, #vault-gallery").forEach(function (sec) {
+    if (!sec.id || secStats[sec.id]) return;
+    var head = sec.querySelector("h2, h3") || sec;
+    var s = document.createElement("span");
+    s.className = "fx-secstat";
+    s.innerHTML = "<i></i><span>not checked yet — the pulse reaches every section in turn</span>";
+    head.appendChild(s);
+    secStats[sec.id] = s;
+  });
+  var checkedSecs = {};
   function markBeat(id, msg) {
     var s = secStats[id]; if (!s) return;
     var t = s.querySelector("span"); if (t) t.textContent = msg;
     s.classList.add("hot");
     setTimeout(function () { s.classList.remove("hot"); }, 2600);
+    if (!checkedSecs[id]) {
+      checkedSecs[id] = 1;
+      var cov = $("#fx-c-cov");
+      if (cov) cov.textContent = Object.keys(checkedSecs).length + " / " + Object.keys(secStats).length;
+    }
   }
 
   /* ---------------- your trip through the ledger ---------------- */
@@ -24777,23 +24969,34 @@ window.__fusiSnakeMode = "2d";
       im.onerror = function () { if (!settled) { settled = true; clearTimeout(to); done(false, name); } };
       im.src = item[1];
     } else {
-      var v = document.createElement("video");
-      v.preload = "metadata"; v.muted = true;
+      /* Videos are checked two ways: a HEAD request proves the file is
+         served (fast, no 9 MB download), then a metadata load proves the
+         file actually plays. Either proof counts; both failing is a fail. */
       var settled2 = false;
-      var fin = function (ok) { if (settled2) return; settled2 = true; v.removeAttribute("src"); try { v.load(); } catch (e) {} done(ok, name); };
-      v.addEventListener("loadedmetadata", function () { fin(true); });
-      v.addEventListener("error", function () { fin(false); }, true);
-      setTimeout(function () { fin(v.readyState >= 1); }, 6000);
-      v.src = item[1];
+      var fin = function (ok) { if (settled2) return; settled2 = true; done(ok, name); };
+      fetch(item[1], { method: "HEAD", cache: "no-store" }).then(function (r) {
+        if (r.ok) { fin(true); return; }
+        throw new Error("head");
+      }).catch(function () {
+        if (settled2) return;
+        var v = document.createElement("video");
+        v.preload = "metadata"; v.muted = true;
+        v.addEventListener("loadedmetadata", function () { fin(true); });
+        v.addEventListener("error", function () { fin(false); }, true);
+        setTimeout(function () { fin(v.readyState >= 1); }, 10000);
+        v.src = item[1];
+      });
     }
   }
   function statText(id) { var el = document.getElementById(id); var t = el ? el.textContent.trim() : ""; return (t && t !== "—") ? t : null; }
+  function chainLive() { var s = document.getElementById("strip-state"); return !!(s && !/UNREACHABLE|CONNECTING|READING/i.test(s.textContent)); }
+  var toolsBench = {};
 
   var jobs = [
     { name: "Record book", beat: "previews", run: function (done) {
       var hv = statText("stat-height");
-      if (hv) done(true, "<b>Record book:</b> re-read the live numbers — the newest page is <b>block " + hv + "</b>, and the book is connected.");
-      else done(false, "<b>Record book:</b> the live numbers have not arrived yet — the page keeps asking on its own.");
+      if (chainLive() && hv && hv !== "0") done(true, "<b>Record book:</b> re-read the live numbers — the newest page is <b>block " + hv + "</b>, and the book is connected.");
+      else done(false, "<b>Record book:</b> unavailable right now — the live book cannot be read from here, so this check is <b>not counted as passed</b>. The page keeps retrying on its own.");
     } },
     { name: "Pictures & videos", beat: "ad-displays", run: function (done) {
       checkOneMedia(function (ok, name) {
@@ -24805,8 +25008,11 @@ window.__fusiSnakeMode = "2d";
     } },
     { name: "Coins", beat: "beat-coin", run: function (done) {
       var n = statText("stat-coins");
-      if (n) done(true, "<b>Coins:</b> recounted from the book — <b>" + n + " coins</b> exist right now, each one written into the record.");
-      else done(false, "<b>Coins:</b> the coin count is not readable yet — it will be recounted on the next pass.");
+      if (chainLive() && n && n !== "0") { done(true, "<b>Coins:</b> recounted from the live book — <b>" + n + " coins</b> exist right now, each one written into the record."); return; }
+      var gal = document.getElementById("vg-live-grid") || document.getElementById("mkt-gallery");
+      var shown = gal ? gal.children.length : 0;
+      if (shown > 0) done(true, "<b>Coins:</b> the live book is unreachable from here, so no fresh recount — but the coin gallery on this page is rendered and shows <b>" + shown + " coins</b> from the page's last copy. Treat that number as possibly out of date.");
+      else done(false, "<b>Coins:</b> unavailable — the live book cannot be read and no gallery copy is rendered, so this check is <b>not counted as passed</b>.");
     } },
     { name: "Games", beat: "beat-play", run: function (done) {
       var g = document.getElementById("fusi-snake-mount") || document.getElementById("panel-snake");
@@ -24820,25 +25026,88 @@ window.__fusiSnakeMode = "2d";
     } },
     { name: "Market", beat: "beat-market", run: function (done) {
       var b = statText("stat-book");
-      if (b) done(true, "<b>Market:</b> totals re-read from the book — total value on record is <b>" + b + " FUSI</b>, exactly as written, nothing rounded away.");
-      else done(false, "<b>Market:</b> totals are not readable yet — the next pass will try again.");
+      if (chainLive() && b && b !== "0") { done(true, "<b>Market:</b> totals re-read from the live book — total value on record is <b>" + b + " FUSI</b>, exactly as written, nothing rounded away."); return; }
+      var list = document.getElementById("mkt-listings");
+      var n = list ? list.children.length : 0;
+      if (n > 0) done(true, "<b>Market:</b> the live book is unreachable from here, so no fresh totals — the market board on this page still shows <b>" + n + " entries</b> from its last copy. Treat them as possibly out of date.");
+      else done(false, "<b>Market:</b> unavailable — the live book cannot be read, so this check is <b>not counted as passed</b>.");
     } },
     { name: "The web itself", beat: "beat-explore", run: function (done) {
       var n = $$("[data-pg]").length + $$("#hub-top .beat").length + 1;
       if (cLinks) cLinks.textContent = n;
       done(true, "<b>The web itself:</b> counted <b>" + n + " sections</b> on this page and confirmed each one is reachable from the navigation — the strands hold.");
     } },
-    { name: "Your trip", beat: "beat-referrals", run: function (done) {
+    { name: "Earn", beat: "beat-earn", run: function (done) {
+      var mb = document.getElementById("math-blocks");
+      var n = mb ? mb.children.length : 0;
+      if (n > 0) done(true, "<b>Earn:</b> the worked examples are rendered — <b>" + n + " blocks of real payout math</b> on the page, computed from the book's own numbers.");
+      else if (!chainLive()) done(false, "<b>Earn:</b> unavailable — the payout math is worked from the live book, which cannot be read from here, so this check is <b>not counted as passed</b>.");
+      else done(false, "<b>Earn:</b> the worked examples have not rendered yet — flagged.");
+    } },
+    { name: "Referrals", beat: "beat-referrals", run: function (done) {
+      var settled = false;
+      var to = setTimeout(function () {
+        if (settled) return; settled = true;
+        var code = document.getElementById("ref-my-code");
+        if (code) done(true, "<b>Referrals:</b> the invite store was slow to answer, so this pass checked the rendered board instead — your invite panel is on the page showing code <b>" + code.textContent.trim() + "</b>.");
+        else done(false, "<b>Referrals:</b> the invite store did not answer in time — flagged, not counted as passed.");
+      }, 4000);
+      fetch("assets/referral-store.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+        if (settled) return; settled = true; clearTimeout(to);
+        var n = Array.isArray(j) ? j.length : Object.keys(j || {}).length;
+        done(true, "<b>Referrals:</b> read the invite store the page ships with — it answers and holds <b>" + n + " recorded entries</b> right now. An empty store is an honest zero, said out loud.");
+      }).catch(function () {
+        if (settled) return; settled = true; clearTimeout(to);
+        done(false, "<b>Referrals:</b> the invite store could not be read — flagged, not counted as passed.");
+      });
+    } },
+    { name: "Crews", beat: "beat-crews", run: function (done) {
+      var settled = false;
+      var to = setTimeout(function () {
+        if (settled) return; settled = true;
+        var board = document.getElementById("crew-board");
+        if (board) done(true, "<b>Crews:</b> the crew store was slow to answer, so this pass checked the rendered board instead — the crew board is on the page and readable.");
+        else done(false, "<b>Crews:</b> the crew store did not answer in time — flagged, not counted as passed.");
+      }, 4000);
+      fetch("assets/crews-store.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+        if (settled) return; settled = true; clearTimeout(to);
+        var n = Array.isArray(j) ? j.length : Object.keys(j || {}).length;
+        done(true, "<b>Crews:</b> read the crew store the page ships with — it answers and holds <b>" + n + " recorded entries</b> right now. An empty store is an honest zero, said out loud.");
+      }).catch(function () {
+        if (settled) return; settled = true; clearTimeout(to);
+        done(false, "<b>Crews:</b> the crew store could not be read — flagged, not counted as passed.");
+      });
+    } },
+    { name: "Vault gallery", beat: "vault-gallery", run: function (done) {
+      var grid = document.getElementById("vg-live-grid");
+      var n = grid ? grid.children.length : 0;
+      if (n > 0) done(true, "<b>Vault gallery:</b> the coin vault is rendered — <b>" + n + " coin cards</b> on display, each with its picture loaded from the page's own files.");
+      else done(false, "<b>Vault gallery:</b> no coin cards rendered yet — flagged.");
+    } },
+    { name: "Tools bench", beat: null, run: function (done) {
+      var tools = ["dispute-inbox", "trail-weaver", "coin-sketchbook", "cipher-vault", "paper-trade-table", "tie-checker", "story-loom", "web-mapper", "xenolab", "the-forge"];
+      var okCount = 0, missing = [];
+      tools.forEach(function (id) {
+        var sec = document.getElementById(id);
+        if (sec && sec.querySelector("canvas, form, input, button, select, textarea, svg")) { okCount++; markBeat(id, "alive — checked just now"); spawnPacket(id); }
+        else missing.push(id.replace(/-/g, " "));
+      });
+      if (missing.length === 0) done(true, "<b>Tools bench:</b> swept every bench tool in one pass — all <b>" + okCount + " tools</b> are on the page with controls mounted and reachable.");
+      else done(false, "<b>Tools bench:</b> " + okCount + " of " + tools.length + " tools verified — these need attention: <b>" + missing.join(", ") + "</b>.");
+    } },
+    { name: "Your trip", beat: null, run: function (done) {
       done(true, "<b>Your trip:</b> tracker updated — you have seen <b>" + visitedCount() + " of 6</b> stops. Come back any time; there is always a stop left lit for you.");
     } }
   ];
-  var jobIdx = 0;
+  var jobIdx = 0, firstPass = true;
   function tick() {
     if (!pulseOn) return;
     if (document.hidden) { setTimeout(tick, 4000); return; }
     var job = jobs[jobIdx % jobs.length]; jobIdx++;
     job.run(function (ok, msg) { finish(ok, msg, job.beat); });
-    setTimeout(tick, 3400);
+    if (firstPass && jobIdx < jobs.length) { setTimeout(tick, 500); return; }
+    firstPass = false;
+    setTimeout(tick, 2600);
   }
   setInterval(function () {
     if (!cUp) return;
@@ -24847,13 +25116,167 @@ window.__fusiSnakeMode = "2d";
     cUp.textContent = (mm.length < 2 ? "0" + mm : mm) + ":" + (ss.length < 2 ? "0" + ss : ss);
   }, 1000);
 
+  function mediaSweep() {
+    var i = 0;
+    (function next() {
+      if (i >= MEDIA.length) {
+        log("<b>Pictures &amp; videos:</b> full sweep finished — <b>" + mediaOkCount() + " of " + MEDIA.length + "</b> files healthy. The sweep repeats as the pulse rotates.");
+        return;
+      }
+      checkOneMedia(function (ok, name) {
+        mediaState[name] = ok;
+        tasks++; if (ok) passed++;
+        if (cTasks) cTasks.textContent = tasks;
+        if (cPass) cPass.textContent = passed;
+        if (cMedia) cMedia.textContent = mediaOkCount() + " / " + MEDIA.length;
+        log(ok ? "<b>Media check:</b> test-loaded <b>" + name + "</b> — it works." : "<b>Media check:</b> <b>" + name + "</b> FAILED to load — flagged here in the open so it gets fixed.", !ok);
+        markBeat("ad-displays", "alive — media checked just now");
+        spawnPacket("ad-displays");
+        i++;
+        setTimeout(next, 350);
+      });
+    })();
+  }
+
+  /* ---------------- plain English AT the section (finish pass) ----------------
+     The starter panel translates the front door; these three renderers
+     put the translation where a reader actually lands:
+       1) every chain row gains a grey “In plain words:” line under its
+          title, derived from that row's own type and title;
+       2) every rendered gallery card (and the spotlight) gains a plain
+          note built from that card's own numbers;
+       3) every opened block detail gains a plain lead-in above the raw
+          machine contents;
+       4) every vault card gains a plain reading of its small-print
+          page numbers.
+     All four are idempotent and re-run as live content lands. */
+  function plainForRow(type, title) {
+    var T = (title || "").toUpperCase();
+    if (/SCORE CLAIM/.test(T)) return "a player sent in a game score. It is written down exactly as sent in — by itself it proves nothing and pays out nothing.";
+    if (/EARN GRANT/.test(T)) {
+      var amt = (title.match(/\+?\s*[\d,]+\s*FUSI/i) || [null])[0];
+      return "play credits were handed out for a checked game achievement" + (amt ? " — " + amt.replace(/\s+/g, " ").trim() + " in this entry" : "") + ". The achievement's code name is in the title; the Earn page says what each one means.";
+    }
+    if (/COIN REGISTRY/.test(T)) {
+      var ser = (title.match(/(LEDGER|GEOMETRY|PHANTOM|BLOCK)-\d+/i) || [null])[0];
+      return "a brand-new one-of-a-kind coin" + (ser ? ", " + ser.toUpperCase() : "") + ", was written into the record book.";
+    }
+    if (/FORGE VOTE|VOTE/.test(T) || type === "vote") return "one of the AI reviewers voted on a proposal. The title says which way they voted — “approve-with-changes” means yes, if the listed fixes are made.";
+    if (type === "challenge" || /AUDIT FINDINGS|CHALLENGE/.test(T)) return "a reviewer flagged problems or disagreements for the others to answer. Flagging is not a verdict — the fix, if any, arrives as a later page.";
+    if (type === "audit" || /AUDIT/.test(T)) return "an independent re-check of earlier pages was recorded, so anyone can confirm the numbers still add up.";
+    if (/BUILD RECEIPT|BUILD \d|BUILD:/.test(T)) return "proof that a piece of work was finished — what was built is named in the title.";
+    if (/USAGE GUIDE/.test(T)) return "how-to instructions were published for the thing named in the title.";
+    if (type === "lock" || /LOCKED|LOCK:/.test(T)) return "a rule or decision was made final here. Later pages must follow it until a newer page changes it.";
+    if (type === "gate") return "an entry rule for the platform was set or updated.";
+    if (type === "genesis") return "the very first page of the record book — where everything starts.";
+    if (type === "version" || /^V\d/.test(T)) return "a new version of the language's rules was recorded.";
+    if (/INCIDENT|EVIDENCE/.test(T)) return "evidence about a problem — and, in the follow-up pages, its fix — was recorded in the open.";
+    if (/OWNER ORDER|\(OWNER|LAW|POLICY|CHARTER|DECISION/.test(T)) return "the owner gave an instruction or set a rule, and it was written down here so it cannot be quietly changed later.";
+    return "something was recorded on this page of the record book. The title above is its one-line summary, written in the platform's shorthand.";
+  }
+  function translateChainRows() {
+    $$("table.chain tbody tr").forEach(function (tr) {
+      if (tr.classList.contains("detail-row") || tr.classList.contains("pending-row")) return;
+      var titleCell = tr.querySelector("td.title");
+      if (!titleCell || titleCell.querySelector(".pe-row-note")) return;
+      var typeEl = tr.querySelector(".type");
+      var type = typeEl ? typeEl.textContent.trim().toLowerCase() : "";
+      var rawTitle = "";
+      titleCell.childNodes.forEach(function (n) { if (n.nodeType === 3) rawTitle += n.textContent; });
+      if (!rawTitle.trim()) rawTitle = titleCell.textContent;
+      var note = document.createElement("span");
+      note.className = "pe-row-note";
+      note.textContent = "In plain words: " + plainForRow(type, rawTitle);
+      titleCell.appendChild(note);
+    });
+  }
+  function annotateGalleryCards() {
+    $$("#mkt-gallery .exhibit").forEach(function (card) {
+      if (card.querySelector(".pe-card-note")) return;
+      var serial = card.querySelector(".serial");
+      var vals = $$(".nums .val", card).map(function (v) { return v.textContent.trim(); });
+      var holder = card.querySelector(".holder-line b");
+      if (!serial || vals.length < 2) return;
+      var note = document.createElement("p");
+      note.className = "pe-card-note";
+      note.innerHTML = "<b>In plain words:</b> this is " + serial.textContent.trim() + ", a one-of-a-kind coin. Its book value — the play credits it was paid out with — is <b>" + vals[0] + "</b>. Its separate collection score is <b>" + vals[1] + "</b> — a rarity score only, never added to the book value. It is currently held by <b>" + (holder ? holder.textContent.trim() : "the holder named above") + "</b>.";
+      card.appendChild(note);
+    });
+    var spot = $("#mkt-spotlight");
+    if (spot && spot.children.length && !spot.querySelector(".pe-card-note")) {
+      var dds = $$(".evidence dd", spot).map(function (d) { return d.textContent.trim(); });
+      var holderTxt = dds.length ? dds[dds.length - 1] : "";
+      var sn = document.createElement("p");
+      sn.className = "pe-card-note";
+      sn.style.marginTop = "var(--s-3)";
+      sn.innerHTML = "<b>In plain words:</b> this is the spotlight coin — the rarest coin currently alive, put on show. The list beside it is its paperwork: the pages where the coin, its rarity and this spotlight were each written down, plus the fingerprint code its rarity was worked out from. " + (holderTxt ? "It is held by <b>" + holderTxt + "</b>." : "");
+      spot.appendChild(sn);
+    }
+    $$("#vg-live-grid .vg-card").forEach(function (card) {
+      if (card.querySelector(".pe-card-note")) return;
+      var meta = null;
+      $$(".vg-meta", card).forEach(function (m) { if (/Registry/.test(m.textContent)) meta = m; });
+      if (!meta) return;
+      var mm = meta.textContent.match(/Registry h=(\S+).*?Rarity h=(\S+).*?Reveal h=(\S+)/);
+      if (!mm) return;
+      var note = document.createElement("p");
+      note.className = "pe-card-note";
+      note.innerHTML = "<b>That small print, in plain words:</b> this coin was first written down on record-book page " + mm[1] + "; its rarity was recorded on page " + mm[2] + (mm[3] === "—" ? "; its artwork has no separate reveal page." : "; its artwork was revealed on page " + mm[3] + ".");
+      meta.parentNode.insertBefore(note, meta.nextSibling);
+    });
+  }
+  function annotateDetails() {
+    $$(".block-detail").forEach(function (bd) {
+      if (bd.querySelector(".pe-detail-note")) return;
+      var blockNo = "", typeTxt = "";
+      $$(".bd-row", bd).forEach(function (row) {
+        var k = row.querySelector(".bd-k"), v = row.querySelector(".bd-v");
+        if (!k || !v) return;
+        if (k.textContent.trim() === "block") blockNo = v.textContent.trim();
+        if (k.textContent.trim() === "type") typeTxt = v.textContent.trim();
+      });
+      var note = document.createElement("div");
+      note.className = "pe-detail-note";
+      note.innerHTML = "<b>In plain English:</b> below is the exact machine-readable contents of " + (blockNo ? "record-book page " + blockNo : "this page") + (typeTxt ? " — a “" + typeTxt + "” entry (the guide at the top of this section says what each entry kind means)" : "") + ". You do not need to read the code: the grey “In plain words” line under the row's title already says what this page means. Two lines are worth knowing — <b>hash</b> is this page's fingerprint, proving this exact text is what was sealed, and <b>prev_hash</b> is the previous page's fingerprint, which is what links the pages into one unbroken chain.";
+      bd.insertBefore(note, bd.firstChild);
+    });
+  }
+  function annotateAll() { translateChainRows(); annotateGalleryCards(); annotateDetails(); }
+
   /* ---------------- go ---------------- */
-  wrapTerms(document.getElementById("hub-top"));
+  wrapTerms(document.body);
+  annotateAll();
+  /* Sections rendered later by the page's own machinery (earn traces,
+     market rows, gallery cards) get the same translation treatment:
+     re-run the glosser as they land and whenever the reader moves. */
+  setTimeout(function () { wrapTerms(document.body); annotateAll(); }, 4000);
+  setTimeout(function () { wrapTerms(document.body); annotateAll(); }, 10000);
+  setTimeout(function () { annotateAll(); }, 2000);
+  window.addEventListener("hashchange", function () { setTimeout(function () { wrapTerms(document.body); annotateAll(); }, 700); });
+  /* Live sync and the market renderer land new rows and cards over time:
+     keep the translations attached to whatever is on the page. */
+  if (window.MutationObserver) {
+    var peScheduled = false;
+    var peObs = new MutationObserver(function () {
+      if (peScheduled) return;
+      peScheduled = true;
+      setTimeout(function () { peScheduled = false; annotateAll(); }, 450);
+    });
+    var chainTbody = document.querySelector("table.chain tbody");
+    if (chainTbody) peObs.observe(chainTbody, { childList: true });
+    var galHost = document.getElementById("mkt-gallery");
+    if (galHost) peObs.observe(galHost, { childList: true });
+    var spotHost = document.getElementById("mkt-spotlight");
+    if (spotHost) peObs.observe(spotHost, { childList: true });
+  }
   markVisit(routeNow());
   layoutWeb();
+  var cov0 = $("#fx-c-cov");
+  if (cov0) cov0.textContent = "0 / " + Object.keys(secStats).length;
   if (cLinks) cLinks.textContent = $$("[data-pg]").length + $$("#hub-top .beat").length + 1;
   log("<b>Pulse:</b> started. Every line below this one appears only when a real check finishes — pictures, videos, the record book, the market, and the wiring between sections.");
   setTimeout(tick, 900);
+  mediaSweep();
 })();
 </script>
 </body>

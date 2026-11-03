@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-03T06:10:54Z",
+  "updated_at": "2026-11-03T06:13:14Z",
   "ledger": {
     "page": "index.html",
     "build": "2026-11-03T04:19:26Z",
@@ -9,15 +9,9 @@
   },
   "gameshark": {
     "page": "gameshark.html",
-    "build": "2026-11-02T08:11:14.621685+00:00",
-    "updated_at": "2026-11-02T08:11:14.621685+00:00",
+    "build": "2026-11-03T06:10:54Z",
+    "updated_at": "2026-11-03T06:10:54Z",
     "tip_height": 1824
   },
-  "in_transit": {
-    "surface": "gameshark",
-    "build": "2026-11-03T06:10:54Z",
-    "started_at": "2026-11-03T06:10:54Z",
-    "status": "pushing",
-    "detail": "Singles vs doubles trend graphs section + front-page billboard (2026-11-03) on the way"
-  }
+  "in_transit": null
 }

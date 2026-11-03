@@ -10808,6 +10808,14 @@ if (typeof globalThis !== "undefined") {
     return dx;
   }
   var fireHeld = false;
+  /* Latched fire tap: set on every fire keydown, consumed by the next
+     sim tick. The sim polls held-key state once per tick (~50 ms), so
+     a tap shorter than one tick used to fall between polls and never
+     fired at all — Space/J "did nothing" while the hold-to-fire
+     button (a sustained state) worked. The latch guarantees a tap
+     fires for at least one full tick; holding still fires via
+     keysDown for as long as the key stays down. */
+  var fireTap = false;
   function currentInput() {
     var dx = 0,
       dy = 0,
@@ -10824,7 +10832,7 @@ if (typeof globalThis !== "undefined") {
       if (keysDown.down) dy += 1;
       fire = !!keysDown.fire;
     }
-    if (fireHeld) fire = true;
+    if (fireHeld || fireTap) fire = true;
     return {
       dx: dx,
       dy: dy,
@@ -10843,20 +10851,45 @@ if (typeof globalThis !== "undefined") {
     Space: "fire",
     KeyJ: "fire"
   };
+  /* Fallback by key value for environments that deliver an empty or
+     nonstandard e.code (some webviews and synthetic key events):
+     Space and J must still resolve to fire, arrows/WASD to steering. */
+  var KEY_BY_KEY = {
+    " ": "fire",
+    Spacebar: "fire",
+    j: "fire",
+    J: "fire",
+    ArrowLeft: "left",
+    a: "left",
+    A: "left",
+    ArrowRight: "right",
+    d: "right",
+    D: "right",
+    ArrowUp: "up",
+    w: "up",
+    W: "up",
+    ArrowDown: "down",
+    s: "down",
+    S: "down"
+  };
+  function keySlot(e) {
+    return KEYMAP[e.code] || KEY_BY_KEY[e.key] || null;
+  }
   function isFormTarget(t) {
     return t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT");
   }
   document.addEventListener("keydown", function (e) {
     if (!running || isFormTarget(e.target)) return;
-    var k = KEYMAP[e.code];
+    var k = keySlot(e);
     if (k) {
       keysDown[k] = true;
+      if (k === "fire") fireTap = true;
       e.preventDefault();
       e.stopPropagation();
     }
   }, true);
   document.addEventListener("keyup", function (e) {
-    var k = KEYMAP[e.code];
+    var k = keySlot(e);
     if (k) {
       keysDown[k] = false;
       if (running && !isFormTarget(e.target)) e.stopPropagation();
@@ -10864,6 +10897,7 @@ if (typeof globalThis !== "undefined") {
   }, true);
   window.addEventListener("blur", function () {
     keysDown = {};
+    fireTap = false;
   });
   function canvasPos(evt) {
     var r = canvas.getBoundingClientRect();
@@ -10931,6 +10965,7 @@ if (typeof globalThis !== "undefined") {
   function simTick() {
     if (!run) return;
     var input = currentInput();
+    fireTap = false;
     var T = run.ticks + 1;
     var mv = input.dx + "," + input.dy;
     if (mv !== lastMoveCode) {
@@ -10964,6 +10999,7 @@ if (typeof globalThis !== "undefined") {
     lastFire = false;
     keysDown = {};
     fireHeld = false;
+    fireTap = false;
     shards = [];
     prevPos = {};
     seenEvents = 0;

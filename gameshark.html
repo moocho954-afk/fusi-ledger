@@ -401,7 +401,139 @@ body #singles-trend-graphs,body #upcoming-schedule{background:#fffdf6;border:1px
 .lv-mag .lv-card h3{font-size:26px;line-height:1.2}
 .lv-mag .lv-kicker{font-size:12px;font-weight:800;letter-spacing:2px;color:#a34d0e}
 .lv-mag a{color:#a34d0e;font-weight:800}
-</style></head><body>
+</style>
+<style>
+
+/* ===== GameShark readability + player-card upgrade (2026-11-03) ===== */
+/* Presentation only. Palette unchanged: every color below already appears
+   on the page. Dark-on-dark pairs are fixed by giving content cards a
+   cream background OR by inverting font to light cream on panels that
+   stay dark (tank panel, chart SVGs, knot bars). */
+/* ---- Issue 1: ledger entries readable ---- */
+body .gs-main .entry{background:#fffdf6!important;border-color:#e8c9a8!important;
+  color:#221407;padding:16px;border-radius:18px}
+body .gs-main .entry .legs li{color:#221407;font-size:16px;line-height:1.65}
+body .gs-main .entry .meta{color:#3a2a1a;font-size:14px;line-height:1.6}
+body .gs-main .entry .top b{color:#a34d0e}
+/* Search-filtered profile legs: were near-white #e8e2d2 on the cream page. */
+body .gs-main #profile .pleg{background:#fffdf6;border:1px solid #e8c9a8;
+  border-radius:12px;padding:10px 12px;margin:8px 0;color:#221407;
+  font-size:15px;line-height:1.65}
+body .gs-main #profile .pleg .aut{color:#5a3a22}
+body .gs-main #profile .pleg b{color:#a34d0e}
+/* ---- Issue 2: dark panels inverted / creamed ---- */
+/* .note and .wticket kept a #171511 dark background while the lounge theme
+   set their text dark: dark on dark. Content notes go cream; panels that
+   stay dark (tank, knot bars) keep light text explicitly. */
+body .gs-main .note{background:#fffdf6!important;border-color:#e8c9a8!important;
+  color:#221407;font-size:16px;line-height:1.65;padding:16px;border-radius:18px}
+body .gs-main .note b{color:#a34d0e}
+body .gs-main .bigsec .wticket{background:#fffdf6!important;
+  border-color:#e8c9a8!important;color:#221407;border-radius:18px}
+body .gs-main .bigsec .wtitle{color:#a34d0e}
+body .gs-main .tracked{background:#fffdf6!important;color:#3a2a1a}
+body .gs-main .pext{color:#221407;font-size:16px;line-height:1.65}
+body .gs-main .pext .tend-h{color:#a34d0e;font-size:24px}
+body .gs-main .pext b{color:#3a1c08}
+body .gs-main .small{color:#5a3a22;font-size:13px;line-height:1.5}
+body .gs-main .sub{color:#5a3a22;font-size:14px}
+body .gs-main .gs-news summary a,body .gs-main .pext a{color:#a34d0e}
+/* Panels that stay dark keep light text (never the lounge dark text). */
+body #tank{background:#171511!important;color:#f2ede1!important}
+body #tank .tank-item{color:#f2ede1}
+body #tank .small{color:#e8e2d2}
+body #tank-wrap .tank-head{color:#d4af37}
+/* Gold search highlight and gold-on-black knot bars already read fine. */
+/* ---- Issue 3: search profile card matches the Luka spotlight ---- */
+#profile .pcard{padding:20px;border-radius:20px}
+#profile .pcard .up-spotphoto{text-align:center;margin:0 0 12px}
+#profile .pcard .up-spotphoto>span{display:block!important}
+#profile .pcard .up-spotphoto img{width:min(100%,340px)!important;
+  height:auto!important;aspect-ratio:3/4;object-fit:cover;
+  border-radius:16px!important;border:1px solid #e8c9a8!important;
+  margin:0 auto!important}
+#profile .pcard .up-spotphoto .initfb{width:min(100%,340px)!important;
+  height:420px!important;margin:0 auto 10px!important;font-size:64px!important}
+#profile .pcard .up-name{text-align:center;font-size:30px;line-height:1.2;
+  color:#3a1c08;margin:4px 0 6px}
+#profile .pcard .up-name b{color:#3a1c08;font-size:30px}
+#profile .pcard .up-sub{text-align:center;font-size:16px;color:#5a3a22;
+  margin-bottom:14px}
+#profile .pcard .up-stat{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:10px 0;border-top:1px solid #e8c9a8}
+#profile .pcard .up-statname{font-size:20px;font-weight:800;color:#a34d0e;
+  min-width:56px}
+#profile .pcard .up-chip{display:inline-block;background:#fbeed3;
+  border:1px solid #e0c4a0;border-radius:999px;padding:8px 14px;
+  font-size:16px;font-weight:700;color:#3a1c08}
+#profile .pcard .up-chip.up-nat{background:#a34d0e;color:#fff;
+  border-color:#a34d0e}
+#profile .pcard .up-proj{font-size:14px;color:#5a3a22}
+#profile .pcard .pband{font-size:17px;line-height:1.7;color:#221407;
+  padding:6px 0}
+#profile .pcard .bitesvg path{stroke:#a34d0e}
+#profile .pcard .river svg path{stroke:#a34d0e!important}
+#profile .pcard .chip{min-height:44px;padding:10px 16px;font-size:14px}
+#profile .pcard button{min-height:44px;padding:10px 18px;font-size:15px;
+  border-radius:999px;background:#a34d0e;color:#fff;border:0;
+  font-weight:700;cursor:pointer}
+/* ---- Issue 4: tank pill out from under the tab bar ---- */
+@media (max-width:900px){
+  body #tank-wrap{left:auto!important;right:12px!important;
+    bottom:calc(92px + env(safe-area-inset-bottom))!important}
+  body #tank{width:min(92vw,460px);max-height:50vh}
+  body .gs-main{padding-bottom:164px!important}
+  body .gs-bottombar button{font-size:13px;min-height:64px}
+}
+/* ---- Issue 5: band tables reflow, never clip ---- */
+/* Root cause: the small-width query sets td/th white-space:nowrap, so the
+   7-column DNA band table overflows the phone viewport. Player-area tables
+   wrap instead; all columns and data stay. */
+/* The DNA band table is the ONLY table inside .pext (playerExtHtml emits
+   exactly one <table>: the dnaRadarBlock 7-column table). Restore real table
+   layout for it alone so fixed layout can actually fit it: the base sheet's
+   global `table{display:block;overflow-x:auto}` rule is what made the band
+   table render as a 431px content-sized block inside a 296px card, i.e. the
+   clipped right columns in the screenshot. Other tables keep base scrolling. */
+body .gs-main .pext table{display:table!important;table-layout:fixed!important;
+  width:100%!important;font-size:15px}
+body .gs-main #profile table,
+body .gs-main .pcard table{font-size:15px}
+body .gs-main .pext table td,body .gs-main .pext table th,
+body .gs-main #profile table td,body .gs-main #profile table th,
+body .gs-main .pcard table td,body .gs-main .pcard table th{
+  white-space:normal!important;word-break:normal;
+  overflow-wrap:break-word;
+  padding:10px 8px;font-size:15px}
+/* Headers break at hyphens/spaces ("Ceiling-" / "break"), never mid-word,
+   and sit slightly smaller so the 7 columns share the phone width. */
+body .gs-main .pext table th,body .gs-main #profile table th,
+body .gs-main .pcard table th{font-size:13px;line-height:1.35}
+/* ---- Issue 6: graphs upgrade (dark chart panels stay dark) ---- */
+body .gs-main svg text{font-size:14px!important;font-weight:600}
+body .gs-main svg polyline{stroke-width:3.5!important}
+body .gs-main svg line{stroke-width:3!important}
+body .gs-main svg circle{r:5px}
+body .gs-main .gs-graph,body .gs-main .gs-graphs{max-width:100%;overflow:hidden}
+body .gs-main .gs-graph svg,body .gs-main .pext svg{max-width:100%;height:auto}
+/* ---- Issue 7: flow + touch targets ---- */
+body .gs-main h2{font-size:26px;line-height:1.3;margin:28px 0 10px}
+body .gs-main .card,body .gs-main .pcard{border-radius:18px}
+body .gs-main .gs-news summary{min-height:48px;padding:14px 4px}
+body .gs-main .gs-btn,body .gs-main .lv-hero .lv-btns a{min-height:48px}
+
+</style><style id="gs-bandtable-fix">
+.pext table{table-layout:fixed!important;width:100%!important}
+.pext table th:nth-child(1),.pext table td:nth-child(1){width:10%}
+.pext table th:nth-child(2),.pext table td:nth-child(2){width:26%}
+.pext table th:nth-child(3),.pext table td:nth-child(3){width:9%}
+.pext table th:nth-child(4),.pext table td:nth-child(4){width:14%}
+.pext table th:nth-child(5),.pext table td:nth-child(5){width:13.5%}
+.pext table th:nth-child(6),.pext table td:nth-child(6){width:13.5%}
+.pext table th:nth-child(7),.pext table td:nth-child(7){width:14%}
+.pext table th,.pext table td{overflow-wrap:normal;word-break:normal}
+</style>
+</head><body>
 <div id="shark-overlay"><div class="shark-wrap"><svg class="shark" viewBox="0 0 480 340" role="img" aria-label="GameShark">
 <circle cx="70" cy="60" r="10" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="420" cy="90" r="7" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".5"/><circle cx="400" cy="260" r="12" fill="none" stroke="#3d6a7a" stroke-width="2" opacity=".4"/>
 <path d="M240 18 L212 72 L268 72 Z" fill="#16303e"/>
@@ -2327,8 +2459,12 @@ function showProfile(){
       const st = entry[0]; const v = entry[1];
       let proj = '';
       if (v[3]) { proj = ' (proj ' + v[3] + ' min)'; }
-      return st + ': ' + v[0] + ' / <b>' + v[1] + '</b> / ' + v[2] + proj;
-    }).join('<br>');
+      return '<div class="up-stat"><span class="up-statname">' + st + '</span>' +
+        '<span class="up-chip">Floor ' + v[0] + '</span>' +
+        '<span class="up-chip up-nat">Natural ' + v[1] + '</span>' +
+        '<span class="up-chip">Ceiling ' + v[2] + '</span>' +
+        (proj ? '<span class="up-proj">' + proj + '</span>' : '') + '</div>';
+    }).join('');
   } else {
     band = 'No 2025-26 season profile on file — current-season averages below are all there is yet.';
   }
@@ -2364,7 +2500,7 @@ function showProfile(){
   }
   const g = card ? card.g : 0;
   const photoHtml = photoBlock(name, 140, 190);
-  pdiv.innerHTML = '<div class="pcard">' + photoHtml + '<b>' + escHtml(name) + '</b>' + (team ? ' (' + escHtml(team) + ')' : '') + fMarks + '<svg class="bitesvg" viewBox="0 0 48 48" width="26" height="26"><path d="M24 4a20 20 0 1 0 0.1 0" fill="none" stroke="#d4af37" stroke-width="3"/><path d="M24 4l6 10-6-4-6 4z" fill="#d4af37"/></svg>' + ' — 2025-26, ' + g + ' games<div class="pband">' + band + '</div><div class="pband">' + curLine + '</div><div class="pband">' + deltaLine + '</div><div class="pband">' + fLine + '</div>' + fTend + fTrend + fRiver + '<div class="pband">' + tally + '</div><div class="chips">' + chipsHtml + '</div><div id="gs-legs">' + legsHtml + '</div>' + playerExtHtml(name, card, true) + '<div style="margin-top:10px"><button data-nm="' + escHtml(name) + '" onclick="gsCardExportBtn(this)">Export card image (PNG)</button> <span class="small">Photo from the verified headshot file only; no photo on file means initials, never a guessed photo.</span></div>' + '</div>';
+  pdiv.innerHTML = '<div class="pcard up-spot">' + '<div class="up-spotphoto">' + photoHtml + '</div>' + '<div class="up-name"><b>' + escHtml(name) + '</b>' + (team ? ' (' + escHtml(team) + ')' : '') + fMarks + '<svg class="bitesvg" viewBox="0 0 48 48" width="26" height="26"><path d="M24 4a20 20 0 1 0 0.1 0" fill="none" stroke="#d4af37" stroke-width="3"/><path d="M24 4l6 10-6-4-6 4z" fill="#d4af37"/></svg></div>' + '<div class="up-sub">2025-26, ' + g + ' games</div><div class="pband">' + band + '</div><div class="pband">' + curLine + '</div><div class="pband">' + deltaLine + '</div><div class="pband">' + fLine + '</div>' + fTend + fTrend + fRiver + '<div class="pband">' + tally + '</div><div class="chips">' + chipsHtml + '</div><div id="gs-legs">' + legsHtml + '</div>' + playerExtHtml(name, card, true) + '<div style="margin-top:10px"><button data-nm="' + escHtml(name) + '" onclick="gsCardExportBtn(this)">Export card image (PNG)</button> <span class="small">Photo from the verified headshot file only; no photo on file means initials, never a guessed photo.</span></div>' + '</div>';
   if (tk.length) { hlTokens(pdiv, tk); }
   pdiv.scrollIntoView();
 }

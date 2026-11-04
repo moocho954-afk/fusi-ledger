@@ -3405,4 +3405,208 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+<style id="gs-sticker-style">
+/* ===== STICKER / 2.8D PLAYER PHOTOS (append-only theme layer) ===== */
+/* Landing boxes: wrapper becomes the perspective stage + ground shadow.
+   Margins are the buffer so tilt/float never covers the tag above or the
+   name below. Worst-case upward travel is float 5 + scale ~4 + rotate
+   rect ~5 + scroll 3 + pointer 2 = ~19px, so the top gap is 22px
+   (tag margin 8 + wrapper margin 14); worst downward ~14px vs 24px below. */
+#gs-boxes .gs-box-photo{position:relative;overflow:visible!important;
+  perspective:800px;animation:gs-stk-float 5.2s ease-in-out infinite;
+  margin:14px 2px 14px}
+#gs-boxes .gs-box:nth-child(2n) .gs-box-photo{animation-delay:1.3s}
+#gs-boxes .gs-box:nth-child(3n) .gs-box-photo{animation-delay:2.6s}
+#gs-boxes .gs-box-photo::after{content:"";position:absolute;left:50%;
+  bottom:-10px;width:72%;height:16px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(20,12,4,.45),rgba(20,12,4,0) 70%);
+  filter:blur(2px);z-index:0;transition:transform .25s ease,opacity .25s ease}
+#gs-boxes .gs-box-photo img{position:relative;z-index:1;box-sizing:border-box;
+  border:5px solid #fffdf6!important;outline:3px solid var(--sticker-edge,#d4af37);
+  outline-offset:2px;border-radius:18px!important;
+  box-shadow:0 2px 0 rgba(255,253,246,.9),0 10px 22px rgba(20,12,4,.35),0 2px 6px rgba(20,12,4,.30);
+  will-change:transform}
+#gs-boxes .gs-box-photo.gs-stk-hot::after{transform:translateX(-50%) scaleX(1.18);opacity:.75}
+/* Spotlight cards (search + profile): same sticker, gold edge by default. */
+.up-spot .up-spotphoto{position:relative;perspective:800px;margin-bottom:16px}
+.up-spot .up-spotphoto>span{position:relative;z-index:1;display:inline-block;
+  animation:gs-stk-float 5.2s ease-in-out infinite}
+.up-spot .up-spotphoto::after{content:"";position:absolute;left:50%;
+  bottom:-8px;width:70%;height:14px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(20,12,4,.45),rgba(20,12,4,0) 70%);
+  filter:blur(2px);z-index:0;transition:transform .25s ease,opacity .25s ease}
+.up-spot .up-spotphoto.gs-stk-hot::after{transform:translateX(-50%) scaleX(1.18);opacity:.75}
+.up-spot .up-spotphoto img{position:relative;z-index:1;box-sizing:border-box;
+  border:5px solid #fffdf6!important;outline:3px solid var(--sticker-edge,#d4af37);
+  outline-offset:2px;border-radius:18px!important;
+  box-shadow:0 2px 0 rgba(255,253,246,.9),0 10px 22px rgba(20,12,4,.35),0 2px 6px rgba(20,12,4,.30);
+  will-change:transform}
+/* Profile card: its own #profile rule beats the generic sticker rule on
+   border/radius (higher specificity + !important), so restate the sticker
+   here at profile specificity (later in the document, so it wins the tie). */
+#profile .pcard .up-spotphoto{margin-bottom:16px}
+#profile .pcard .up-spotphoto img{border:5px solid #fffdf6!important;
+  outline:3px solid var(--sticker-edge,#d4af37);outline-offset:2px;
+  border-radius:18px!important;box-sizing:border-box;
+  box-shadow:0 2px 0 rgba(255,253,246,.9),0 10px 22px rgba(20,12,4,.35),0 2px 6px rgba(20,12,4,.30)}
+/* Search card: its own #players rule ties the profile rule, so restate
+   the sticker here too (later in the document, so it wins the tie). */
+#players .pcard .up-spotphoto{margin-bottom:16px}
+#players .pcard .up-spotphoto img{border:5px solid #fffdf6!important;
+  outline:3px solid var(--sticker-edge,#d4af37);outline-offset:2px;
+  border-radius:18px!important;box-sizing:border-box;
+  box-shadow:0 2px 0 rgba(255,253,246,.9),0 10px 22px rgba(20,12,4,.35),0 2px 6px rgba(20,12,4,.30)}
+@keyframes gs-stk-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){
+  #gs-boxes .gs-box-photo,.up-spot .up-spotphoto>span{animation:none!important}}
+</style>
+
+<script id="gs-sticker-motion">(function(){
+"use strict";
+/* 2.8D sticker motion: scroll parallax + pointer tilt + device tilt.
+   Transform-only, rAF-throttled, clamped, degrades to the static
+   sticker look if anything here fails. Never touches existing handlers. */
+try{
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+var stickers=[]; /* {img,wrap,base,cur:{rx,ry,sx,sy,ty,sc},tgt:{...},hot} */
+var rafPending=false, rafRunning=false;
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+function register(img){
+  if(!img||img.dataset.gsStk)return;
+  img.dataset.gsStk="1";
+  var wrap=img.closest('.gs-box-photo')||img.closest('.up-spotphoto');
+  if(!wrap)return;
+  /* Team edge: reuse the landing card's own border-top color. */
+  var box=img.closest('.gs-box');
+  if(box){
+    try{
+      var c=getComputedStyle(box).borderTopColor;
+      if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent'){wrap.style.setProperty('--sticker-edge',c);}
+    }catch(e){}
+  }
+  var idx=stickers.length;
+  var base=(wrap.classList.contains('gs-box-photo'))?((idx%2===0)?1.5:-1.5):0;
+  stickers.push({img:img,wrap:wrap,base:base,
+    cur:{rx:0,ry:0,sx:0,sy:0,ty:0,sc:1},
+    tgt:{rx:0,ry:0,sx:0,sy:0,ty:0,sc:1},hot:false});
+}
+function scan(root){
+  var imgs=(root||document).querySelectorAll('.gs-box-photo img, .up-spotphoto img');
+  for(var i=0;i<imgs.length;i++){register(imgs[i]);}
+}
+function apply(s){
+  var c=s.cur;
+  s.img.style.transform='perspective(800px) rotate('+s.base+'deg) '+
+    'translate3d('+c.sx.toFixed(1)+'px,'+(c.sy+c.ty).toFixed(1)+'px,0) '+
+    'rotateX('+c.rx.toFixed(2)+'deg) rotateY('+c.ry.toFixed(2)+'deg) '+
+    'scale('+c.sc.toFixed(3)+')';
+}
+function tick(){
+  rafRunning=true;var settling=false;
+  for(var i=0;i<stickers.length;i++){
+    var s=stickers[i],c=s.cur,t=s.tgt;
+    c.rx+=(t.rx-c.rx)*0.18;c.ry+=(t.ry-c.ry)*0.18;
+    c.sx+=(t.sx-c.sx)*0.18;c.sy+=(t.sy-c.sy)*0.18;
+    c.ty+=(t.ty-c.ty)*0.12;c.sc+=(t.sc-c.sc)*0.18;
+    apply(s);
+    if(Math.abs(t.rx-c.rx)>0.05||Math.abs(t.ry-c.ry)>0.05||
+       Math.abs(t.sx-c.sx)>0.05||Math.abs(t.sy-c.sy)>0.05||
+       Math.abs(t.ty-c.ty)>0.05||Math.abs(t.sc-c.sc)>0.002){settling=true;}
+  }
+  if(settling){requestAnimationFrame(tick);}else{rafRunning=false;}
+}
+function kick(){if(!rafRunning){requestAnimationFrame(tick);}}
+function onScroll(){
+  if(rafPending)return;rafPending=true;
+  requestAnimationFrame(function(){
+    rafPending=false;
+    var vh=window.innerHeight||800,vc=vh/2;
+    for(var i=0;i<stickers.length;i++){
+      var s=stickers[i],r=s.img.getBoundingClientRect();
+      if(r.bottom<0||r.top>vh){s.tgt.ty=0;continue;}
+      var off=(vc-(r.top+r.height/2))/vh; /* -0.5..0.5 */
+      /* Asymmetric: upward parallax capped harder (tag clearance above). */
+      s.tgt.ty=clamp(off*12,-3,6);
+    }
+    kick();
+  });
+}
+function onPoint(clientX,clientY){
+  var el=document.elementFromPoint(clientX,clientY);
+  var card=el?el.closest('.gs-box, .up-spot'):null;
+  for(var i=0;i<stickers.length;i++){
+    var s=stickers[i],inside=card&&(card.contains(s.img));
+    if(inside){
+      var r=s.wrap.getBoundingClientRect();
+      var px=(clientX-(r.left+r.width/2))/Math.max(r.width,1); /* -0.5..0.5 */
+      var py=(clientY-(r.top+r.height/2))/Math.max(r.height,1);
+      s.tgt.ry=clamp(px*20,-10,10);s.tgt.rx=clamp(-py*20,-10,10);
+      s.tgt.sx=clamp(px*14,-6,6);s.tgt.sy=clamp(py*12,-2,4);
+      s.tgt.sc=1.03;
+      if(!s.hot){s.hot=true;s.wrap.classList.add('gs-stk-hot');}
+    }else{
+      s.tgt.rx=0;s.tgt.ry=0;s.tgt.sx=0;s.tgt.sy=0;s.tgt.sc=1;
+      if(s.hot){s.hot=false;s.wrap.classList.remove('gs-stk-hot');}
+    }
+  }
+  kick();
+}
+function onTilt(e){
+  if(e.gamma==null&&e.beta==null)return;
+  var vh=window.innerHeight||800,vc=vh/2;
+  for(var i=0;i<stickers.length;i++){
+    var s=stickers[i],r=s.img.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh)continue;
+    var depth=s.wrap.classList.contains('gs-box-photo')&&
+      s.wrap.closest('.gs-box-mvp')?1:0.6;
+    var ry=clamp((e.gamma||0)*0.25,-8,8)*depth;
+    var rx=clamp(((e.beta||0)-45)*0.12,-8,8)*depth;
+    if(!s.hot){s.tgt.ry=ry;s.tgt.rx=rx;}
+  }
+  kick();
+}
+scan(document);
+if(window.MutationObserver){
+  var mo=new MutationObserver(function(muts){
+    for(var i=0;i<muts.length;i++){
+      var m=muts[i];
+      for(var j=0;j<m.addedNodes.length;j++){
+        var n=m.addedNodes[j];
+        if(n&&n.nodeType===1){
+          if(n.matches&&n.matches('.gs-box-photo img, .up-spotphoto img')){register(n);}
+          scan(n);
+        }
+      }
+    }
+  });
+  mo.observe(document.body,{childList:true,subtree:true});
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+document.addEventListener('pointermove',function(e){onPoint(e.clientX,e.clientY);},{passive:true});
+document.addEventListener('pointerleave',function(){onPoint(-9999,-9999);});
+document.addEventListener('touchmove',function(e){
+  if(e.touches&&e.touches[0]){onPoint(e.touches[0].clientX,e.touches[0].clientY);}
+},{passive:true});
+/* Device tilt: listen directly on load wherever the API exists (events
+   simply do not fire until permission is granted, where permission is
+   required). Where a permission API exists, ALSO request it inside the
+   first user gesture — never on load, never blocking. */
+try{
+  if('DeviceOrientationEvent' in window){
+    window.addEventListener('deviceorientation',onTilt);
+  }
+  if(window.DeviceOrientationEvent&&
+     typeof DeviceOrientationEvent.requestPermission==='function'){
+    var tiltArmed=false;
+    document.addEventListener('pointerdown',function(){
+      if(tiltArmed)return;tiltArmed=true;
+      try{
+        DeviceOrientationEvent.requestPermission().catch(function(){});
+      }catch(e){}
+    },{passive:true});
+  }
+}catch(e){}
+onScroll();
+}catch(err){/* static sticker look survives any controller failure */}
+})();</script>
 </body></html>

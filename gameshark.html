@@ -7812,4 +7812,665 @@ article.gsn-item{margin-top:44px !important;padding-top:34px !important}
 })();
 
 </script>
+<style id="gs-enh2-style">
+/* GS-ENH2-20261104 */
+/* GS-ENH2-20261104 — scoreboards, heater photos, news stickers, Locker Room, projection callouts */
+.gs2-score{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+.gs2-cell{background:#0e0d0b;border:2px solid #d4af37;border-radius:14px;padding:12px 10px;text-align:center;color:#f2ede1}
+.gs2-cell b{display:block;font-size:28px;line-height:1.1;color:#ffe9a8}
+.gs2-cell span{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9a958a}
+.gs2-cell small{display:block;font-size:12px;color:#f2ede1;margin-top:4px;line-height:1.4}
+.gs2-card{background:#171511;border:1px solid #3a352a;border-radius:14px;padding:14px;margin:12px 0;color:#f2ede1;line-height:1.55}
+.gs2-card h3{margin:0 0 8px;color:#ffe9a8;font-size:19px}
+.gs2-card p{margin:6px 0}
+.gs2-btn{background:#d4af37;color:#171511;border:0;border-radius:999px;padding:12px 18px;font-weight:900;font-size:15px;min-height:48px;cursor:pointer;margin:6px 6px 6px 0}
+.gs2-btn2{background:#171511;color:#ffe9a8;border:2px solid #d4af37;border-radius:999px;padding:10px 16px;font-weight:800;font-size:14px;min-height:48px;cursor:pointer;margin:6px 6px 6px 0}
+.gs2-proj{background:#552583;border:3px solid #ffe9a8;border-radius:14px;padding:14px 16px;margin:0 0 12px;color:#fff}
+.gs2-proj b{display:block;font-size:30px;line-height:1.1;color:#ffe9a8}
+.gs2-proj span{font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:800}
+.gs2-proj small{display:block;font-size:13px;line-height:1.5;margin-top:6px;color:#f2ede1}
+.gs2-table{width:100%;border-collapse:collapse;font-size:14px}
+.gs2-table th,.gs2-table td{border-bottom:1px solid #3a352a;padding:8px 6px;text-align:left;color:#f2ede1}
+.gs2-table td b{color:#ffe9a8;font-size:16px}
+/* Heater / box photos: full phone width, never distorted, vertical scroll */
+.gs-box{width:100%!important;box-sizing:border-box!important}
+.gs-box-photo{width:100%!important;margin:0 0 14px!important;animation:none!important;overflow:hidden!important;border-radius:18px!important}
+.gs-box-photo img{width:100%!important;height:clamp(220px,62vw,340px)!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:top center!important;display:block!important}
+.up-spotphoto img{width:100%!important;height:auto!important;object-fit:cover!important;object-position:top center!important}
+.gs-click-panel{max-height:82vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+.gs-click-row{flex-direction:column!important;align-items:stretch!important;gap:4px!important}
+.gs-click-row .gs-click-cell{width:100%!important}
+/* News: bigger stickers + why-click line, visible before reveal */
+.gs-enh-sticker img{width:72px!important;height:72px!important}
+.gs-enh-sticker-mono{width:72px!important;height:72px!important;font-size:22px!important}
+.gs-enh-sticker-cap{font-size:15px!important}
+article.gsn-item{margin-top:76px!important;padding-top:44px!important}
+.gs2-why{background:#0e0d0b;border:1px solid #d4af37;border-radius:12px;padding:10px 12px;margin:10px 0;color:#f2ede1;font-size:15px;line-height:1.55}
+.gs2-why b{color:#ffe9a8}
+/* Locker Room icon tile + charts */
+.gs2-locker-svg{width:64px;height:64px}
+.gs2-chart{box-sizing:border-box;width:100%;background:#171511;border:1px solid #d4af37;border-radius:14px;padding:12px;margin:12px 0;overflow-x:auto}
+.gs2-chart svg{width:100%;min-width:340px;height:auto;display:block}
+.gs2-dotnum{font-size:10px;fill:#ffe9a8;font-weight:800}
+.gs2-catbtn{margin:4px}
+#gs-enh-channel{overflow-y:auto!important}
+.gs2-chase{background:#0e0d0b;border:1px solid #d4af37;border-radius:10px;padding:10px 12px;margin:8px 0 0;color:#f2ede1;font-size:14px;line-height:1.55;width:100%;box-sizing:border-box}
+.gs2-chase b{color:#ffe9a8}
+.gs-dna-track{position:relative!important}
+.gs2-bandmark{position:absolute;top:-7px;transform:translateX(-50%);font-size:20px;line-height:1;z-index:5;text-shadow:0 0 4px #000}
+.gs2-usual{color:#ffe9a8}
+.gs2-nearceil{color:#ff8a5c;top:14px}
+.gs2-nearfloor{color:#7ec8ff;top:14px}
+.gs2-bandread{background:#0e0d0b;border:2px solid #ffe9a8;border-radius:12px;padding:12px 14px;margin:10px 0;color:#f2ede1;font-size:15px;line-height:1.6}
+.gs2-bandread b{color:#ffe9a8}
+.gs-dna-zonelabels span{font-size:13px!important;font-weight:800!important}
+/* GS-ENH2 item 12: Luka standard — whole headshot visible, no squeeze, no crop */
+#gs-boxes .gs-box-photo img, .gs-layout .gs-box-photo img, #players .pcard img, .up-spotphoto img, .gs-box-photo img{width:100%!important;height:auto!important;max-height:380px!important;object-fit:contain!important;object-position:center top!important;background:#f2ede1!important}
+.gs-box-photo{animation:none!important}
+.gs-enh-sticker img{object-fit:cover!important}
+/* GS-ENH2 item 11: micro-intro splashes, ~0.95s, named buttons only */
+#gs2-intro{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(14,13,11,.88);color:#ffe9a8;font-size:22px;font-weight:900;letter-spacing:.05em;pointer-events:none;animation:gs2introfade .95s ease forwards}
+.gs2-intro-emoji{font-size:88px;line-height:1}
+.gs2-intro-heat .gs2-intro-emoji{animation:gs2burst .95s ease}
+.gs2-intro-every .gs2-intro-emoji{animation:gs2launch .95s ease}
+.gs2-intro-locker .gs2-intro-emoji{animation:gs2bounce .95s ease}
+@keyframes gs2burst{0%{transform:scale(.4)}50%{transform:scale(1.5) rotate(-8deg)}100%{transform:scale(1)}}
+@keyframes gs2launch{0%{transform:translateY(60px)}100%{transform:translateY(-70px)}}
+@keyframes gs2bounce{0%{transform:translateY(0)}30%{transform:translateY(-40px)}60%{transform:translateY(0)}100%{transform:translateY(-20px)}}
+@keyframes gs2introfade{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
+
+.gsn-badge{width:72px!important;height:72px!important;font-size:20px!important}
+.gs2-bandread{color:#ffffff!important}
+.gs2-bandread b{color:#ffe9a8!important}
+
+</style>
+<script id="gs-enh2-script">
+/* GS-ENH2-20261104 */
+/* GS-ENH2-20261104 — additive only. Fixes the 4 inline channel tiles, enriches
+   every channel from the page's own data, restyles stats as scoreboards,
+   enlarges news stickers with a why-click line, adds the Locker Room
+   whole-NBA watch, and moves every projection callout OUTSIDE the plot.
+   No stat, score, or date is invented: every number is computed at open
+   time from PLAYERS / GAMELOGS / MJ cards / news items already on the page. */
+(function () {
+  'use strict';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  function r1(v) { return Math.round(v * 10) / 10; }
+  var IDX = { PTS: 3, REB: 4, AST: 5, '3PT': 11 };
+  var LABELS = { PTS: 'Points', '3PT': 'Three-pointers', REB: 'Rebounds', AST: 'Assists', STL: 'Steals', BLK: 'Blocks', MIN: 'Minutes', FGM: 'Field goals made', FGA: 'Field goals attempted', TO: 'Turnovers', 'P+R+A': 'Points + rebounds + assists' };
+  function valsFor(nm, key) {
+    try {
+      if (typeof gameLogFor !== 'function') return null;
+      var gl = gameLogFor(nm); if (!gl || !gl.g || !gl.g.length) return null;
+      if (typeof GAMELOG_STATS !== 'undefined') {
+        for (var i = 0; i < GAMELOG_STATS.length; i++) {
+          if (GAMELOG_STATS[i][0] === key) {
+            var e = GAMELOG_STATS[i][2];
+            if (Array.isArray(e)) return gl.g.map(function (g) { return e.reduce(function (s, k) { return s + (g[k] || 0); }, 0); });
+            return gl.g.map(function (g) { return g[e]; });
+          }
+        }
+      }
+      if (IDX[key] !== undefined) return gl.g.map(function (g) { return g[IDX[key]]; });
+      return null;
+    } catch (e) { return null; }
+  }
+  function labelsFor(nm) { try { var gl = gameLogFor(nm); if (gl && gl.g) return gl.g.map(function (g) { return g[0] + ' · ' + g[1]; }); } catch (e) {} return []; }
+  function cardFor(nm) {
+    if (typeof PLAYERS === 'undefined') return null;
+    for (var i = 0; i < PLAYERS.length; i++) if (PLAYERS[i].n === nm) return PLAYERS[i];
+    for (var j = 0; j < PLAYERS.length; j++) if (norm(PLAYERS[j].n) === norm(nm)) return PLAYERS[j];
+    return null;
+  }
+  function bandFor(nm, key, vals) {
+    var c = cardFor(nm); if (c && c.s && c.s[key]) return c.s[key];
+    if (!vals || !vals.length) return null;
+    var s = vals.slice().sort(function (a, b) { return a - b; });
+    function pct(p) { var rank = p / 100 * (s.length - 1), lo = Math.floor(rank), hi = Math.ceil(rank); return s[lo] + (s[hi] - s[lo]) * (rank - lo); }
+    return [r1(pct(10)), r1(pct(50)), r1(pct(90))];
+  }
+  function last5(vals) { if (!vals || !vals.length) return null; var k = Math.min(5, vals.length), s = 0; for (var i = vals.length - k; i < vals.length; i++) s += vals[i]; return r1(s / k); }
+  function statusOf(l5, band) { if (l5 === null || !band) return '—'; if (l5 >= band[2]) return 'HEATING UP'; if (l5 <= band[0]) return 'GOING COLD'; return 'IN BAND'; }
+  function streakTxt(vals, band) {
+    if (!vals || !band) return '';
+    var hot = 0, cold = 0;
+    for (var i = vals.length - 1; i >= 0; i--) { if (vals[i] >= band[2]) hot++; else break; }
+    for (var j = vals.length - 1; j >= 0; j--) { if (vals[j] <= band[0]) cold++; else break; }
+    if (hot >= 2) return '🔥 ' + hot + ' straight at/above ceiling';
+    if (cold >= 2) return '🧊 ' + cold + ' straight at/below floor';
+    return '';
+  }
+  function nextGameTxt(nm) {
+    try { if (typeof nextGameFor === 'function') { var g = nextGameFor(nm); if (g) return typeof nextGameLabel === 'function' ? nextGameLabel(g, true) : (g.date + ' ' + g.opp); } } catch (e) {}
+    return '';
+  }
+  function openProfile(nm) {
+    closeGs2();
+    var q = document.getElementById('q'); if (q) { q.value = nm; try { q.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {} }
+    var btn = document.querySelector('button[data-gs-tab="players"]'); if (btn) btn.click();
+    setTimeout(function () {
+      var cards = $$('#players .pcard');
+      for (var i = 0; i < cards.length; i++) { if (norm(cards[i].textContent).indexOf(norm(nm)) >= 0) { cards[i].scrollIntoView({ block: 'center' }); cards[i].classList.add('gs-enh-flash'); break; } }
+    }, 600);
+  }
+  function overlay() { return document.getElementById('gs-enh-channel'); }
+  function closeGs2() { var o = overlay(); if (o) { o.style.display = 'none'; document.body.style.overflow = ''; } }
+  function gs2Open(title, html) {
+    var o = overlay(); if (!o) return;
+    var t = document.getElementById('gs-enh-channel-title'); if (t) t.textContent = title;
+    var b = document.getElementById('gs-enh-channel-body'); if (b) { b.innerHTML = html; b.setAttribute('data-gs2-title', title); }
+    o.style.display = 'block'; document.body.style.overflow = 'hidden'; o.scrollTop = 0;
+  }
+  function scoreboard(nm, keys) {
+    var cells = '';
+    keys.forEach(function (k) {
+      var vals = valsFor(nm, k); if (!vals) { cells += '<div class="gs2-cell"><b>—</b><span>' + esc(LABELS[k] || k) + '</span><small>No log on file</small></div>'; return; }
+      var band = bandFor(nm, k, vals), l5 = last5(vals);
+      cells += '<div class="gs2-cell"><b>' + l5 + '</b><span>' + esc(LABELS[k] || k) + ' · last 5</span><small>Latest ' + vals[vals.length - 1] + ' · ' + statusOf(l5, band) + (band ? ' · band ' + band[0] + '/' + band[1] + '/' + band[2] : '') + '</small></div>';
+    });
+    var ng = nextGameTxt(nm);
+    return '<div class="gs2-card"><h3>' + esc(nm) + '</h3><div class="gs2-score">' + cells + '</div>' + (ng ? '<p>Next game on file: ' + esc(ng) + '</p>' : '') + '<button type="button" class="gs2-btn" data-gs2-profile="' + esc(nm) + '">Open profile →</button></div>';
+  }
+  function bindGs2(body) {
+    $$('[data-gs2-profile]', body).forEach(function (b) { b.addEventListener('click', function () { openProfile(b.getAttribute('data-gs2-profile')); }); });
+    $$('[data-gs2-watch]', body).forEach(function (b) { b.addEventListener('click', function () { try { var w = JSON.parse(localStorage.getItem('gs-enh-watchlist') || '[]'); var nm = b.getAttribute('data-gs2-watch'); if (w.indexOf(nm) < 0) w.push(nm); localStorage.setItem('gs-enh-watchlist', JSON.stringify(w)); b.textContent = '★ Watching'; } catch (e) {} }); });
+    $$('[data-gs2-copy]', body).forEach(function (b) { b.addEventListener('click', function () { var txt = b.getAttribute('data-gs2-copy'); try { if (navigator.clipboard) navigator.clipboard.writeText(txt); } catch (e) {} b.textContent = 'Copied — paste it anywhere'; }); });
+    $$('[data-gs2-graph]', body).forEach(function (b) { b.addEventListener('click', function () { closeGs2(); var nm = b.getAttribute('data-gs2-graph'), k = b.getAttribute('data-gs2-stat') || 'PTS'; var fake = document.createElement('div'); fake.setAttribute('data-player', nm); fake.setAttribute('data-stat', k); try { if (typeof gsOpenChart === 'function') gsOpenChart(fake); } catch (e) {} }); });
+  }
+  function logsReady() { try { return typeof GAMELOGS !== 'undefined' && GAMELOGS && Object.keys(GAMELOGS).length > 0; } catch (e) { return false; } }
+  function topBy(key, n) {
+    if (!logsReady() || typeof PLAYERS === 'undefined') return [];
+    var out = [];
+    PLAYERS.forEach(function (p) { var vals = valsFor(p.n, key); if (!vals) return; out.push({ n: p.n, t: p.t, l5: last5(vals), latest: vals[vals.length - 1], games: vals.length }); });
+    out.sort(function (a, b) { return b.l5 - a.l5; });
+    return out.slice(0, n);
+  }
+  function mjCards() {
+    return $$('.gs-heat-card').map(function (c) { return c.textContent.replace(/\s+/g, ' ').trim(); });
+  }
+
+  /* ---------- Inline 4: now real pages, not alerts ---------- */
+  function dotPage() {
+    var html = '<div class="gs2-card"><h3>Dot to Game — press any dot, get the game</h3><p>On any fullscreen graph, every dot is one game. Press a dot and the page shows date · opponent: value, plus whether it sat above the ceiling, below the floor, or inside the band. Dense inline mini-graphs can overlap their numbers — the fullscreen graph is the legible one.</p></div>';
+    if (!logsReady()) html += '<div class="gs2-card"><p>Game logs are still loading on this page, so dot stories cannot be read yet. Tap Refresh below once the page finishes loading.</p><button type="button" class="gs2-btn" data-gs2-refresh="dot">Refresh dot stories</button></div>';
+    else {
+      var names = Object.keys(GAMELOGS).slice(0, 5);
+      names.forEach(function (nm) {
+        var vals = valsFor(nm, 'PTS'), labs = labelsFor(nm);
+        if (!vals) return;
+        var band = bandFor(nm, 'PTS', vals), last = vals[vals.length - 1], lab = labs[labs.length - 1] || '';
+        html += '<div class="gs2-card"><h3>' + esc(nm) + '</h3><div class="gs2-score"><div class="gs2-cell"><b>' + last + '</b><span>PTS · latest game</span><small>' + esc(lab) + '</small></div><div class="gs2-cell"><b>' + last5(vals) + '</b><span>PTS · last 5 avg</span><small>Band ' + (band ? band.join(' / ') : '—') + '</small></div></div><button type="button" class="gs2-btn" data-gs2-graph="' + esc(nm) + '" data-gs2-stat="PTS">Open this graph full screen →</button></div>';
+      });
+    }
+    return html;
+  }
+  function streakPage() {
+    var html = '<div class="gs2-card"><h3>Streak Badges — live from the logs</h3><p>A badge is earned only from games on file: 2 or more straight games at/above the ceiling, or at/below the floor, for points. No badge is shown without that run behind it.</p></div>';
+    if (!logsReady()) return html + '<div class="gs2-card"><p>Game logs still loading — tap Refresh once the page finishes loading.</p><button type="button" class="gs2-btn" data-gs2-refresh="streak">Refresh streaks</button></div>';
+    var found = 0;
+    PLAYERS.forEach(function (p) { var vals = valsFor(p.n, 'PTS'); if (!vals) return; var band = bandFor(p.n, 'PTS', vals), sk = streakTxt(vals, band); if (sk) { found++; html += '<div class="gs2-card"><h3>' + esc(p.n) + ' (' + esc(p.t) + ')</h3><p><b>' + esc(sk) + '</b> · last 5 avg ' + last5(vals) + ' · band ' + band.join(' / ') + '</p><button type="button" class="gs2-btn" data-gs2-profile="' + esc(p.n) + '">Open profile →</button> <button type="button" class="gs2-btn2" data-gs2-watch="' + esc(p.n) + '">★ Watch</button></div>'; } });
+    if (!found) html += '<div class="gs2-card"><p>No player on file currently holds a 2+ game points streak against his own band. That is the honest empty state — no badge was invented to fill it.</p></div>';
+    return html;
+  }
+  function injuryPage() {
+    var rows = $$('.gs-inj-row');
+    var html = '<div class="gs2-card"><h3>Injury Flag — from this page\'s injury report</h3><p>These are injury-report notes only. They do not predict a lineup, a return date, or a stat — anything beyond the note itself is not claimed.</p></div>';
+    if (!rows.length) return html + '<div class="gs2-card"><p>No injury rows were found on this page at open time.</p></div>';
+    rows.slice(0, 24).forEach(function (r) {
+      var txt = r.textContent.replace(/\s+/g, ' ').trim();
+      var nm = txt.split(' ')[0] + ' ' + (txt.split(' ')[1] || '');
+      html += '<div class="gs2-card"><p>⚑ ' + esc(txt.slice(0, 260)) + '</p></div>';
+    });
+    return html;
+  }
+  function sharePage() {
+    var html = '<div class="gs2-card"><h3>Share Card — copy a player card, post it yourself</h3><p>Nothing is posted by this page. Tap Copy and the card text goes to your clipboard, so you can paste it wherever you choose.</p></div>';
+    var tops = topBy('PTS', 5);
+    if (!tops.length) return html + '<div class="gs2-card"><p>Game logs still loading — top cards cannot be built yet. Tap Refresh once the page finishes loading.</p><button type="button" class="gs2-btn" data-gs2-refresh="share">Refresh share cards</button></div>';
+    tops.forEach(function (t) {
+      var txt = 'GameShark — ' + t.n + ' (' + t.t + '): last 5 PTS avg ' + t.l5 + ', latest ' + t.latest + ' over ' + t.games + ' games on file. Display only, never a pick.';
+      html += '<div class="gs2-card"><h3>' + esc(t.n) + ' (' + esc(t.t) + ')</h3><div class="gs2-score"><div class="gs2-cell"><b>' + t.l5 + '</b><span>PTS · last 5</span></div><div class="gs2-cell"><b>' + t.latest + '</b><span>PTS · latest</span></div></div><button type="button" class="gs2-btn" data-gs2-copy="' + esc(txt) + '">Copy card text</button> <button type="button" class="gs2-btn2" data-gs2-profile="' + esc(t.n) + '">Open profile →</button></div>';
+    });
+    return html;
+  }
+  function openInline(kind) {
+    var title = '', html = '';
+    if (kind === 'dot') { title = 'Dot to Game — press any dot'; html = dotPage(); }
+    else if (kind === 'streak') { title = 'Streak Badges — live from the logs'; html = streakPage(); }
+    else if (kind === 'injury') { title = 'Injury Flag — injury report only'; html = injuryPage(); }
+    else if (kind === 'share') { title = 'Share Card — copy, don\'t post'; html = sharePage(); }
+    gs2Open(title, html);
+    var b = document.getElementById('gs-enh-channel-body'); if (b) bindGs2(b);
+    $$('[data-gs2-refresh]', b).forEach(function (btn) { btn.addEventListener('click', function () { openInline(kind); }); });
+  }
+
+  /* ---------- Locker Room: whole-NBA nightly totals from GAMELOGS ---------- */
+  function lockerData() {
+    var byDate = {}, cats = ['PTS', '3PT', 'REB', 'AST', 'STL', 'BLK', 'MIN', 'FGM', 'FGA', 'TO', 'P+R+A'];
+    if (!logsReady()) return null;
+    Object.keys(GAMELOGS).forEach(function (nm) {
+      var gl = GAMELOGS[nm]; if (!gl || !gl.g) return;
+      gl.g.forEach(function (g) {
+        var d = g[0]; if (!d) return;
+        if (!byDate[d]) { byDate[d] = { n: 0 }; cats.forEach(function (c) { byDate[d][c] = 0; }); }
+        byDate[d].n++;
+        cats.forEach(function (c) {
+          var e = null;
+          if (typeof GAMELOG_STATS !== 'undefined') { for (var i = 0; i < GAMELOG_STATS.length; i++) if (GAMELOG_STATS[i][0] === c) e = GAMELOG_STATS[i][2]; }
+          if (Array.isArray(e)) byDate[d][c] += e.reduce(function (s, k) { return s + (g[k] || 0); }, 0);
+          else if (e !== null) byDate[d][c] += (g[e] || 0);
+        });
+      });
+    });
+    var dates = Object.keys(byDate).sort();
+    return { dates: dates, byDate: byDate, cats: cats };
+  }
+  function lockerSvg(dates, vals, cat, proj) {
+    var w = 720, h = 300, padL = 46, padR = 14, padT = 26, padB = 34;
+    var mx = Math.max.apply(null, vals.concat([proj || 0])), mn = Math.min.apply(null, vals.concat([0]));
+    if (mx === mn) mx = mn + 1;
+    function X(i) { return padL + (vals.length === 1 ? (w - padL - padR) / 2 : i * (w - padL - padR) / (vals.length - 1)); }
+    function Y(v) { return padT + (1 - (v - mn) / (mx - mn)) * (h - padT - padB); }
+    var pts = vals.map(function (v, i) { return X(i) + ',' + Y(v); }).join(' ');
+    var dots = vals.map(function (v, i) { return '<g class="gs2-dot" data-gs2-night="' + i + '"><circle cx="' + X(i) + '" cy="' + Y(v) + '" r="7" fill="#d4af37" stroke="#171511" stroke-width="2"/><text class="gs2-dotnum" x="' + X(i) + '" y="' + (Y(v) - 11) + '" text-anchor="middle">' + v + '</text></g>'; }).join('');
+    var projX = padL + (w - padL - padR) + 0;
+    var projMark = (proj !== null) ? '<g><line x1="' + (X(vals.length - 1)) + '" y1="' + Y(vals[vals.length - 1]) + '" x2="' + (X(vals.length - 1) + 26) + '" y2="' + Y(proj) + '" stroke="#ffe9a8" stroke-width="2" stroke-dasharray="5 4"/><circle cx="' + (X(vals.length - 1) + 26) + '" cy="' + Y(proj) + '" r="6" fill="#552583" stroke="#ffe9a8" stroke-width="2"/></g>' : '';
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Locker Room ' + cat + ' nightly totals"><line x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (h - padB) + '" stroke="#3a352a"/><line x1="' + padL + '" y1="' + (h - padB) + '" x2="' + w + '" y2="' + (h - padB) + '" stroke="#3a352a"/><polyline points="' + pts + '" fill="none" stroke="#d4af37" stroke-width="3"/>' + dots + projMark + '<text x="' + padL + '" y="16" fill="#9a958a" font-size="12">Nightly total · ' + cat + '</text></svg>';
+  }
+  function lockerPage(cat) {
+    cat = cat || 'PTS';
+    var data = lockerData();
+    var head = '<div class="gs2-card"><h3>🏀 Locker Room — the whole NBA, together</h3><p>Every night on file, every player\'s game counts once. Totals below are sums across all players with a log entry that night — not one team, not one star. Categories come from the page\'s own game logs; a category with no log column is not shown.</p><p><b>Projection method, in plain words:</b> the projected next night is the average of the last 5 nights on file. It is an average, never a guarantee, and it is recomputed from real totals every time this page opens.</p></div>';
+    if (!data || !data.dates.length) return head + '<div class="gs2-card"><p>Game logs are still loading on this page, or no nightly totals could be built from them. Tap Refresh once the page finishes loading — no total is guessed while logs are missing.</p><button type="button" class="gs2-btn" data-gs2-refresh="locker">Refresh Locker Room</button></div>';
+    var cats = data.cats;
+    var btns = cats.map(function (c) { return '<button type="button" class="gs2-btn2 gs2-catbtn" data-gs2-locker-cat="' + c + '">' + c + '</button>'; }).join('');
+    var vals = data.dates.map(function (d) { return data.byDate[d][cat]; });
+    var last5v = vals.slice(-5), proj = r1(last5v.reduce(function (s, v) { return s + v; }, 0) / last5v.length);
+    var avgAll = r1(vals.reduce(function (s, v) { return s + v; }, 0) / vals.length);
+    var lastDate = data.dates[data.dates.length - 1];
+    var scoreCells = cats.map(function (c) { return '<div class="gs2-cell"><b>' + data.byDate[lastDate][c] + '</b><span>' + esc(LABELS[c] || c) + '</span><small>Latest night · ' + esc(lastDate) + ' · ' + data.byDate[lastDate].n + ' player-games</small></div>'; }).join('');
+    var rows = data.dates.map(function (d, i) { return '<tr><td>' + esc(d) + '</td><td><b>' + vals[i] + '</b></td><td>' + data.byDate[d].n + '</td></tr>'; }).join('');
+    var html = head + '<div class="gs2-card"><h3>Latest night scoreboard — ' + esc(lastDate) + '</h3><div class="gs2-score">' + scoreCells + '</div></div>'
+      + '<div class="gs2-card"><h3>Pick a category</h3><p>' + btns + '</p></div>'
+      + '<div class="gs2-proj"><span>Projected next night · ' + esc(cat) + '</span><b>' + proj + '</b><small>Average of the last 5 nights on file (' + data.dates.slice(-5).join(', ') + '). Latest night total: ' + vals[vals.length - 1] + ' · All-nights average: ' + avgAll + ' · Nights on file: ' + data.dates.length + '. This callout sits above the chart on purpose — it is never hidden behind the line.</small></div>'
+      + '<div class="gs2-chart" data-gs2-locker-chart="1">' + lockerSvg(data.dates, vals, cat, proj) + '<p style="color:#f2ede1;font-size:14px;line-height:1.5">Tap any dot to see that night\'s total below. Numbers on dense charts can overlap at phone width — the table under the chart lists every night in full, so nothing is lost.</p><div class="gs2-card" data-gs2-night-detail="1"><p>Tap a dot above to see that night here.</p></div></div>'
+      + '<div class="gs2-card"><h3>Every night — ' + esc(cat) + ' totals</h3><table class="gs2-table"><tr><th>Night</th><th>Total</th><th>Player-games</th></tr>' + rows + '</table></div>';
+    return html;
+  }
+  function openLocker(cat) {
+    gs2Open('Locker Room — whole-NBA watch', lockerPage(cat));
+    var b = document.getElementById('gs-enh-channel-body'); if (!b) return;
+    $$('[data-gs2-locker-cat]', b).forEach(function (btn) { btn.addEventListener('click', function () { openLocker(btn.getAttribute('data-gs2-locker-cat')); }); });
+    $$('[data-gs2-refresh]', b).forEach(function (btn) { btn.addEventListener('click', function () { openLocker(cat); }); });
+    var chart = b.querySelector('[data-gs2-locker-chart]');
+    if (chart) {
+      var data = lockerData(); if (data) {
+        var vals = data.dates.map(function (d) { return data.byDate[d][cat]; });
+        $$('.gs2-dot', chart).forEach(function (dot) { dot.addEventListener('click', function () { var i = parseInt(dot.getAttribute('data-gs2-night'), 10); var det = chart.querySelector('[data-gs2-night-detail]'); if (det) det.innerHTML = '<p><b>Night ' + esc(data.dates[i]) + ' — ' + esc(cat) + ': ' + vals[i] + '</b> across ' + data.byDate[data.dates[i]].n + ' player-games.</p>'; }); });
+      }
+    }
+  }
+  function lockerIcon() {
+    return '<svg viewBox="0 0 64 64" class="gs-enh-icon gs2-locker-svg" aria-hidden="true"><defs><linearGradient id="gsglock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#d4af37"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="#171511" stroke="#d4af37" stroke-width="2"/><circle cx="46" cy="20" r="11" fill="#c65d21" stroke="#171511" stroke-width="2"/><path d="M38 20h16M46 12v16" stroke="#171511" stroke-width="2"/><rect x="14" y="14" width="30" height="38" rx="4" fill="#5b8dd9" stroke="#f2ede1" stroke-width="2"/><rect x="17" y="18" width="24" height="10" rx="2" fill="#171511"/><text x="29" y="26" font-size="8" font-weight="900" fill="#ffe9a8" text-anchor="middle">NBA</text><polyline points="17,44 24,34 30,40 38,26 41,30" fill="none" stroke="url(#gsglock)" stroke-width="3" stroke-linecap="round"/><circle cx="38" cy="26" r="3" fill="#ffe9a8"/></svg>';
+  }
+
+  /* ---------- News: bigger stickers are CSS; why-click lines are here ---------- */
+  function installNewsWhy() {
+    $$('article.gsn-item').forEach(function (art) {
+      if (art.getAttribute('data-gs2-news')) return;
+      art.setAttribute('data-gs2-news', '1');
+      var body = art.querySelector('.gs-enh-article-body');
+      var link = art.querySelector('a');
+      var headline = link ? link.textContent.replace(/\s+/g, ' ').trim() : '';
+      var sub = art.querySelector('.sub');
+      var outlet = sub ? sub.textContent.replace(/\s+/g, ' ').trim().slice(0, 120) : '';
+      var why = document.createElement('div'); why.className = 'gs2-why';
+      why.innerHTML = '<b>Why tap this?</b> ' + (headline ? esc(headline.slice(0, 140)) : 'Tap the outlet photo above to reveal the full article.') + (outlet ? '<br><small>' + esc(outlet) + '</small>' : '');
+      if (body && body.parentNode) body.parentNode.insertBefore(why, body); else art.appendChild(why);
+    });
+  }
+  /* ---------- Projection callouts OUTSIDE every plot ---------- */
+  function projCallout(value, basis) {
+    return '<div class="gs2-proj"><span>Projected next game / night</span><b>' + esc(value) + '</b><small>' + esc(basis) + ' This callout sits above the chart on purpose — it is never hidden behind the line, the dots, or the chart background.</small></div>';
+  }
+  function enhanceProjCallouts() {
+    // Lightbox / analysis panel: parse a PROJ number from its text, callout first.
+    var an = document.getElementById('gs-lb-analysis');
+    if (an && !an.getAttribute('data-gs2-proj')) {
+      var txt = an.textContent || '';
+      var m = txt.match(/PROJ[^0-9\-]{0,20}(-?[\d.]+)/i) || txt.match(/projected[^0-9\-]{0,30}(-?[\d.]+)/i);
+      if (m) { an.setAttribute('data-gs2-proj', '1'); var d = document.createElement('div'); d.innerHTML = projCallout(m[1], 'From the page\'s own projection for this player and stat (MJ_PROJ on file).'); an.insertBefore(d, an.firstChild); }
+    }
+    // MJ highlighted graphs built by the earlier enhancement.
+    $$('.gs-enh-mjgraph').forEach(function (wrap) {
+      if (wrap.getAttribute('data-gs2-proj')) return;
+      var nm = wrap.getAttribute('data-enh-player'), k = wrap.getAttribute('data-enh-stat');
+      try {
+        if (typeof MJ_PROJ !== 'undefined' && MJ_PROJ && nm) {
+          var normed = {}; Object.keys(MJ_PROJ).forEach(function (key) { normed[norm(key)] = MJ_PROJ[key]; });
+          var entry = normed[norm(nm)];
+          if (entry && entry[k] !== undefined) { wrap.setAttribute('data-gs2-proj', '1'); var d2 = document.createElement('div'); d2.innerHTML = projCallout(entry[k], 'Page projection for ' + nm + ' · ' + k + ' (MJ_PROJ on file).'); wrap.insertBefore(d2, wrap.firstChild); }
+        }
+      } catch (e) {}
+    });
+    // Any other chart container whose text carries a PROJ value.
+    $$('figure.gs-graph, .gs-chart').forEach(function (fig) {
+      if (fig.getAttribute('data-gs2-proj')) return;
+      var t = fig.textContent || '';
+      var mm = t.match(/PROJ[^0-9\-]{0,20}(-?[\d.]+)/i);
+      if (mm) { fig.setAttribute('data-gs2-proj', '1'); var d3 = document.createElement('div'); d3.innerHTML = projCallout(mm[1], 'From the page\'s own projection shown on this chart.'); fig.parentNode.insertBefore(d3, fig); }
+    });
+  }
+  /* ---------- Channel enrichment: scoreboards appended to featured pages ---------- */
+  function enrichChannel() {
+    var body = document.getElementById('gs-enh-channel-body'); if (!body) return;
+    var title = (document.getElementById('gs-enh-channel-title') || {}).textContent || '';
+    if (body.querySelector('.gs2-enrich')) return;
+    var wrap = document.createElement('div'); wrap.className = 'gs2-enrich';
+    if (title.indexOf('Heat Check') === 0) {
+      var heat = (typeof PLAYERS !== 'undefined') ? PLAYERS.filter(function (p) { return p.t === 'MIA'; }) : [];
+      var h = '<div class="gs2-card"><h3>Heat scoreboard — last 5, all four bands</h3><p>Every Heat player on file, not just points: points, rebounds, assists, and threes, each with last-5 average, latest game, band, and status.</p></div>';
+      heat.forEach(function (p) { h += scoreboard(p.n, ['PTS', 'REB', 'AST', '3PT']); });
+      wrap.innerHTML = h;
+    } else if (title.indexOf('Player vs Player') === 0) {
+      var tops = topBy('PTS', 5);
+      var h2 = '<div class="gs2-card"><h3>League leaders on file — points, last 5</h3><p>Computed from game logs at open time. Use the two dropdowns above to compare any two players head to head.</p></div>';
+      tops.forEach(function (t) { h2 += '<div class="gs2-card"><h3>' + esc(t.n) + ' (' + esc(t.t) + ')</h3><div class="gs2-score"><div class="gs2-cell"><b>' + t.l5 + '</b><span>PTS · last 5</span></div><div class="gs2-cell"><b>' + t.latest + '</b><span>PTS · latest</span><small>' + t.games + ' games on file</small></div></div><button type="button" class="gs2-btn" data-gs2-profile="' + esc(t.n) + '">Open profile →</button></div>'; });
+      if (!tops.length) h2 += '<div class="gs2-card"><p>Game logs still loading — leaders cannot be computed yet. Reopen this channel once the page finishes loading.</p></div>';
+      wrap.innerHTML = h2;
+    } else if (title.indexOf('Watchlist') === 0) {
+      var cards = mjCards().slice(0, 6);
+      wrap.innerHTML = '<div class="gs2-card"><h3>Watchlist — what to watch, and why</h3><p>Tap ★ Watch on any card below and it joins your on-device watchlist. Alerts on return are computed fresh from the current band each time you open Watchlist.</p></div>'
+        + cards.map(function (c) { return '<div class="gs2-card"><p>' + esc(c.slice(0, 220)) + '</p></div>'; }).join('');
+    } else if (title.indexOf('Daily Briefing') === 0) {
+      var cards2 = mjCards();
+      wrap.innerHTML = '<div class="gs2-card"><h3>Briefing, backed up</h3><p>' + cards2.length + ' heating / cooling / bounce-back cards were read from the MJ section at open time. The briefing above names the first few; the full MJ lists carry every name, with last-5 average, ceiling or floor, margin, and games on file.</p></div>';
+    } else if (title.indexOf('Ask GameShark') === 0) {
+      var cards3 = mjCards().slice(0, 4);
+      wrap.innerHTML = '<div class="gs2-card"><h3>Straight answers, from the page</h3><p>Who is heating up? The MJ heating list opens this briefing — first names on file:</p></div>'
+        + cards3.map(function (c) { return '<div class="gs2-card"><p>' + esc(c.slice(0, 220)) + '</p></div>'; }).join('');
+    } else if (title.indexOf('Ticket Builder') === 0) {
+      wrap.innerHTML = '<div class="gs2-card"><h3>DISPLAY ONLY — read it again, plainly</h3><p>This builder never picks, never bets, never touches a sportsbook, and never promises an outcome. It only shows where a line sits against a player\'s band. Extra data here is context, not a recommendation.</p></div>';
+    } else { return; }
+    body.appendChild(wrap); bindGs2(body);
+  }
+  /* ---------- Strip: Locker Room tile + working inline tiles ---------- */
+  function installStrip2() {
+    var strip = document.getElementById('gs-enh-strip'); if (!strip) return;
+    var grid = strip.querySelector('.gs-enh-grid'); if (!grid) return;
+    if (!document.querySelector('[data-gs2-channel="locker"]')) {
+      var tile = document.createElement('button'); tile.type = 'button'; tile.className = 'gs-enh-tile'; tile.setAttribute('data-gs2-channel', 'locker');
+      tile.innerHTML = lockerIcon() + '<span class="gs-enh-tile-label">Locker Room</span><span class="gs-enh-tile-sub">Whole-NBA watch</span>';
+      tile.addEventListener('click', function () { openLocker('PTS'); });
+      grid.appendChild(tile);
+    }
+    var map = { dot: 'dot', streak: 'streak', injury: 'injury', share: 'share' };
+    $$('.gs-enh-tile[data-enh-channel]', grid).forEach(function (t) {
+      var id = t.getAttribute('data-enh-channel');
+      if (!map[id] || t.getAttribute('data-gs2-fixed')) return;
+      var clone = t.cloneNode(true); clone.setAttribute('data-gs2-fixed', '1');
+      clone.addEventListener('click', function (ev) { ev.stopPropagation(); openInline(map[id]); });
+      t.parentNode.replaceChild(clone, t);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(installStrip2, 1200); setTimeout(installNewsWhy, 1500); setTimeout(enhanceProjCallouts, 1500); });
+  setTimeout(installStrip2, 1200); setTimeout(installStrip2, 3500);
+  setTimeout(installNewsWhy, 1500); setTimeout(installNewsWhy, 4000);
+  setTimeout(enhanceProjCallouts, 1500); setTimeout(enhanceProjCallouts, 4000);
+  setInterval(enhanceProjCallouts, 3000);
+  var obs = new MutationObserver(function () { installStrip2(); installNewsWhy(); enhanceProjCallouts(); enrichChannel(); });
+  if (document.body) obs.observe(document.body, { childList: true, subtree: true });
+/* enh2 cont */
+
+  /* ---------- 8. Chase / spot indicator on every ranked list ---------- */
+  function parseRowValue(txt) {
+    var m = txt.match(/level\s+(-?[\d.]+)/i) || txt.match(/latest\s+(-?[\d.]+)/i) || txt.match(/(-?[\d.]+)\s*(?:PTS|REB|AST|3PT|BLK|STL|MIN)\b/i);
+    return m ? parseFloat(m[1]) : null;
+  }
+  function statFromText(txt) {
+    var m = txt.match(/\b(PTS|REB|AST|3PT|BLK|STL|MIN|FGM|FGA)\b/);
+    return m ? m[1] : 'PTS';
+  }
+  function trendFor(nm, key) {
+    if (!logsReady()) return 'Trend: game logs still loading';
+    var vals = valsFor(nm, key); if (!vals || vals.length < 2) return 'Trend: not enough games on file';
+    var recent = vals.slice(-5), prior = vals.slice(0, -5).slice(-5);
+    if (!prior.length) return 'Trend: no prior games on file';
+    var ra = recent.reduce(function (s, v) { return s + v; }, 0) / recent.length;
+    var pa = prior.reduce(function (s, v) { return s + v; }, 0) / prior.length;
+    var d = r1(ra - pa);
+    var arrow = d > 0 ? '▲' : (d < 0 ? '▼' : '●');
+    return arrow + ' ' + (d > 0 ? '+' : '') + d + ' ' + key + ' vs prior ' + prior.length + ' games (last 5 avg ' + r1(ra) + ' vs ' + r1(pa) + ')';
+  }
+  function chaseText(i, n, val, valsList) {
+    var parts = [];
+    if (i === 0) parts.push('TOP SPOT');
+    else if (val !== null && valsList[i - 1] !== null) {
+      var gapUp = r1(valsList[i - 1] - val);
+      parts.push(gapUp >= 0 ? ('TO PASS #' + (i) + ': +' + gapUp) : ('ALREADY AHEAD OF #' + (i) + ' BY ' + r1(-gapUp)));
+    } else if (i > 0) parts.push('GAP TO #' + (i) + ': NOT PRINTED IN THIS ROW — NOT GUESSED');
+    if (i === n - 1) parts.push('BOTTOM OF THIS LIST');
+    else if (val !== null && valsList[i + 1] !== null) {
+      var gapDown = r1(val - valsList[i + 1]);
+      parts.push(gapDown >= 0 ? ('CUSHION OVER #' + (i + 2) + ': ' + gapDown) : ('BEHIND #' + (i + 2) + ' BY ' + r1(-gapDown)));
+    } else if (i < n - 1) parts.push('CUSHION OVER #' + (i + 2) + ': NOT PRINTED IN THIS ROW — NOT GUESSED');
+    return parts.join(' · ');
+  }
+  function processRanked() {
+    $$('.gs-click-panel').forEach(function (panel) {
+      if (panel.getAttribute('data-gs2-chase')) return;
+      var rows = $$('.gs-click-row', panel);
+      if (!rows.length) return;
+      panel.setAttribute('data-gs2-chase', '1');
+      var headTxt = (panel.querySelector('.gs-click-panel-head') || {}).textContent || panel.getAttribute('aria-label') || '';
+      var key = statFromText(headTxt);
+      var valsList = rows.map(function (r) { return parseRowValue(r.textContent); });
+      rows.forEach(function (row, i) {
+        var cells = $$('.gs-click-cell', row);
+        var nmTxt = cells.length > 1 ? cells[1].textContent : row.textContent;
+        var nm = nmTxt.replace(/\s+/g, ' ').trim();
+        var p = cardFor(nm);
+        var trend = p ? trendFor(p.n, key) : 'Trend: player not matched to a log on file';
+        var d = document.createElement('div'); d.className = 'gs2-chase';
+        d.innerHTML = '<b>CHASE</b> ' + esc(trend) + ' · ' + esc(chaseText(i, rows.length, valsList[i], valsList));
+        row.appendChild(d);
+      });
+    });
+    // MJ heating / cooling / bounce-back cards, grouped by their parent list.
+    var parents = {};
+    $$('.gs-heat-card').forEach(function (card) {
+      var par = card.parentNode; if (!par) return;
+      if (!par.getAttribute('data-gs2-mjgroup')) { par.setAttribute('data-gs2-mjgroup', '1'); parents[Object.keys(parents).length] = par; }
+    });
+    $$('[data-gs2-mjgroup]').forEach(function (par) {
+      var cards = $$('.gs-heat-card', par).filter(function (c) { return !c.getAttribute('data-gs2-chase'); });
+      if (!cards.length) return;
+      var margins = cards.map(function (c) { var m = c.textContent.match(/margin\s+([+-]?[\d.]+)/i); return m ? parseFloat(m[1]) : null; });
+      cards.forEach(function (card, i) {
+        card.setAttribute('data-gs2-chase', '1');
+        var d = document.createElement('div'); d.className = 'gs2-chase';
+        var parts = [];
+        if (i === 0) parts.push('TOP OF THIS LIST');
+        else if (margins[i] !== null && margins[i - 1] !== null) parts.push('TO PASS THE CARD ABOVE: ' + r1(Math.abs(margins[i - 1] - margins[i])) + ' OF MARGIN');
+        else if (i > 0) parts.push('GAP ABOVE: NOT PRINTED ON THIS CARD — NOT GUESSED');
+        if (i === cards.length - 1) parts.push('BOTTOM OF THIS LIST');
+        else if (margins[i] !== null && margins[i + 1] !== null) parts.push('CUSHION OVER THE CARD BELOW: ' + r1(Math.abs(margins[i] - margins[i + 1])) + ' OF MARGIN');
+        else if (i < cards.length - 1) parts.push('CUSHION BELOW: NOT PRINTED ON THIS CARD — NOT GUESSED');
+        d.innerHTML = '<b>CHASE</b> ' + esc(parts.join(' · '));
+        card.appendChild(d);
+      });
+    });
+  }
+  /* ---------- 9. Bands that explain themselves ---------- */
+  function medianOf(vals) { var s = vals.slice().sort(function (a, b) { return a - b; }); var mid = Math.floor(s.length / 2); return s.length % 2 ? s[mid] : r1((s[mid - 1] + s[mid]) / 2); }
+  function enhanceBands() {
+    $$('.gs-dna-mon').forEach(function (mon) {
+      if (mon.getAttribute('data-gs2-band')) return;
+      var nm = mon.getAttribute('data-enh-player');
+      var key = mon.getAttribute('data-enh-stat');
+      if (!nm || !key) return;
+      var vals = valsFor(nm, key); if (!vals || !vals.length) return;
+      var head = mon.querySelector('.gs-dna-mon-head'); if (!head) return;
+      var bm = head.textContent.match(/band\s+(-?[\d.]+)\s*\/\s*(-?[\d.]+)\s*\/\s*(-?[\d.]+)/);
+      if (!bm) return;
+      var band = [parseFloat(bm[1]), parseFloat(bm[2]), parseFloat(bm[3])];
+      mon.setAttribute('data-gs2-band', '1');
+      var med = medianOf(vals);
+      var below = 0, inside = 0, above = 0;
+      vals.forEach(function (v) { if (v < band[0]) below++; else if (v > band[2]) above++; else inside++; });
+      var usualZone = 'IN THE BAND', usualN = inside;
+      if (below > usualN) { usualZone = 'BELOW THE FLOOR'; usualN = below; }
+      if (above > usualN) { usualZone = 'ABOVE THE CEILING'; usualN = above; }
+      var belowCeil = vals.filter(function (v) { return v < band[2]; });
+      var nearCeil = belowCeil.length ? Math.max.apply(null, belowCeil) : null;
+      var aboveFloor = vals.filter(function (v) { return v > band[0]; });
+      var nearFloor = aboveFloor.length ? Math.min.apply(null, aboveFloor) : null;
+      var mn = Math.min.apply(null, vals.concat([band[0], band[2], vals[vals.length - 1]]));
+      var mx = Math.max.apply(null, vals.concat([band[0], band[2], vals[vals.length - 1]]));
+      var pad = Math.max(1, (mx - mn) * 0.08), lo = mn - pad, hi = mx + pad, span = hi - lo;
+      function pos(v) { return Math.max(0, Math.min(100, (v - lo) / span * 100)); }
+      var track = mon.querySelector('.gs-dna-track');
+      if (track) {
+        [['gs2-usual', med, '◆'], ['gs2-nearceil', nearCeil, '◈'], ['gs2-nearfloor', nearFloor, '◇']].forEach(function (mk) {
+          if (mk[1] === null) return;
+          var el = document.createElement('div'); el.className = 'gs2-bandmark ' + mk[0]; el.style.left = pos(mk[1]) + '%'; el.textContent = mk[2]; el.title = mk[0];
+          track.appendChild(el);
+        });
+      }
+      var read = document.createElement('div'); read.className = 'gs2-bandread';
+      read.innerHTML = '<b>READ THIS BAND AT A GLANCE:</b> left = cold · middle = usual range · right = hot. '
+        + '<b>◆ USUALLY LANDS HERE: ' + med + '</b> (median of ' + vals.length + ' games; most games land ' + usualZone + ' — ' + usualN + ' of ' + vals.length + '). '
+        + (nearCeil !== null ? '<b>◈ JUST BEFORE THE CEILING: ' + nearCeil + '</b> (highest game still under ceiling ' + band[2] + '). ' : '<b>◈ JUST BEFORE THE CEILING: no game on file sits just under the ceiling.</b> ')
+        + (nearFloor !== null ? '<b>◇ JUST BEFORE THE FLOOR: ' + nearFloor + '</b> (lowest game still above floor ' + band[0] + '). ' : '<b>◇ JUST BEFORE THE FLOOR: no game on file sits just above the floor.</b> ')
+        + 'Floor / natural / ceiling: <b>' + band[0] + ' / ' + band[1] + ' / ' + band[2] + '</b>.';
+      mon.appendChild(read);
+    });
+  }
+  setTimeout(processRanked, 1500); setTimeout(processRanked, 4000);
+  setTimeout(enhanceBands, 1500); setTimeout(enhanceBands, 4000);
+  setInterval(function () { processRanked(); enhanceBands(); }, 4000);
+
+  /* ---------- 10. Every Game — one scorecard per game, tonight ---------- */
+  function teamStar(team) {
+    if (typeof PLAYERS === 'undefined') return null;
+    var best = null;
+    PLAYERS.filter(function (p) { return p.t === team; }).forEach(function (p) {
+      var vals = valsFor(p.n, 'PTS'); if (!vals) return;
+      var l5 = last5(vals), band = bandFor(p.n, 'PTS', vals);
+      if (!best || l5 > best.l5) best = { n: p.n, l5: l5, latest: vals[vals.length - 1], band: band, status: statusOf(l5, band), games: vals.length };
+    });
+    return best;
+  }
+  function teamForm(team) {
+    if (typeof PLAYERS === 'undefined') return { hot: 0, cold: 0, total: 0 };
+    var hot = 0, cold = 0, total = 0;
+    PLAYERS.filter(function (p) { return p.t === team; }).forEach(function (p) {
+      var vals = valsFor(p.n, 'PTS'); if (!vals) return;
+      total++;
+      var st = statusOf(last5(vals), bandFor(p.n, 'PTS', vals));
+      if (st === 'HEATING UP') hot++; if (st === 'GOING COLD') cold++;
+    });
+    return { hot: hot, cold: cold, total: total };
+  }
+  function starBlock(team, star) {
+    if (!star) return '<div class="gs2-cell"><b>—</b><span>STARLIGHT · ' + esc(team) + '</span><small>No player with a game log on file for this team — no starlight picked, not guessed.</small></div>';
+    return '<div class="gs2-cell"><b>' + esc(star.n) + '</b><span>⭐ STARLIGHT · ' + esc(team) + '</span><small>Highest points last-5 on file: ' + star.l5 + ' · latest ' + star.latest + ' · band ' + (star.band ? star.band.slice(0,3).join(' / ') : '—') + ' · ' + star.status + ' over ' + star.games + ' games</small></div>';
+  }
+  function everyGamePage() {
+    var dayCard = document.querySelector('.gs-day-card');
+    var head = '<div class="gs2-card"><h3>🚀 Every Game — tonight, one card per game</h3><p>Games below are tonight\'s slate, read from the page\'s own schedule section (the first day card on file). Each card groups BOTH teams together. Starlights are picked from real logs — highest points last-5 for that team — with the reason printed. Nothing about a past meeting is invented: this page carries no head-to-head history, and every card says so.</p></div>';
+    if (!dayCard) return head + '<div class="gs2-card"><p>No schedule day card was found on this page at open time.</p></div>';
+    var dayTitle = (dayCard.querySelector('h3') || {}).textContent || 'Tonight';
+    var games = $$('.gs-game', dayCard);
+    var html = head + '<div class="gs2-card"><h3>' + esc(dayTitle) + ' — ' + games.length + ' games</h3></div>';
+    games.forEach(function (g) {
+      var txt = g.textContent.replace(/\s+/g, ' ').trim();
+      var m = txt.match(/([A-Z]{2,3})\s*@\s*([A-Z]{2,3})/);
+      if (!m) { html += '<div class="gs2-card"><p>' + esc(txt) + '</p><p>Could not split this line into two teams from the schedule text — no teams guessed.</p></div>'; return; }
+      var away = m[1], home = m[2], time = txt.replace(m[0], '').trim();
+      var sa = teamStar(away), sh = teamStar(home);
+      var fa = teamForm(away), fh = teamForm(home);
+      function needs(team, star, form) {
+        if (!star) return 'No log-backed starlight on file for ' + team + ', so no team plan is written from a star — the plan below would be a guess, and it is not written.';
+        return 'For ' + team + ' to succeed on their side: get ' + star.n + ' a night at or above his usual band (last 5 ' + star.l5 + ', band ' + (star.band ? star.band.slice(0,3).join(' / ') : '—') + ', status ' + star.status + '). Why: he is the highest points last-5 on file for ' + team + ', so his night is the clearest lever the page can actually show. Team context on file: ' + form.hot + ' ' + team + ' players heating up on points, ' + form.cold + ' going cold, out of ' + form.total + ' with logs.';
+      }
+      function recent(team, star) {
+        if (!star) return 'No recent player results on file for ' + team + '.';
+        var vals = valsFor(star.n, 'PTS'), labs = labelsFor(star.n);
+        var tail = vals.slice(-5).map(function (v, i) { return (labs[labs.length - 5 + i] || '') + ': ' + v; }).join(' · ');
+        return star.n + ' recent points, latest 5 games on file: ' + tail + '. That is player-level recent form — the page carries no team win/loss results, so no team record is claimed here.';
+      }
+      html += '<div class="gs2-card"><h3>' + esc(away) + ' @ ' + esc(home) + ' · ' + esc(time) + '</h3>'
+        + '<div class="gs2-score">' + starBlock(away, sa) + starBlock(home, sh) + '</div>'
+        + '<p><b>WHAT NEEDS TO HAPPEN — ' + esc(away) + ':</b> ' + esc(needs(away, sa, fa)) + '</p>'
+        + '<p><b>WHAT NEEDS TO HAPPEN — ' + esc(home) + ':</b> ' + esc(needs(home, sh, fh)) + '</p>'
+        + '<p><b>LATEST SUCCESSES / FAILURES ON FILE — ' + esc(away) + ':</b> ' + esc(recent(away, sa)) + '</p>'
+        + '<p><b>LATEST SUCCESSES / FAILURES ON FILE — ' + esc(home) + ':</b> ' + esc(recent(home, sh)) + '</p>'
+        + '<p><b>WHAT THIS GAME MEANS RIGHT NOW:</b> No standings or seeding table is carried on this page for this matchup, so no playoff or seeding stake is claimed. What is on file: this is a ' + esc(dayTitle) + ' game in the page\'s Nov 4–17 planning window, early in the 2026-27 season, with 14 games on tonight\'s slate.</p>'
+        + '<p><b>LAST 5 MEETINGS — ' + esc(away) + ' vs ' + esc(home) + ':</b> No head-to-head history in this page\'s data. No past meetings, scores, or stats are shown, because none are on file — nothing was invented to fill this section.</p>'
+        + (sa ? '<button type="button" class="gs2-btn" data-gs2-profile="' + esc(sa.n) + '">' + esc(sa.n) + ' profile →</button> <button type="button" class="gs2-btn2" data-gs2-graph="' + esc(sa.n) + '" data-gs2-stat="PTS">' + esc(sa.n) + ' band graph →</button> ' : '')
+        + (sh ? '<button type="button" class="gs2-btn" data-gs2-profile="' + esc(sh.n) + '">' + esc(sh.n) + ' profile →</button> <button type="button" class="gs2-btn2" data-gs2-graph="' + esc(sh.n) + '" data-gs2-stat="PTS">' + esc(sh.n) + ' band graph →</button> ' : '')
+        + '<button type="button" class="gs2-btn2" data-gs2-locker="1">Locker Room →</button> <button type="button" class="gs2-btn2" data-gs2-schedule="1">See it on the Schedule tab →</button></div>';
+    });
+    return html;
+  }
+  function openEveryGame() {
+    gs2Open('Every Game — tonight, one card per game', everyGamePage());
+    var b = document.getElementById('gs-enh-channel-body'); if (!b) return;
+    bindGs2(b);
+    $$('[data-gs2-locker]', b).forEach(function (btn) { btn.addEventListener('click', function () { openLocker('PTS'); }); });
+    $$('[data-gs2-schedule]', b).forEach(function (btn) { btn.addEventListener('click', function () { closeGs2(); var tb = document.querySelector('button[data-gs-tab="schedule"]'); if (tb) tb.click(); setTimeout(function () { var dc = document.querySelector('.gs-day-card'); if (dc) dc.scrollIntoView({ block: 'start' }); }, 500); }); });
+  }
+  function everyGameIcon() {
+    return '<svg viewBox="0 0 64 64" class="gs-enh-icon" aria-hidden="true"><defs><linearGradient id="gsgrock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#d4af37"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="#171511" stroke="#d4af37" stroke-width="2"/><g transform="translate(32,30) scale(1.22) translate(-32,-30)"><ellipse cx="32" cy="24" rx="9" ry="14" fill="url(#gsgrock)"/><circle cx="32" cy="24" r="4" fill="#171511"/><path d="M24 34l-6 8 8-2M40 34l6 8-8-2" fill="#c0392b"/><path d="M28 40c0 5-2 8-4 10M36 40c0 5 2 8 4 10" stroke="#ff8a5c" stroke-width="3" fill="none" stroke-linecap="round"/></g></svg>';
+  }
+  /* ---------- 11. Micro-intro splashes: ~1s, only on named buttons ---------- */
+  function introSplash(kind) {
+    var old = document.getElementById('gs2-intro'); if (old) old.remove();
+    var d = document.createElement('div'); d.id = 'gs2-intro';
+    var inner = '';
+    if (kind === 'heat') inner = '<div class="gs2-intro-emoji">🔥</div><div>HEAT CHECK</div>';
+    else if (kind === 'pvp') inner = '<div class="gs2-intro-emoji">⚔️</div><div>PLAYER vs PLAYER</div>';
+    else if (kind === 'watch') inner = '<div class="gs2-intro-emoji">⭐</div><div>WATCHLIST</div>';
+    else if (kind === 'locker') inner = '<div class="gs2-intro-emoji">🏀</div><div>LOCKER ROOM</div>';
+    else if (kind === 'every') inner = '<div class="gs2-intro-emoji">🚀</div><div>EVERY GAME</div>';
+    else if (kind === 'sim') inner = '<div class="gs2-intro-emoji">🎲</div><div>SIMULATOR</div>';
+    d.className = 'gs2-intro gs2-intro-' + kind;
+    d.innerHTML = inner;
+    document.body.appendChild(d);
+    setTimeout(function () { d.remove(); }, 950);
+  }
+  function installIntros() {
+    var grid = document.querySelector('#gs-enh-strip .gs-enh-grid'); if (!grid) return;
+    grid.addEventListener('click', function (ev) {
+      var t = ev.target && ev.target.closest ? ev.target.closest('.gs-enh-tile') : null; if (!t) return;
+      var label = t.textContent || '';
+      if (/Heat Check/.test(label)) introSplash('heat');
+      else if (/Player vs Player/.test(label)) introSplash('pvp');
+      else if (/Watchlist/.test(label)) introSplash('watch');
+      else if (/Locker Room/.test(label)) introSplash('locker');
+      else if (/Every Game/.test(label)) introSplash('every');
+    }, true);
+    document.addEventListener('click', function (ev) {
+      var b = ev.target && ev.target.closest ? ev.target.closest('.gs-enh-sim-btn') : null;
+      if (b) introSplash('sim');
+    }, true);
+  }
+  function installEveryGameTile() {
+    var grid = document.querySelector('#gs-enh-strip .gs-enh-grid'); if (!grid) return;
+    if (document.querySelector('[data-gs2-channel="every"]')) return;
+    var tile = document.createElement('button'); tile.type = 'button'; tile.className = 'gs-enh-tile'; tile.setAttribute('data-gs2-channel', 'every');
+    tile.innerHTML = everyGameIcon() + '<span class="gs-enh-tile-label">Every Game</span><span class="gs-enh-tile-sub">Tonight, one card per game</span>';
+    tile.addEventListener('click', function () { openEveryGame(); });
+    grid.appendChild(tile);
+  }
+  setTimeout(installEveryGameTile, 1300); setTimeout(installEveryGameTile, 3600);
+  setTimeout(installIntros, 1300); setTimeout(installIntros, 3600);
+
+})();
+
+</script>
 </body></html>

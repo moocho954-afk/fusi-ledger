@@ -7056,4 +7056,70 @@ initMj();
 initPerMinute();
 initHints();
 })();</script>
+<style id="gs-phonefix-style">
+/* GS-PHONEFIX-20261104: single-column phone layout + tap guard styles. */
+.gs-click-panel{box-sizing:border-box}
+@media (max-width:600px){
+  #gs-boxes{grid-template-columns:1fr!important}
+  .cards{grid-template-columns:1fr!important}
+  .lv-spot,.lv-mini,.lv-mag{grid-template-columns:1fr!important}
+  .gs-click-panel-head{flex-wrap:wrap}
+  .gs-click-row{min-width:0}
+  .gs-click-cell{min-width:0;overflow-wrap:normal;word-break:normal}
+  #gs-ux-page .gs-ux-card .gs-ux-name{overflow-wrap:normal;word-break:normal}
+}
+</style>
+<script id="gs-phonefix-script">/* GS-PHONEFIX-20261104: every front-page box tap ends on the UX full
+page, never on a squeezed dropdown panel. DISPLAY-ONLY: reads page DOM
+only, changes no numbers, feeds no calculator weight. */
+(function(){ "use strict";
+var PAGE = document.getElementById('gs-ux-page');
+if(!PAGE) return;
+function pageOpen(){
+  try { return getComputedStyle(PAGE).display !== 'none'; } catch(e){ return PAGE.style.display === 'block'; }
+}
+/* Second-chance capture guard. gs-ux-script registered first, so when
+this listener runs, the UX handler has already had its chance: if the
+page is open, do nothing. If it is still closed, the UX handler did
+not take this tap -- stop the event (so the bubble toggle cannot open
+the panel), close any panel, and re-dispatch a marked click so the UX
+handler gets a second chance. Marked events are ignored here to avoid
+a loop. */
+document.addEventListener('click', function(ev){
+  if (ev.__gsPf) return;
+  var t = (ev.target && ev.target.closest) ? ev.target.closest('[data-gs-panel]') : null;
+  if (!t) return;
+  if (pageOpen()) return;
+  ev.stopPropagation();
+  ev.preventDefault();
+  var pid = t.getAttribute('data-gs-panel');
+  var panel = pid ? document.getElementById(pid) : null;
+  if (panel) panel.classList.remove('gs-click-open');
+  var synth = null;
+  try {
+    synth = new MouseEvent('click', {bubbles:true, cancelable:true});
+  } catch(e) {
+    try { synth = document.createEvent('MouseEvents'); synth.initEvent('click', true, true); } catch(e2){ return; }
+  }
+  try { synth.__gsPf = true; } catch(e) {}
+  t.dispatchEvent(synth);
+}, true);
+/* Observer fallback: any panel opened while the UX page is closed
+(bubble toggle, keyboard, programmatic open) is closed again in the
+same microtask, before paint. Panels stay in the DOM; only the open
+state is guarded. */
+try {
+  var obs = new MutationObserver(function(muts){
+    if (pageOpen()) return;
+    for (var i = 0; i < muts.length; i++) {
+      var el = muts[i].target;
+      if (el && el.classList && el.classList.contains('gs-click-panel')
+          && el.classList.contains('gs-click-open')) {
+        el.classList.remove('gs-click-open');
+      }
+    }
+  });
+  obs.observe(document.documentElement, {subtree:true, attributes:true, attributeFilter:['class']});
+} catch(e) {}
+})();</script>
 </body></html>

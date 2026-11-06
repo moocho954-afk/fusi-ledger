@@ -1,6 +1,6 @@
 {
-  "tip_height": 1869,
-  "tip_hash": "d4aba9bac747a267d27eef4e0e0a934f3214c9efca2830391443b04b88c45a4d",
+  "tip_height": 1874,
+  "tip_hash": "91727dc5abadf42dd0e4a9f9a7e3593a9297761b4a652ac97dd282c2e46b9160",
   "bridge_height": 1854,
   "bridge_hash": "fba52392217821641bbfb001fd72ae1508e0f56e78ca93c490a415a4e48d2584",
   "fusion_tip_height": 707,
@@ -22,22 +22,6 @@
     "fusion_tip_height": 707
   },
   "finals": [
-    {
-      "date": "2026-11-04",
-      "away": "MIN",
-      "away_score": 117,
-      "home": "HOU",
-      "home_score": 107,
-      "event_id": "401909930"
-    },
-    {
-      "date": "2026-11-04",
-      "away": "TOR",
-      "away_score": 109,
-      "home": "DEN",
-      "home_score": 128,
-      "event_id": "401909931"
-    },
     {
       "date": "2026-11-04",
       "away": "POR",
@@ -69,7 +53,23 @@
       "home": "LAC",
       "home_score": 116,
       "event_id": "401909935"
+    },
+    {
+      "date": "2026-11-05",
+      "away": "ORL",
+      "away_score": 104,
+      "home": "PHX",
+      "home_score": 117,
+      "event_id": "401909936"
+    },
+    {
+      "date": "2026-11-05",
+      "away": "MIA",
+      "away_score": 100,
+      "home": "GS",
+      "home_score": 120,
+      "event_id": "401909937"
     }
   ],
-  "updated_at": "2026-11-05T18:43:47.804783+00:00"
+  "updated_at": "2026-11-06T08:13:33.090712+00:00"
 }

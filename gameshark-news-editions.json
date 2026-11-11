@@ -1,5 +1,32 @@
 [
   {
+    "date": "20261028",
+    "items": [
+      {
+        "headline": "Haliburton to miss time with hamstring injury",
+        "date": "2026-10-28",
+        "source_url": "https://www.espn.ph/nba/story/_/id/50028196/2026-27-nba-regular-season-buzz-latest-live-updates-news-intel-trades-deals",
+        "outlet": "espn.ph",
+        "reported_source": "Badge: CONFIRMED; VOICE: Shams Charania (ESPN) \u2014 reported by the insider; ESPN NBA buzz page read in this run, Oct. 28 section \u2014 kept at its original October 28 date, not re-dated; Indiana Pacers guard Tyrese Haliburton will miss time due to a hamstring injury, sources told ESPN's Shams Charania; team doctors gathering info on a clear timeline",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "No. 1 pick Dybantsa to make NBA debut tonight",
+        "date": "2026-10-28",
+        "source_url": "https://www.espn.ph/nba/story/_/id/50028196/2026-27-nba-regular-season-buzz-latest-live-updates-news-intel-trades-deals",
+        "outlet": "espn.ph",
+        "reported_source": "Badge: CONFIRMED; VOICE: Shams Charania (ESPN) \u2014 reported by the insider; ESPN NBA buzz page read in this run, Oct. 28 section \u2014 kept at its original October 28 date, not re-dated; Wizards forward and 2026 No. 1 pick AJ Dybantsa to make his NBA debut Wednesday night vs the Cavaliers, sources told ESPN's Shams Charania, after missing the first four games with an ankle injury",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      }
+    ]
+  },
+  {
     "date": "20261103",
     "items": [
       {
@@ -6660,6 +6687,17 @@
         "kind": "section"
       },
       {
+        "headline": "Dillon Brooks pleads guilty to exceeding speed limit, issued fine",
+        "date": "2026-11-10",
+        "source_url": "https://www.azcentral.com/story/sports/nba/suns/2026/11/10/dillon-brooks-plea-speeding-charge-scottsdale/92708807007/",
+        "outlet": "azcentral.com",
+        "reported_source": "Badge: CONFIRMED; seen in search results in this run, article dated November 10, 2026 (azcentral) \u2014 kept at its original November 10 date, not re-dated; Phoenix Suns forward Dillon Brooks pleaded guilty November 9 to exceeding the speed limit, ordered to pay $500 in fines per Scottsdale court records; reckless-driving charge dismissed; pretrial conference December 1 for a separate DUI charge",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Domantas Sabonis Iffy for Tuesday",
         "date": "2026-11-10",
         "source_url": "https://www.rotoballer.com/player-news/",
@@ -7287,6 +7325,17 @@
         "kind": "article"
       },
       {
+        "headline": "Stephen A. Smith Ends Beef With LeBron James, Hopes He Wins A Title With The 76ers",
+        "date": "2026-11-10",
+        "source_url": "https://www.yardbarker.com/nba/articles/stephen_a_smith_ends_beef_with_lebron_james_hopes_he_wins_a_title_with_the_76ers/s1_16751_44543223",
+        "outlet": "yardbarker.com",
+        "reported_source": "Badge: CONFIRMED; VOICE: Stephen A. Smith \u2014 his angle/opinion, never fact; Yardbarker (Fadeaway World) article read in this run, published November 10, 2026, 1:52 PM ET \u2014 kept at its original November 10 date, not re-dated; Smith said on The Stephen A. Smith Show he is over the beef, wishes LeBron well and hopes he wins a championship for Philadelphia",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Suns Notes: Green, Bridges, Brooks, Durant",
         "date": "2026-11-10",
         "source_url": "https://www.hoopsrumors.com/2026/11/suns-notes-green-bridges-brooks-durant.html",
@@ -7600,11 +7649,66 @@
         "kind": "article"
       },
       {
+        "headline": "Bennedict Mathurin (thumb) has been ruled out against the Nets on Wednesday",
+        "date": "2026-11-11",
+        "source_url": "https://www.nbcsports.com/fantasy/basketball/player-news/2026-11-11/chris-youngblood-foot-will-not-return-tuesday",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: SPECULATION; seen only in the related-player-news list on the NBC Sports (Rotoworld) Chris Youngblood page read in this run, published November 11, 2026 \u2014 no standalone article URL; Mathurin played a season-high 24 minutes Monday vs the Warriors",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Bucks face major punishment risk in Gary Trent Jr. probe",
+        "date": "2026-11-11",
+        "source_url": "https://www.talkbasket.net/227480-bucks-face-major-punishment-risk-in-gary-trent-jr-probe",
+        "outlet": "talkbasket.net",
+        "reported_source": "Badge: SPECULATION; TalkBasket article read in this run, published November 11, 2026, 15:35 UTC; same Hoop Collective discussion (Windhorst, Marks, MacMahon): the Trent investigation could leave the Bucks facing lost draft picks, lengthy suspensions and a front-office crisis \u2014 the investigation is ONGOING and neither the Bucks nor Trent has been found guilty, so this is expectation of a possible outcome, not a finding",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Bucks rumors: Brian Windhorst warns of guilty verdict, stripped draft picks, suspensions in $64 million Gary Trent Jr. case",
+        "date": "2026-11-11",
+        "source_url": "https://clutchpoints.com/nba/milwaukee-bucks/bucks-rumors-brian-windhorst-warns-of-guilty-verdict-stripped-draft-picks-suspensions-in-64-million-gary-trent-jr-case",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints article read in this run, published November 11, 2026; Brian Windhorst, Bobby Marks and Tim MacMahon on The Hoop Collective: everybody in the league expects a guilty finding in the Gary Trent Jr. cap-circumvention probe, with draft picks stripped and people suspended indefinitely if guilty \u2014 the investigation is ONGOING, no finding yet, so this is insider expectation, not a verdict",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Bulls Must Set High Bar as Inevitable Jalen Smith Trade Rumors Emerges",
+        "date": "2026-11-11",
+        "source_url": "https://www.yardbarker.com/nba/articles/bulls_must_set_high_bar_as_inevitable_jalen_smith_trade_rumors_emerges/s1_17014_44547409",
+        "outlet": "yardbarker.com",
+        "reported_source": "Badge: SPECULATION; Yardbarker (Chicago Bulls on SI) article read in this run, published November 11, 2026, 11:48 AM ET; trade chatter around Jalen Smith (ESPN Trade Lab pitch sending him to the Lakers for Jaden Hardy and two second-round picks) \u2014 a trade idea, not a deal",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Celtics Notes: George, Tatum, Brown, Simons",
         "date": "2026-11-11",
         "source_url": "https://www.hoopsrumors.com/2026/11/celtics-notes-george-tatum-brown-simons.html",
         "outlet": "hoopsrumors.com",
         "reported_source": "Badge: CONFIRMED; Hoops Rumors article read in this run, November 11, 2026 8:00 am, by Arthur Hill; Paul George says he holds 'no ill will' toward the Sixers; Brown-Tatum frosty pregame exchange; George's contract includes a $56.6MM player option for next season and his production may change the Celtics' plans to use it in a bigger move; Anfernee Simons now with the Sixers after a season in Boston",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Chris Youngblood (foot) will not return Tuesday",
+        "date": "2026-11-11",
+        "source_url": "https://www.nbcsports.com/fantasy/basketball/player-news/2026-11-11/chris-youngblood-foot-will-not-return-tuesday",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: CONFIRMED; NBC Sports (Rotoworld) article read in this run, published November 11, 2026; Chris Youngblood injured his right foot early in the fourth quarter vs Thunder and was ruled out for the rest of the night",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -7677,6 +7781,28 @@
         "kind": "section"
       },
       {
+        "headline": "Heat Notes: Fontecchio, Gardner, Hardaway, Larsson, Giannis",
+        "date": "2026-11-11",
+        "source_url": "https://www.hoopsrumors.com/2026/11/heat-notes-fontecchio-gardner-hardaway-larsson-giannis.html",
+        "outlet": "hoopsrumors.com",
+        "reported_source": "Badge: CONFIRMED; Hoops Rumors article read in this run, published November 11, 2026, 10:00 am; Spoelstra experimenting with bench (Fontecchio, Gardner expanded minutes at Utah); Tim Hardaway Jr. first DNP-CD amid shooting slump; Pelle Larsson starting over Wiggins; Giannis played 31 minutes despite sprained right wrist; Doc Rivers apologized for recent negative comments, per Sun-Sentinel",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Hoop Collective: First Celtics-76ers game and NBA teams in the danger zone",
+        "date": "2026-11-11",
+        "source_url": "https://www.espn.ph/nba/story/_/id/50028196/2026-27-nba-regular-season-buzz-latest-live-updates-news-intel-trades-deals",
+        "outlet": "espn.ph",
+        "reported_source": "Badge: SPECULATION; ESPN NBA buzz page read in this run, Nov. 11 section; Hoop Collective podcast episode with Brian Windhorst, Tim MacMahon and Bobby Marks reacting to the first Celtics-76ers game and ranking teams in danger tiers, including Cavs pressure and a Porzingis trade segment \u2014 insider analysis/discussion, not a confirmed report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Hornets snap six-game skid as Allen and Reid torch Cavaliers 124-112",
         "date": "2026-11-11",
         "source_url": "https://sportsbriefly.com/en/basketball",
@@ -7699,6 +7825,72 @@
         "kind": "article"
       },
       {
+        "headline": "Ja Morant (hamstring) out for a few more weeks",
+        "date": "2026-11-11",
+        "source_url": "https://www.nbcsports.com/fantasy/basketball/player-news/2026-11-11/chris-youngblood-foot-will-not-return-tuesday",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: SPECULATION; seen only as a related-news note on the NBC Sports (Rotoworld) Chris Youngblood page read in this run, published November 11, 2026 \u2014 no standalone article URL; Morant suffered a Grade 2 hamstring strain October 29 and was to be re-evaluated towards the end of November",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Kawhi Leonard Ruled Out for at Least Another Week",
+        "date": "2026-11-11",
+        "source_url": "https://www.rotoballer.com/player-news/",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: SPECULATION; seen only in the RotoBaller player-news list in this run's search results (headline by Brian Dailisan, ~11h ago) without a standalone article URL \u2014 no link invented; the Raptors' own update is carried as CONFIRMED in the separate Heavy and GeoSuper items in this seed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Kawhi Leonard to miss another week as Toronto Raptors provide injury update",
+        "date": "2026-11-11",
+        "source_url": "https://www.geosuper.tv/latest/61189-kawhi-leonard-to-miss-another-week-as-toronto-raptors-provide-injury-update",
+        "outlet": "geosuper.tv",
+        "reported_source": "Badge: CONFIRMED; GeoSuper article read in this run, published November 11, 2026; Raptors confirmed Tuesday that Kawhi Leonard will remain sidelined at least another week as he continues recovery from swelling in his left knee; photo credit Reuters",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Kings Notes: Acuff, Christie, Clifford Trade, Murray",
+        "date": "2026-11-11",
+        "source_url": "https://www.hoopsrumors.com/2026/11/kings-notes-acuff-christie-clifford-trade-murray.html",
+        "outlet": "hoopsrumors.com",
+        "reported_source": "Badge: CONFIRMED; Hoops Rumors article read in this run, published November 11, 2026, 11:03 am; Darius Acuff Jr. on the Kings' 1-10 start; team sources tell Sam Amick of The Athletic that Doug Christie's emphasis on veterans played a role in the Nique Clifford trade; Keegan Murray coming off the bench while working back from left ankle capsulitis",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Knicks Notes: Alvarado, Kolek, Hart, Shamet, Jenkins, Towns",
+        "date": "2026-11-11",
+        "source_url": "https://www.hoopsrumors.com/2026/11/knicks-notes-alvarado-kolek-hart-shamet-jenkins-towns.html",
+        "outlet": "hoopsrumors.com",
+        "reported_source": "Badge: CONFIRMED; Hoops Rumors article read in this run, published November 11, 2026, 9:03 am; Tyler Kolek has replaced Jose Alvarado as the Knicks' primary backup point guard; Josh Hart missed Tuesday's return with an illness; Landry Shamet third straight start; Karl-Anthony Towns 10th straight double-double",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Mikel Brown Jr. (illness) has been ruled out against the Pelicans on Wednesday",
+        "date": "2026-11-11",
+        "source_url": "https://www.nbcsports.com/fantasy/basketball/player-news/2026-11-11/chris-youngblood-foot-will-not-return-tuesday",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: SPECULATION; seen only in the related-player-news list on the NBC Sports (Rotoworld) Chris Youngblood page read in this run, published November 11, 2026 \u2014 no standalone article URL; Brown missed Sunday vs Dallas with a back injury and an illness will keep him sidelined a second straight game",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "NBA Morning Brief: Giannis leads Heat, Tatum dunks over Lebron",
         "date": "2026-11-11",
         "source_url": "https://basketballsphere.com/en/nba-morning-brief-nov-11-2026-giannis-heat-tatum/",
@@ -7715,6 +7907,17 @@
         "source_url": "https://www.reuters.com/sports/nba-roundup-reunion-with-jaylen-brown-celtics-thump-sixers--flm-2026-11-11/",
         "outlet": "reuters.com",
         "reported_source": "Badge: CONFIRMED; Reuters / Field Level Media roundup read in this run, published November 11, 2026; Paul George scored 36 points against his former team in Boston's 123-101 win at Philadelphia; Knicks 117, Bucks 85 (Karl-Anthony Towns 21 points, 16 rebounds, 14th straight double-double); Heat 115, Jazz 109 (Giannis Antetokounmpo 30 points, 11 rebounds); Trail Blazers 123, Thunder 103 (Damian Lillard 25); Suns 133, Clippers 110 (Jordan Goodwin 18 on six 3-pointers; Phoenix season-high 22 3-pointers); Magic 107, Kings 100 (Franz Wagner season-high 33; Domantas Sabonis scoreless for the first time in 596 games)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "NBA Trade Rumors: Miami should target Pelican guard!",
+        "date": "2026-11-11",
+        "source_url": "http://ph-ballgm.blogspot.com/2026/11/nba-trade-rumors-miami-should-target.html",
+        "outlet": "ph-ballgm.blogspot.com",
+        "reported_source": "Badge: SPECULATION; blog post read via search results in this run, published November 11, 2026, 4:12 AM ET; argues the Heat should pivot to Pelicans guard Dejounte Murray after Dallas closed the door on trading Kyrie Irving, as reported by Marc Stein \u2014 a trade suggestion, not a reported deal",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -7754,11 +7957,66 @@
         "kind": "article"
       },
       {
+        "headline": "Preview: Los Angeles Lakers vs. Milwaukee Bucks: Player props, injury report and prediction",
+        "date": "2026-11-11",
+        "source_url": "https://www.sportsmole.co.uk/basketball/la-lakers/preview/los-angeles-lakers-vs-milwaukee-bucks-player-props-injury-report-and-prediction--nba_608897.html",
+        "outlet": "sportsmole.co.uk",
+        "reported_source": "Badge: CONFIRMED; Sports Mole preview read in this run, published November 11, 2026; Tyler Herro out for Milwaukee (right knee contusion), Quentin Grimes questionable for the Lakers (right finger sprain); Doncic and Reaves clear of the injury report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Quentin Grimes Listed as Questionable for Wednesday",
         "date": "2026-11-11",
         "source_url": "https://www.rotoballer.com/player-news/",
         "outlet": "rotoballer.com",
         "reported_source": "Badge: CONFIRMED; RotoBaller player-news item read in this run, Nov 11, 2026, 8:46 AM ET, by Brian Dailisan; Los Angeles Lakers guard/forward Quentin Grimes (finger) is questionable for Wednesday's matchup with the Milwaukee Bucks after missing Monday's win over Atlanta; X-rays negative; source: NBA Injury Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Spurs vs. Bulls injury report: Devin Vassell, Norman Powell among players listed",
+        "date": "2026-11-11",
+        "source_url": "https://clutchpoints.com/nba/nba-stories/spurs-vs-bulls-injury-report-devin-vassell-norman-powell-among-players-listed",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints article read in this run, published November 11, 2026, 10:39 AM ET; Devin Vassell questionable (left adductor tightness), Tobias Harris and Jayden Quaintance out for Spurs; Norman Powell, Tobe Awaka, Zach Collins questionable, Jaylin Sellers out for Bulls",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Stephen A Smith Doubles Down Lakers Are \"Too White\" For Title Contention",
+        "date": "2026-11-11",
+        "source_url": "https://heavy.com/sports/nba/los-angeles-lakers/stephen-a-smith-lakers-white-title/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; VOICE: Stephen A. Smith \u2014 his angle/opinion, never fact; Heavy article read in this run, published November 11, 2026; Smith on his podcast: the Lakers are a playoff team that will reach the second round and then get humbled; he has never seen a team with its top three players being white deliver a championship",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Toronto Raptors Announce Injury Report for Celtics Game (Nov. 11)",
+        "date": "2026-11-11",
+        "source_url": "https://heavy.com/sports/nba/toronto-raptors/injury-report-vs-celtics-november-11/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy article read in this run, published November 11, 2026; Kawhi Leonard, Scottie Barnes and Nate Bittle out, Immanuel Quickley, Collin Murray-Boyles and Trayce Jackson-Davis questionable vs Celtics; Raptors press release: Leonard out at least one more week, reconditioning after treatment for left knee swelling",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Trey Murphy (knee) is now doubtful to play against the Nets on Wednesday",
+        "date": "2026-11-11",
+        "source_url": "https://www.nbcsports.com/fantasy/basketball/player-news/2026-11-11/chris-youngblood-foot-will-not-return-tuesday",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: SPECULATION; seen only in the related-player-news list on the NBC Sports (Rotoworld) Chris Youngblood page read in this run, published November 11, 2026 \u2014 no standalone article URL; Murphy was initially listed probable after missing Monday's game but is now expected to be sidelined at least one more game",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -7776,6 +8034,28 @@
         "kind": "article"
       },
       {
+        "headline": "Warriors news: Kevin O'Connor urges Golden State to trade for Magic center",
+        "date": "2026-11-11",
+        "source_url": "https://clutchpoints.com/nba/golden-state-warriors/warriors-news-kevin-oconnor-kristaps-porzingis-trade-magic-wendell-carter-jr",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints article read in this run, published November 11, 2026; Yahoo Sports' Kevin O'Connor suggested on his podcast that the Warriors trade Porzingis and draft capital to Orlando for Wendell Carter Jr. \u2014 a pundit trade suggestion, not a reported deal; Brett Siegel reported teams are eyeing Carter",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Warriors receive Brandon Williams injury update ahead of 5-game road trip",
+        "date": "2026-11-11",
+        "source_url": "https://warriorswire.usatoday.com/story/sports/nba/warriors/2026/11/11/warriors-receive-an-update-on-brandon-williams-hamstring-injury/92721373007/",
+        "outlet": "arriorswire.usatoday.com",
+        "reported_source": "Badge: CONFIRMED; Warriors Wire article read in this run, published November 11, 2026; NBA insider Anthony Slater revealed Brandon Williams will miss at least one week with a mild left hamstring strain, potentially sidelining him for all five games of the road trip",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Warriors rout Pelicans",
         "date": "2026-11-11",
         "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-11/",
@@ -7785,6 +8065,17 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Warriors vs. Rockets injury report: Will Richard somehow questionable after recent UCL tear",
+        "date": "2026-11-11",
+        "source_url": "https://clutchpoints.com/nba/nba-stories/warriors-vs-rockets-injury-report-will-richard-questionable-ucl-tear",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints article read in this run, published November 11, 2026, 9:52 AM ET; Will Richard listed questionable vs Rockets despite left thumb UCL tear, per the official injury report; Butler, Moody, Payton II, Williams, Porzingis out; Adams and Capela out for Houston",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Wemby dominates Suns",
@@ -7814,6 +8105,17 @@
         "source_url": "https://www.essentiallysports.com/nba-active-basketball-news-i-wasnt-paying-attention-jaylen-brown-responds-to-giving-jayson-tatum-cold-treatment-at-tip-off-skips-him-after-game/",
         "outlet": "essentiallysports.com",
         "reported_source": "Badge: CONFIRMED; Voice: Jaylen Brown; EssentiallySports article read in this run, published November 11, 2026; Brown on ignoring Jayson Tatum's pregame greeting: 'I wasn't paying attention'; Brown finished with 13 points in the 123-101 loss; article also cites ESPN's Shams Charania reporting Brown and Tatum last spoke face-to-face at a dinner in Cannes, France, in June 2026",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "\u201cThree Players Being White\u201d: Stephen A. Smith Makes Controversial Claim About Luka Doncic\u2019s Lakers Title Hopes",
+        "date": "2026-11-11",
+        "source_url": "https://www.essentiallysports.com/nba-active-basketball-news-three-players-being-white-stephen-a-smith-makes-controversial-claim-about-luka-doncic-s-los-angeles-lakers-title-hopes/",
+        "outlet": "essentiallysports.com",
+        "reported_source": "Badge: CONFIRMED; VOICE: Stephen A. Smith \u2014 his angle/opinion, never fact; EssentiallySports article read in this run, published November 11, 2026; Smith doubled down on The Stephen A. Smith Show, saying he has never seen an NBA team led by three white players win a championship and does not see the 10-2 Lakers doing it; Emmanuel Acho and Skip Bayless pushed back",
         "voice": null,
         "voice_label": null,
         "category": null,

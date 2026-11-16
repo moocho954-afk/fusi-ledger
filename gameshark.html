@@ -3514,11 +3514,14 @@ function setRankLabel(row, n){
   var b = row.querySelector('.gs-click-cell b');
   if(b && /^#\d+$/.test(b.textContent.trim())) b.textContent = '#' + n;
 }
+function isRankedRow(row){
+  return /^#\d+$/.test(rankLabel(row));
+}
 function auditSort(panelId, keyFn, label){
   var panel = document.getElementById(panelId);
   if(!panel){ state.skipped.push(label); return; }
   state.checks++;
-  var rows = Array.prototype.slice.call(panel.querySelectorAll('.gs-click-row'));
+  var rows = Array.prototype.slice.call(panel.querySelectorAll('.gs-click-row')).filter(isRankedRow);
   if(rows.length < 2) return;
   var keys = rows.map(function(r){ return keyFn(r); });
   if(keys.some(isNaN)){ state.skipped.push(label + ' (a row has no number to sort by)'); return; }
@@ -3541,7 +3544,7 @@ function auditRanks(panelId, label){
   var panel = document.getElementById(panelId);
   if(!panel){ state.skipped.push(label); return; }
   state.checks++;
-  var rows = Array.prototype.slice.call(panel.querySelectorAll('.gs-click-row'));
+  var rows = Array.prototype.slice.call(panel.querySelectorAll('.gs-click-row')).filter(isRankedRow);
   if(rows.length < 2) return;
   var bad = false;
   rows.forEach(function(r, i){ if(rankLabel(r) !== '#' + (i + 1)) bad = true; });
@@ -3558,7 +3561,7 @@ function auditHeadCount(panelId, label){
   if(!panel){ state.skipped.push(label); return; }
   state.checks++;
   var head = panel.querySelector('.gs-click-panel-head b');
-  var rows = panel.querySelectorAll('.gs-click-row');
+  var rows = Array.prototype.slice.call(panel.querySelectorAll('.gs-click-row')).filter(isRankedRow);
   if(!head) return;
   var m = txt(head).match(/top\s+(\d+)/i);
   if(!m) return;
@@ -3693,7 +3696,7 @@ function runAll(){
   if(state.notes.length){
     if(state.timer){ clearTimeout(state.timer); state.timer = null; }
     setEye(true, 'page self-check: ' + state.notes.length + ' issue' + (state.notes.length === 1 ? '' : 's') + ' need attention');
-    showCard();
+    
   } else if(state.found > 0){
     if(!EYE.classList.contains('gs-eye-open')) state.openedAt = Date.now();
     setEye(true, 'page self-check: fixed ' + state.fixed + ' issue' + (state.fixed === 1 ? '' : 's'));

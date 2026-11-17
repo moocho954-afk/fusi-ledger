@@ -1,11 +1,11 @@
 {
-  "tip_height": 1997,
-  "tip_hash": "de508d9bde507b4fd1a505c2b9cd684ce459c4782aa3052ac3c857eb0e1ab767",
-  "bridge_height": 1854,
-  "bridge_hash": "fba52392217821641bbfb001fd72ae1508e0f56e78ca93c490a415a4e48d2584",
-  "fusion_tip_height": 707,
-  "fusion_tip_hash": "f073970a17bbcc5b9b01bd7e49d621f25135768cee23c278a4e8af124b54216b",
-  "fusion_audit_height": 707,
+  "tip_height": 2010,
+  "tip_hash": "8ea38563665428020439dd2434da1556ce0c46daabe6ff4d957bf59d1a10cdfe",
+  "bridge_height": 2010,
+  "bridge_hash": "8ea38563665428020439dd2434da1556ce0c46daabe6ff4d957bf59d1a10cdfe",
+  "fusion_tip_height": 720,
+  "fusion_tip_hash": "21d9f3c5d26bcf79b751230a3e1e7001165ca63b9650127380f067c023e2406f",
+  "fusion_audit_height": 720,
   "knots": {
     "count": 140,
     "tied": 140,
@@ -18,58 +18,58 @@
       "height": 593,
       "surface": "gameshark"
     },
-    "bridge_block": 1854,
-    "fusion_tip_height": 707
+    "bridge_block": 2010,
+    "fusion_tip_height": 720
   },
   "finals": [
     {
-      "date": "2026-11-15",
-      "away": "SA",
-      "away_score": 110,
-      "home": "UTAH",
-      "home_score": 102,
-      "event_id": "401909988"
-    },
-    {
-      "date": "2026-11-15",
-      "away": "DAL",
-      "away_score": 94,
-      "home": "BOS",
-      "home_score": 131,
-      "event_id": "401909989"
-    },
-    {
-      "date": "2026-11-15",
-      "away": "NY",
-      "away_score": 112,
-      "home": "TOR",
-      "home_score": 108,
-      "event_id": "401909990"
-    },
-    {
-      "date": "2026-11-15",
-      "away": "HOU",
-      "away_score": 147,
+      "date": "2026-11-16",
+      "away": "MEM",
+      "away_score": 136,
       "home": "WSH",
-      "home_score": 119,
-      "event_id": "401909991"
+      "home_score": 120,
+      "event_id": "401909996"
     },
     {
-      "date": "2026-11-15",
-      "away": "ATL",
-      "away_score": 113,
-      "home": "MIL",
+      "date": "2026-11-16",
+      "away": "PHI",
+      "away_score": 135,
+      "home": "BKN",
+      "home_score": 123,
+      "event_id": "401909997"
+    },
+    {
+      "date": "2026-11-16",
+      "away": "HOU",
+      "away_score": 110,
+      "home": "MIA",
+      "home_score": 128,
+      "event_id": "401909998"
+    },
+    {
+      "date": "2026-11-16",
+      "away": "POR",
+      "away_score": 98,
+      "home": "MIN",
       "home_score": 106,
-      "event_id": "401909992"
+      "event_id": "401909999"
     },
     {
-      "date": "2026-11-15",
-      "away": "OKC",
-      "away_score": 125,
-      "home": "SAC",
-      "home_score": 103,
-      "event_id": "401909993"
+      "date": "2026-11-16",
+      "away": "GS",
+      "away_score": 94,
+      "home": "NO",
+      "home_score": 115,
+      "event_id": "401910000"
+    },
+    {
+      "date": "2026-11-16",
+      "away": "PHX",
+      "away_score": 117,
+      "home": "DEN",
+      "home_score": 105,
+      "event_id": "401910001"
     }
   ],
-  "updated_at": "2026-11-16T12:36:05.018336+00:00"
+  "updated_at": "2026-11-17T12:04:23.569853+00:00"
 }

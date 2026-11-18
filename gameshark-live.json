@@ -1,6 +1,6 @@
 {
-  "tip_height": 2010,
-  "tip_hash": "8ea38563665428020439dd2434da1556ce0c46daabe6ff4d957bf59d1a10cdfe",
+  "tip_height": 2019,
+  "tip_hash": "aca6cbe2924f81ba95e7f2ecbf22c3c4c94eacf0f20c83a606fa66ddc8e9cd88",
   "bridge_height": 2010,
   "bridge_hash": "8ea38563665428020439dd2434da1556ce0c46daabe6ff4d957bf59d1a10cdfe",
   "fusion_tip_height": 720,
@@ -24,52 +24,52 @@
   "finals": [
     {
       "date": "2026-11-16",
-      "away": "MEM",
-      "away_score": 136,
-      "home": "WSH",
-      "home_score": 120,
-      "event_id": "401909996"
-    },
-    {
-      "date": "2026-11-16",
-      "away": "PHI",
-      "away_score": 135,
-      "home": "BKN",
-      "home_score": 123,
-      "event_id": "401909997"
-    },
-    {
-      "date": "2026-11-16",
-      "away": "HOU",
-      "away_score": 110,
-      "home": "MIA",
-      "home_score": 128,
-      "event_id": "401909998"
-    },
-    {
-      "date": "2026-11-16",
-      "away": "POR",
-      "away_score": 98,
-      "home": "MIN",
-      "home_score": 106,
-      "event_id": "401909999"
-    },
-    {
-      "date": "2026-11-16",
-      "away": "GS",
-      "away_score": 94,
-      "home": "NO",
-      "home_score": 115,
-      "event_id": "401910000"
-    },
-    {
-      "date": "2026-11-16",
       "away": "PHX",
       "away_score": 117,
       "home": "DEN",
       "home_score": 105,
       "event_id": "401910001"
+    },
+    {
+      "date": "2026-11-17",
+      "away": "NY",
+      "away_score": 111,
+      "home": "TOR",
+      "home_score": 102,
+      "event_id": "401910002"
+    },
+    {
+      "date": "2026-11-17",
+      "away": "POR",
+      "away_score": 105,
+      "home": "MIN",
+      "home_score": 106,
+      "event_id": "401910003"
+    },
+    {
+      "date": "2026-11-17",
+      "away": "DET",
+      "away_score": 105,
+      "home": "SA",
+      "home_score": 93,
+      "event_id": "401910004"
+    },
+    {
+      "date": "2026-11-17",
+      "away": "CHA",
+      "away_score": 114,
+      "home": "LAL",
+      "home_score": 118,
+      "event_id": "401910005"
+    },
+    {
+      "date": "2026-11-17",
+      "away": "UTAH",
+      "away_score": 132,
+      "home": "LAC",
+      "home_score": 107,
+      "event_id": "401910006"
     }
   ],
-  "updated_at": "2026-11-17T12:04:23.569853+00:00"
+  "updated_at": "2026-11-18T08:16:20.368702+00:00"
 }

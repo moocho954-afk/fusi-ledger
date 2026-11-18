@@ -1,0 +1,4483 @@
+{
+ "window": "2026-10-18 \u2192 2026-11-15",
+ "stranded": {
+  "note": "Won legs that died because their ticket lost. Old rows (2026-10-18 \u2192 2026-10-23, placed tickets) are carried verbatim from the keeper; new rows cover 2026-10-24 \u2192 2026-11-15 (delivered sets + Oct 24 placed slips + Oct 25 Hypothetical Wing).",
+  "pool_callout": {
+   "date": "2026-11-15",
+   "text": "Nov 15 study finding: 77 CUSHION winners sat in the graded pool (151 CUSHION legs judged, 77 won) \u2014 recomputed here from tonight-graded-2026-11-15.jsonl vs season logs; the delivered set stranded only its own winners, listed below.",
+   "cushion_winners_in_pool": 77,
+   "cushion_legs_judged": 151
+  },
+  "old_rows": [
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet)",
+    "player": "Matisse Thybulle",
+    "team": "LAL",
+    "category": "AST",
+    "side": "over",
+    "line": 0.5,
+    "final": 1.0,
+    "raw": "2026-10-21 \u00b7 sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) \u2014 Matisse Thybulle (LAL) AST o0.5 \u2014 HIT (final 1 AST)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet)",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "AST",
+    "side": "over",
+    "line": 0.5,
+    "final": 1.0,
+    "raw": "2026-10-21 \u00b7 sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) \u2014 Walker Kessler (LAL) AST o0.5 \u2014 HIT (final 1 AST)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet)",
+    "player": "Sandro Mamukelashvili",
+    "team": "LAL",
+    "category": "AST",
+    "side": "over",
+    "line": 1.5,
+    "final": 2.0,
+    "raw": "2026-10-21 \u00b7 sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) \u2014 Sandro Mamukelashvili (LAL) AST o1.5 \u2014 HIT (final 2 AST)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet)",
+    "player": "Austin Reaves",
+    "team": "LAL",
+    "category": "AST",
+    "side": "over",
+    "line": 5.5,
+    "final": 6.0,
+    "raw": "2026-10-21 \u00b7 sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) \u2014 Austin Reaves (LAL) AST o5.5 \u2014 HIT (final 6 AST)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet)",
+    "player": "Brandon Williams",
+    "team": "GS",
+    "category": "AST",
+    "side": "over",
+    "line": 2.5,
+    "final": 3.0,
+    "raw": "2026-10-21 \u00b7 sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) \u2014 Brandon Williams (GS) AST o2.5 \u2014 HIT (final 3 AST)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet)",
+    "player": "Ziaire Williams",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 5.5,
+    "final": 9.0,
+    "raw": "2026-10-21 \u00b7 sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet) \u2014 Ziaire Williams (LAL) PTS o5.5 \u2014 HIT (final 9 PTS)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet)",
+    "player": "Austin Reaves",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 21.5,
+    "final": 23.0,
+    "raw": "2026-10-21 \u00b7 sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet) \u2014 Austin Reaves (LAL) PTS o21.5 \u2014 HIT (final 23 PTS)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet)",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 20.5,
+    "final": 26.0,
+    "raw": "2026-10-21 \u00b7 sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet) \u2014 Walker Kessler (LAL) PTS o20.5 \u2014 HIT (final 26 PTS)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet)",
+    "player": "Matisse Thybulle",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 2.5,
+    "final": 3.0,
+    "raw": "2026-10-21 \u00b7 sgp_12_points +38395, $0.2 stake, Hard Rock ID 2878094318357315888 (recording bet) \u2014 Matisse Thybulle (LAL) PTS o2.5 \u2014 HIT (final 3 PTS)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Austin Reaves",
+    "team": "LAL",
+    "category": "REB",
+    "side": "over",
+    "line": 2.5,
+    "final": 4.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Austin Reaves (LAL) REB o2.5 \u2014 HIT (final 4 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "De'Anthony Melton",
+    "team": "GS",
+    "category": "REB",
+    "side": "over",
+    "line": 1.5,
+    "final": 2.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 De'Anthony Melton (GS) REB o1.5 \u2014 HIT (final 2 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Brandon Williams",
+    "team": "GS",
+    "category": "REB",
+    "side": "over",
+    "line": 2.5,
+    "final": 4.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Brandon Williams (GS) REB o2.5 \u2014 HIT (final 4 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Ziaire Williams",
+    "team": "LAL",
+    "category": "REB",
+    "side": "over",
+    "line": 2.5,
+    "final": 3.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Ziaire Williams (LAL) REB o2.5 \u2014 HIT (final 3 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Matisse Thybulle",
+    "team": "LAL",
+    "category": "REB",
+    "side": "over",
+    "line": 1.5,
+    "final": 3.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Matisse Thybulle (LAL) REB o1.5 \u2014 HIT (final 3 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Devin Booker",
+    "team": "PHX",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 4.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Devin Booker (PHX) REB o3.5 \u2014 HIT (final 4 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Dillon Brooks",
+    "team": "PHX",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 4.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Dillon Brooks (PHX) REB o3.5 \u2014 HIT (final 4 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Miles Bridges",
+    "team": "PHX",
+    "category": "REB",
+    "side": "over",
+    "line": 2.5,
+    "final": 4.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Miles Bridges (PHX) REB o2.5 \u2014 HIT (final 4 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Ja Morant",
+    "team": "POR",
+    "category": "REB",
+    "side": "over",
+    "line": 4.5,
+    "final": 5.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Ja Morant (POR) REB o4.5 \u2014 HIT (final 5 REB)"
+   },
+   {
+    "date": "2026-10-21",
+    "ticket": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet)",
+    "player": "Deni Avdija",
+    "team": "POR",
+    "category": "REB",
+    "side": "over",
+    "line": 9.5,
+    "final": 10.0,
+    "raw": "2026-10-21 \u00b7 sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) \u2014 Deni Avdija (POR) REB o9.5 \u2014 HIT (final 10 REB)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 10-Bet Parlay",
+    "player": "slip S9 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 17.0,
+    "raw": "2026-10-23 \u00b7 SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson (DET) PTS o10.5 \u2014 HIT (final 17.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 10-Bet Parlay",
+    "player": "slip S9 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 18.0,
+    "raw": "2026-10-23 \u00b7 SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell (MIA) PTS o9.5 \u2014 HIT (final 18.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 10-Bet Parlay",
+    "player": "slip S9 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins",
+    "team": "DET",
+    "category": "AST",
+    "side": "over",
+    "line": 2.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins (DET) AST o2.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 10-Bet Parlay",
+    "player": "slip S9 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis (MIA) PTS o10.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 10-Bet Parlay",
+    "player": "slip S9 of 9 (owner-placed 2026-10-23) \u2014 Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 19.0,
+    "raw": "2026-10-23 \u00b7 SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) \u2014 Paul Reed (DET) PTS o7.5 \u2014 HIT (final 19.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo (MIA) AST u5.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 19.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Paul Reed (DET) PTS o7.5 \u2014 HIT (final 19.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins",
+    "team": "DET",
+    "category": "AST",
+    "side": "over",
+    "line": 2.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins (DET) AST o2.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 18.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell (MIA) PTS o9.5 \u2014 HIT (final 18.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 17.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson (DET) PTS o10.5 \u2014 HIT (final 17.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 13-Bet Parlay",
+    "player": "slip S8 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis (MIA) PTS o10.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S7 of 9 (owner-placed 2026-10-23) \u2014 Anthony Edwards",
+    "team": "MIN",
+    "category": "PTS",
+    "side": "under",
+    "line": 29.5,
+    "final": 15.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) \u2014 Anthony Edwards (MIN) PTS u29.5 \u2014 HIT (final 15.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S7 of 9 (owner-placed 2026-10-23) \u2014 Terrence Shannon Jr.",
+    "team": "MIN",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 13.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) \u2014 Terrence Shannon Jr. (MIN) PTS o7.5 \u2014 HIT (final 13.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S7 of 9 (owner-placed 2026-10-23) \u2014 Alex Sarr",
+    "team": "WAS",
+    "category": "PTS",
+    "side": "under",
+    "line": 12.5,
+    "final": 7.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) \u2014 Alex Sarr (WAS) PTS u12.5 \u2014 HIT (final 7.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S7 of 9 (owner-placed 2026-10-23) \u2014 RJ Barrett",
+    "team": "TOR",
+    "category": "PTS",
+    "side": "over",
+    "line": 18.5,
+    "final": 23.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) \u2014 RJ Barrett (TOR) PTS o18.5 \u2014 HIT (final 23.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S7 of 9 (owner-placed 2026-10-23) \u2014 Jaren Jackson Jr.",
+    "team": "UTA",
+    "category": "PTS",
+    "side": "over",
+    "line": 17.5,
+    "final": 24.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) \u2014 Jaren Jackson Jr. (UTA) PTS o17.5 \u2014 HIT (final 24.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 9-Bet Parlay",
+    "player": "slip S6 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 17.0,
+    "raw": "2026-10-23 \u00b7 SGP 9-Bet Parlay \u2014 slip S6 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson (DET) PTS o10.5 \u2014 HIT (final 17.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 9-Bet Parlay",
+    "player": "slip S6 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 9-Bet Parlay \u2014 slip S6 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo (MIA) AST u5.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 9-Bet Parlay",
+    "player": "slip S6 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 18.0,
+    "raw": "2026-10-23 \u00b7 SGP 9-Bet Parlay \u2014 slip S6 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell (MIA) PTS o9.5 \u2014 HIT (final 18.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 9-Bet Parlay",
+    "player": "slip S6 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGP 9-Bet Parlay \u2014 slip S6 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis (MIA) PTS o10.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 9-Bet Parlay",
+    "player": "slip S6 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins",
+    "team": "DET",
+    "category": "AST",
+    "side": "over",
+    "line": 2.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 9-Bet Parlay \u2014 slip S6 of 9 (owner-placed 2026-10-23) \u2014 Daniss Jenkins (DET) AST o2.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 6-Bet Parlay",
+    "player": "slip S5 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0,
+    "raw": "2026-10-23 \u00b7 SGP 6-Bet Parlay \u2014 slip S5 of 9 (owner-placed 2026-10-23) \u2014 Giannis Antetokounmpo (MIA) AST u5.5 \u2014 HIT (final 5.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 6-Bet Parlay",
+    "player": "slip S5 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 18.0,
+    "raw": "2026-10-23 \u00b7 SGP 6-Bet Parlay \u2014 slip S5 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell (MIA) PTS o9.5 \u2014 HIT (final 18.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 6-Bet Parlay",
+    "player": "slip S5 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGP 6-Bet Parlay \u2014 slip S5 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis (MIA) PTS o10.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 6-Bet Parlay",
+    "player": "slip S5 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 17.0,
+    "raw": "2026-10-23 \u00b7 SGP 6-Bet Parlay \u2014 slip S5 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson (DET) PTS o10.5 \u2014 HIT (final 17.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 4-Bet Parlay",
+    "player": "slip S4 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 18.0,
+    "raw": "2026-10-23 \u00b7 SGP 4-Bet Parlay \u2014 slip S4 of 9 (owner-placed 2026-10-23) \u2014 Davion Mitchell (MIA) PTS o9.5 \u2014 HIT (final 18.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 4-Bet Parlay",
+    "player": "slip S4 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson",
+    "team": "DET",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 17.0,
+    "raw": "2026-10-23 \u00b7 SGP 4-Bet Parlay \u2014 slip S4 of 9 (owner-placed 2026-10-23) \u2014 Duncan Robinson (DET) PTS o10.5 \u2014 HIT (final 17.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGP 4-Bet Parlay",
+    "player": "slip S4 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGP 4-Bet Parlay \u2014 slip S4 of 9 (owner-placed 2026-10-23) \u2014 Bobby Portis (MIA) PTS o10.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S3 of 9 (owner-placed 2026-10-23) \u2014 Bilal Coulibaly",
+    "team": "WAS",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S3 of 9 (owner-placed 2026-10-23) \u2014 Bilal Coulibaly (WAS) PTS o9.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S3 of 9 (owner-placed 2026-10-23) \u2014 Saddiq Bey",
+    "team": "NOP",
+    "category": "PTS",
+    "side": "over",
+    "line": 11.5,
+    "final": 20.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S3 of 9 (owner-placed 2026-10-23) \u2014 Saddiq Bey (NOP) PTS o11.5 \u2014 HIT (final 20.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S3 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter",
+    "team": "SAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 4.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S3 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter (SAC) PTS u11.5 \u2014 HIT (final 4.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 11-Bet Parlay",
+    "player": "slip S3 of 9 (owner-placed 2026-10-23) \u2014 Toumani Camara",
+    "team": "POR",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 19.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 11-Bet Parlay \u2014 slip S3 of 9 (owner-placed 2026-10-23) \u2014 Toumani Camara (POR) PTS o10.5 \u2014 HIT (final 19.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 13-Bet Parlay",
+    "player": "slip S2 of 9 (owner-placed 2026-10-23) \u2014 Bilal Coulibaly",
+    "team": "WAS",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 11.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 13-Bet Parlay \u2014 slip S2 of 9 (owner-placed 2026-10-23) \u2014 Bilal Coulibaly (WAS) PTS o9.5 \u2014 HIT (final 11.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 13-Bet Parlay",
+    "player": "slip S2 of 9 (owner-placed 2026-10-23) \u2014 Saddiq Bey",
+    "team": "NOP",
+    "category": "PTS",
+    "side": "over",
+    "line": 11.5,
+    "final": 20.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 13-Bet Parlay \u2014 slip S2 of 9 (owner-placed 2026-10-23) \u2014 Saddiq Bey (NOP) PTS o11.5 \u2014 HIT (final 20.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 13-Bet Parlay",
+    "player": "slip S2 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter",
+    "team": "SAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 4.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 13-Bet Parlay \u2014 slip S2 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter (SAC) PTS u11.5 \u2014 HIT (final 4.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 13-Bet Parlay",
+    "player": "slip S2 of 9 (owner-placed 2026-10-23) \u2014 Toumani Camara",
+    "team": "POR",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 19.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 13-Bet Parlay \u2014 slip S2 of 9 (owner-placed 2026-10-23) \u2014 Toumani Camara (POR) PTS o10.5 \u2014 HIT (final 19.0)"
+   },
+   {
+    "date": "2026-10-23",
+    "ticket": "SGPMAX 7-Bet Parlay",
+    "player": "slip S1 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter",
+    "team": "SAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 4.0,
+    "raw": "2026-10-23 \u00b7 SGPMAX 7-Bet Parlay \u2014 slip S1 of 9 (owner-placed 2026-10-23) \u2014 De'Andre Hunter (SAC) PTS u11.5 \u2014 HIT (final 4.0)"
+   },
+   {
+    "date": "2026-10-22",
+    "ticket": "SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC)",
+    "player": "Jaylon Tyson",
+    "team": "CLE",
+    "category": "AST",
+    "side": "over",
+    "line": 1.5,
+    "final": null,
+    "raw": "2026-10-22 \u00b7 SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC) \u2014 Jaylon Tyson (CLE) AST o1.5 \u2014 HIT"
+   },
+   {
+    "date": "2026-10-22",
+    "ticket": "SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC)",
+    "player": "Evan Mobley",
+    "team": "CLE",
+    "category": "3PT",
+    "side": "over",
+    "line": 0.5,
+    "final": null,
+    "raw": "2026-10-22 \u00b7 SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC) \u2014 Evan Mobley (CLE) 3PT o0.5 \u2014 HIT"
+   },
+   {
+    "date": "2026-10-22",
+    "ticket": "SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC)",
+    "player": "Chet Holmgren",
+    "team": "OKC",
+    "category": "AST",
+    "side": "over",
+    "line": 1.5,
+    "final": null,
+    "raw": "2026-10-22 \u00b7 SGPMAX 5-bet parlay (CLE@PHI + DEN@OKC) \u2014 Chet Holmgren (OKC) AST o1.5 \u2014 HIT"
+   },
+   {
+    "date": "2026-10-22",
+    "ticket": "SGPMAX 11-bet parlay (CLE@PHI + DEN@OKC)",
+    "player": "Jarrett Allen",
+    "team": "CLE",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": null,
+    "raw": "2026-10-22 \u00b7 SGPMAX 11-bet parlay (CLE@PHI + DEN@OKC) \u2014 Jarrett Allen (CLE) PTS o12.5 \u2014 HIT"
+   }
+  ],
+  "new_rows": [
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s1 6-LEG",
+    "ticket_id": "s1",
+    "player": "Moussa Diabate",
+    "team": "CHA",
+    "category": "PTS",
+    "side": "under",
+    "line": 9.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s1 6-LEG",
+    "ticket_id": "s1",
+    "player": "Devin Booker",
+    "team": "PHX",
+    "category": "PTS",
+    "side": "over",
+    "line": 23.5,
+    "final": 43.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s1 6-LEG",
+    "ticket_id": "s1",
+    "player": "Naz Reid",
+    "team": "CHA",
+    "category": "PTS",
+    "side": "over",
+    "line": 17.5,
+    "final": 23.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s2 4-LEG",
+    "ticket_id": "s2",
+    "player": "Myles Turner",
+    "team": "MIL",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s2 4-LEG",
+    "ticket_id": "s2",
+    "player": "Keon Ellis",
+    "team": "BKN",
+    "category": "AST",
+    "side": "under",
+    "line": 2.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s3 5-LEG",
+    "ticket_id": "s3",
+    "player": "Jarrett Allen",
+    "team": "CLE",
+    "category": "AST",
+    "side": "under",
+    "line": 1.5,
+    "final": 0.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s3 5-LEG",
+    "ticket_id": "s3",
+    "player": "Stephon Castle",
+    "team": "SAS",
+    "category": "AST",
+    "side": "over",
+    "line": 5.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s3 5-LEG",
+    "ticket_id": "s3",
+    "player": "Trae Young",
+    "team": "WSH",
+    "category": "AST",
+    "side": "under",
+    "line": 10.5,
+    "final": 9.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s4 5-LEG",
+    "ticket_id": "s4",
+    "player": "Nickeil Alexander-Walker",
+    "team": "ATL",
+    "category": "3PT",
+    "side": "over",
+    "line": 2.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s4 5-LEG",
+    "ticket_id": "s4",
+    "player": "Jalen Green",
+    "team": "PHX",
+    "category": "3PT",
+    "side": "under",
+    "line": 2.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s5 4-LEG",
+    "ticket_id": "s5",
+    "player": "Dyson Daniels",
+    "team": "ATL",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 18.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s5 4-LEG",
+    "ticket_id": "s5",
+    "player": "De'Aaron Fox",
+    "team": "SAS",
+    "category": "PTS",
+    "side": "over",
+    "line": 14.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s5 4-LEG",
+    "ticket_id": "s5",
+    "player": "Christian Braun",
+    "team": "DEN",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s6 7-LEG",
+    "ticket_id": "s6",
+    "player": "Jaylon Tyson",
+    "team": "CLE",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s6 7-LEG",
+    "ticket_id": "s6",
+    "player": "CJ McCollum",
+    "team": "ATL",
+    "category": "PTS",
+    "side": "over",
+    "line": 16.5,
+    "final": 17.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s6 7-LEG",
+    "ticket_id": "s6",
+    "player": "Anthony Davis",
+    "team": "WSH",
+    "category": "PTS",
+    "side": "under",
+    "line": 23.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s6 7-LEG",
+    "ticket_id": "s6",
+    "player": "Zion Williamson",
+    "team": "NO",
+    "category": "PTS",
+    "side": "under",
+    "line": 18.5,
+    "final": 17.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s7 6-LEG",
+    "ticket_id": "s7",
+    "player": "Aaron Gordon",
+    "team": "DEN",
+    "category": "REB",
+    "side": "under",
+    "line": 6.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s7 6-LEG",
+    "ticket_id": "s7",
+    "player": "Jamal Murray",
+    "team": "DEN",
+    "category": "PTS",
+    "side": "over",
+    "line": 23.5,
+    "final": 42.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s7 6-LEG",
+    "ticket_id": "s7",
+    "player": "Tyler Herro",
+    "team": "MIL",
+    "category": "PTS",
+    "side": "under",
+    "line": 21.5,
+    "final": 13.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s8 6-LEG",
+    "ticket_id": "s8",
+    "player": "Reed Sheppard",
+    "team": "HOU",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s8 6-LEG",
+    "ticket_id": "s8",
+    "player": "Trey Murphy III",
+    "team": "NO",
+    "category": "PTS",
+    "side": "over",
+    "line": 16.5,
+    "final": 26.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s8 6-LEG",
+    "ticket_id": "s8",
+    "player": "Jamal Murray",
+    "team": "DEN",
+    "category": "PTS",
+    "side": "over",
+    "line": 23.5,
+    "final": 42.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s9 6-LEG",
+    "ticket_id": "s9",
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "category": "REB",
+    "side": "under",
+    "line": 4.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s9 6-LEG",
+    "ticket_id": "s9",
+    "player": "Ryan Rollins",
+    "team": "MIL",
+    "category": "PTS",
+    "side": "over",
+    "line": 14.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s9 6-LEG",
+    "ticket_id": "s9",
+    "player": "Day'Ron Sharpe",
+    "team": "BKN",
+    "category": "REB",
+    "side": "under",
+    "line": 8.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-24",
+    "ticket": "2026-10-24 \u00b7 s9 6-LEG",
+    "ticket_id": "s9",
+    "player": "Naji Marshall",
+    "team": "DAL",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 POINTS MIX POINTS MIX +3868",
+    "ticket_id": "POINTS MIX",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 POINTS MIX POINTS MIX +3868",
+    "ticket_id": "POINTS MIX",
+    "player": "Domantas Sabonis",
+    "team": "SAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 18.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 POINTS MIX POINTS MIX +3868",
+    "ticket_id": "POINTS MIX",
+    "player": "Jaden McDaniels",
+    "team": "MIN",
+    "category": "PTS",
+    "side": "over",
+    "line": 13.5,
+    "final": 14.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 POINTS MIX POINTS MIX +3868",
+    "ticket_id": "POINTS MIX",
+    "player": "Scottie Barnes",
+    "team": "TOR",
+    "category": "PTS",
+    "side": "under",
+    "line": 19.5,
+    "final": 0.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+    "ticket_id": "REBOUNDS MIX",
+    "player": "Day'Ron Sharpe",
+    "team": "BKN",
+    "category": "REB",
+    "side": "under",
+    "line": 9.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+    "ticket_id": "REBOUNDS MIX",
+    "player": "Isaiah Jackson",
+    "team": "LAC",
+    "category": "REB",
+    "side": "under",
+    "line": 6.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+    "ticket_id": "REBOUNDS MIX",
+    "player": "Jaxson Hayes",
+    "team": "UTA",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+    "ticket_id": "REBOUNDS MIX",
+    "player": "Zach LaVine",
+    "team": "SAC",
+    "category": "REB",
+    "side": "under",
+    "line": 3.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+    "ticket_id": "REBOUNDS MIX",
+    "player": "Rudy Gobert",
+    "team": "MIN",
+    "category": "REB",
+    "side": "over",
+    "line": 10.5,
+    "final": 13.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb",
+    "player": "Rui Hachimura",
+    "team": "LAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 16.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 COMBINED \u2014 points + reb",
+    "player": "Egor Demin",
+    "team": "BKN",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 ASSISTS MIX ASSISTS MIX +1613",
+    "ticket_id": "ASSISTS MIX",
+    "player": "Cedric Coward",
+    "team": "MEM",
+    "category": "AST",
+    "side": "under",
+    "line": 3.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 ASSISTS MIX ASSISTS MIX +1613",
+    "ticket_id": "ASSISTS MIX",
+    "player": "Jalen Williams",
+    "team": "OKC",
+    "category": "AST",
+    "side": "over",
+    "line": 4.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "player": "Jaren Jackson Jr.",
+    "team": "UTA",
+    "category": "PTS",
+    "side": "over",
+    "line": 17.5,
+    "final": 20.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "player": "RJ Barrett",
+    "team": "TOR",
+    "category": "PTS",
+    "side": "over",
+    "line": 18.5,
+    "final": 20.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "player": "Karl-Anthony Towns",
+    "team": "NYK",
+    "category": "PTS",
+    "side": "over",
+    "line": 19.5,
+    "final": 22.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+    "player": "Isaiah Hartenstein",
+    "team": "OKC",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 12.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014 ",
+    "player": "Domantas Sabonis",
+    "team": "SAC",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014 ",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "REB",
+    "side": "under",
+    "line": 9.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 1 \u2014 LOST \u2014 ",
+    "player": "Jaxson Hayes",
+    "team": "UTA",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014 ",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 Bettor slip 2 \u2014 LOST \u2014 ",
+    "player": "Ace Bailey",
+    "team": "UTA",
+    "category": "PTS",
+    "side": "over",
+    "line": 11.5,
+    "final": 17.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 1 \u2014 LOST \u2014 +214 \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 1 \u2014 LOST \u2014 +214 \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 1 \u2014 LOST \u2014 +214 \u2014 ",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 2 \u2014 LOST \u2014 +232 \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 2 \u2014 LOST \u2014 +232 \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 2 \u2014 LOST \u2014 +232 \u2014 ",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 3 \u2014 LOST \u2014 +291 \u2014  HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 3 \u2014 LOST \u2014 +291 \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 SAFE 3 \u2014 LOST \u2014 +291 \u2014 ",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "PTS",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 1 \u2014 LOST \u2014 +362 \u2014 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 1 \u2014 LOST \u2014 +362 \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 1 \u2014 LOST \u2014 +362 \u2014",
+    "player": "Jalen Williams",
+    "team": "OKC",
+    "category": "AST",
+    "side": "over",
+    "line": 4.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-10-25",
+    "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 3 \u2014 LOST \u2014 +351 \u2014 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 3 \u2014 LOST \u2014 +351 \u2014",
+    "ticket_id": "HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 YIELD 3 \u2014 LOST \u2014 +351 \u2014",
+    "player": "Domantas Sabonis",
+    "team": "SAC",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 SHORT 2 SHORT 2",
+    "ticket_id": "SHORT 2",
+    "player": "Dennis Schroder",
+    "team": "CHA",
+    "category": "PTS",
+    "side": "under",
+    "line": 15.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 SHORT 3 SHORT 3",
+    "ticket_id": "SHORT 3",
+    "player": "Keyonte George",
+    "team": "UTA",
+    "category": "AST",
+    "side": "under",
+    "line": 7.5,
+    "final": 6
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 POINTS POINTS",
+    "ticket_id": "POINTS",
+    "player": "Sam Merrill",
+    "team": "CLE",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 POINTS POINTS",
+    "ticket_id": "POINTS",
+    "player": "Jaylon Tyson",
+    "team": "CLE",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 11
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 POINTS POINTS",
+    "ticket_id": "POINTS",
+    "player": "Jalen Green",
+    "team": "PHX",
+    "category": "PTS",
+    "side": "over",
+    "line": 14.5,
+    "final": 20
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 REBOUNDS REBOUNDS",
+    "ticket_id": "REBOUNDS",
+    "player": "Tari Eason",
+    "team": "HOU",
+    "category": "REB",
+    "side": "over",
+    "line": 4.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 REBOUNDS REBOUNDS",
+    "ticket_id": "REBOUNDS",
+    "player": "Jalen Johnson",
+    "team": "ATL",
+    "category": "REB",
+    "side": "over",
+    "line": 8.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 REBOUNDS REBOUNDS",
+    "ticket_id": "REBOUNDS",
+    "player": "Jalen Smith",
+    "team": "CHI",
+    "category": "REB",
+    "side": "under",
+    "line": 7.5,
+    "final": 6
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 COMBINED COMBINED",
+    "ticket_id": "COMBINED",
+    "player": "Derrick White",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "under",
+    "line": 16.5,
+    "final": 5
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 COMBINED COMBINED",
+    "ticket_id": "COMBINED",
+    "player": "Peyton Watson",
+    "team": "CLE",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 COMBINED COMBINED",
+    "ticket_id": "COMBINED",
+    "player": "Jarrett Allen",
+    "team": "CLE",
+    "category": "REB",
+    "side": "over",
+    "line": 7.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 BETTOR 1 BETTOR 1",
+    "ticket_id": "BETTOR 1",
+    "player": "Cam Spencer",
+    "team": "MEM",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 BETTOR 1 BETTOR 1",
+    "ticket_id": "BETTOR 1",
+    "player": "Jabari Smith Jr.",
+    "team": "HOU",
+    "category": "PTS",
+    "side": "over",
+    "line": 14.5,
+    "final": 16
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 BETTOR 1 BETTOR 1",
+    "ticket_id": "BETTOR 1",
+    "player": "Tyler Herro",
+    "team": "MIL",
+    "category": "PTS",
+    "side": "under",
+    "line": 23.5,
+    "final": 23
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 BETTOR 2 BETTOR 2",
+    "ticket_id": "BETTOR 2",
+    "player": "Alex Sarr",
+    "team": "WSH",
+    "category": "PTS",
+    "side": "over",
+    "line": 11.5,
+    "final": 12
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 BETTOR 2 BETTOR 2",
+    "ticket_id": "BETTOR 2",
+    "player": "Paul George",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "under",
+    "line": 19.5,
+    "final": 16
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 DAL@MIA CONSERVATIVE DAL@MIA CONSERVATIVE",
+    "ticket_id": "DAL@MIA CONSERVATIVE",
+    "player": "Daniel Gafford",
+    "team": "DAL",
+    "category": "PTS",
+    "side": "under",
+    "line": 9.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 DAL@MIA SUPER RISK v2 DAL@MIA SUPER RISK v2",
+    "ticket_id": "DAL@MIA SUPER RISK v2",
+    "player": "Daniel Gafford",
+    "team": "DAL",
+    "category": "PTS",
+    "side": "under",
+    "line": 9.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 DAL@MIA SUPER RISK v2 DAL@MIA SUPER RISK v2",
+    "ticket_id": "DAL@MIA SUPER RISK v2",
+    "player": "Davion Mitchell",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 2
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 DAL@MIA SUPER RISK v2 DAL@MIA SUPER RISK v2",
+    "ticket_id": "DAL@MIA SUPER RISK v2",
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 3.5,
+    "final": 3
+   },
+   {
+    "date": "2026-10-26",
+    "ticket": "2026-10-26 \u00b7 DAL@MIA SUPER RISK v2 DAL@MIA SUPER RISK v2",
+    "ticket_id": "DAL@MIA SUPER RISK v2",
+    "player": "Bobby Portis",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 3
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 01 CONCENTRATED +918",
+    "ticket_id": "01",
+    "player": "Deni Avdija",
+    "team": "POR",
+    "category": "AST",
+    "side": "over",
+    "line": 4.5,
+    "final": 9.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 01 CONCENTRATED +918",
+    "ticket_id": "01",
+    "player": "Jrue Holiday",
+    "team": "POR",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 22.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 03 CORE-2 +431",
+    "ticket_id": "03",
+    "player": "Michael Porter Jr.",
+    "team": "BKN",
+    "category": "AST",
+    "side": "over",
+    "line": 1.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 03 CORE-2 +431",
+    "ticket_id": "03",
+    "player": "Day'Ron Sharpe",
+    "team": "BKN",
+    "category": "REB",
+    "side": "under",
+    "line": 8.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 04 CORE-3 +607",
+    "ticket_id": "04",
+    "player": "Deni Avdija",
+    "team": "POR",
+    "category": "AST",
+    "side": "over",
+    "line": 4.5,
+    "final": 9.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 10 MAX A \u2014 PLUS-MONEY FOUR +1932",
+    "ticket_id": "10",
+    "player": "Jrue Holiday",
+    "team": "POR",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 10 MAX A \u2014 PLUS-MONEY FOUR +1932",
+    "ticket_id": "10",
+    "player": "Julian Champagnie",
+    "team": "SAS",
+    "category": "PTS",
+    "side": "over",
+    "line": 9.5,
+    "final": 26.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 11 MAX B \u2014 ALL UNDERS +871",
+    "ticket_id": "11",
+    "player": "Day'Ron Sharpe",
+    "team": "BKN",
+    "category": "REB",
+    "side": "under",
+    "line": 8.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-10-27",
+    "ticket": "2026-10-27 \u00b7 11 MAX B \u2014 ALL UNDERS +871",
+    "ticket_id": "11",
+    "player": "Josh Hart",
+    "team": "NYK",
+    "category": "REB",
+    "side": "under",
+    "line": 7.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 01 CONCENTRATED +1234",
+    "ticket_id": "01",
+    "player": "Franz Wagner",
+    "team": "ORL",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 5
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 01 CONCENTRATED +1234",
+    "ticket_id": "01",
+    "player": "Darius Garland",
+    "team": "LAC",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 35.5,
+    "final": 20
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 01 CONCENTRATED +1234",
+    "ticket_id": "01",
+    "player": "Kobe Sanders",
+    "team": "LAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 02 CORE-1 +448",
+    "ticket_id": "02",
+    "player": "Deandre Ayton",
+    "team": "WSH",
+    "category": "PTS",
+    "side": "over",
+    "line": 5.5,
+    "final": 10
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 04 CORE-3 +542",
+    "ticket_id": "04",
+    "player": "Ayo Dosunmu",
+    "team": "MIN",
+    "category": "AST",
+    "side": "under",
+    "line": 4.5,
+    "final": 4
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 04 CORE-3 +542",
+    "ticket_id": "04",
+    "player": "Tre Jones",
+    "team": "CHI",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 11
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 09 FLIP 2 \u2014 FAVORITE PAIR +186",
+    "ticket_id": "09",
+    "player": "Trey Murphy III",
+    "team": "NO",
+    "category": "AST",
+    "side": "over",
+    "line": 2.5,
+    "final": 3
+   },
+   {
+    "date": "2026-10-28",
+    "ticket": "2026-10-28 \u00b7 11 MAX B \u2014 ALL UNDERS +1098",
+    "ticket_id": "11",
+    "player": "Naz Reid",
+    "team": "CHA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 28.5,
+    "final": 13
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 01 CONCENTRATED +1082",
+    "ticket_id": "01",
+    "player": "Scoot Henderson",
+    "team": "POR",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 01 CONCENTRATED +1082",
+    "ticket_id": "01",
+    "player": "Sam Merrill",
+    "team": "CLE",
+    "category": "PTS",
+    "side": "over",
+    "line": 7.5,
+    "final": 16
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 02 CORE-1 +560",
+    "ticket_id": "02",
+    "player": "Jrue Holiday",
+    "team": "POR",
+    "category": "AST",
+    "side": "over",
+    "line": 3.5,
+    "final": 4
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 02 CORE-1 +560",
+    "ticket_id": "02",
+    "player": "Trey Murphy III",
+    "team": "NO",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 25.5,
+    "final": 27
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 04 CORE-3 +458",
+    "ticket_id": "04",
+    "player": "James Harden",
+    "team": "CLE",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 28.5,
+    "final": 33
+   },
+   {
+    "date": "2026-10-29",
+    "ticket": "2026-10-29 \u00b7 04 CORE-3 +458",
+    "ticket_id": "04",
+    "player": "Ty Jerome",
+    "team": "MEM",
+    "category": "REB",
+    "side": "under",
+    "line": 3.5,
+    "final": 2
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 01 CONCENTRATED +902",
+    "ticket_id": "01",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 26.5,
+    "final": 17
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 01 CONCENTRATED +902",
+    "ticket_id": "01",
+    "player": "Terrence Shannon Jr.",
+    "team": "MIN",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 20.5,
+    "final": 16
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 01 CONCENTRATED +902",
+    "ticket_id": "01",
+    "player": "P.J. Washington",
+    "team": "DAL",
+    "category": "3PT",
+    "side": "under",
+    "line": 2.5,
+    "final": 1
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 02 CORE-1 +404",
+    "ticket_id": "02",
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "category": "3PT",
+    "side": "under",
+    "line": 1.5,
+    "final": 0
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 02 CORE-1 +404",
+    "ticket_id": "02",
+    "player": "Jayson Tatum",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "under",
+    "line": 28.5,
+    "final": 26
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 03 CORE-2 +468",
+    "ticket_id": "03",
+    "player": "Dennis Schroder",
+    "team": "CHA",
+    "category": "3PT",
+    "side": "under",
+    "line": 2.5,
+    "final": 1
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 03 CORE-2 +468",
+    "ticket_id": "03",
+    "player": "Tre Jones",
+    "team": "CHI",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 14.5,
+    "final": 20
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 04 CORE-3 +450",
+    "ticket_id": "04",
+    "player": "Mikal Bridges",
+    "team": "NYK",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 15.5,
+    "final": 19
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 04 CORE-3 +450",
+    "ticket_id": "04",
+    "player": "Anthony Davis",
+    "team": "WSH",
+    "category": "3PT",
+    "side": "under",
+    "line": 1.5,
+    "final": 0
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 09 FLIP 2 \u2014 FAVORITE PAIR +147",
+    "ticket_id": "09",
+    "player": "VJ Edgecombe",
+    "team": "PHI",
+    "category": "3PT",
+    "side": "under",
+    "line": 2.5,
+    "final": 1
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 10 MAX A \u2014 PLUS-MONEY FOUR +1620",
+    "ticket_id": "10",
+    "player": "Ja'Kobe Walter",
+    "team": "TOR",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 10 MAX A \u2014 PLUS-MONEY FOUR +1620",
+    "ticket_id": "10",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 25
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 12 POOL \u2014 OUTSIDE THE CORE +469",
+    "ticket_id": "12",
+    "player": "Andrew Nembhard",
+    "team": "IND",
+    "category": "AST",
+    "side": "under",
+    "line": 9.5,
+    "final": 9
+   },
+   {
+    "date": "2026-10-30",
+    "ticket": "2026-10-30 \u00b7 12 POOL \u2014 OUTSIDE THE CORE +469",
+    "ticket_id": "12",
+    "player": "Paul George",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "under",
+    "line": 20.5,
+    "final": 18
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 02 CORE-1 +495",
+    "ticket_id": "02",
+    "player": "Brandon Miller",
+    "team": "CHA",
+    "category": "PTS",
+    "side": "under",
+    "line": 26.5,
+    "final": 24
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 02 CORE-1 +495",
+    "ticket_id": "02",
+    "player": "Dean Wade",
+    "team": "PHI",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 5
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 04 CORE-3 +506",
+    "ticket_id": "04",
+    "player": "Dennis Schroder",
+    "team": "CHA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 24.5,
+    "final": 14
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 09 FLIP 2 \u2014 FAVORITE PAIR +198",
+    "ticket_id": "09",
+    "player": "Moussa Diabate",
+    "team": "CHA",
+    "category": "REB",
+    "side": "under",
+    "line": 10.5,
+    "final": 8
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 12 POOL \u2014 OUTSIDE THE CORE +530",
+    "ticket_id": "12",
+    "player": "Grayson Allen",
+    "team": "CHA",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 27
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 12 POOL \u2014 OUTSIDE THE CORE +530",
+    "ticket_id": "12",
+    "player": "Herbert Jones",
+    "team": "NO",
+    "category": "PTS",
+    "side": "over",
+    "line": 6.5,
+    "final": 11
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Jaime Jaquez Jr.",
+    "team": "MIL",
+    "category": "AST",
+    "side": "over",
+    "line": 3.5,
+    "final": 5
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Tyler Herro",
+    "team": "MIL",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 30.5,
+    "final": 20
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Alperen Sengun",
+    "team": "HOU",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 33.5,
+    "final": 34
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Sion James",
+    "team": "CHA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 12.5,
+    "final": 7
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Precious Achiuwa",
+    "team": "SAC",
+    "category": "REB",
+    "side": "under",
+    "line": 7.5,
+    "final": 5
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Zach LaVine",
+    "team": "SAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 21.5,
+    "final": 11
+   },
+   {
+    "date": "2026-10-31",
+    "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+    "ticket_id": "13",
+    "player": "Jalen Johnson",
+    "team": "ATL",
+    "category": "PTS",
+    "side": "under",
+    "line": 22.5,
+    "final": 13
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-01 CONCENTRATED +925",
+    "ticket_id": "S1-01",
+    "player": "Collin Sexton",
+    "team": "LAL",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 12.5,
+    "final": 20.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-01 CONCENTRATED +925",
+    "ticket_id": "S1-01",
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 13.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-02 CORE-1 +453",
+    "ticket_id": "S1-02",
+    "player": "Darius Garland",
+    "team": "LAC",
+    "category": "AST",
+    "side": "under",
+    "line": 7.5,
+    "final": 7.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-03 CORE-2 +484",
+    "ticket_id": "S1-03",
+    "player": "Ja'Kobe Walter",
+    "team": "TOR",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 17.5,
+    "final": 17.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-03 CORE-2 +484",
+    "ticket_id": "S1-03",
+    "player": "Andrew Nembhard",
+    "team": "IND",
+    "category": "AST",
+    "side": "under",
+    "line": 9.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S1-09 FLIP 2 \u2014 FAVORITE PAIR +190",
+    "ticket_id": "S1-09",
+    "player": "Scottie Barnes",
+    "team": "TOR",
+    "category": "REB",
+    "side": "under",
+    "line": 7.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-01 CONCENTRATED +243",
+    "ticket_id": "S2-01",
+    "player": "Luka Doncic",
+    "team": "LAL",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 48.5,
+    "final": 66.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-03 CORE-2 +186",
+    "ticket_id": "S2-03",
+    "player": "Wendell Carter Jr.",
+    "team": "ORL",
+    "category": "3PT",
+    "side": "over",
+    "line": 0.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-07 BIG-200 \u2014 $1 TO $200 +15540",
+    "ticket_id": "S2-07",
+    "player": "Aaron Nesmith",
+    "team": "IND",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 17.5,
+    "final": 18.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-07 BIG-200 \u2014 $1 TO $200 +15540",
+    "ticket_id": "S2-07",
+    "player": "Anthony Black",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "over",
+    "line": 13.5,
+    "final": 23.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-07 BIG-200 \u2014 $1 TO $200 +15540",
+    "ticket_id": "S2-07",
+    "player": "De'Anthony Melton",
+    "team": "GS",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 19.5,
+    "final": 30.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-07 BIG-200 \u2014 $1 TO $200 +15540",
+    "ticket_id": "S2-07",
+    "player": "RJ Barrett",
+    "team": "TOR",
+    "category": "AST",
+    "side": "over",
+    "line": 3.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-08 BIG-100 \u2014 $1 TO $100 +9828",
+    "ticket_id": "S2-08",
+    "player": "Paul George",
+    "team": "BOS",
+    "category": "AST",
+    "side": "over",
+    "line": 3.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-08 BIG-100 \u2014 $1 TO $100 +9828",
+    "ticket_id": "S2-08",
+    "player": "Tristan da Silva",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 23.0
+   },
+   {
+    "date": "2026-11-01",
+    "ticket": "2026-11-01 \u00b7 S2-08 BIG-100 \u2014 $1 TO $100 +9828",
+    "ticket_id": "S2-08",
+    "player": "Julius Randle",
+    "team": "BKN",
+    "category": "AST",
+    "side": "over",
+    "line": 5.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-01 CONCENTRATED +891",
+    "ticket_id": "MAIN-01",
+    "player": "Franz Wagner",
+    "team": "ORL",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-01 CONCENTRATED +891",
+    "ticket_id": "MAIN-01",
+    "player": "Paul Reed",
+    "team": "DET",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 24.5,
+    "final": 20.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-04 CORE-3 +516",
+    "ticket_id": "MAIN-04",
+    "player": "Jerami Grant",
+    "team": "MEM",
+    "category": "PTS",
+    "side": "over",
+    "line": 10.5,
+    "final": 11.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-04 CORE-3 +516",
+    "ticket_id": "MAIN-04",
+    "player": "Jared McCain",
+    "team": "OKC",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 19.5,
+    "final": 18.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-10 MAX A \u2014 PLUS-MONEY FOUR +1622",
+    "ticket_id": "MAIN-10",
+    "player": "Naz Reid",
+    "team": "CHA",
+    "category": "REB",
+    "side": "under",
+    "line": 7.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-10 MAX A \u2014 PLUS-MONEY FOUR +1622",
+    "ticket_id": "MAIN-10",
+    "player": "Trae Young",
+    "team": "WSH",
+    "category": "AST",
+    "side": "under",
+    "line": 9.5,
+    "final": 9.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MAIN-12 HEAT \u2014 FEATURED MIA@LAL +230",
+    "ticket_id": "MAIN-12",
+    "player": "Davion Mitchell",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 22.5,
+    "final": 22.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+    "ticket_id": "HEAT-H1",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "under",
+    "line": 31.5,
+    "final": 30.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+    "ticket_id": "HEAT-H1",
+    "player": "Matisse Thybulle",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "under",
+    "line": 7.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+    "ticket_id": "HEAT-H1",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+    "ticket_id": "HEAT-H1",
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+    "ticket_id": "HEAT-H1",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 0.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+    "ticket_id": "HEAT-H2",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 49.5,
+    "final": 49.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+    "ticket_id": "HEAT-H2",
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "category": "REB",
+    "side": "over",
+    "line": 8.5,
+    "final": 9.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+    "ticket_id": "HEAT-H2",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+    "ticket_id": "HEAT-H2",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "REB",
+    "side": "under",
+    "line": 3.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+    "ticket_id": "HEAT-H2",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 2.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H3 HEAT-60",
+    "ticket_id": "HEAT-H3",
+    "player": "Matisse Thybulle",
+    "team": "LAL",
+    "category": "REB",
+    "side": "under",
+    "line": 2.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H3 HEAT-60",
+    "ticket_id": "HEAT-H3",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 24.5,
+    "final": 32.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H3 HEAT-60",
+    "ticket_id": "HEAT-H3",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 3.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H3 HEAT-60",
+    "ticket_id": "HEAT-H3",
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "under",
+    "line": 12.5,
+    "final": 7.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H4 HEAT-20",
+    "ticket_id": "HEAT-H4",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 19.5,
+    "final": 14.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 HEAT-H4 HEAT-20",
+    "ticket_id": "HEAT-H4",
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "category": "REB",
+    "side": "under",
+    "line": 3.5,
+    "final": 0.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 SYS-S3 MIAMI SYSTEM CORE-2",
+    "ticket_id": "SYS-S3",
+    "player": "Tyrese Maxey",
+    "team": "PHI",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 35.5,
+    "final": 41.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 POW-P1 MIAMI POWER-1",
+    "ticket_id": "POW-P1",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "under",
+    "line": 31.5,
+    "final": 30.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 POW-P2 MIAMI POWER-2",
+    "ticket_id": "POW-P2",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 0.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 POW-P2 MIAMI POWER-2",
+    "ticket_id": "POW-P2",
+    "player": "Marcus Smart",
+    "team": "HOU",
+    "category": "PTS",
+    "side": "over",
+    "line": 6.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 REARR-R1 REARRANGED BAM+CAST MONSTER-1",
+    "ticket_id": "REARR-R1",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 REARR-R1 REARRANGED BAM+CAST MONSTER-1",
+    "ticket_id": "REARR-R1",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 REARR-R2 REARRANGED BAM+CAST MONSTER-2",
+    "ticket_id": "REARR-R2",
+    "player": "Andrew Wiggins",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "under",
+    "line": 31.5,
+    "final": 30.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 49.5,
+    "final": 49.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Davion Mitchell",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 22.5,
+    "final": 22.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Luka Doncic",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 33.5,
+    "final": 42.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Luka Doncic",
+    "team": "LAL",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 48.5,
+    "final": 62.0
+   },
+   {
+    "date": "2026-11-02",
+    "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+    "ticket_id": "MY-MY",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 8.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-02 BAM-2 MIXED +224",
+    "ticket_id": "V2-02",
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 17.5,
+    "final": 35.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-04 CORE-A +443",
+    "ticket_id": "V2-04",
+    "player": "Max Strus",
+    "team": "LAC",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 5.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-05 CORE-B +424",
+    "ticket_id": "V2-05",
+    "player": "Julian Champagnie",
+    "team": "SAS",
+    "category": "REB",
+    "side": "over",
+    "line": 3.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-06 CORE-C +505",
+    "ticket_id": "V2-06",
+    "player": "Ja'Kobe Walter",
+    "team": "TOR",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-06 CORE-C +505",
+    "ticket_id": "V2-06",
+    "player": "Domantas Sabonis",
+    "team": "SAC",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 V2-10 MAX +928",
+    "ticket_id": "V2-10",
+    "player": "Morez Johnson Jr.",
+    "team": "DAL",
+    "category": "REB",
+    "side": "under",
+    "line": 3.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 U1 7-Bet Parlay +3435",
+    "ticket_id": "U1",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 13.5,
+    "final": 38.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 U5 6-Bet Parlay +4511",
+    "ticket_id": "U5",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 2.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 U6 7-Bet Parlay +8922",
+    "ticket_id": "U6",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 2.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-04",
+    "ticket": "2026-11-04 \u00b7 U9 SGP 2-Bet Parlay +214",
+    "ticket_id": "U9",
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 17.5,
+    "final": 35.0
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 P1 PAIR +208",
+    "ticket_id": "P1",
+    "player": "Bam Adebayo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "under",
+    "line": 21.5,
+    "final": 18
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 P3 PAIR +258",
+    "ticket_id": "P3",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 47.5,
+    "final": 38
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 P4 PAIR +214",
+    "ticket_id": "P4",
+    "player": "Desmond Bane",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "under",
+    "line": 20.5,
+    "final": 15
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+    "ticket_id": "MAX",
+    "player": "Dillon Brooks",
+    "team": "PHX",
+    "category": "PTS",
+    "side": "over",
+    "line": 16.5,
+    "final": 24
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+    "ticket_id": "MAX",
+    "player": "Franz Wagner",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "under",
+    "line": 22.5,
+    "final": 15
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 P2' PAIR +191",
+    "ticket_id": "P2'",
+    "player": "Klay Thompson",
+    "team": "MIA",
+    "category": "REB",
+    "side": "under",
+    "line": 2.5,
+    "final": 0
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 P4 PAIR +214",
+    "ticket_id": "P4",
+    "player": "Desmond Bane",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "under",
+    "line": 20.5,
+    "final": 15
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+    "ticket_id": "MAX",
+    "player": "Dillon Brooks",
+    "team": "PHX",
+    "category": "PTS",
+    "side": "over",
+    "line": 16.5,
+    "final": 24
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+    "ticket_id": "MAX",
+    "player": "Franz Wagner",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "under",
+    "line": 22.5,
+    "final": 15
+   },
+   {
+    "date": "2026-11-05",
+    "ticket": "2026-11-05 \u00b7 EMO2 PAIR +250",
+    "ticket_id": "EMO2",
+    "player": "Davion Mitchell",
+    "team": "MIA",
+    "category": "AST",
+    "side": "over",
+    "line": 7.5,
+    "final": 8
+   },
+   {
+    "date": "2026-11-06",
+    "ticket": "2026-11-06 \u00b7 P3 PAIR +243",
+    "ticket_id": "P3",
+    "player": "Alex Caruso",
+    "team": "OKC",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 15.5,
+    "final": 13.0
+   },
+   {
+    "date": "2026-11-06",
+    "ticket": "2026-11-06 \u00b7 P4 PAIR +230",
+    "ticket_id": "P4",
+    "player": "Cooper Flagg",
+    "team": "DAL",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 39.5,
+    "final": 38.0
+   },
+   {
+    "date": "2026-11-07",
+    "ticket": "2026-11-07 \u00b7 P1 PAIR +265",
+    "ticket_id": "P1",
+    "player": "Ivica Zubac",
+    "team": "IND",
+    "category": "PTS",
+    "side": "under",
+    "line": 18.5,
+    "final": 10.0
+   },
+   {
+    "date": "2026-11-07",
+    "ticket": "2026-11-07 \u00b7 P2 PAIR +257",
+    "ticket_id": "P2",
+    "player": "Dylan Harper",
+    "team": "SAS",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 27.5,
+    "final": 23.0
+   },
+   {
+    "date": "2026-11-07",
+    "ticket": "2026-11-07 \u00b7 P4 PAIR +250",
+    "ticket_id": "P4",
+    "player": "Michael Porter Jr.",
+    "team": "BKN",
+    "category": "PTS",
+    "side": "over",
+    "line": 21.5,
+    "final": 25.0
+   },
+   {
+    "date": "2026-11-08",
+    "ticket": "2026-11-08 \u00b7 P2 PAIR +214",
+    "ticket_id": "P2",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "AST",
+    "side": "under",
+    "line": 6.5,
+    "final": 3.0
+   },
+   {
+    "date": "2026-11-08",
+    "ticket": "2026-11-08 \u00b7 P3 PAIR +265",
+    "ticket_id": "P3",
+    "player": "Josh Giddey",
+    "team": "CHI",
+    "category": "PTS",
+    "side": "over",
+    "line": 11.5,
+    "final": 19.0
+   },
+   {
+    "date": "2026-11-09",
+    "ticket": "2026-11-09 \u00b7 P5 PAIR +207",
+    "ticket_id": "P5",
+    "player": "Coby White",
+    "team": "CHA",
+    "category": "3PT",
+    "side": "under",
+    "line": 2.5,
+    "final": 0
+   },
+   {
+    "date": "2026-11-09",
+    "ticket": "2026-11-09 \u00b7 MAX TRIPLE +542",
+    "ticket_id": "MAX",
+    "player": "Luka Doncic",
+    "team": "LAL",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 49.5,
+    "final": 50
+   },
+   {
+    "date": "2026-11-09",
+    "ticket": "2026-11-09 \u00b7 MAX TRIPLE +542",
+    "ticket_id": "MAX",
+    "player": "Walker Kessler",
+    "team": "LAL",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 21
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 morning-P1 PAIR +174",
+    "ticket_id": "morning-P1",
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "category": "3PT",
+    "side": "under",
+    "line": 1.5,
+    "final": 0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 morning-P4 PAIR +230",
+    "ticket_id": "morning-P4",
+    "player": "Derrick Jones Jr.",
+    "team": "LAC",
+    "category": "PTS",
+    "side": "under",
+    "line": 11.5,
+    "final": 11.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 morning-P5 PAIR +243",
+    "ticket_id": "morning-P5",
+    "player": "OG Anunoby",
+    "team": "NYK",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 25.5,
+    "final": 24.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 morning-MAX TRIPLE +541",
+    "ticket_id": "morning-MAX",
+    "player": "Jayson Tatum",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "under",
+    "line": 26.5,
+    "final": 21.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 morning-MAX TRIPLE +541",
+    "ticket_id": "morning-MAX",
+    "player": "Isaiah Hartenstein",
+    "team": "OKC",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 22.5,
+    "final": 21.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 evening-P1 PAIR +282",
+    "ticket_id": "evening-P1",
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 14.5,
+    "final": 8.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 evening-P4 PAIR +263",
+    "ticket_id": "evening-P4",
+    "player": "Zach LaVine",
+    "team": "SAC",
+    "category": "AST",
+    "side": "under",
+    "line": 2.5,
+    "final": 2.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 evening-P5 PAIR +203",
+    "ticket_id": "evening-P5",
+    "player": "Scoot Henderson",
+    "team": "POR",
+    "category": "REB",
+    "side": "under",
+    "line": 2.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 evening-MAX TRIPLE +440",
+    "ticket_id": "evening-MAX",
+    "player": "Sam Hauser",
+    "team": "BOS",
+    "category": "PTS",
+    "side": "over",
+    "line": 5.5,
+    "final": 12.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 evening-MAX TRIPLE +440",
+    "ticket_id": "evening-MAX",
+    "player": "Myles Turner",
+    "team": "MIL",
+    "category": "3PT",
+    "side": "under",
+    "line": 1.5,
+    "final": 1
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 late-payouts-SUPER 5-LEG +3264",
+    "ticket_id": "late-payouts-SUPER",
+    "player": "Jase Richardson",
+    "team": "ORL",
+    "category": "PTS",
+    "side": "under",
+    "line": 8.5,
+    "final": 6.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 late-payouts-SUPER 5-LEG +3264",
+    "ticket_id": "late-payouts-SUPER",
+    "player": "Isaiah Hartenstein",
+    "team": "OKC",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 23.5,
+    "final": 21.0
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 three100-T1 6-LEG +26671",
+    "ticket_id": "three100-T1",
+    "player": "Keegan Murray",
+    "team": "SAC",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 2
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 three100-T2 6-LEG +27279",
+    "ticket_id": "three100-T2",
+    "player": "Pelle Larsson",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 2
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 three100-T3 6-LEG +26181",
+    "ticket_id": "three100-T3",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "3PT",
+    "side": "over",
+    "line": 0.5,
+    "final": 1
+   },
+   {
+    "date": "2026-11-10",
+    "ticket": "2026-11-10 \u00b7 three100-T3 6-LEG +26181",
+    "ticket_id": "three100-T3",
+    "player": "Derrick Jones Jr.",
+    "team": "LAC",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 2
+   },
+   {
+    "date": "2026-11-11",
+    "ticket": "2026-11-11 \u00b7 P1 PAIR +216",
+    "ticket_id": "P1",
+    "player": "Trae Young",
+    "team": "WSH",
+    "category": "AST",
+    "side": "under",
+    "line": 9.5,
+    "final": 4.0
+   },
+   {
+    "date": "2026-11-11",
+    "ticket": "2026-11-11 \u00b7 P3 PAIR +250",
+    "ticket_id": "P3",
+    "player": "Pascal Siakam",
+    "team": "IND",
+    "category": "PTS",
+    "side": "over",
+    "line": 21.5,
+    "final": 28.0
+   },
+   {
+    "date": "2026-11-11",
+    "ticket": "2026-11-11 \u00b7 MAX TRIPLE +477",
+    "ticket_id": "MAX",
+    "player": "Cam Spencer",
+    "team": "MEM",
+    "category": "PTS",
+    "side": "over",
+    "line": 6.5,
+    "final": 15.0
+   },
+   {
+    "date": "2026-11-12",
+    "ticket": "2026-11-12 \u00b7 P1 PAIR +230",
+    "ticket_id": "P1",
+    "player": "Ayo Dosunmu",
+    "team": "MIN",
+    "category": "AST",
+    "side": "under",
+    "line": 4.5,
+    "final": 1.0
+   },
+   {
+    "date": "2026-11-12",
+    "ticket": "2026-11-12 \u00b7 P3 PAIR +218",
+    "ticket_id": "P3",
+    "player": "Grayson Allen",
+    "team": "PHX",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 25.5,
+    "final": 24.0
+   },
+   {
+    "date": "2026-11-12",
+    "ticket": "2026-11-12 \u00b7 P5 PAIR +237",
+    "ticket_id": "P5",
+    "player": "Kyshawn George",
+    "team": "WSH",
+    "category": "PTS",
+    "side": "over",
+    "line": 13.5,
+    "final": 14.0
+   },
+   {
+    "date": "2026-11-13",
+    "ticket": "2026-11-13 \u00b7 P1 PAIR +197",
+    "ticket_id": "P1",
+    "player": "Mikal Bridges",
+    "team": "NYK",
+    "category": "AST",
+    "side": "over",
+    "line": 1.5,
+    "final": 3
+   },
+   {
+    "date": "2026-11-13",
+    "ticket": "2026-11-13 \u00b7 P4 PAIR +185",
+    "ticket_id": "P4",
+    "player": "Sidy Cissoko",
+    "team": "POR",
+    "category": "AST",
+    "side": "under",
+    "line": 2.5,
+    "final": 1
+   },
+   {
+    "date": "2026-11-13",
+    "ticket": "2026-11-13 \u00b7 P5 PAIR +219",
+    "ticket_id": "P5",
+    "player": "Josh Green",
+    "team": "UTAH",
+    "category": "PTS",
+    "side": "under",
+    "line": 5.5,
+    "final": 2
+   },
+   {
+    "date": "2026-11-13",
+    "ticket": "2026-11-13 \u00b7 MAX TRIPLE +461",
+    "ticket_id": "MAX",
+    "player": "Ty Jerome",
+    "team": "MEM",
+    "category": "PTS",
+    "side": "under",
+    "line": 23.5,
+    "final": 17
+   },
+   {
+    "date": "2026-11-13",
+    "ticket": "2026-11-13 \u00b7 MAX TRIPLE +461",
+    "ticket_id": "MAX",
+    "player": "Fred VanVleet",
+    "team": "HOU",
+    "category": "PTS",
+    "side": "over",
+    "line": 12.5,
+    "final": 17
+   },
+   {
+    "date": "2026-11-14",
+    "ticket": "2026-11-14 \u00b7 P1 PAIR +312",
+    "ticket_id": "P1",
+    "player": "Jeremiah Fears",
+    "team": "NO",
+    "category": "P+R+A",
+    "side": "under",
+    "line": 29.5,
+    "final": 24
+   },
+   {
+    "date": "2026-11-14",
+    "ticket": "2026-11-14 \u00b7 P4 PAIR +213",
+    "ticket_id": "P4",
+    "player": "Giannis Antetokounmpo",
+    "team": "MIA",
+    "category": "PTS",
+    "side": "over",
+    "line": 27.5,
+    "final": 34
+   },
+   {
+    "date": "2026-11-15",
+    "ticket": "2026-11-15 \u00b7 P1 PAIR +194",
+    "ticket_id": "P1",
+    "player": "Mikal Bridges",
+    "team": "NYK",
+    "category": "P+R+A",
+    "side": "over",
+    "line": 12.5,
+    "final": 15
+   },
+   {
+    "date": "2026-11-15",
+    "ticket": "2026-11-15 \u00b7 P4 PAIR +191",
+    "ticket_id": "P4",
+    "player": "Collin Gillespie",
+    "team": "PHX",
+    "category": "3PT",
+    "side": "over",
+    "line": 1.5,
+    "final": 5
+   },
+   {
+    "date": "2026-11-15",
+    "ticket": "2026-11-15 \u00b7 MAX TRIPLE +581",
+    "ticket_id": "MAX",
+    "player": "Khaman Maluach",
+    "team": "PHX",
+    "category": "REB",
+    "side": "under",
+    "line": 5.5,
+    "final": 4
+   }
+  ]
+ },
+ "concentration": {
+  "note": "Placed tickets only in the old rows (2026-10-18 \u2192 2026-10-24); delivered sets + Oct 24 slips + Oct 25 Wing from 2026-10-24 on. A night where the won legs spread thin across many tickets is the failure mode to name.",
+  "old_rows": [
+   {
+    "date": "2026-10-24",
+    "tickets_with_won_legs": 9,
+    "total_won_legs": 26,
+    "top_raw": "PARLAY 6-Bet Parlay \u2014 owner-placed 2026-10-24 (owner mix: REBOUNDS + POINTS legs) (4), SGPMAX 7-Bet Parlay \u2014 owner-placed 2026-10-24 (LADDER 2 exactly) (4), SGPMAX 6-Bet Parlay \u2014 owner-placed 2026-10-24 (owner assembly from LADDER 3 legs, with variances) (3)"
+   },
+   {
+    "date": "2026-10-23",
+    "tickets_with_won_legs": 9,
+    "total_won_legs": 37,
+    "top_raw": "SGP 13-Bet Parlay \u2014 slip S8 of 9 (owner-placed 2026-10-23) (6), SGP 10-Bet Parlay \u2014 slip S9 of 9 (owner-placed 2026-10-23) (5), SGPMAX 11-Bet Parlay \u2014 slip S7 of 9 (owner-placed 2026-10-23) (5)"
+   },
+   {
+    "date": "2026-10-22",
+    "tickets_with_won_legs": 5,
+    "total_won_legs": 39,
+    "top_raw": "SGPMAX 17-bet parlay (CLE@PHI + DEN@OKC) \u2014 THE 17 (best cushions, max payout) (12), SGPMAX 17-bet parlay (CLE@PHI + DEN@OKC) \u2014 assists-heavy build (9), SGPMAX 18-bet parlay (CLE@PHI + DEN@OKC) (9)"
+   },
+   {
+    "date": "2026-10-21",
+    "tickets_with_won_legs": 7,
+    "total_won_legs": 34,
+    "top_raw": "sgpmax_18_rebounds +461459, $0.2 stake, Hard Rock ID 810363333961187632 (recording bet) (10), SGPMAX 11-Bet Parlay +74150, $5 stake, payout $3,712.50, Hard Rock ID 4123194692391272752 (6), sgp_10_assists +7301, $0.2 stake, Hard Rock ID 6733812354057896214 (recording bet) (5)"
+   },
+   {
+    "date": "2026-10-20",
+    "tickets_with_won_legs": 3,
+    "total_won_legs": 26,
+    "top_raw": "SGPMAX 20-bet parlay +1230, $3 stake, boosted payout $43.59 (10% profit boost), Hard Rock ID 6600830105075974448 (18), SGPMAX 12-bet DD parlay (his build, Haliburton + J.Johnson dropped from the 14) (6), SGPMAX 12-bet DD parlay +80245, $20 stake, payout $16,069.04, Hard Rock ID 3846756316138365232 (2)"
+   },
+   {
+    "date": "2026-10-18",
+    "tickets_with_won_legs": 4,
+    "total_won_legs": 10,
+    "top_raw": "DIV-5 (3), DIV-4 (3), DIV-3 (2)"
+   }
+  ],
+  "new_rows": [
+   {
+    "date": "2026-10-25",
+    "tickets_with_won_legs": 14,
+    "total_won_legs": 33,
+    "top": [
+     {
+      "ticket": "2026-10-25 \u00b7 REBOUNDS MIX REBOUNDS MIX +2979",
+      "n": 5
+     },
+     {
+      "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 CLEAN 4 \u2014 highest proba HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 CLEAN 4 \u2014 highest proba",
+      "n": 4
+     },
+     {
+      "ticket": "2026-10-25 \u00b7 HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe HYPOTHETICAL \u2014 WATCHED \u2014 $0 staked \u2014 ON FIRE \u2014 heating playe",
+      "n": 4
+     }
+    ]
+   },
+   {
+    "date": "2026-10-26",
+    "tickets_with_won_legs": 23,
+    "total_won_legs": 48,
+    "top": [
+     {
+      "ticket": "2026-10-26 \u00b7 CONCENTRATED CONCENTRATED",
+      "n": 4
+     },
+     {
+      "ticket": "2026-10-26 \u00b7 DAL@MIA SUPER RISK v2 DAL@MIA SUPER RISK v2",
+      "n": 4
+     },
+     {
+      "ticket": "2026-10-26 \u00b7 BETTOR 1 BETTOR 1",
+      "n": 3
+     }
+    ]
+   },
+   {
+    "date": "2026-10-27",
+    "tickets_with_won_legs": 7,
+    "total_won_legs": 12,
+    "top": [
+     {
+      "ticket": "2026-10-27 \u00b7 01 CONCENTRATED +918",
+      "n": 2
+     },
+     {
+      "ticket": "2026-10-27 \u00b7 03 CORE-2 +431",
+      "n": 2
+     },
+     {
+      "ticket": "2026-10-27 \u00b7 09 FLIP 2 \u2014 FAVORITE PAIR +140",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-10-28",
+    "tickets_with_won_legs": 10,
+    "total_won_legs": 17,
+    "top": [
+     {
+      "ticket": "2026-10-28 \u00b7 01 CONCENTRATED +1234",
+      "n": 3
+     },
+     {
+      "ticket": "2026-10-28 \u00b7 03 CORE-2 +469",
+      "n": 3
+     },
+     {
+      "ticket": "2026-10-28 \u00b7 12 POOL \u2014 OUTSIDE THE CORE +517",
+      "n": 3
+     }
+    ]
+   },
+   {
+    "date": "2026-10-29",
+    "tickets_with_won_legs": 7,
+    "total_won_legs": 11,
+    "top": [
+     {
+      "ticket": "2026-10-29 \u00b7 01 CONCENTRATED +1082",
+      "n": 2
+     },
+     {
+      "ticket": "2026-10-29 \u00b7 02 CORE-1 +560",
+      "n": 2
+     },
+     {
+      "ticket": "2026-10-29 \u00b7 04 CORE-3 +458",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-10-30",
+    "tickets_with_won_legs": 11,
+    "total_won_legs": 20,
+    "top": [
+     {
+      "ticket": "2026-10-30 \u00b7 01 CONCENTRATED +902",
+      "n": 3
+     },
+     {
+      "ticket": "2026-10-30 \u00b7 11 MAX B \u2014 ALL UNDERS FOUR +757",
+      "n": 3
+     },
+     {
+      "ticket": "2026-10-30 \u00b7 02 CORE-1 +404",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-10-31",
+    "tickets_with_won_legs": 9,
+    "total_won_legs": 24,
+    "top": [
+     {
+      "ticket": "2026-10-31 \u00b7 13 MOONSHOT (SUPER v2) \u2014 $1 TO $3000 +300222",
+      "n": 7
+     },
+     {
+      "ticket": "2026-10-31 \u00b7 01 CONCENTRATED +935",
+      "n": 4
+     },
+     {
+      "ticket": "2026-10-31 \u00b7 03 CORE-2 +438",
+      "n": 3
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "tickets_with_won_legs": 13,
+    "total_won_legs": 23,
+    "top": [
+     {
+      "ticket": "2026-11-01 \u00b7 S1-11 MAX B \u2014 ALL UNDERS FOUR +974",
+      "n": 4
+     },
+     {
+      "ticket": "2026-11-01 \u00b7 S2-07 BIG-200 \u2014 $1 TO $200 +15540",
+      "n": 4
+     },
+     {
+      "ticket": "2026-11-01 \u00b7 S2-08 BIG-100 \u2014 $1 TO $100 +9828",
+      "n": 3
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "tickets_with_won_legs": 23,
+    "total_won_legs": 49,
+    "top": [
+     {
+      "ticket": "2026-11-02 \u00b7 MY-MY MY TICKET \u2014 CUSHION-11",
+      "n": 6
+     },
+     {
+      "ticket": "2026-11-02 \u00b7 HEAT-H1 HEAT-MAX",
+      "n": 5
+     },
+     {
+      "ticket": "2026-11-02 \u00b7 HEAT-H2 HEAT-100",
+      "n": 5
+     }
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "tickets_with_won_legs": 7,
+    "total_won_legs": 10,
+    "top": [
+     {
+      "ticket": "2026-11-04 \u00b7 V2-03 BAM-4 MIXED +857",
+      "n": 3
+     },
+     {
+      "ticket": "2026-11-04 \u00b7 V2-06 CORE-C +505",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-04 \u00b7 V2-01 BAM-1 SINGLE -200",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-05",
+    "tickets_with_won_legs": 14,
+    "total_won_legs": 18,
+    "top": [
+     {
+      "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-05 \u00b7 MAX TRIPLE +583",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-05 \u00b7 P2 PAIR +181",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-11-06",
+    "tickets_with_won_legs": 6,
+    "total_won_legs": 9,
+    "top": [
+     {
+      "ticket": "2026-11-06 \u00b7 MAX TRIPLE +542",
+      "n": 3
+     },
+     {
+      "ticket": "2026-11-06 \u00b7 P1 PAIR +223",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-06 \u00b7 P3 PAIR +243",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-07",
+    "tickets_with_won_legs": 5,
+    "total_won_legs": 6,
+    "top": [
+     {
+      "ticket": "2026-11-07 \u00b7 P5 PAIR +243",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-07 \u00b7 P1 PAIR +265",
+      "n": 1
+     },
+     {
+      "ticket": "2026-11-07 \u00b7 P2 PAIR +257",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-08",
+    "tickets_with_won_legs": 8,
+    "total_won_legs": 9,
+    "top": [
+     {
+      "ticket": "2026-11-08 \u00b7 P5 PAIR +224",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-08 \u00b7 MAX TRIPLE +505",
+      "n": 1
+     },
+     {
+      "ticket": "2026-11-08 \u00b7 P2 PAIR +214",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "tickets_with_won_legs": 6,
+    "total_won_legs": 9,
+    "top": [
+     {
+      "ticket": "2026-11-09 \u00b7 MAX TRIPLE +542",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-09 \u00b7 P1 PAIR +257",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-09 \u00b7 P2 PAIR +214",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "tickets_with_won_legs": 17,
+    "total_won_legs": 24,
+    "top": [
+     {
+      "ticket": "2026-11-10 \u00b7 late-payouts-T200 TRIPLE +704",
+      "n": 3
+     },
+     {
+      "ticket": "2026-11-10 \u00b7 evening-MAX TRIPLE +440",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-10 \u00b7 evening-P3 PAIR +243",
+      "n": 2
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "tickets_with_won_legs": 5,
+    "total_won_legs": 6,
+    "top": [
+     {
+      "ticket": "2026-11-11 \u00b7 P4 PAIR +180",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-11 \u00b7 MAX TRIPLE +477",
+      "n": 1
+     },
+     {
+      "ticket": "2026-11-11 \u00b7 P1 PAIR +216",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "tickets_with_won_legs": 6,
+    "total_won_legs": 7,
+    "top": [
+     {
+      "ticket": "2026-11-12 \u00b7 P4 PAIR +243",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-12 \u00b7 P1 PAIR +230",
+      "n": 1
+     },
+     {
+      "ticket": "2026-11-12 \u00b7 P3 PAIR +218",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-13",
+    "tickets_with_won_legs": 6,
+    "total_won_legs": 8,
+    "top": [
+     {
+      "ticket": "2026-11-13 \u00b7 MAX TRIPLE +461",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-13 \u00b7 P3 PAIR +168",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-13 \u00b7 P1 PAIR +197",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-14",
+    "tickets_with_won_legs": 6,
+    "total_won_legs": 7,
+    "top": [
+     {
+      "ticket": "2026-11-14 \u00b7 P2 PAIR +237",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-14 \u00b7 MAX TRIPLE +554",
+      "n": 1
+     },
+     {
+      "ticket": "2026-11-14 \u00b7 P1 PAIR +312",
+      "n": 1
+     }
+    ]
+   },
+   {
+    "date": "2026-11-15",
+    "tickets_with_won_legs": 7,
+    "total_won_legs": 9,
+    "top": [
+     {
+      "ticket": "2026-11-15 \u00b7 P3 PAIR +204",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-15 \u00b7 P5 PAIR +198",
+      "n": 2
+     },
+     {
+      "ticket": "2026-11-15 \u00b7 MAX TRIPLE +581",
+      "n": 1
+     }
+    ]
+   }
+  ]
+ },
+ "calibration": {
+  "note": "Counted legs with a nightly graded band on file, Oct 24 \u2192 Nov 15. Legs on void tickets are not counted legs and never enter the denominator; legs with no final (void legs on counted tickets) are excluded and counted separately.",
+  "total_counted_legs": 1384,
+  "legs_judged": 638,
+  "legs_no_band": {
+   "PTS": 24,
+   "REB": 10,
+   "3PT": 9,
+   "P+R+A": 12,
+   "AST": 3
+  },
+  "legs_void_no_final": {},
+  "legs_excluded_pre_oct24": 688,
+  "excluded_reason": "Oct 18-23 legs (placed baseline Oct 21-23, backlog Oct 21-24, WNBA Finals G4, Oct 18/20 tickets) have no per-leg nightly band file on record; no band is guessed for them.",
+  "rows": [
+   {
+    "stat": "3PT",
+    "graded_legs": 69,
+    "in_band": 58,
+    "rate": 84.1,
+    "avg_band_width": 3.27
+   },
+   {
+    "stat": "AST",
+    "graded_legs": 93,
+    "in_band": 71,
+    "rate": 76.3,
+    "avg_band_width": 5.64
+   },
+   {
+    "stat": "P+R+A",
+    "graded_legs": 121,
+    "in_band": 95,
+    "rate": 78.5,
+    "avg_band_width": 21.05
+   },
+   {
+    "stat": "PTS",
+    "graded_legs": 233,
+    "in_band": 139,
+    "rate": 59.7,
+    "avg_band_width": 14.17
+   },
+   {
+    "stat": "REB",
+    "graded_legs": 122,
+    "in_band": 86,
+    "rate": 70.5,
+    "avg_band_width": 6.25
+   }
+  ]
+ },
+ "bloodline": {
+  "window": "2026-10-27 \u2192 2026-11-15",
+  "definition": "ON FIRE = narrative_20261024.py tiers v1: last 10 PLAYED games (MIN>0) before the night, in-band rate >= 0.80 AND trailing in-band streak >= 3 vs that night's graded input_band (window_n < 5 -> STEADY). A stack is an entry game (a game on that night's delivered tickets) carrying two or more DISTINCT ON FIRE (player, category) pairs among that night's DELIVERED-TICKET legs. Pool-wide counting is rejected: ~38% of graded player-categories are ON FIRE, so it stacks 119 of 129 entry-games and says nothing. A stack is a game-environment signal, not a ticket.",
+  "games_checked": 129,
+  "stacks": [
+   {
+    "date": "2026-10-29",
+    "game": "CLE@ATL",
+    "players": [
+     {
+      "player": "CJ McCollum",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Donovan Mitchell",
+      "category": "PTS"
+     },
+     {
+      "player": "Sam Merrill",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-29",
+    "game": "MEM@POR",
+    "players": [
+     {
+      "player": "Deni Avdija",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Donovan Clingan",
+      "category": "PTS"
+     },
+     {
+      "player": "Ja Morant",
+      "category": "AST"
+     },
+     {
+      "player": "Ty Jerome",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-30",
+    "game": "CHA@WSH",
+    "players": [
+     {
+      "player": "Alex Sarr",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Naz Reid",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-30",
+    "game": "HOU@DAL",
+    "players": [
+     {
+      "player": "Alperen Sengun",
+      "category": "3PT"
+     },
+     {
+      "player": "Max Christie",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-31",
+    "game": "ATL@NO",
+    "players": [
+     {
+      "player": "CJ McCollum",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Dejounte Murray",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-31",
+    "game": "MIN@SAS",
+    "players": [
+     {
+      "player": "De'Aaron Fox",
+      "category": "3PT"
+     },
+     {
+      "player": "Keldon Johnson",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-31",
+    "game": "OKC@HOU",
+    "players": [
+     {
+      "player": "Alperen Sengun",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Kevin Durant",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-10-31",
+    "game": "PHI@CHA",
+    "players": [
+     {
+      "player": "Dennis Schroder",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Sion James",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Tyrese Maxey",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "game": "BKN@IND",
+    "players": [
+     {
+      "player": "Aaron Nesmith",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Jay Huff",
+      "category": "3PT"
+     },
+     {
+      "player": "Kelly Oubre Jr.",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Keon Ellis",
+      "category": "3PT"
+     },
+     {
+      "player": "Noah Clowney",
+      "category": "REB"
+     },
+     {
+      "player": "Nolan Traore",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Obi Toppin",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "game": "BOS@ORL",
+    "players": [
+     {
+      "player": "Anthony Black",
+      "category": "PTS"
+     },
+     {
+      "player": "Derrick White",
+      "category": "3PT"
+     },
+     {
+      "player": "Jase Richardson",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Wendell Carter Jr.",
+      "category": "3PT"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "game": "LAC@GS",
+    "players": [
+     {
+      "player": "Brandin Podziemski",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Brandon Williams",
+      "category": "REB"
+     },
+     {
+      "player": "De'Anthony Melton",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Isaiah Jackson",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-01",
+    "game": "TOR@LAL",
+    "players": [
+     {
+      "player": "Austin Reaves",
+      "category": "PTS"
+     },
+     {
+      "player": "Ziaire Williams",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "game": "CHI@PHI",
+    "players": [
+     {
+      "player": "Josh Giddey",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Tyrese Maxey",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "game": "MIA@LAL",
+    "players": [
+     {
+      "player": "Andrew Wiggins",
+      "category": "3PT"
+     },
+     {
+      "player": "Austin Reaves",
+      "category": "3PT"
+     },
+     {
+      "player": "Austin Reaves",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Austin Reaves",
+      "category": "PTS"
+     },
+     {
+      "player": "Austin Reaves",
+      "category": "REB"
+     },
+     {
+      "player": "Bam Adebayo",
+      "category": "AST"
+     },
+     {
+      "player": "Bam Adebayo",
+      "category": "REB"
+     },
+     {
+      "player": "Giannis Antetokounmpo",
+      "category": "PTS"
+     },
+     {
+      "player": "Giannis Antetokounmpo",
+      "category": "REB"
+     },
+     {
+      "player": "Jake LaRavia",
+      "category": "PTS"
+     },
+     {
+      "player": "Klay Thompson",
+      "category": "3PT"
+     },
+     {
+      "player": "Luka Doncic",
+      "category": "PTS"
+     },
+     {
+      "player": "Matisse Thybulle",
+      "category": "REB"
+     },
+     {
+      "player": "Pelle Larsson",
+      "category": "REB"
+     },
+     {
+      "player": "Walker Kessler",
+      "category": "AST"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "game": "NO@MEM",
+    "players": [
+     {
+      "player": "Bennedict Mathurin",
+      "category": "REB"
+     },
+     {
+      "player": "Dejounte Murray",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-02",
+    "game": "PHX@GS",
+    "players": [
+     {
+      "player": "Collin Gillespie",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Jordan Goodwin",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "game": "LAC@MIA",
+    "players": [
+     {
+      "player": "Darius Garland",
+      "category": "PTS"
+     },
+     {
+      "player": "Kris Dunn",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "game": "MIA@LAC",
+    "players": [
+     {
+      "player": "Andrew Wiggins",
+      "category": "PTS"
+     },
+     {
+      "player": "Bam Adebayo",
+      "category": "AST"
+     },
+     {
+      "player": "Bam Adebayo",
+      "category": "PTS"
+     },
+     {
+      "player": "Bam Adebayo",
+      "category": "REB"
+     },
+     {
+      "player": "Bobby Portis",
+      "category": "3PT"
+     },
+     {
+      "player": "Darius Garland",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Klay Thompson",
+      "category": "REB"
+     },
+     {
+      "player": "Max Strus",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-06",
+    "game": "TOR@MIL",
+    "players": [
+     {
+      "player": "RJ Barrett",
+      "category": "AST"
+     },
+     {
+      "player": "Scottie Barnes",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-07",
+    "game": "DEN@IND",
+    "players": [
+     {
+      "player": "Andrew Nembhard",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Nikola Jokic",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-08",
+    "game": "BKN@DAL",
+    "players": [
+     {
+      "player": "Cooper Flagg",
+      "category": "PTS"
+     },
+     {
+      "player": "Michael Porter Jr.",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-08",
+    "game": "NO@LAC",
+    "players": [
+     {
+      "player": "Darius Garland",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Kris Dunn",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Saddiq Bey",
+      "category": "REB"
+     },
+     {
+      "player": "Trey Murphy III",
+      "category": "AST"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "game": "CLE@CHA",
+    "players": [
+     {
+      "player": "Coby White",
+      "category": "3PT"
+     },
+     {
+      "player": "Donovan Mitchell",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Royce O'Neale",
+      "category": "PTS"
+     },
+     {
+      "player": "Sion James",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "game": "IND@DAL",
+    "players": [
+     {
+      "player": "Cooper Flagg",
+      "category": "PTS"
+     },
+     {
+      "player": "Pascal Siakam",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "BOS@PHI",
+    "players": [
+     {
+      "player": "Jayson Tatum",
+      "category": "PTS"
+     },
+     {
+      "player": "Tyrese Maxey",
+      "category": "AST"
+     },
+     {
+      "player": "VJ Edgecombe",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "LAC@PHX",
+    "players": [
+     {
+      "player": "Brook Lopez",
+      "category": "3PT"
+     },
+     {
+      "player": "Devin Booker",
+      "category": "3PT"
+     },
+     {
+      "player": "Jalen Green",
+      "category": "REB"
+     },
+     {
+      "player": "Oso Ighodaro",
+      "category": "REB"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "MIA@UTAH",
+    "players": [
+     {
+      "player": "Ace Bailey",
+      "category": "AST"
+     },
+     {
+      "player": "Giannis Antetokounmpo",
+      "category": "REB"
+     },
+     {
+      "player": "Pelle Larsson",
+      "category": "P+R+A"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "MIL@NY",
+    "players": [
+     {
+      "player": "Karl-Anthony Towns",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Mikal Bridges",
+      "category": "AST"
+     },
+     {
+      "player": "OG Anunoby",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Tyler Herro",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "OKC@POR",
+    "players": [
+     {
+      "player": "Ajay Mitchell",
+      "category": "AST"
+     },
+     {
+      "player": "Alex Caruso",
+      "category": "3PT"
+     },
+     {
+      "player": "Isaiah Hartenstein",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Scoot Henderson",
+      "category": "REB"
+     },
+     {
+      "player": "Shai Gilgeous-Alexander",
+      "category": "AST"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "game": "ORL@SAC",
+    "players": [
+     {
+      "player": "Anthony Black",
+      "category": "3PT"
+     },
+     {
+      "player": "Keegan Murray",
+      "category": "3PT"
+     },
+     {
+      "player": "Zach LaVine",
+      "category": "AST"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "game": "BKN@NO",
+    "players": [
+     {
+      "player": "Karlo Matkovic",
+      "category": "REB"
+     },
+     {
+      "player": "Michael Porter Jr.",
+      "category": "3PT"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "game": "SA@CHI",
+    "players": [
+     {
+      "player": "Dylan Harper",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Stephon Castle",
+      "category": "AST"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "game": "WSH@IND",
+    "players": [
+     {
+      "player": "Alex Sarr",
+      "category": "P+R+A"
+     },
+     {
+      "player": "Pascal Siakam",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "game": "DET@WSH",
+    "players": [
+     {
+      "player": "Ausar Thompson",
+      "category": "AST"
+     },
+     {
+      "player": "Kyshawn George",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-13",
+    "game": "NY@IND",
+    "players": [
+     {
+      "player": "Mikal Bridges",
+      "category": "AST"
+     },
+     {
+      "player": "Pascal Siakam",
+      "category": "PTS"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-13",
+    "game": "POR@SAC",
+    "players": [
+     {
+      "player": "Damian Lillard",
+      "category": "3PT"
+     },
+     {
+      "player": "Sidy Cissoko",
+      "category": "AST"
+     }
+    ]
+   }
+  ]
+ }
+}

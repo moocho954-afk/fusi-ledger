@@ -1,0 +1,909 @@
+{
+ "source": "winning-singles-study-20261103.json series (Oct 26 appendix .. Nov 2) + this build, same definitions: delivered 1-leg / 2-leg tickets, delivered sets only, learning-only/superseded sets excluded, user slips excluded",
+ "built": "2026-11-16",
+ "series": [
+  {
+   "date": "2026-10-26",
+   "singles": {
+    "won": 4,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 7,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 9
+   },
+   "cumulative_singles": {
+    "won": 4,
+    "lost": 0,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 7,
+    "lost": 2,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": "appendix: delivered-settlement record only, no set file; no fair_p/verdict/sim/seat available"
+  },
+  {
+   "date": "2026-10-27",
+   "singles": {
+    "won": 1,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 1
+   },
+   "cumulative_singles": {
+    "won": 5,
+    "lost": 3,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 8,
+    "lost": 2,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-10-28",
+   "singles": {
+    "won": 3,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 0,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 2
+   },
+   "cumulative_singles": {
+    "won": 8,
+    "lost": 4,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 8,
+    "lost": 4,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-10-29",
+   "singles": {
+    "won": 2,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 6
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 2
+   },
+   "cumulative_singles": {
+    "won": 10,
+    "lost": 8,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 9,
+    "lost": 5,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-10-30",
+   "singles": {
+    "won": 3,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 0,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 1
+   },
+   "cumulative_singles": {
+    "won": 13,
+    "lost": 9,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 9,
+    "lost": 6,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-10-31",
+   "singles": {
+    "won": 1,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "doubles": {
+    "won": 0,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 1
+   },
+   "cumulative_singles": {
+    "won": 14,
+    "lost": 13,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 9,
+    "lost": 7,
+    "void": 0,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 2,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "learning_only_doubles": {
+    "won": 1,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 1
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-01",
+   "singles": {
+    "won": 3,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 7
+   },
+   "doubles": {
+    "won": 0,
+    "lost": 4,
+    "void": 1,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 17,
+    "lost": 17,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 9,
+    "lost": 11,
+    "void": 1,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 1,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 2
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 3,
+    "void": 1,
+    "open": 0,
+    "total": 4
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-02",
+   "singles": {
+    "won": 4,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 1,
+    "void": 0,
+    "open": 0,
+    "total": 2
+   },
+   "cumulative_singles": {
+    "won": 21,
+    "lost": 18,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 10,
+    "lost": 12,
+    "void": 1,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-04",
+   "singles": {
+    "won": 1,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 0,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 2
+   },
+   "cumulative_singles": {
+    "won": 22,
+    "lost": 21,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 10,
+    "lost": 14,
+    "void": 1,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-05",
+   "singles": {
+    "won": 4,
+    "lost": 5,
+    "void": 0,
+    "open": 0,
+    "total": 9
+   },
+   "doubles": {
+    "won": 2,
+    "lost": 7,
+    "void": 0,
+    "open": 0,
+    "total": 9
+   },
+   "cumulative_singles": {
+    "won": 26,
+    "lost": 26,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 12,
+    "lost": 21,
+    "void": 1,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-06",
+   "singles": {
+    "won": 2,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 3,
+    "void": 1,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 28,
+    "lost": 28,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 13,
+    "lost": 24,
+    "void": 2,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-07",
+   "singles": {
+    "won": 1,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 29,
+    "lost": 31,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 14,
+    "lost": 28,
+    "void": 2,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-08",
+   "singles": {
+    "won": 4,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 3,
+    "void": 1,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 33,
+    "lost": 31,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 15,
+    "lost": 31,
+    "void": 3,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-09",
+   "singles": {
+    "won": 2,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 2,
+    "lost": 2,
+    "void": 1,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 35,
+    "lost": 33,
+    "void": 0,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 17,
+    "lost": 33,
+    "void": 4,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-10",
+   "singles": {
+    "won": 3,
+    "lost": 4,
+    "void": 2,
+    "open": 0,
+    "total": 9
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 11,
+    "void": 0,
+    "open": 0,
+    "total": 12
+   },
+   "cumulative_singles": {
+    "won": 38,
+    "lost": 37,
+    "void": 2,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 18,
+    "lost": 44,
+    "void": 4,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-11",
+   "singles": {
+    "won": 1,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 39,
+    "lost": 40,
+    "void": 2,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 19,
+    "lost": 48,
+    "void": 4,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-12",
+   "singles": {
+    "won": 2,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 41,
+    "lost": 42,
+    "void": 2,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 20,
+    "lost": 52,
+    "void": 4,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-13",
+   "singles": {
+    "won": 1,
+    "lost": 2,
+    "void": 1,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 4,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 42,
+    "lost": 44,
+    "void": 3,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 21,
+    "lost": 56,
+    "void": 4,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-14",
+   "singles": {
+    "won": 2,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 1,
+    "lost": 2,
+    "void": 2,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 44,
+    "lost": 46,
+    "void": 3,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 22,
+    "lost": 58,
+    "void": 6,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  },
+  {
+   "date": "2026-11-15",
+   "singles": {
+    "won": 2,
+    "lost": 2,
+    "void": 0,
+    "open": 0,
+    "total": 4
+   },
+   "doubles": {
+    "won": 2,
+    "lost": 3,
+    "void": 0,
+    "open": 0,
+    "total": 5
+   },
+   "cumulative_singles": {
+    "won": 46,
+    "lost": 48,
+    "void": 3,
+    "open": 0
+   },
+   "cumulative_doubles": {
+    "won": 24,
+    "lost": 61,
+    "void": 6,
+    "open": 0
+   },
+   "learning_only_singles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "learning_only_doubles": {
+    "won": 0,
+    "lost": 0,
+    "void": 0,
+    "open": 0,
+    "total": 0
+   },
+   "note": ""
+  }
+ ],
+ "delivered_singles_wl": "42\u201348",
+ "delivered_singles": {
+  "won": 42,
+  "lost": 48,
+  "void": 3
+ },
+ "delivered_doubles": {
+  "won": 17,
+  "lost": 59,
+  "void": 6
+ },
+ "incl_appendix_singles": {
+  "won": 46,
+  "lost": 48,
+  "void": 3,
+  "open": 0
+ },
+ "incl_appendix_doubles": {
+  "won": 24,
+  "lost": 61,
+  "void": 6,
+  "open": 0
+ }
+}

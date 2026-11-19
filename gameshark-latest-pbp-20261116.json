@@ -1,0 +1,939 @@
+{
+ "as_of": "2026-11-15",
+ "game": "SA @ UTAH",
+ "date": "2026-11-15",
+ "event_id": "401909988",
+ "final": "110-102",
+ "plays_total": 439,
+ "scoring_plays": 103,
+ "note": "Scoring plays only (made shots + made free throws) from the latest final. The full play-by-play \u2014 every substitution, possession and stat \u2014 is 1,049 MB across 1,436 games and is indexed in the Game index above, not embedded here.",
+ "rows": [
+  {
+   "q": 1,
+   "clock": "11:44",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes tip shot",
+   "score": "2-0"
+  },
+  {
+   "q": 1,
+   "clock": "11:32",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 25-foot three point jumper (Keyonte George assists)",
+   "score": "2-3"
+  },
+  {
+   "q": 1,
+   "clock": "10:55",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes running layup (Dylan Harper assists)",
+   "score": "4-3"
+  },
+  {
+   "q": 1,
+   "clock": "10:34",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 2,
+   "desc": "Mo Bamba makes 3-foot dunk (Ace Bailey assists)",
+   "score": "4-5"
+  },
+  {
+   "q": 1,
+   "clock": "9:09",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes running layup",
+   "score": "6-5"
+  },
+  {
+   "q": 1,
+   "clock": "8:56",
+   "team": "UTAH",
+   "scorer": "Ace Bailey",
+   "pts": 3,
+   "desc": "Ace Bailey makes 24-foot three pointer (Josh Green assists)",
+   "score": "6-8"
+  },
+  {
+   "q": 1,
+   "clock": "8:49",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes driving layup (Stephon Castle assists)",
+   "score": "8-8"
+  },
+  {
+   "q": 1,
+   "clock": "7:59",
+   "team": "UTAH",
+   "scorer": "Josh Green",
+   "pts": 3,
+   "desc": "Josh Green makes 23-foot three point jumper (Keyonte George assists)",
+   "score": "8-11"
+  },
+  {
+   "q": 1,
+   "clock": "7:33",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 3,
+   "desc": "Darryn Peterson makes 24-foot running pullup jump shot",
+   "score": "8-14"
+  },
+  {
+   "q": 1,
+   "clock": "7:20",
+   "team": "SA",
+   "scorer": "Julian Champagnie",
+   "pts": 3,
+   "desc": "Julian Champagnie makes 25-foot three point jumper (Stephon Castle assists)",
+   "score": "11-14"
+  },
+  {
+   "q": 1,
+   "clock": "7:20",
+   "team": "SA",
+   "scorer": "Julian Champagnie",
+   "pts": 1,
+   "desc": "Julian Champagnie makes free throw 1 of 1",
+   "score": "12-14"
+  },
+  {
+   "q": 1,
+   "clock": "6:57",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 2,
+   "desc": "Mo Bamba makes 2-foot layup (Keyonte George assists)",
+   "score": "12-16"
+  },
+  {
+   "q": 1,
+   "clock": "6:50",
+   "team": "SA",
+   "scorer": "Jordan McLaughlin",
+   "pts": 2,
+   "desc": "Jordan McLaughlin makes two point shot",
+   "score": "14-16"
+  },
+  {
+   "q": 1,
+   "clock": "5:27",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes 8-foot fade away jump shot",
+   "score": "16-16"
+  },
+  {
+   "q": 1,
+   "clock": "5:00",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 12-foot fade away jump shot",
+   "score": "16-18"
+  },
+  {
+   "q": 1,
+   "clock": "4:52",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 1,
+   "desc": "Keldon Johnson makes free throw 1 of 2",
+   "score": "17-18"
+  },
+  {
+   "q": 1,
+   "clock": "4:52",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 1,
+   "desc": "Keldon Johnson makes free throw 2 of 2",
+   "score": "18-18"
+  },
+  {
+   "q": 1,
+   "clock": "4:28",
+   "team": "UTAH",
+   "scorer": "Tony Bradley",
+   "pts": 2,
+   "desc": "Tony Bradley makes two point shot",
+   "score": "18-20"
+  },
+  {
+   "q": 1,
+   "clock": "3:56",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 10-foot turnaround jump shot",
+   "score": "18-22"
+  },
+  {
+   "q": 1,
+   "clock": "3:30",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 3,
+   "desc": "Keyonte George makes 24-foot three pointer",
+   "score": "18-25"
+  },
+  {
+   "q": 1,
+   "clock": "3:10",
+   "team": "SA",
+   "scorer": "Jordan McLaughlin",
+   "pts": 3,
+   "desc": "Jordan McLaughlin makes 25-foot three point jumper (Keldon Johnson assists)",
+   "score": "21-25"
+  },
+  {
+   "q": 1,
+   "clock": "2:54",
+   "team": "UTAH",
+   "scorer": "Svi Mykhailiuk",
+   "pts": 3,
+   "desc": "Svi Mykhailiuk makes 25-foot three point jumper (Brice Sensabaugh assists)",
+   "score": "21-28"
+  },
+  {
+   "q": 1,
+   "clock": "2:24",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes 8-foot driving floating jump shot (Harrison Barnes assists)",
+   "score": "23-28"
+  },
+  {
+   "q": 1,
+   "clock": "2:10",
+   "team": "UTAH",
+   "scorer": "Tony Bradley",
+   "pts": 2,
+   "desc": "Tony Bradley makes 17-foot jumper (Keyonte George assists)",
+   "score": "23-30"
+  },
+  {
+   "q": 1,
+   "clock": "1:45",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 24-foot three point step back jumpshot (Svi Mykhailiuk assists)",
+   "score": "23-33"
+  },
+  {
+   "q": 1,
+   "clock": "1:30",
+   "team": "SA",
+   "scorer": "Jordan McLaughlin",
+   "pts": 2,
+   "desc": "Jordan McLaughlin makes driving layup (Victor Wembanyama assists)",
+   "score": "25-33"
+  },
+  {
+   "q": 1,
+   "clock": "58.1",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 3,
+   "desc": "Victor Wembanyama makes 24-foot running jump shot (Stephon Castle assists)",
+   "score": "28-33"
+  },
+  {
+   "q": 1,
+   "clock": "40.9",
+   "team": "SA",
+   "scorer": "Jordan McLaughlin",
+   "pts": 3,
+   "desc": "Jordan McLaughlin makes 23-foot running jump shot (Harrison Barnes assists)",
+   "score": "31-33"
+  },
+  {
+   "q": 2,
+   "clock": "11:41",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 24-foot three point jumper (Darryn Peterson assists)",
+   "score": "31-36"
+  },
+  {
+   "q": 2,
+   "clock": "11:23",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes 3-foot layup (Victor Wembanyama assists)",
+   "score": "33-36"
+  },
+  {
+   "q": 2,
+   "clock": "10:59",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 2,
+   "desc": "Darryn Peterson makes two point shot",
+   "score": "33-38"
+  },
+  {
+   "q": 2,
+   "clock": "10:36",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 1 of 3",
+   "score": "34-38"
+  },
+  {
+   "q": 2,
+   "clock": "10:36",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 2 of 3",
+   "score": "35-38"
+  },
+  {
+   "q": 2,
+   "clock": "10:01",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 3,
+   "desc": "Victor Wembanyama makes 25-foot three point jumper (Stephon Castle assists)",
+   "score": "38-38"
+  },
+  {
+   "q": 2,
+   "clock": "9:45",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 2,
+   "desc": "Darryn Peterson makes 12-foot pullup jump shot (Mo Bamba assists)",
+   "score": "38-40"
+  },
+  {
+   "q": 2,
+   "clock": "9:28",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 2-foot running dunk (Svi Mykhailiuk assists)",
+   "score": "38-42"
+  },
+  {
+   "q": 2,
+   "clock": "9:02",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 24-foot three point jumper (Darryn Peterson assists)",
+   "score": "38-45"
+  },
+  {
+   "q": 2,
+   "clock": "8:21",
+   "team": "UTAH",
+   "scorer": "Ace Bailey",
+   "pts": 2,
+   "desc": "Ace Bailey makes driving layup (Mo Bamba assists)",
+   "score": "38-47"
+  },
+  {
+   "q": 2,
+   "clock": "8:05",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 3,
+   "desc": "Victor Wembanyama makes 25-foot three point jumper (Stephon Castle assists)",
+   "score": "41-47"
+  },
+  {
+   "q": 2,
+   "clock": "7:45",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes running layup (Victor Wembanyama assists)",
+   "score": "43-47"
+  },
+  {
+   "q": 2,
+   "clock": "6:38",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes two point shot",
+   "score": "45-47"
+  },
+  {
+   "q": 2,
+   "clock": "5:42",
+   "team": "SA",
+   "scorer": "Devin Vassell",
+   "pts": 2,
+   "desc": "Devin Vassell makes 10-foot two point shot (Dylan Harper assists)",
+   "score": "47-47"
+  },
+  {
+   "q": 2,
+   "clock": "5:17",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 2,
+   "desc": "Keyonte George makes 14-foot turnaround jump shot",
+   "score": "47-49"
+  },
+  {
+   "q": 2,
+   "clock": "3:52",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes 5-foot two point shot",
+   "score": "49-49"
+  },
+  {
+   "q": 2,
+   "clock": "3:52",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 1,
+   "desc": "Victor Wembanyama makes free throw 1 of 1",
+   "score": "50-49"
+  },
+  {
+   "q": 2,
+   "clock": "3:34",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 9-foot two point shot",
+   "score": "50-51"
+  },
+  {
+   "q": 2,
+   "clock": "2:37",
+   "team": "UTAH",
+   "scorer": "Ace Bailey",
+   "pts": 2,
+   "desc": "Ace Bailey makes 14-foot pullup jump shot (Keyonte George assists)",
+   "score": "50-53"
+  },
+  {
+   "q": 2,
+   "clock": "1:51",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 3,
+   "desc": "Victor Wembanyama makes 24-foot three point jumper (Jordan McLaughlin assists)",
+   "score": "53-53"
+  },
+  {
+   "q": 2,
+   "clock": "1:33",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 2,
+   "desc": "Keyonte George makes 2-foot driving dunk",
+   "score": "53-55"
+  },
+  {
+   "q": 2,
+   "clock": "50.6",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 3,
+   "desc": "Keldon Johnson makes 24-foot running jump shot (Victor Wembanyama assists)",
+   "score": "56-55"
+  },
+  {
+   "q": 2,
+   "clock": "19.2",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes 6-foot dunk (Stephon Castle assists)",
+   "score": "58-55"
+  },
+  {
+   "q": 3,
+   "clock": "11:27",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes 13-foot pullup jump shot",
+   "score": "60-55"
+  },
+  {
+   "q": 3,
+   "clock": "10:49",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes driving layup (Victor Wembanyama assists)",
+   "score": "62-55"
+  },
+  {
+   "q": 3,
+   "clock": "10:01",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 2,
+   "desc": "Keyonte George makes 6-foot two point shot",
+   "score": "62-57"
+  },
+  {
+   "q": 3,
+   "clock": "9:54",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 1 of 2",
+   "score": "63-57"
+  },
+  {
+   "q": 3,
+   "clock": "9:54",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 2 of 2",
+   "score": "64-57"
+  },
+  {
+   "q": 3,
+   "clock": "9:26",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes running layup (Stephon Castle assists)",
+   "score": "66-57"
+  },
+  {
+   "q": 3,
+   "clock": "9:26",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 1,
+   "desc": "Dylan Harper makes free throw 1 of 1",
+   "score": "67-57"
+  },
+  {
+   "q": 3,
+   "clock": "9:14",
+   "team": "UTAH",
+   "scorer": "Josh Green",
+   "pts": 3,
+   "desc": "Josh Green makes 24-foot three point jumper (Darryn Peterson assists)",
+   "score": "67-60"
+  },
+  {
+   "q": 3,
+   "clock": "8:44",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 2,
+   "desc": "Mo Bamba makes 3-foot dunk (Ace Bailey assists)",
+   "score": "67-62"
+  },
+  {
+   "q": 3,
+   "clock": "8:23",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 3,
+   "desc": "Darryn Peterson makes 23-foot three point jumper (Ace Bailey assists)",
+   "score": "67-65"
+  },
+  {
+   "q": 3,
+   "clock": "7:47",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 2,
+   "desc": "Darryn Peterson makes 8-foot driving floating jump shot",
+   "score": "67-67"
+  },
+  {
+   "q": 3,
+   "clock": "7:33",
+   "team": "SA",
+   "scorer": "Devin Vassell",
+   "pts": 2,
+   "desc": "Devin Vassell makes 11-foot pullup jump shot (Jordan McLaughlin assists)",
+   "score": "69-67"
+  },
+  {
+   "q": 3,
+   "clock": "6:42",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 3,
+   "desc": "Darryn Peterson makes 25-foot three pointer (Mo Bamba assists)",
+   "score": "69-70"
+  },
+  {
+   "q": 3,
+   "clock": "6:28",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes 10-foot driving floating jump shot",
+   "score": "71-70"
+  },
+  {
+   "q": 3,
+   "clock": "5:52",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 2,
+   "desc": "Keldon Johnson makes 5-foot two point shot (Dylan Harper assists)",
+   "score": "73-70"
+  },
+  {
+   "q": 3,
+   "clock": "5:27",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 2,
+   "desc": "Keldon Johnson makes 5-foot two point shot",
+   "score": "75-70"
+  },
+  {
+   "q": 3,
+   "clock": "4:36",
+   "team": "SA",
+   "scorer": "Devin Vassell",
+   "pts": 2,
+   "desc": "Devin Vassell makes 13-foot turnaround jump shot (Dylan Harper assists)",
+   "score": "77-70"
+  },
+  {
+   "q": 3,
+   "clock": "4:05",
+   "team": "SA",
+   "scorer": "Luke Kornet",
+   "pts": 2,
+   "desc": "Luke Kornet makes alley oop layup (Keldon Johnson assists)",
+   "score": "79-70"
+  },
+  {
+   "q": 3,
+   "clock": "3:50",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 16-foot step back jumpshot",
+   "score": "79-72"
+  },
+  {
+   "q": 3,
+   "clock": "3:14",
+   "team": "UTAH",
+   "scorer": "Darryn Peterson",
+   "pts": 2,
+   "desc": "Darryn Peterson makes 8-foot driving floating jump shot",
+   "score": "79-74"
+  },
+  {
+   "q": 3,
+   "clock": "2:47",
+   "team": "UTAH",
+   "scorer": "Tony Bradley",
+   "pts": 2,
+   "desc": "Tony Bradley makes 17-foot jumper (Darryn Peterson assists)",
+   "score": "79-76"
+  },
+  {
+   "q": 3,
+   "clock": "1:14",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 22-foot three point jumper (Brice Sensabaugh assists)",
+   "score": "79-79"
+  },
+  {
+   "q": 3,
+   "clock": "30.2",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 8-foot driving floating jump shot (Mo Bamba assists)",
+   "score": "79-81"
+  },
+  {
+   "q": 3,
+   "clock": "12.4",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 1 of 2",
+   "score": "80-81"
+  },
+  {
+   "q": 3,
+   "clock": "12.4",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 2 of 2",
+   "score": "81-81"
+  },
+  {
+   "q": 4,
+   "clock": "11:47",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes 9-foot fade away jump shot (Julian Champagnie assists)",
+   "score": "83-81"
+  },
+  {
+   "q": 4,
+   "clock": "11:30",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 3,
+   "desc": "Mo Bamba makes 24-foot three point jumper (Keyonte George assists)",
+   "score": "83-84"
+  },
+  {
+   "q": 4,
+   "clock": "10:39",
+   "team": "UTAH",
+   "scorer": "Brice Sensabaugh",
+   "pts": 2,
+   "desc": "Brice Sensabaugh makes 8-foot driving floating jump shot",
+   "score": "83-86"
+  },
+  {
+   "q": 4,
+   "clock": "10:22",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes 13-foot step back jumpshot (Victor Wembanyama assists)",
+   "score": "85-86"
+  },
+  {
+   "q": 4,
+   "clock": "8:37",
+   "team": "UTAH",
+   "scorer": "Svi Mykhailiuk",
+   "pts": 3,
+   "desc": "Svi Mykhailiuk makes 27-foot three point jumper (Keyonte George assists)",
+   "score": "85-89"
+  },
+  {
+   "q": 4,
+   "clock": "8:26",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 1,
+   "desc": "Victor Wembanyama makes free throw 2 of 2",
+   "score": "86-89"
+  },
+  {
+   "q": 4,
+   "clock": "8:07",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes running layup (Stephon Castle assists)",
+   "score": "88-89"
+  },
+  {
+   "q": 4,
+   "clock": "7:42",
+   "team": "UTAH",
+   "scorer": "Josh Okogie",
+   "pts": 3,
+   "desc": "Josh Okogie makes 22-foot three point jumper (Keyonte George assists)",
+   "score": "88-92"
+  },
+  {
+   "q": 4,
+   "clock": "7:42",
+   "team": "UTAH",
+   "scorer": "Josh Okogie",
+   "pts": 1,
+   "desc": "Josh Okogie makes free throw 1 of 1",
+   "score": "88-93"
+  },
+  {
+   "q": 4,
+   "clock": "7:30",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes driving layup",
+   "score": "90-93"
+  },
+  {
+   "q": 4,
+   "clock": "6:27",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 2,
+   "desc": "Dylan Harper makes 15-foot pullup jump shot",
+   "score": "92-93"
+  },
+  {
+   "q": 4,
+   "clock": "6:04",
+   "team": "UTAH",
+   "scorer": "Josh Okogie",
+   "pts": 3,
+   "desc": "Josh Okogie makes 25-foot three point jumper (Svi Mykhailiuk assists)",
+   "score": "92-96"
+  },
+  {
+   "q": 4,
+   "clock": "5:25",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 1,
+   "desc": "Dylan Harper makes free throw 1 of 2",
+   "score": "93-96"
+  },
+  {
+   "q": 4,
+   "clock": "5:25",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 1,
+   "desc": "Dylan Harper makes free throw 2 of 2",
+   "score": "94-96"
+  },
+  {
+   "q": 4,
+   "clock": "4:01",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 1,
+   "desc": "Keyonte George makes free throw 1 of 2",
+   "score": "94-97"
+  },
+  {
+   "q": 4,
+   "clock": "4:01",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 1,
+   "desc": "Keyonte George makes free throw 2 of 2",
+   "score": "94-98"
+  },
+  {
+   "q": 4,
+   "clock": "3:48",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 3,
+   "desc": "Dylan Harper makes 24-foot three point jumper (Stephon Castle assists)",
+   "score": "97-98"
+  },
+  {
+   "q": 4,
+   "clock": "3:28",
+   "team": "UTAH",
+   "scorer": "Mo Bamba",
+   "pts": 2,
+   "desc": "Mo Bamba makes 2-foot dunk (Ace Bailey assists)",
+   "score": "97-100"
+  },
+  {
+   "q": 4,
+   "clock": "3:18",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 3,
+   "desc": "Dylan Harper makes 25-foot three pointer (Devin Vassell assists)",
+   "score": "100-100"
+  },
+  {
+   "q": 4,
+   "clock": "2:30",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 1 of 2",
+   "score": "101-100"
+  },
+  {
+   "q": 4,
+   "clock": "2:30",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 1,
+   "desc": "Stephon Castle makes free throw 2 of 2",
+   "score": "102-100"
+  },
+  {
+   "q": 4,
+   "clock": "2:04",
+   "team": "UTAH",
+   "scorer": "Keyonte George",
+   "pts": 2,
+   "desc": "Keyonte George makes 16-foot pullup jump shot",
+   "score": "102-102"
+  },
+  {
+   "q": 4,
+   "clock": "1:42",
+   "team": "SA",
+   "scorer": "Victor Wembanyama",
+   "pts": 2,
+   "desc": "Victor Wembanyama makes 12-foot pullup jump shot",
+   "score": "104-102"
+  },
+  {
+   "q": 4,
+   "clock": "1:07",
+   "team": "SA",
+   "scorer": "Keldon Johnson",
+   "pts": 2,
+   "desc": "Keldon Johnson makes two point shot",
+   "score": "106-102"
+  },
+  {
+   "q": 4,
+   "clock": "47.2",
+   "team": "SA",
+   "scorer": "Stephon Castle",
+   "pts": 2,
+   "desc": "Stephon Castle makes 2-foot running dunk",
+   "score": "108-102"
+  },
+  {
+   "q": 4,
+   "clock": "36.6",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 1,
+   "desc": "Dylan Harper makes free throw 1 of 2",
+   "score": "109-102"
+  },
+  {
+   "q": 4,
+   "clock": "36.6",
+   "team": "SA",
+   "scorer": "Dylan Harper",
+   "pts": 1,
+   "desc": "Dylan Harper makes free throw 2 of 2",
+   "score": "110-102"
+  }
+ ]
+}

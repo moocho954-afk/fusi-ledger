@@ -15731,6 +15731,17 @@
         "kind": "article"
       },
       {
+        "headline": "NBA Europe Expected To Begin With Soft Launch In October 2027",
+        "date": "2026-11-17",
+        "source_url": "https://basketball.realgm.com/news/wiretap/tags/15/NBA",
+        "outlet": "basketball.realgm.com",
+        "reported_source": "Badge: SPECULATION; RealGM NBA wiretap listing seen in this run's news search results (item timestamped Nov 17, 2026 11:00 AM); item seen only in the search-result listing for the RealGM NBA wiretap page, no standalone article read in this run, so badged SPECULATION per the badge law; NBA Europe soft launch in October 2027; kept at its original Nov 17 date, not re-dated",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "NBA Game of the Night: Suns shock Nuggets",
         "date": "2026-11-17",
         "source_url": "https://basketballsphere.com/en/morning-brief-nov-17-2026-suns-nuggets/",
@@ -17320,6 +17331,17 @@
         "kind": "article"
       },
       {
+        "headline": "Killian Hayes Signs With Barcelona For Rest Of Season",
+        "date": "2026-11-18",
+        "source_url": "https://basketball.realgm.com/news/wiretap/tags/15/NBA",
+        "outlet": "basketball.realgm.com",
+        "reported_source": "Badge: CONFIRMED; RealGM NBA wiretap page read in this run (crawled 2026-11-19 17:07 UTC), item timestamped Nov 18, 2026 9:24 AM; veteran guard Killian Hayes inked a rest-of-season contract with Barcelona; deal reportedly includes an NBA out; via Michael Scotto/HoopsHype; kept at its original Nov 18 date, not re-dated",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Kingston Flemings (back) out for Wednesday's game against the Thunder",
         "date": "2026-11-18",
         "source_url": "https://darimarket.us/nba/injury-report",
@@ -17991,6 +18013,17 @@
         "kind": "section"
       },
       {
+        "headline": "Steve Kerr on Kristaps Porzingis' impact on Draymond Green",
+        "date": "2026-11-18",
+        "source_url": "https://www.basketballnetwork.net/off-the-court/steve-kerr-reveals-how-kristaps-porzingis-absence-has-affected-draymond-greens-offensive-game",
+        "outlet": "basketballnetwork.net",
+        "reported_source": "Badge: CONFIRMED; VOICE: Steve Kerr; Basketball Network article read in this run (crawled 2026-11-19 17:07 UTC; published 2026-11-19T01:27:44+00:00, i.e. Nov 18 evening ET); Kerr said on the Tom Tolbert Show that Porzingis' absence forced Draymond Green to play almost exclusively at the five instead of his natural four; kept at its original Nov 18 date, not re-dated",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Suns bounce back vs Nuggets",
         "date": "2026-11-18",
         "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-18/",
@@ -18348,6 +18381,17 @@
     "date": "20261119",
     "items": [
       {
+        "headline": "\"It Sucks\": Shai Gilgeous-Alexander Opens Up About Losing Former Thunder Teammates After Season Turns Upside Down",
+        "date": "2026-11-19",
+        "source_url": "https://www.essentiallysports.com/nba-active-basketball-news-it-sucks-shai-gilgeous-alexander-opens-up-about-losing-former-thunder-teammates-after-season-turns-upside-down/",
+        "outlet": "essentiallysports.com",
+        "reported_source": "Badge: CONFIRMED; VOICE: Shai Gilgeous-Alexander; EssentiallySports article read in this run (crawled 2026-11-19 17:07 UTC; published 2026-11-19T11:45:00+00:00); SGA called losing Dort and Wiggins 'bittersweet' and said 'So it sucks to see them go' after OKC's 117-112 loss to Atlanta; Alex Caruso (right hip soreness) and Nikola Topic (left hip soreness) left the game and did not return, both questionable for Friday vs New Orleans",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "76ers 121, Magic 115",
         "date": "2026-11-19",
         "source_url": "https://www.reuters.com/sports/nba-roundup-giannis-antetokounmpo-paces-heat-first-game-vs-bucks--flm-2026-11-19/",
@@ -18467,6 +18511,17 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Chris Youngblood (heel) ruled out for Thursday's game against the Bucks",
+        "date": "2026-11-19",
+        "source_url": "https://darimarket.us/nba/injury-report",
+        "outlet": "darimarket.us",
+        "reported_source": "Badge: CONFIRMED; darimarket NBA injury report page read in this run (crawled 2026-11-19 17:04 UTC); Chris Youngblood (heel) has been ruled out for Thursday's game against the Bucks; Source: ESPN's NBA injury report (as stated on the page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Detroit Pistons 122-109 New Orleans Pelicans",
@@ -18634,11 +18689,33 @@
         "kind": "section"
       },
       {
+        "headline": "Julius Randle goes off on his team",
+        "date": "2026-11-19",
+        "source_url": "https://www.essentiallysports.com/nba-active-basketball-news-nba-round-up-tatums-costly-mistake-triggers-losing-streak-six-foot-eleven-center-suffers-scary-eye-injury-giannis-shrugs-off-bucks-more/",
+        "outlet": "essentiallysports.com",
+        "reported_source": "Badge: CONFIRMED; EssentiallySports NBA roundup page read in this run (crawled 2026-11-19 17:04 UTC; updated 2026-11-19T11:35:31+00:00); after the Nets' 137-107 loss to the Bulls, Randle called out his teammates, saying 'There is no pride. This is embarrassing.'",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "section"
+      },
+      {
         "headline": "Kawhi Leonard (knee) has progressed in his strength and conditioning program but will miss at least one more week",
         "date": "2026-11-19",
         "source_url": "https://darimarket.us/nba/injury-report",
         "outlet": "darimarket.us",
         "reported_source": "Badge: CONFIRMED; darimarket NBA injury report page read in this run (crawled 2026-11-19 11:37 UTC; as of Nov 19, 2026, 6:13 AM ET); Michael Scotto of HoopsHype.com reports; Source: ESPN's NBA injury report (as stated on the page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Leonard is progressing well in his recovery from left knee swelling, with sources expressing confidence that the underlying issue won't cause further setbacks once he returns",
+        "date": "2026-11-19",
+        "source_url": "https://www.rotowire.com/basketball/rumors.php",
+        "outlet": "rotowire.com",
+        "reported_source": "Badge: CONFIRMED; RotoWire NBA rumors page read in this run (crawled 2026-11-19 17:03 UTC), item dated November 19, 2026; Kawhi Leonard; Michael Grange of Sportsnet reports; sources expressing confidence the underlying issue won't cause further setbacks once he returns",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -18698,6 +18775,17 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "NBA Injury Report November 19, 2026: 24 Out Tonight",
+        "date": "2026-11-19",
+        "source_url": "https://darimarket.us/nba/injury-report",
+        "outlet": "darimarket.us",
+        "reported_source": "Badge: CONFIRMED; darimarket NBA injury report page read in this run (crawled 2026-11-19 17:04 UTC); as of Nov 19, 2026, 11:43 AM ET, ESPN's NBA injury report has 24 players ruled out, doubtful or on injured reserve for today's 4 games, including Anthony Edwards (out), Bradley Beal (out), Brandon Ingram (out), Brandon Williams (out) and Chris Youngblood (out), and 8 more are questionable or day-to-day; Source: ESPN's NBA injury report (as stated on the page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "NBA Injury Report November 19, 2026: 27 Out Tonight",
@@ -18887,6 +18975,17 @@
         "kind": "article"
       },
       {
+        "headline": "The ref had to be held back; Luka Doncic stands his ground",
+        "date": "2026-11-19",
+        "source_url": "https://www.essentiallysports.com/nba-active-basketball-news-nba-round-up-tatums-costly-mistake-triggers-losing-streak-six-foot-eleven-center-suffers-scary-eye-injury-giannis-shrugs-off-bucks-more/",
+        "outlet": "essentiallysports.com",
+        "reported_source": "Badge: CONFIRMED; EssentiallySports NBA roundup page read in this run (crawled 2026-11-19 17:04 UTC; updated 2026-11-19T11:35:31+00:00); during the Lakers' 109-97 home loss to Utah, Doncic argued with referee Tre Maddox after a no-call; Maddox stood his ground and pushed back and had to be held back",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "section"
+      },
+      {
         "headline": "Utah Jazz 109-97 Los Angeles Lakers",
         "date": "2026-11-19",
         "source_url": "https://basketballsphere.com/en/nba-morning-brief-cooper-flagg-luka-doncic-lakers/",
@@ -18896,6 +18995,17 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Utah Jazz reportedly interested in Kyrie Irving",
+        "date": "2026-11-19",
+        "source_url": "https://www.eurohoops.net/en/nba-news/2037766/utah-jazz-reportedly-interested-in-kyrie-irving/",
+        "outlet": "eurohoops.net",
+        "reported_source": "Badge: SPECULATION; VOICE: Ian Begley; Eurohoops article read in this run (crawled 2026-11-19 17:06 UTC; published 2026-11-19T16:38:04+00:00); Begley said on 'Termine Radio' that Utah is giving Kyrie Irving internal consideration as a potential trade candidate; hedged (reportedly / internal consideration), not a done deal",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Washington Wizards 103-99 Toronto Raptors",

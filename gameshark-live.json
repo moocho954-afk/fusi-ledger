@@ -1,6 +1,6 @@
 {
-  "tip_height": 2040,
-  "tip_hash": "b4cde4a4d66000194ea3626d89afd177df7610ec88010dc364723f4568f1be47",
+  "tip_height": 2048,
+  "tip_hash": "584facb758b529b7071b3026a78e386a7c3cf094a01d1abd949599334b2612b2",
   "bridge_height": 2037,
   "bridge_hash": "6c632540b0a0d6c27ff0e58ce6ebfeb5946245904167984b3d5ba553fe0161f7",
   "fusion_tip_height": 724,
@@ -24,38 +24,6 @@
   "finals": [
     {
       "date": "2026-11-18",
-      "away": "DET",
-      "away_score": 122,
-      "home": "NO",
-      "home_score": 109,
-      "event_id": "401910013"
-    },
-    {
-      "date": "2026-11-18",
-      "away": "ATL",
-      "away_score": 117,
-      "home": "OKC",
-      "home_score": 112,
-      "event_id": "401910014"
-    },
-    {
-      "date": "2026-11-18",
-      "away": "BOS",
-      "away_score": 101,
-      "home": "DEN",
-      "home_score": 105,
-      "event_id": "401910015"
-    },
-    {
-      "date": "2026-11-18",
-      "away": "GS",
-      "away_score": 94,
-      "home": "DAL",
-      "home_score": 116,
-      "event_id": "401910016"
-    },
-    {
-      "date": "2026-11-18",
       "away": "UTAH",
       "away_score": 109,
       "home": "LAL",
@@ -69,7 +37,39 @@
       "home": "SAC",
       "home_score": 107,
       "event_id": "401910018"
+    },
+    {
+      "date": "2026-11-19",
+      "away": "GS",
+      "away_score": 98,
+      "home": "MEM",
+      "home_score": 126,
+      "event_id": "401910019"
+    },
+    {
+      "date": "2026-11-19",
+      "away": "POR",
+      "away_score": 124,
+      "home": "MIL",
+      "home_score": 114,
+      "event_id": "401910020"
+    },
+    {
+      "date": "2026-11-19",
+      "away": "NY",
+      "away_score": 102,
+      "home": "MIN",
+      "home_score": 99,
+      "event_id": "401910021"
+    },
+    {
+      "date": "2026-11-19",
+      "away": "LAC",
+      "away_score": 112,
+      "home": "SA",
+      "home_score": 124,
+      "event_id": "401910022"
     }
   ],
-  "updated_at": "2026-11-19T10:21:19.781541+00:00"
+  "updated_at": "2026-11-20T12:05:04.830448+00:00"
 }

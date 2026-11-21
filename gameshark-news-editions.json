@@ -20685,6 +20685,17 @@
     "date": "20261120",
     "items": [
       {
+        "headline": "'Hoop Collective': Are the Lakers relying too much on Luka?",
+        "date": "2026-11-20",
+        "source_url": "https://www.espn.ph/nba/story/_/id/50028196/2026-27-nba-regular-season-buzz-latest-live-updates-news-intel-trades-deals",
+        "outlet": "espn.ph",
+        "reported_source": "Badge: SPECULATION; Hoop Collective podcast discussion/opinion, not a news report \u2014 Brian Windhorst joined by ESPN's Tim MacMahon and Ben Golliver to talk about whether Luka Doncic's historic usage rate is a concern for the Lakers moving forward and whether L.A. has the ability to lessen his workload; ESPN NBA buzz page read in this run (crawled 2026-11-21 14:37 UTC; updated Nov 21, 2026, 05:04 AM); Source: ESPN",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Anthony Edwards expected to be sidelined at least another month with knee injury",
         "date": "2026-11-20",
         "source_url": "https://basketballsphere.com/en/minnesota-timberwolves-vs-new-york-knicks-prediction-nba-november-20-2026/",
@@ -20723,6 +20734,17 @@
         "source_url": "https://www.rotowire.com/basketball/news.php",
         "outlet": "rotowire.com",
         "reported_source": "Badge: CONFIRMED; RotoWire NBA Fantasy Basketball News page read in this run (crawled 2026-11-20 20:47 UTC); Ingram (Achilles) is expected to make his season and team debut Monday against the Rockets, per Shams Charania of ESPN; Source: Shams Charania via RotoWire",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Brandon Ingram set to make Clippers season debut Monday against Rockets",
+        "date": "2026-11-20",
+        "source_url": "https://www.nbcsports.com/nba/news/brandon-ingram-reportedly-set-to-return-to-clippers-monday-against-rockets",
+        "outlet": "nbcsports.com",
+        "reported_source": "Badge: CONFIRMED; voice: Shams Charania \u2014 story broken by Clippers reporter Ohm Youngmisuk and ESPN's Shams Charania; Ingram is on track to make his season debut in Houston on Monday night after offseason heel surgery revealed a partially torn Achilles tendon; NBC Sports article read in this run (crawled 2026-11-21 14:38 UTC); Source: Shams Charania / Ohm Youngmisuk (via NBC Sports)",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -21147,6 +21169,17 @@
         "kind": "article"
       },
       {
+        "headline": "Nurkic injury update",
+        "date": "2026-11-20",
+        "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
+        "outlet": "Game Day Tourist",
+        "reported_source": "Badge: CONFIRMED; Game Day Tourist NBA News Roundup (November 21) read in this run (published 2026-11-21T14:32:34+09:00); The Utah Jazz reported on November 20 that center Jusuf Nurki\u0107 was re-evaluated for a second-toe injury to his right foot, is making progress and has resumed on-court activities; he will be rechecked in one week; Source: Utah Jazz (NBA.com) (as stated on the Game Day Tourist page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Ousmane Dieng will undergo a procedure to repair a fractured left finger Monday",
         "date": "2026-11-20",
         "source_url": "https://darimarket.us/nba/injury-report",
@@ -21405,11 +21438,44 @@
         "kind": "article"
       },
       {
+        "headline": "Damian Lillard returned to Milwaukee for the first time since the Bucks traded him and scored 33 points as the Blazers beat their former team",
+        "date": "2026-11-21",
+        "source_url": "https://headlinesbriefing.com/sports/briefing/sports-nba/8h",
+        "outlet": "headlinesbriefing.com",
+        "reported_source": "Badge: CONFIRMED; HeadlinesBriefing 8-hour NBA briefing read in this run (updated November 21, 2026, 4:40 AM ET); Damian Lillard returned to Milwaukee for the first time since the Bucks traded him and scored 33 points as the Blazers beat their former team; Source: ESPN (as cited on the HeadlinesBriefing page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Hawks beat Hornets 111-97",
+        "date": "2026-11-21",
+        "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
+        "outlet": "Game Day Tourist",
+        "reported_source": "Badge: CONFIRMED; Game Day Tourist NBA News Roundup (November 21) read in this run (published 2026-11-21T14:32:34+09:00); The Atlanta Hawks defeated the Charlotte Hornets 111-97 in NBA Cup play as Jalen Johnson paced Atlanta with a strong two-way effort; the Hawks moved to 3-1 in Group C and eliminated Charlotte from Cup advancement; Source: Yahoo Sports (as stated on the Game Day Tourist page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Lakers find enough help for Luka Doncic to escape Kings",
         "date": "2026-11-21",
         "source_url": "https://hoopswire.com/lakers-find-enough-help-for-luka-doncic-to-escape-kings/",
         "outlet": "hoopswire.com",
         "reported_source": "Badge: CONFIRMED; Hoops Wire article read in this run (crawled 2026-11-21 11:38 UTC; published 2026-11-21T07:04:55+00:00); Los Angeles edged the Kings 106-104, surviving a missed potential game-winning shot from Zach LaVine; Luka Doncic finished with 25 points and eight assists, Walker Kessler supplied 15 points and three blocks; Source: Sam Amico, Hoops Wire",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "NBA Morning Brief (Nov. 21, 2026): Jokic leads Nuggets comeback, Harden erupts for 51",
+        "date": "2026-11-21",
+        "source_url": "https://basketballsphere.com/en/morning-brief-nikola-jokic-nuggets-james-harden/",
+        "outlet": "Basketball Sphere",
+        "reported_source": "Badge: CONFIRMED; Basketball Sphere Morning Brief read in this run (crawled 2026-11-21 14:37 UTC); Nuggets beat the Rockets 133-124 behind Nikola Jokic's 26 points and 11 assists; James Harden erupted for 51 in the Cavaliers' 128-119 win over the Pacers; Source: Basketball Sphere",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -21427,6 +21493,28 @@
         "kind": "article"
       },
       {
+        "headline": "Pacers Trade News: Indiana May Add Star Alongside Haliburton",
+        "date": "2026-11-21",
+        "source_url": "https://heavy.com/sports/nba/indiana-pacers/trade-news-could-add-star-power/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: SPECULATION; voice: Jake Fischer \u2014 According to Jake Fischer on SiriusXM NBA Radio, the Indiana Pacers are considering a trade move to add an 'overqualified 1B' or wing upgrade to pair alongside Tyrese Haliburton, contingent on his health and return from a left hamstring strain; no deal reported; Heavy article read in this run (crawled 2026-11-21 14:38 UTC; published 2026-11-21T06:59:14+00:00); Source: Jake Fischer (via Heavy)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Raptors snap skid, 105-102",
+        "date": "2026-11-21",
+        "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
+        "outlet": "Game Day Tourist",
+        "reported_source": "Badge: CONFIRMED; Game Day Tourist NBA News Roundup (November 21) read in this run (published 2026-11-21T14:32:34+09:00); Scottie Barnes scored 29, including a late layup with 14 seconds left, and the Toronto Raptors ended a six-game losing streak with a 105-102 win over the Detroit Pistons in Emirates NBA Cup action; Source: NBA.com (Game Recap) (as stated on the Game Day Tourist page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Rockets\u2019 Tari Eason sues ex-girlfriend over alleged theft, property damage",
         "date": "2026-11-21",
         "source_url": "https://hoopswire.com/rockets-tari-eason-sues-ex-girlfriend-over-alleged-theft-property-damage/",
@@ -21438,11 +21526,33 @@
         "kind": "article"
       },
       {
+        "headline": "SGA\u2019s 40 leads Thunder",
+        "date": "2026-11-21",
+        "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
+        "outlet": "Game Day Tourist",
+        "reported_source": "Badge: CONFIRMED; Game Day Tourist NBA News Roundup (November 21) read in this run (published 2026-11-21T14:32:34+09:00); Shai Gilgeous-Alexander scored 40 points to power the Oklahoma City Thunder to a 126-120 Emirates NBA Cup victory over the New Orleans Pelicans; Source: Yahoo Sports (as stated on the Game Day Tourist page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Victor Wembanyama debuted a new-look \"shunk,\" a hybrid of jump shot and dunk, which he said he adopted to protect a blistered hand",
         "date": "2026-11-21",
         "source_url": "https://headlinesbriefing.com/sports/briefing/sports-nba/8h",
         "outlet": "headlinesbriefing.com",
         "reported_source": "Badge: CONFIRMED; HeadlinesBriefing 8-hour NBA briefing read in this run (updated November 21, 2026, 4:40 AM ET); Victor Wembanyama debuted a new-look \"shunk,\" a hybrid of jump shot and dunk, which he said he adopted to protect a blistered hand; Source: ESPN (as cited on the HeadlinesBriefing page)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Wagner\u2019s 35 lifts Magic",
+        "date": "2026-11-21",
+        "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
+        "outlet": "Game Day Tourist",
+        "reported_source": "Badge: CONFIRMED; Game Day Tourist NBA News Roundup (November 21) read in this run (published 2026-11-21T14:32:34+09:00); Franz Wagner poured in 35 points and buried a go-ahead jumper with 2.4 seconds left as the Orlando Magic escaped the Brooklyn Nets 113-111 in Emirates NBA Cup play; Source: NBA.com (as stated on the Game Day Tourist page)",
         "voice": null,
         "voice_label": null,
         "category": null,

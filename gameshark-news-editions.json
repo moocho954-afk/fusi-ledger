@@ -22994,6 +22994,17 @@
     "date": "20261122",
     "items": [
       {
+        "headline": "76ers Get Major Jaylen Brown Injury News Before Blazers Game",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/philadelphia-76ers/76ers-jaylen-brown-injury/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T23:05:48Z); Jaylen Brown (hamstring) upgraded to probable for Monday vs Portland after missing two games; Dean Wade (hamstring) and Adem Bona (cervical spine sprain) also probable",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "76ers Rule Out Brown and Wade; Maxey Questionable Against Bucks",
         "date": "2026-11-22",
         "source_url": "https://headlinesbriefing.com/sports/briefing/sports-nba/24h",
@@ -23091,6 +23102,28 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Celtics Get Significant Jayson Tatum News Hours Before Warriors Game",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/boston-celtics/celtics-jayson-tatum-warriors-matchup-news/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST); Tatum returns Sunday vs Warriors \u2014 did not appear on the team's official injury report after missing Saturday vs Kings for rest; Derrick White also returns; Mitchell Robinson out a second straight game (illness)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Celtics Hit With Terrible News as 2 Key Stars Ruled Out Against Warriors",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/boston-celtics/celtics-two-stars-ruled-out-warriors/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T21:05:10Z); per team reporter Justin Turpin, Mitchell Robinson (illness) and Paul George (rest) will miss Sunday vs Warriors; Tatum and Derrick White return",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Celtics Receive Good News After Nightmare 1-Point Loss to Kings",
@@ -23368,6 +23401,17 @@
         "kind": "article"
       },
       {
+        "headline": "Injury Report: Shai Gilgeous-Alexander, Aday Mara Ruled out vs. Heat",
+        "date": "2026-11-22",
+        "source_url": "https://www.si.com/nba/thunder/onsi/injury-report-two-mvp-candidates-questionable-for-okc-thunder-heat",
+        "outlet": "si.com",
+        "reported_source": "Badge: CONFIRMED; SI (Sports Illustrated) Thunder page read in this run (2026-11-22 ~18:40 EST, crawled 2026-11-22 23:37 UTC); SGA officially ruled out vs Miami with low back contusion/neck strain after being listed questionable; rookie Aday Mara added as late scratch (shin contusion); Giannis Antetokounmpo questionable for Miami (right groin tendinitis)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Irving, Flagg lift Mavericks",
         "date": "2026-11-22",
         "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-22/",
@@ -23456,6 +23500,17 @@
         "kind": "section"
       },
       {
+        "headline": "Knicks Get Brutal News as 3 Stars Land on Injury Report Before Pacers Game",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/new-york-knicks/knicks-three-stars-injury-report-pacers/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST); OG Anunoby (left calf tightness) out a second straight game Sunday vs Pacers; Karl-Anthony Towns questionable (illness); Jordan Clarkson out a third straight game (right plantar fasciitis)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Knicks\u2019 Jalen Brunson Reveals What Turned Mikal Bridges\u2019 Season Around",
         "date": "2026-11-22",
         "source_url": "https://heavy.com/sports/nba/",
@@ -23478,11 +23533,33 @@
         "kind": "article"
       },
       {
+        "headline": "Lakers Criticized for 'Refusing' to Make Obvious Bronny James Roster Decision",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/los-angeles-lakers/lakers-bronny-james-roster-decision/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T23:29:04Z); Heavy write-up of Lake Show Life's Tyler Watts criticizing the Lakers for using Bronny James only in blowouts and refusing to demote him to the G League for minutes; James averaging 2.7 minutes per game",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Lakers Edge Kings After Redick's Halftime Rant",
         "date": "2026-11-22",
         "source_url": "https://headlinesbriefing.com/sports/briefing/sports-nba/24h",
         "outlet": "headlinesbriefing.com",
         "reported_source": "Badge: CONFIRMED; HeadlinesBriefing 24-hour NBA briefing read in this run (search result, crawled 2026-11-22; last updated Nov. 22, 2026, 4:40 AM ET); summarizing ESPN: Lakers beat Kings 106-104 after coach JJ Redick publicly criticized the team's lack of fight at halftime",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Lakers Get Good News on Austin Reaves Ahead of Jazz Game",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/los-angeles-lakers/austin-reaves-injury-update-lakers-jazz/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T20:30:11Z); Austin Reaves was a full participant in Sunday practice as he recovers from a left heel bone bruise, coach JJ Redick told reporters; not publicly cleared to play Monday vs Utah yet; missed four straight games",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -23885,6 +23962,17 @@
         "kind": "article"
       },
       {
+        "headline": "Spurs Get Good News on Tobias Harris Return Amid Dylan Harper Injury Setback",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/san-antonio-spurs/spurs-tobias-harris-return-harper-injury/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T20:34:54Z); Tobias Harris (left calf strain, out all season) worked out on court before the Pelicans game, first time seen doing so \u2014 debut expected sometime next month; Dylan Harper could return first week of December, per Shams Charania of ESPN (VOICE: Shams Charania)",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Spurs\u2019 Victor Wembanyama Sends Message to Selena Gomez After Historic Night",
         "date": "2026-11-22",
         "source_url": "https://heavy.com/sports/nba/",
@@ -23938,6 +24026,17 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Thunder's Chet Holmgren Makes NSFW Championship Remark",
+        "date": "2026-11-22",
+        "source_url": "https://heavy.com/sports/nba/oklahoma-city-thunder/thunder-chet-holmgren-championship-injury-remark/",
+        "outlet": "heavy.com",
+        "reported_source": "Badge: CONFIRMED; Heavy.com read in this run (2026-11-22 ~18:40 EST, published 2026-11-22T19:55:51Z); Holmgren, recovering from a knee injury, on his rehab: 'I can still lift. Sh*t, last time I missed 8-10 weeks, we won a Championship.' \u2014 as reported by Clemente Almanza",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Tom Thibodeau open to NBA return, but draws a line on coaching talks",

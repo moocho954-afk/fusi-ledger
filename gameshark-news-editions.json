@@ -1,5 +1,53 @@
 [
   {
+    "date": "20261010",
+    "items": [
+      {
+        "headline": "Knicks Pause KAT, Josh Hart Extension Talks Until Later in Season",
+        "date": "2026-10-10",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Knicks paused contract extension negotiations with Karl-Anthony Towns and Josh Hart until later in the season, per Shams Charania of ESPN, both sides far apart on figures; voice: Shams Charania",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "date": "20261015",
+    "items": [
+      {
+        "headline": "Giannis Can Unlock $82M More by Waiting Until January for Extension",
+        "date": "2026-10-15",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); contract-mechanics analysis: Giannis faces a $194M offer now or a $276M deal from January 6 onward",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      }
+    ]
+  },
+  {
+    "date": "20261020",
+    "items": [
+      {
+        "headline": "Cason Wallace Signs 5-Year, $139M Extension with the Thunder",
+        "date": "2026-10-20",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); 22-year-old defensive guard locks in his future with Oklahoma City",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      }
+    ]
+  },
+  {
     "date": "20261028",
     "items": [
       {
@@ -1420,6 +1468,17 @@
         "source_url": "https://www.goldenstateofmind.com/warriors-injury-report/113251/warriors-heat-injury-report-gui-santos-giannis-antetokounmpo",
         "outlet": "goldenstateofmind.com",
         "reported_source": "Badge: CONFIRMED; Golden State of Mind; published 2026-11-05T23:05:59Z; Gui Santos out (left knee tendinitis, second straight game); Butler (right ACL repair surgery), Moody (left patellar tendon repair surgery) and Porzingis (not with team) out; Giannis Antetokounmpo available (right wrist sprain); Heat otherwise at full strength; tip 10 p.m. ET on NBA TV",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Warriors Withhold Porzingis Salary, Explore Trade Options",
+        "date": "2026-11-05",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Golden State withheld Porzingis' $20M salary while exploring trade options; per Shams Charania and Anthony Slater, he is leaning toward retirement; voices: Shams Charania, Anthony Slater",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -11800,6 +11859,17 @@
         "kind": "article"
       },
       {
+        "headline": "Dejounte Murray Requests Trade, Pelicans Confirm",
+        "date": "2026-11-14",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Dejounte Murray formally requested a trade from the Pelicans, the team confirmed Friday; Phoenix Suns among the teams exploring a deal",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Dennis Rodman on guarding Michael Jordan: \u2018He couldn\u2019t score on me\u2019",
         "date": "2026-11-14",
         "source_url": "https://hoopswire.com/dennis-rodman-on-guarding-michael-jordan-he-couldnt-score-on-me/",
@@ -19580,6 +19650,17 @@
         "kind": "article"
       },
       {
+        "headline": "Heat Win Six Straight After 0-4 Start, Giannis Powers the Run",
+        "date": "2026-11-19",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); after an 0-4 start, Miami has won six straight games; Giannis, Herro and Adebayo driving one of the best early-season turnarounds in the East",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Heat\u2019s Erik Spoelstra asking players to invite him over for GTA 6 marathon is hilarious",
         "date": "2026-11-19",
         "source_url": "https://clutchpoints.com/nba",
@@ -22241,6 +22322,17 @@
         "kind": "article"
       },
       {
+        "headline": "Harden's 51 Points Move Him Past Kobe on NBA's All-Time List",
+        "date": "2026-11-21",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Harden's 51 points move him past Kobe on the NBA's all-time scoring list",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Hawks beat Hornets 111-97",
         "date": "2026-11-21",
         "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-21/",
@@ -23841,6 +23933,17 @@
         "kind": "article"
       },
       {
+        "headline": "Keegan Murray's putback lifts Kings over Celtics, snapping eight-game skid",
+        "date": "2026-11-22",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Keegan Murray's putback lifts Kings over Celtics, snapping eight-game skid",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Kings Set to Add Gabe Vincent to Fill Final Roster Spot",
         "date": "2026-11-22",
         "source_url": "https://courtframe.com/news",
@@ -24633,6 +24736,17 @@
         "kind": "article"
       },
       {
+        "headline": "Zion Williamson ruled out against Spurs with left thigh contusion",
+        "date": "2026-11-22",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Zion Williamson was a last-minute scratch against San Antonio with a left thigh contusion; Pelicans lost 114-91",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "\u2018I apologised\u2019: Mike Brown says he said sorry to every New York Knicks player after what he did vs Trail Blazers",
         "date": "2026-11-22",
         "source_url": "https://www.hitc.com/nba/",
@@ -24786,6 +24900,17 @@
         "source_url": "https://basketball.realgm.com/nba/news",
         "outlet": "basketball.realgm.com",
         "reported_source": "Badge: CONFIRMED; RealGM news list read in this run (2026-11-24 ~09:37 EST, listed Nov 23, 2026 3:54 PM); Anthony Davis and Nikola Jokic named NBA's Players of Week 5; Davis averaged 26.5 points and 9.0 rebounds as Washington went 3-1; Jokic averaged 28.8 points, 12.0 rebounds and 9.5 assists as Denver went 3-1; RealGM Staff Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Austin Reaves Ruled Out for Lakers-Spurs as Friday Return Delayed",
+        "date": "2026-11-23",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); JJ Redick gave his most optimistic update on Austin Reaves' return after Sunday's full practice; Friday return delayed",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -25726,6 +25851,17 @@
         "source_url": "https://www.hoopsrumors.com/2026/11/grizzlies-notes-boozer-edey-lineups-jerome.html",
         "outlet": "hoopsrumors.com",
         "reported_source": "Badge: CONFIRMED; Hoops Rumors article read in this run (2026-11-24 ~21:40 EST, published November 24, 2026 5:40 pm); Cameron Boozer out at least four weeks (ankle), coach Iisalo calls him 'the connective tissue'; GG Jackson II (foot fracture/surgery), Jerami Grant (calf strain) and Scotty Pippen Jr. (herniated disc) all ruled out Wednesday vs Clippers; Zach Edey capped under 25 minutes as staff preserves him after two ankle surgeries; Ty Jerome (25.1 pts, 5.2 ast) has a $9,659,100 option for next season and a good chance to be a free agent",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Haliburton's Hamstring Puts $32 Million in Extension Money at Risk",
+        "date": "2026-11-24",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: SPECULATION; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Haliburton has missed 13 games with a hamstring strain; with the 65-game threshold looming, $32 million in extension incentives could be lost",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -26914,6 +27050,17 @@
         "kind": "article"
       },
       {
+        "headline": "Kawhi Leonard Ruled Out at Least Another Week With Knee Swelling",
+        "date": "2026-11-25",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Toronto Raptors ruled out Kawhi Leonard for at least another week due to left knee swelling, re-evaluation scheduled in seven days",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Kevin Porter Jr. Finalizing Two-Year Deal With Magic",
         "date": "2026-11-25",
         "source_url": "https://courtframe.com/news",
@@ -27343,6 +27490,17 @@
         "kind": "article"
       },
       {
+        "headline": "NBA rumors: Raptors, Warriors, Hawks linked to Anthony Davis trade again, but what do Wizards think?",
+        "date": "2026-11-25",
+        "source_url": "https://clutchpoints.com/nba/nba-stories/nba-rumors-raptors-warriors-hawks-linked-anthony-davis-trade-what-wizards-think",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints article read via search-result listing in this run (crawled 2026-11-27 ~17:40 UTC); Raptors, Warriors, Hawks linked to Anthony Davis; Jake Fischer: Wizards have no imminent designs on moving Davis, Davis not pushing for relocation; voice: Jake Fischer",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "NBA trade proposal sends Nets\u2019 Michael Porter Jr. to Heat",
         "date": "2026-11-25",
         "source_url": "https://hoopswire.com/nba-trade-proposal-sends-nets-michael-porter-jr-to-heat/",
@@ -27381,6 +27539,17 @@
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-25 ~18:42 EST), item attributed there to sports.yahoo.com, timed Nov 25, 2026 17:32; Cameron Boozer's ankle injury will keep him sidelined until at least mid-December, plus a look at 10 other injuries around the NBA; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "New Anthony Davis Trade Rumors on Updated Landing Spots, Wizards' Stance Amid Warriors, Hawks Buzz",
+        "date": "2026-11-25",
+        "source_url": "https://bleacherreport.com/articles/25537454-new-anthony-davis-trade-rumors-updated-landing-spots-wizards-stance-amid-warriors-hawks-buzz",
+        "outlet": "bleacherreport.com",
+        "reported_source": "Badge: SPECULATION; Bleacher Report article read via search-result listing in this run (crawled 2026-11-27 ~17:40 UTC); Warriors, Hawks, Raptors mentioned as teams to watch on Davis, per Jake Fischer; Wizards have no imminent designs on moving Davis; voice: Jake Fischer",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -27876,6 +28045,17 @@
         "kind": "article"
       },
       {
+        "headline": "Andrew Wiggins Expected to Suit Up Friday",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Heat guard/forward Andrew Wiggins (ankle) probable vs. Knicks, per Ira Winderman of the South Florida Sun Sentinel",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Assistant Coach Chris Jent Returns To Knicks Bench",
         "date": "2026-11-26",
         "source_url": "https://sportofusa.com/nba-news.html",
@@ -27892,6 +28072,17 @@
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-26 ~06:37 EST), item attributed there to basketball.realgm.com, timed Nov 26, 2026 07:46 UTC; Austin Reaves completed his first full practice since suffering a heel bruise two weeks ago on Wednesday, and his status for Friday's matchup against the Spurs remains up in the air; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Austin Reaves Questionable for Friday",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Lakers guard/forward Austin Reaves (heel) questionable vs. Spurs, per NBA insider Marc Stein; voice: Marc Stein",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -27986,6 +28177,17 @@
         "kind": "section"
       },
       {
+        "headline": "Cade Cunningham Ruled Out Against Bucks",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Pistons guard Cade Cunningham (knee) ruled out vs. Bucks, per Omari Sankofa II of the Detroit Free Press",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Canada Qualifies For 2027 FIBA World Cup",
         "date": "2026-11-26",
         "source_url": "https://www.hoopsrumors.com/",
@@ -28046,6 +28248,17 @@
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-26 ~09:40 EST), item attributed there to sports.yahoo.com, timed Nov 26, 2026 14:00 (as listed on the page); Marc Stein reported the Clippers are viewed as a 'certain seller' with the trade deadline approaching in February; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "De'Aaron Fox Upgraded to Questionable Friday",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Spurs guard De'Aaron Fox (lower leg) upgraded to questionable vs. Lakers, per NBA insider Marc Stein; voice: Marc Stein",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -28116,6 +28329,28 @@
         "voice_label": null,
         "category": null,
         "kind": "section"
+      },
+      {
+        "headline": "Durant Enters 33,000-Point Club, Eyes Kobe Bryant for Fourth All-Time",
+        "date": "2026-11-26",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Kevin Durant scored his 33,006th career point Wednesday, joining LeBron James, Kareem Abdul-Jabbar, Karl Malone and Kobe Bryant in the 33,000-point club",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Dylan Harper Upgraded to Questionable Against Lakers",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Spurs guard/forward Dylan Harper (hip) upgraded to questionable vs. Lakers, per NBA insider Marc Stein; voice: Marc Stein",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
       },
       {
         "headline": "Erik Spoelstra says Heat could've 'won in the mud,' must 'fall back' on defense",
@@ -28217,11 +28452,33 @@
         "kind": "article"
       },
       {
+        "headline": "Insider Reveals Wizards' Stance on Anthony Davis Trade Amid Warriors Rumors",
+        "date": "2026-11-26",
+        "source_url": "https://www.basketballnews.com/news/basketballnews-nba-active-news-insider-reveals-washington-wizards-stance-on-anthony-davis-trade-amid-golden-state-warriors-rumors/",
+        "outlet": "basketballnews.com",
+        "reported_source": "Badge: SPECULATION; BasketballNews article read via search-result listing in this run (crawled 2026-11-27 ~17:40 UTC); Jake Fischer: Wizards have no imminent plans to trade Davis, Davis not pushing to leave; unlike Dejounte Murray, who formally asked the Pelicans for a trade Nov. 13, Davis has made no such request; voice: Jake Fischer",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Jaden McDaniels shrugs off All-Star buzz after silencing Thunder: 'It\u2019s just another day'",
         "date": "2026-11-26",
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-26 ~09:40 EST), item attributed there to nytimes.com, timed Nov 26, 2026 13:00 (as listed on the page); Jaden McDaniels finished with 32 points, 10 rebounds and five assists as the Timberwolves put away OKC; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Jaxson Hayes Questionable Against Nuggets",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Jazz center Jaxson Hayes (knee) questionable vs. Nuggets, per Jazz reporter Eric Spyropoulos",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -28261,11 +28518,33 @@
         "kind": "article"
       },
       {
+        "headline": "Joel Embiid Questionable for Friday",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); 76ers center Joel Embiid (illness) questionable vs. Pacers, per PhillyVoice's Adam Aaronson",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Joel Embiid Ruled Out Against Heat With Illness",
         "date": "2026-11-26",
         "source_url": "https://courtframe.com/news",
         "outlet": "courtframe.com",
         "reported_source": "Badge: SPECULATION; seen in this run's search results surfacing the CourtFrame basketball news page (2026-11-26 ~06:40 EST); Joel Embiid will miss Wednesday night's game against the Miami Heat because of an illness; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Jusuf Nurkic Questionable for Season Debut Friday",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Jazz center Jusuf Nurkic (foot) questionable for season debut vs. Nuggets, per Jazz reporter Eric Spyropoulos",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -28448,6 +28727,17 @@
         "kind": "article"
       },
       {
+        "headline": "LaMelo Ball Questionable Against Grizzlies",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Timberwolves guard LaMelo Ball (ankle) questionable vs. Grizzlies, per Charlie Walton",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "LaMelo Ball's mood after Timberwolves' win over Thunder suggests best-case injury scenario",
         "date": "2026-11-26",
         "source_url": "https://clutchpoints.com/nba",
@@ -28486,6 +28776,17 @@
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-26 ~18:37 EST), item attributed there to hoopshabit.com, timed Nov 26, 2026 23:00 (as listed on the page); opinion piece, no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "LeBron James Makes NBA History as Oldest Triple-Double at 41",
+        "date": "2026-11-26",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: CONFIRMED; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); LeBron, 41 years and 330 days old, became the oldest player in NBA history to record a triple-double, 25 points, 12 assists and 10 rebounds in Philadelphia's 111-104 NBA Cup win over Miami",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -28585,6 +28886,17 @@
         "source_url": "https://www.rotoballer.com/player-news/moritz-wagner-exits-with-left-knee-soreness/2004964",
         "outlet": "rotoballer.com",
         "reported_source": "Badge: SPECULATION; seen in this run's search results surfacing the Rotoballer player-news page (2026-11-26 ~09:40 EST); Brooklyn Nets center Moritz Wagner (knee) was ruled out at halftime of Wednesday's 104-97 win over the Milwaukee Bucks after experiencing left knee soreness; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Moritz Wagner Ruled Out Against Raptors",
+        "date": "2026-11-26",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Nets center Moritz Wagner (knee) ruled out vs. Raptors, per Brian Lewis of the New York Post",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29003,6 +29315,17 @@
         "kind": "article"
       },
       {
+        "headline": "All 2026 NBA Cup clinching scenarios heading into final day of group play",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); all 2026 NBA Cup clinching scenarios heading into the final day of group play",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Alvarado, bench spark Knicks",
         "date": "2026-11-27",
         "source_url": "https://gamedaytourist.com/en/league-news/todays-nba-news-roundup-november-27/",
@@ -29113,6 +29436,17 @@
         "kind": "article"
       },
       {
+        "headline": "Duncan Robinson Remains Out Against Bucks",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Pistons guard/forward Duncan Robinson (quadriceps) ruled out vs. Bucks, sixth consecutive absence; source: NBA Injury Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Dunker Spot Thanksgiving mailbag",
         "date": "2026-11-27",
         "source_url": "https://sportofusa.com/nba-news.html",
@@ -29140,6 +29474,17 @@
         "source_url": "https://stadiumnews.com/category/basketball/nba/",
         "outlet": "stadiumnews.com",
         "reported_source": "Badge: SPECULATION; seen in this run's news search results surfacing the Stadium News / ClutchPoints page (2026-11-27 ~06:40 EST); no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Former college star receiving long-awaited NBA opportunity with Nets",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); former college star receiving long-awaited NBA opportunity with the Nets",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29201,6 +29546,17 @@
         "kind": "article"
       },
       {
+        "headline": "Heat vs. Knicks NBA Cup injury report: Giannis Antetokounmpo, OG Anunoby among notable players listed",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); Giannis Antetokounmpo and OG Anunoby among notable players listed for the Heat-Knicks NBA Cup game",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Important Jusuf Nurkic Injury Update",
         "date": "2026-11-27",
         "source_url": "https://sportofusa.com/nba-news.html",
@@ -29212,11 +29568,33 @@
         "kind": "article"
       },
       {
+        "headline": "Is LaMelo Ball playing tonight? Timberwolves vs. Grizzlies NBA Cup injury report",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); LaMelo Ball's status for the Timberwolves-Grizzlies NBA Cup game unconfirmed \u2014 injury-report question, not a confirmed status",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Jake LaRavia Says Lakers Willing to Sacrifice For Same Goal",
         "date": "2026-11-27",
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-27 ~06:37 EST), item attributed there to basketballforever.com, timed Nov 27, 2026 06:03 UTC; Jake LaRavia says the Lakers have used a bunch of different lineups but everyone is sacrificing for the same goal; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Jalen Duren Ruled Out Again on Friday",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Pistons center Jalen Duren (hamstring) ruled out vs. Bucks, 16th consecutive absence; source: NBA Injury Report",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29256,6 +29634,28 @@
         "kind": "article"
       },
       {
+        "headline": "Karl-Anthony Towns Downgraded to Questionable vs. Miami",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Karl-Anthony Towns (abdomen) downgraded to questionable vs. Miami Friday; source: NBA Injury Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Kelly Oubre Jr. Questionable Against 76ers",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Pacers forward Kelly Oubre Jr. (hand) questionable vs. 76ers due to a laceration on his non-shooting hand; source: NBA Injury Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Knicks Receive Major Injury News on 3 Top Stars Before Miami Heat Game",
         "date": "2026-11-27",
         "source_url": "https://heavy.com/sports/nba/",
@@ -29272,6 +29672,17 @@
         "source_url": "https://heavy.com/sports/nba/",
         "outlet": "heavy.com",
         "reported_source": "Badge: SPECULATION; seen in this run's news search results surfacing the Heavy.com NBA news list (2026-11-27 ~06:40 EST); no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Knicks Target Frontcourt Upgrade After Six-Straight Wins",
+        "date": "2026-11-27",
+        "source_url": "https://bballwire.com/",
+        "outlet": "bballwire.com",
+        "reported_source": "Badge: SPECULATION; BBall Wire read in this run (crawled 2026-11-27 17:37 UTC); Knicks (12-6) exploring the frontcourt trade market, Pacome Dadiet reportedly available as trade bait",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29382,6 +29793,17 @@
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-27 ~06:37 EST), item attributed there to hoopswire.com, timed Nov 27, 2026 06:02 UTC; guard Austin Reaves has been upgraded to questionable for Friday's game against the Spurs; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Lakers vs. Spurs NBA Cup injury report: Austin Reaves, Dylan Harper could return",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); Austin Reaves and Dylan Harper could return for the Lakers-Spurs NBA Cup game; both listed questionable",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29608,6 +30030,17 @@
         "kind": "article"
       },
       {
+        "headline": "Mitchell Robinson Questionable Against Hawks",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Celtics center Mitchell Robinson (illness) questionable vs. Hawks after missing three consecutive games; source: NBA Injury Report",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "NBA announces $11B arena initiative amid drive for European League",
         "date": "2026-11-27",
         "source_url": "https://www.thescore.com/nba/news",
@@ -29663,11 +30096,55 @@
         "kind": "article"
       },
       {
+        "headline": "NBA Injury Report November 27, 2026: 56 Out, 14 Day-to-Day",
+        "date": "2026-11-27",
+        "source_url": "https://darimarket.us/nba/injury-report",
+        "outlet": "darimarket.us",
+        "reported_source": "Badge: CONFIRMED; darimarket NBA injury report read via search-result listing in this run (crawled 2026-11-27 ~17:40 UTC); as of Nov 27, 11:13 AM ET, ESPN's NBA injury report has 56 players out, doubtful or on injured reserve for today's 11 games and 14 more questionable or day-to-day",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "NBA Injury Report November Twenty Seventh: Major Absences Create Several Pregame Betting Decisions",
+        "date": "2026-11-27",
+        "source_url": "https://statsniper.com/injury-report/nba/nba-injury-report/",
+        "outlet": "statsniper.com",
+        "reported_source": "Badge: CONFIRMED; Stat Sniper NBA injury report page read via search-result listing in this run (crawled 2026-11-27 ~17:40 UTC); 104 players listed, 22 teams affected, 11 games today; major absences in Memphis, Minnesota, Utah, Golden State, Detroit, Indiana and Toronto",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "NBA injury report: Cunningham, Brown listed on Friday, November 27",
         "date": "2026-11-27",
         "source_url": "https://www.talkbasket.net/230394-nba-injury-report-cunningham-brown-listed-on-friday-november-27",
         "outlet": "talkbasket.net",
         "reported_source": "Badge: CONFIRMED; TalkBasket injury report article read in this run (2026-11-27 ~09:40 EST, updated Friday, November 27, 7:30 a.m. ET); Cade Cunningham, Jaylen Brown and Kawhi Leonard ruled out for Friday, November 27, while Joel Embiid, LaMelo Ball and Austin Reaves are questionable; Victor Wembanyama is off the report for the Spurs' game against the Lakers, and Giannis Antetokounmpo is probable for Miami",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Nets' Moe Wagner ruled out for Raptors matchup after exiting Bucks win with knee ailment",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); Nets' Moe Wagner ruled out for Raptors matchup after exiting Bucks win with knee ailment",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "OG Anunoby Unlikely to Face Miami",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Knicks forward OG Anunoby (calf) doubtful vs. Heat, per Stefan Bondy of the New York Post; source: NBA Injury Report",
         "voice": null,
         "voice_label": null,
         "category": null,
@@ -29751,6 +30228,17 @@
         "kind": "article"
       },
       {
+        "headline": "The Memphis Grizzlies are signing 7-foot center Lawson Lovering to a 10-day contract via injury hardship exception, sources tell ESPN",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; Shams Charania, as shown on the ClutchPoints NBA page Latest NBA Buzz (Nov 27, 2026), read via search-result listing in this run (crawled 2026-11-27 ~17:37 UTC); Grizzlies signing 7-foot center Lawson Lovering to a 10-day contract via injury hardship exception, sources tell ESPN; voice: Shams Charania",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Timberwolves Facing Injury Scare After LaMelo Ball Early Exit",
         "date": "2026-11-27",
         "source_url": "https://sportofusa.com/nba-news.html",
@@ -29806,6 +30294,17 @@
         "kind": "article"
       },
       {
+        "headline": "Warriors' Yaxel Lendeborg pissed about NBA.com's latest rookie ladder rankings",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: CONFIRMED; ClutchPoints NBA page read in this run (crawled 2026-11-27 17:37 UTC); Warriors' Yaxel Lendeborg reacted to NBA.com's latest rookie ladder rankings",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "With Curry out, Warriors search for offensive rhythm, defensive consistency",
         "date": "2026-11-27",
         "source_url": "https://www.thescore.com/nba/news",
@@ -29817,11 +30316,33 @@
         "kind": "article"
       },
       {
+        "headline": "Wizards rumors: NBA insider reveals what everybody is really thinking about Anthony Davis' trade desires",
+        "date": "2026-11-27",
+        "source_url": "https://clutchpoints.com/nba/washington-wizards/wizards-rumors-nba-insider-reveals-what-everybody-is-thinking-anthony-davis-trade",
+        "outlet": "clutchpoints.com",
+        "reported_source": "Badge: SPECULATION; ClutchPoints article read via search-result listing in this run (crawled 2026-11-27 ~17:37 UTC); The Athletic's Sam Amick: 'Nobody believes that Anthony Davis wants to remain with the Washington Wizards'; Jake Fischer reports Davis is not actively seeking a departure \u2014 conflicting reports; voices: Sam Amick, Jake Fischer",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
         "headline": "Yang Hansen knows China expects another Yao Ming. He just wants to show he belongs in the NBA",
         "date": "2026-11-27",
         "source_url": "https://sportofusa.com/nba-news.html",
         "outlet": "sportofusa.com",
         "reported_source": "Badge: SPECULATION; seen on the SportofUSA NBA news aggregator list in this run (2026-11-27 ~06:37 EST), item attributed there to nytimes.com, timed Nov 27, 2026 08:00 UTC; Yang Hansen wants to prove the doubters wrong and give China another NBA star; no standalone article read in this run, so badged SPECULATION rather than confirmed",
+        "voice": null,
+        "voice_label": null,
+        "category": null,
+        "kind": "article"
+      },
+      {
+        "headline": "Zach Edey Listed as Questionable for Friday",
+        "date": "2026-11-27",
+        "source_url": "https://www.rotoballer.com/player-news/karl-anthony-towns-abdomen-downgraded-to-questionable-vs-miami-friday/2005822",
+        "outlet": "rotoballer.com",
+        "reported_source": "Badge: CONFIRMED; Rotoballer player-news page read in this run (crawled 2026-11-27 17:39 UTC); Grizzlies center Zach Edey (ankle) questionable vs. Timberwolves; source: NBA Injury Report",
         "voice": null,
         "voice_label": null,
         "category": null,
